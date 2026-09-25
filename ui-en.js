@@ -295,10 +295,10 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "🤖 Chat with AI: it plays a driver, vendor or waiter, speaks only the language and gently corrects you.",
-  "wn2": "🧳 Travel kit: emergency numbers, hotel address, allergies and medication — ready to show, even offline.",
-  "wn3": "💡 Tips & grammar: 6 short cards per language, with audio examples.",
-  "wn4": "🎯 Weekly goal and 16 badges for your progress (in \"My progress\").",
+  "wn1": "🇫🇷 French: 407 words and phrases, alphabet and sound combinations (ou, an, on…), dialogues, numbers (including the French 70/80/90), tips and emergency numbers.",
+  "wn2": "🇲🇦 Moroccan Arabic (Darija): the Arabic actually spoken on Moroccan streets — 407 words and phrases, prices in dirham, tips (including the \"ryal\" trap) and emergency numbers.",
+  "wn3": "For Darija, read-aloud uses a general Arabic voice unless your device has a Moroccan one (Edge on Windows does).",
+  "wn4": "AI chat, travel kit and quality check work in both new languages.",
   "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
@@ -485,4 +485,4 @@ LANG.en = {
   "b_kit": "Ready to go",
   "bd_kit": "Created a travel-kit card"
 };
-window.__MODS['ui-en'] = '1.6.0';
+window.__MODS['ui-en'] = '1.7.0';

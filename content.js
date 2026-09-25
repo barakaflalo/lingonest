@@ -5,7 +5,7 @@
 'use strict';
 window.__MODS = window.__MODS || {};
 const LANG = {};                                  /* UI dictionaries (filled by ui-xx.js) */
-const ALPHA = {}, VOWELS = {}, TONES = {}, TWISTER = {}, WD = {}, GENDER_F = {}, CUR_SYM = {}, LANG_NOTE = {}, TIPS = {}, EMERG = {}, COUNTRY = {};
+const ALPHA = {}, VOWELS = {}, TONES = {}, TWISTER = {}, WD = {}, GENDER_F = {}, CUR_SYM = {}, LANG_NOTE = {}, TIPS = {}, EMERG = {}, COUNTRY = {}, VOWEL_NOTE = {};
 const LOADED = {};                                /* lang code → version of the loaded pack */
 
 /* Target languages. To add one: add a line here + create lang-xx.js (copy an existing pack) + add it to sw.js. */
@@ -14,7 +14,9 @@ const LANGS = {
   es: { flag: "🇪🇸", tts: "es-ES", dir: "ltr", native: "Español", name: {"he":"ספרדית","en":"Spanish","ru":"Испанский","es":"Español","ar":"الإسبانية"} },
   ru: { flag: "🇷🇺", tts: "ru-RU", dir: "ltr", native: "Русский", name: {"he":"רוסית","en":"Russian","ru":"Русский","es":"Ruso","ar":"الروسية"} },
   ar: { flag: "🇸🇦", tts: "ar-SA", dir: "rtl", native: "العربية", name: {"he":"ערבית","en":"Arabic","ru":"Арабский","es":"Árabe","ar":"العربية"} },
-  th: { flag: "🇹🇭", tts: "th-TH", dir: "ltr", native: "ภาษาไทย", name: {"he":"תאילנדית","en":"Thai","ru":"Тайский","es":"Tailandés","ar":"التايلاندية"} }
+  th: { flag: "🇹🇭", tts: "th-TH", dir: "ltr", native: "ภาษาไทย", name: {"he":"תאילנדית","en":"Thai","ru":"Тайский","es":"Tailandés","ar":"التايلاندية"} },
+  fr: { flag: "🇫🇷", tts: "fr-FR", dir: "ltr", native: "Français", name: {"he": "צרפתית", "en": "French", "ru": "Французский", "es": "Francés", "ar": "الفرنسية"} },
+  ary: { flag: "🇲🇦", tts: "ar-MA", dir: "rtl", native: "الدارجة", name: {"he": "מרוקאית", "en": "Moroccan Arabic (Darija)", "ru": "Марокканский арабский", "es": "Árabe marroquí", "ar": "الدارجة المغربية"} }
 };
 /* Short letters-screen notes (keys in ui-xx.js). New languages can instead pass note:{he,en,...} in their pack. */
 const ALPHA_NOTE = {"en":"noteEn","es":"noteEs","ru":"noteRu","ar":"noteAr","th":"noteTh"};
@@ -491,6 +493,7 @@ const LINGO = {
     if (pack.tones) TONES[code] = pack.tones;
     if (pack.twister) TWISTER[code] = pack.twister;
     if (pack.note) LANG_NOTE[code] = pack.note;
+    if (pack.vowelNote) VOWEL_NOTE[code] = pack.vowelNote;
     CUR_SYM[code] = pack.curSym || '';
     TIPS[code] = pack.tips || [];
     EMERG[code] = pack.emergency || [];
@@ -505,4 +508,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.6.0';
+window.__MODS.content = '1.7.0';

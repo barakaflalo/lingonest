@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.6.0' };
+const APP = { name: 'LingoNest', ver: '1.7.0' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -464,7 +464,7 @@ SCREENS.letters = () => {
   };
   const tiles = items(lang).filter(i => i.cat === 'letters').map(tile).join('');
   const vw = items(lang).filter(i => i.cat === 'vowels');
-  const vowelsHtml = vw.length ? '<h3>' + esc(T('vowels')) + '</h3><p class="note">' + esc(T(lang === 'th' ? 'vowelNoteTh' : 'vowelNoteAr')) + '</p>' +
+  const vowelsHtml = vw.length ? '<h3>' + esc(T('vowels')) + '</h3><p class="note">' + esc(VOWEL_NOTE[lang] ? (VOWEL_NOTE[lang][st.ui] || VOWEL_NOTE[lang].en) : T(lang === 'th' ? 'vowelNoteTh' : 'vowelNoteAr')) + '</p>' +
     '<button class="cta slim" data-act="startScope" data-scope="cat:vowels">🎯 ' + esc(T('practiceVowels')) + '</button><div class="letters">' + vw.map(tile).join('') + '</div>' : '';
   const TN = TONES[lang], TW = TWISTER[lang];
   const tonesHtml = TN ? '<h3>' + esc(T('tones')) + '</h3><p class="note">' + esc(T('toneNote')) + '</p><div class="items">' +
@@ -693,6 +693,8 @@ function qaSave() { S.set('ln_qa', { ver: APP.ver, lang: QA.lang, done: QA.done,
 /* house style of the Hebrew-letter pronunciation — told to the reviewer so it doesn't flag deliberate choices */
 const QA_STYLE = {
   _: 'Hebrew-letter pronunciation is deliberately simple: no niqqud (a segol is used only for the open e sound), aspiration is NOT marked, stress and tone are not marked. Equivalent Hebrew spellings (ו/וו, ט/ת, כ/ק) are fine. Do NOT report these conventions.',
+  ary: 'This is Moroccan Darija (not Modern Standard Arabic) — judge it as spoken Moroccan Arabic. Darija has no fixed spelling: accept common Moroccan spellings. The Latin column deliberately uses the Moroccan chat alphabet (3 = ع, 7 = ح, 9 = ق). French loanwords common in Morocco are correct.',
+  fr: 'French: the Hebrew-letter pronunciation is an approximation — nasal vowels are written with ן, the French u as ו, liaison is shown where it matters. The Latin column is empty on purpose (French is already Latin script).',
   th: 'Thai conventions used on purpose: ก→ג, ข/ค→ק, ต→ט, ท/ถ→ט, ป→פ, พ/ผ→פ, จ→ג׳, ช→צ׳, final ล/ร→ן (e.g. แอปเปิ้ล = אֶפ-פֶן), the vowel ึ/ื → ו. Tones are not written.'
 };
 function qaBatches(lang) {
@@ -948,7 +950,7 @@ SCREENS.speak = () => {
   const lang = st.lang;
   const saved = st.phrases.filter(x => x.lang === lang);
   const res = SPK.res;
-  const gt = 'https://translate.google.com/?sl=auto&tl=' + (lang === 'he' ? 'iw' : lang) + '&op=translate&text=' + encodeURIComponent(SPK.src || '');
+  const gt = 'https://translate.google.com/?sl=auto&tl=' + ({ ary: 'ar' }[lang] || lang) + '&op=translate&text=' + encodeURIComponent(SPK.src || '');
   return header(T('speakForMe') + ' · ' + LN(lang)) + `
   <p class="note">${esc(T('speakIntro'))}</p>
   <div class="seg" role="tablist">
@@ -1532,4 +1534,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.6.0';
+window.__MODS.app = '1.7.0';

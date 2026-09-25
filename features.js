@@ -68,7 +68,7 @@ const SCENARIOS = [
   ['social', '☕', 'You are a friendly local of similar age at a café, making small talk with a tourist.'],
   ['free', '💬', 'You are a friendly local who is happy to chat about anything the traveler wants.']
 ];
-const COUNTRY_CTX = { th: 'Thailand', es: 'Spain or Latin America', ru: 'Russia', ar: 'an Arabic-speaking country (use simple Modern Standard Arabic that everyone understands)', en: 'an English-speaking country' };
+const COUNTRY_CTX = { fr: 'France or another French-speaking place', ary: 'Morocco. Speak Moroccan Darija as locals really talk (NOT Modern Standard Arabic), written in Arabic script; French loanwords are natural', th: 'Thailand', es: 'Spain or Latin America', ru: 'Russia', ar: 'an Arabic-speaking country (use simple Modern Standard Arabic that everyone understands)', en: 'an English-speaking country' };
 const CHAT = { scen: null, lvl: 'easy', msgs: [], busy: false, sugg: [], showTr: true, summary: null, rec: null };
 
 function chatPrompt(userMsg) {
@@ -271,5 +271,5 @@ document.addEventListener('pointerdown', e => {
   ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => row.addEventListener(ev, cancel));
 });
 
-window.__MODS.features = '1.6.0';
+window.__MODS.features = '1.7.0';
 boot();

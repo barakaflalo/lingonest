@@ -16,4 +16,4 @@ function numWords(lang, n, withCur) {
   });
   return { text: text.trim(), roman, heb };
 }
-window.__MODS.numbers = '1.6.0';
+window.__MODS.numbers = '1.7.0';

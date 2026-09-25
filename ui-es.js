@@ -295,10 +295,10 @@ LANG.es = {
   "sayMore": "Aún no, volverá en el repaso",
   "noSpeech": "No oí nada. Pulsa 🎤 y habla cerca del teléfono.",
   "newIn": "Novedades de {v}",
-  "wn1": "🤖 Conversar con IA: hace de taxista, vendedor o camarero, habla solo el idioma y te corrige con amabilidad.",
-  "wn2": "🧳 Kit de viaje: emergencias, dirección del hotel, alergias y medicación — listo para mostrar, incluso sin conexión.",
-  "wn3": "💡 Consejos y gramática: 6 tarjetas por idioma con audio.",
-  "wn4": "🎯 Meta semanal y 16 insignias por tu progreso.",
+  "wn1": "🇫🇷 Francés: 407 palabras y frases, alfabeto y combinaciones de sonidos, diálogos, números (incluidos los 70/80/90 franceses), consejos y números de emergencia.",
+  "wn2": "🇲🇦 Árabe marroquí (dariya): el árabe que se habla en la calle en Marruecos — 407 palabras y frases, precios en dírhams, consejos y emergencias.",
+  "wn3": "En dariya la lectura usa una voz árabe general salvo que el dispositivo tenga una marroquí (Edge en Windows la tiene).",
+  "wn4": "La conversación con IA, el kit de viaje y el control de calidad funcionan en los dos idiomas nuevos.",
   "wn5": "Tu progreso se conservó.",
   "lvl8": "Frases completas",
   "lvl9": "Mis palabras",
@@ -485,4 +485,4 @@ LANG.es = {
   "b_kit": "Listo para viajar",
   "bd_kit": "Creaste una tarjeta del kit"
 };
-window.__MODS['ui-es'] = '1.6.0';
+window.__MODS['ui-es'] = '1.7.0';
