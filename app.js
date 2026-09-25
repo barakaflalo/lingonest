@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.8.0' };
+const APP = { name: 'LingoNest', ver: '1.9.0' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -89,7 +89,7 @@ function items(lang) {
     const t0 = WD[lang] && WD[lang][c[0]]; if (!t0) return;
     const fx = st.fix[lang] && st.fix[lang][c[0]];
     const t = fx ? [fx.text || t0[0], fx.roman || t0[1], fx.heb || t0[2]] : t0;
-    L.push({ k: 'W:' + c[0], type: isPhraseCat(c[1]) ? 'P' : 'W', lvl: c[2], cat: c[1], he: c[3], en: c[4], text: g(t[0]), roman: g(t[1]), heb: g(t[2]) });
+    L.push({ k: 'W:' + c[0], type: isPhraseCat(c[1]) ? 'P' : 'W', lvl: c[2], cat: c[1], he: c[3], en: c[4], text: g(t[0]), roman: g(t[1]), heb: g(t[2]), tts: SPEAK_HEB[lang] ? g(t[2]) : undefined });
   });
   (st.custom[lang] || []).forEach(c => L.push({ k: 'C:' + c.id, type: 'W', lvl: MAXL, cat: 'mine', he: c.he, en: c.he, text: c.text, roman: c.roman || '', heb: c.heb || '', cid: c.id }));
   _itemsCache[lang] = { key, list: L };
@@ -157,9 +157,12 @@ function voiceFor(lang) {
   return c.find(v => /google|natural|online/i.test(v.name) && v.lang.replace('_', '-').toLowerCase() === full) ||
          c.find(v => v.lang.replace('_', '-').toLowerCase() === full) || c[0];
 }
+/* languages without a voice (Yiddish) read the Hebrew-letter pronunciation with the Hebrew voice */
+const sayStr = (lang, text, heb) => (SPEAK_HEB[lang] && heb) ? heb : text;
 function speak(text, lang, slow, onend, altVoice) {
   if (!('speechSynthesis' in window)) { toast(T('noTTS'), 'err', 4000); if (onend) onend(); return; }
   if (!text) return;
+  if (SPEAK_HEB[lang]) text = String(text).replace(/[\u0591-\u05C7]/g, '').replace(/[־]/g, ' ');
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.lang = LANGS[lang].tts;
@@ -191,7 +194,7 @@ function sayIt(it, lang, out, cb) {
   if (out) out.textContent = T('listening');
   r.onresult = e => {
     const alts = [...e.results[0]].map(a => a.transcript);
-    const target = norm(it.type === 'L' ? it.tts : it.text);
+    const target = norm(it.tts || it.text);
     const best = Math.max(...alts.map(a => sim(norm(a), target)));
     if (cb) cb(best >= 0.72, alts[0]);
     if (out) {
@@ -481,7 +484,7 @@ SCREENS.letters = () => {
 /* ===== TOPICS ===== */
 SCREENS.topics = mode => {
   const lang = st.lang, p = P(lang), all = items(lang);
-  const cats = mode === 'P' ? PHRASE_CATS : WORD_CATS;
+  const cats = (mode === 'P' ? PHRASE_CATS : WORD_CATS).filter(c => c === 'mine' || all.some(i => i.cat === c));
   const rows = cats.map(c => {
     const L = all.filter(i => i.cat === c), m = L.filter(i => p[i.k] && p[i.k].b >= 3).length;
     return '<button class="trow" data-act="nav" data-to="list" data-arg="' + c + '"><span class="ti">' + CAT_ICON[c] + '</span><span class="tt"><b>' + esc(T('cat_' + c)) + '</b><small>' + (c === 'mine' && !L.length ? esc(T('mineEmpty')) : m + '/' + L.length + ' · ' + esc(T('level')) + ' ' + lvRange(L)) + '</small>' + (L.length ? bar(m, L.length) : '') + '</span></button>';
@@ -694,6 +697,7 @@ function qaSave() { S.set('ln_qa', { ver: APP.ver, lang: QA.lang, done: QA.done,
 const QA_STYLE = {
   _: 'Hebrew-letter pronunciation is deliberately simple: no niqqud (a segol is used only for the open e sound), aspiration is NOT marked, stress and tone are not marked. Equivalent Hebrew spellings (ו/וו, ט/ת, כ/ק) are fine. Do NOT report these conventions.',
   ary: 'This is Moroccan Darija (not Modern Standard Arabic) — judge it as spoken Moroccan Arabic. Darija has no fixed spelling: accept common Moroccan spellings. The Latin column deliberately uses the Moroccan chat alphabet (3 = ع, 7 = ح, 9 = ق). French loanwords common in Morocco are correct.',
+  yi: 'This is standard YIVO Yiddish: Hebrew-origin words keep traditional Hebrew spelling (שבת, מזל, חבֿר) with Ashkenazi pronunciation; the Latin column is YIVO romanization; the Hebrew-letter column is a simplified spelling for Israeli readers (no Yiddish diacritics) that is also read aloud by a Hebrew voice. Hasidic pronunciation variants are fine, do not flag them.',
   it: 'Italian: Hebrew-letter pronunciation is an approximation; compound numbers are written as one word in Italian and hyphenated in the Hebrew column on purpose. The Latin column is empty on purpose.',
   pt: 'This is BRAZILIAN Portuguese (not European) — judge it by Brazilian usage and pronunciation (você, ônibus, te/de → צ׳י/דז׳י, initial r → ה). The Latin column is empty on purpose.',
   ro: 'Romanian: Hebrew-letter pronunciation is an approximation (ă, â/î have no Hebrew equivalent). The Latin column is empty on purpose.',
@@ -1128,7 +1132,7 @@ function confirmBox(msg, okLabel, cb, danger) {
   modal('<p class="cm">' + esc(msg) + '</p><div class="row c wrap"><button class="btn ' + (danger ? 'red' : 'gold') + '" id="cmOk">' + esc(okLabel) + '</button><button class="btn" data-act="closeModal">' + esc(T('cancel')) + '</button></div>');
   $('#cmOk').onclick = () => { closeModal(); cb(); };
 }
-function bigShow(text, lang, pr, mn) {
+function bigShow(text, lang, pr, mn, sayText) {
   const w = document.createElement('div');
   w.className = 'bigshow'; w.id = 'bigshow'; w.setAttribute('role', 'dialog'); w.setAttribute('aria-modal', 'true');
   const len = [...text].length, size = len < 6 ? 30 : len < 14 ? 18 : len < 30 ? 11 : 8;
@@ -1139,8 +1143,9 @@ function bigShow(text, lang, pr, mn) {
   document.body.classList.add('bs-open');
   const close = () => { w.remove(); document.body.classList.remove('bs-open'); };
   $('#bsX').onclick = close;
-  $('#bsSay').onclick = () => speak(text.replace(/\.\.\./g, ' '), lang);
-  $('#bsSlow').onclick = () => speak(text.replace(/\.\.\./g, ' '), lang, true);
+  const said = (sayText || text).replace(/\.\.\./g, ' ');
+  $('#bsSay').onclick = () => speak(said, lang);
+  $('#bsSlow').onclick = () => speak(said, lang, true);
   $('#bsX').focus();
   try { if (w.requestFullscreen && matchMedia('(max-width:700px)').matches) w.requestFullscreen().catch(() => {}); } catch (e) {}
 }
@@ -1283,7 +1288,7 @@ const ACT = {
   setGoal: d => { st.goal = +d.n; save(); render(); },
   setGender: d => { st.gender = d.g; _itemsCache = {}; save(); render(); },
   say: d => { const it = findItem(st.lang, d.k) || findItem(LESSON.lang, d.k); if (it) speak(ttsText(it), st.lang, !!d.slow); },
-  big: d => { const it = findItem(st.lang, d.k); if (it) bigShow(it.text, st.lang, pron(it), it.type === 'L' ? '' : meaning(it)); },
+  big: d => { const it = findItem(st.lang, d.k); if (it) bigShow(it.text, st.lang, pron(it), it.type === 'L' ? '' : meaning(it), ttsText(it)); },
   fav: (d, el) => { const f = st.favs[st.lang] = st.favs[st.lang] || []; const i = f.indexOf(d.k); if (i >= 0) f.splice(i, 1); else f.push(d.k); save(); el.classList.toggle('on', i < 0); el.setAttribute('aria-pressed', i < 0); },
   letter: d => {
     const it = findItem(st.lang, d.k), r = P(st.lang)[d.k];
@@ -1317,10 +1322,10 @@ const ACT = {
   dlgSay: d => { const x = dlgLines(NAV.arg).find(l => l.n === +d.n); if (x) sayIt(x.it, st.lang, $('#said' + d.n), ok => { if (ok) { grade(st.lang, x.it.k, true); setTimeout(() => { DLG.shown[d.n] = 1; render(); }, 900); } }); },
   priceSet: d => { PRICE.n = +d.n; const i = $('#pIn'); if (i) i.value = PRICE.n; $('#pRes').innerHTML = priceHTML(); ACT.priceSay({}); },
   priceCur: d => { PRICE.cur = d.v === '1'; render(); },
-  priceSay: d => { const r = numWords(st.lang, PRICE.n, PRICE.cur); if (r) speak(r.text, st.lang, !!d.slow); },
+  priceSay: d => { const r = numWords(st.lang, PRICE.n, PRICE.cur); if (r) speak(sayStr(st.lang, r.text, r.heb), st.lang, !!d.slow); },
   priceBig: () => { const r = numWords(st.lang, PRICE.n, PRICE.cur); if (r) bigShow(r.text, st.lang, st.ui === 'he' ? r.heb : r.roman, (PRICE.cur ? CUR_SYM[st.lang] + ' ' : '') + PRICE.n.toLocaleString('en-US')); },
   priceQuiz: () => { PRICE.q = { n: randPrice() }; $('#pQuiz').innerHTML = priceQuizHTML(); ACT.priceQSay({}); const i = $('#qIn'); if (i) i.focus(); },
-  priceQSay: d => { if (PRICE.q) speak(numWords(st.lang, PRICE.q.n, true).text, st.lang, !!d.slow); },
+  priceQSay: d => { if (PRICE.q) { const r = numWords(st.lang, PRICE.q.n, true); speak(sayStr(st.lang, r.text, r.heb), st.lang, !!d.slow); } },
   priceCheck: () => {
     const q = PRICE.q, v = parseInt(($('#qIn') || {}).value, 10);
     if (!q || isNaN(v)) { toast(T('typeNumber'), 'warn'); return; }
@@ -1346,22 +1351,22 @@ const ACT = {
       const r = await aiTranslate(v, st.lang);
       if (!r || !r.text) throw new Error(T('aiBadJson'));
       SPK.res = { text: String(r.text), roman: String(r.roman || ''), heb: String(r.heb || ''), back: String(r.back || ''), src: v, ai: true };
-      render(); speak(SPK.res.text, st.lang);
+      render(); speak(sayStr(st.lang, SPK.res.text, SPK.res.heb), st.lang);
     } catch (e) { el.disabled = false; el.innerHTML = '✨ ' + esc(T('translate')); toast(T('aiErr') + ': ' + e.message, 'err', 6000); }
   },
   gtLink: () => { const v = $('#spkIn'); if (v) SPK.src = v.value; },
-  spkSay: d => SPK.res && speak(SPK.res.text, st.lang, !!d.slow),
-  spkBig: () => SPK.res && bigShow(SPK.res.text, st.lang, st.ui === 'he' ? (SPK.res.heb || SPK.res.roman) : (SPK.res.roman || SPK.res.heb), SPK.res.src),
+  spkSay: d => SPK.res && speak(sayStr(st.lang, SPK.res.text, SPK.res.heb), st.lang, !!d.slow),
+  spkBig: () => SPK.res && bigShow(SPK.res.text, st.lang, st.ui === 'he' ? (SPK.res.heb || SPK.res.roman) : (SPK.res.roman || SPK.res.heb), SPK.res.src, sayStr(st.lang, SPK.res.text, SPK.res.heb)),
   spkSave: () => {
     if (!SPK.res) return;
     st.phrases.unshift({ id: uid(), lang: st.lang, src: SPK.res.src, text: SPK.res.text, roman: SPK.res.roman, heb: SPK.res.heb, ts: Date.now() });
     save(); SPK.res = null; SPK.src = ''; render(); toast(T('saved'));
   },
-  phSay: d => { const x = st.phrases.find(p => p.id === d.id); if (x) speak(x.text, x.lang); },
-  phBig: d => { const x = st.phrases.find(p => p.id === d.id); if (x) bigShow(x.text, x.lang, st.ui === 'he' ? (x.heb || x.roman) : (x.roman || x.heb), x.src); },
+  phSay: d => { const x = st.phrases.find(p => p.id === d.id); if (x) speak(sayStr(x.lang, x.text, x.heb), x.lang); },
+  phBig: d => { const x = st.phrases.find(p => p.id === d.id); if (x) bigShow(x.text, x.lang, st.ui === 'he' ? (x.heb || x.roman) : (x.roman || x.heb), x.src, sayStr(x.lang, x.text, x.heb)); },
   phEdit: d => { const x = st.phrases.find(p => p.id === d.id); if (x) phraseForm(x); },
   printBook,
-  testVoice: () => { const it = items(st.lang).find(i => i.k === 'W:hello'); speak(it ? it.text : 'Hello', st.lang); },
+  testVoice: () => { const it = items(st.lang).find(i => i.k === 'W:hello'); speak(it ? ttsText(it) : 'Hello', st.lang); },
   setProv: d => { st.ai.provider = d.p; st.ai.model = ''; save(); render(); },
   saveKey: async () => {
     const v = $('#aiKey').value; if (!cleanKey(v)) { toast(T('keyEmpty'), 'warn'); return; }
@@ -1406,7 +1411,7 @@ document.addEventListener('change', e => {
   const k = e.target.dataset && e.target.dataset.ch; if (!k) return;
   const v = e.target.value;
   if (k === 'ui') { ensureUI(v).then(() => { st.ui = v; save(); render(); }, () => toast(T('loadFail'), 'err', 5000)); }
-  else if (k === 'voice') { st.voices[st.lang] = v; save(); render(); speak((findItem(st.lang, 'W:hello') || {}).text || 'Hello', st.lang); }
+  else if (k === 'voice') { st.voices[st.lang] = v; save(); render(); const h = findItem(st.lang, 'W:hello'); speak(h ? ttsText(h) : 'Hello', st.lang); }
   else if (k === 'model') { st.ai.model = v; save(); }
   else if (k === 'import') { if (e.target.files[0]) importJson(e.target.files[0]); e.target.value = ''; }
   else if (k === 'user') { st.user = v.trim(); save(); }
@@ -1537,4 +1542,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.8.0';
+window.__MODS.app = '1.9.0';

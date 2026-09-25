@@ -295,10 +295,10 @@ LANG.es = {
   "sayMore": "Aún no, volverá en el repaso",
   "noSpeech": "No oí nada. Pulsa 🎤 y habla cerca del teléfono.",
   "newIn": "Novedades de {v}",
-  "wn1": "🇮🇹 Italiano: 407 palabras y frases, alfabeto y combinaciones, precios en euros, consejos y emergencias.",
-  "wn2": "🇧🇷 Portugués de Brasil: 407 palabras y frases, sonidos nasales, precios en reales y obrigado/obrigada.",
-  "wn3": "🇷🇴 Rumano: 407 palabras y frases, las 31 letras, precios en lei con la regla de \"de\" desde 20, consejos y el 112.",
-  "wn4": "Ahora 10 idiomas — cada uno se carga solo cuando hace falta.",
+  "wn1": "🕎 Ídish: 407 palabras y frases y 22 expresiones únicas — najes, tajles, biz hundert un tsvantsik…",
+  "wn2": "Ortografía estándar YIVO, romanización latina y una línea de pronunciación sencilla.",
+  "wn3": "🔊 No existe voz de ídish: la lectura usa la voz hebrea y es aproximada.",
+  "wn4": "Alfabeto ídish, consejos y números.",
   "wn5": "Tu progreso se conservó.",
   "lvl8": "Frases completas",
   "lvl9": "Mis palabras",
@@ -483,6 +483,7 @@ LANG.es = {
   "b_speaker": "Orador",
   "bd_speaker": "10 respuestas orales correctas",
   "b_kit": "Listo para viajar",
-  "bd_kit": "Creaste una tarjeta del kit"
+  "bd_kit": "Creaste una tarjeta del kit",
+  "cat_yid": "Expresiones en ídish"
 };
-window.__MODS['ui-es'] = '1.8.0';
+window.__MODS['ui-es'] = '1.9.0';

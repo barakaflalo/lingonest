@@ -68,7 +68,7 @@ const SCENARIOS = [
   ['social', '☕', 'You are a friendly local of similar age at a café, making small talk with a tourist.'],
   ['free', '💬', 'You are a friendly local who is happy to chat about anything the traveler wants.']
 ];
-const COUNTRY_CTX = { it: 'Italy', pt: 'Brazil (speak Brazilian Portuguese)', ro: 'Romania', fr: 'France or another French-speaking place', ary: 'Morocco. Speak Moroccan Darija as locals really talk (NOT Modern Standard Arabic), written in Arabic script; French loanwords are natural', th: 'Thailand', es: 'Spain or Latin America', ru: 'Russia', ar: 'an Arabic-speaking country (use simple Modern Standard Arabic that everyone understands)', en: 'an English-speaking country' };
+const COUNTRY_CTX = { yi: 'a Yiddish-speaking community (for example in New York, Antwerp or Bnei Brak). Use standard YIVO Yiddish spelling in Hebrew letters; in "heb" write a simplified Hebrew-letter spelling without Yiddish diacritics (it is read aloud by a Hebrew voice)', it: 'Italy', pt: 'Brazil (speak Brazilian Portuguese)', ro: 'Romania', fr: 'France or another French-speaking place', ary: 'Morocco. Speak Moroccan Darija as locals really talk (NOT Modern Standard Arabic), written in Arabic script; French loanwords are natural', th: 'Thailand', es: 'Spain or Latin America', ru: 'Russia', ar: 'an Arabic-speaking country (use simple Modern Standard Arabic that everyone understands)', en: 'an English-speaking country' };
 const CHAT = { scen: null, lvl: 'easy', msgs: [], busy: false, sugg: [], showTr: true, summary: null, rec: null };
 
 function chatPrompt(userMsg) {
@@ -97,7 +97,7 @@ async function chatTurn(userMsg) {
     CHAT.msgs.push({ me: false, text: String(r.reply), roman: String(r.roman || ''), heb: String(r.heb || ''), he: String(r.he || '') });
     CHAT.sugg = (r.suggest || []).filter(x => x && x.text).slice(0, 3).map(x => ({ text: String(x.text), heb: String(x.heb || ''), he: String(x.he || '') }));
     CHAT.busy = false; chatPaint();
-    speak(String(r.reply), st.lang, false, null, true);
+    speak(sayStr(st.lang, String(r.reply), String(r.heb || '')), st.lang, false, null, true);
     if (CHAT.msgs.filter(m => m.me).length >= 3 && !(st.flags || {}).chat) flag('chat');
   } catch (e) {
     CHAT.busy = false;
@@ -144,7 +144,7 @@ function chatBodyHTML() {
   if (CHAT.summary) {
     const s = CHAT.summary;
     h += '<div class="card"><h3>📝 ' + esc(T('chatSumTitle')) + '</h3><p><b>👍 ' + esc(T('chatGood')) + ':</b> ' + esc(s.good) + '</p><p><b>🎯 ' + esc(T('chatImprove')) + ':</b> ' + esc(s.improve) + '</p>' +
-      (s.phrases.length ? '<h3>' + esc(T('chatPhrases')) + '</h3><div class="items">' + s.phrases.map((x, i) => '<div class="irow"><div class="itx"><span class="tgt md" lang="' + tl + '" dir="' + LANGS[lang].dir + '">' + esc(x.text) + '</span><span class="pr">' + esc(x.heb || x.roman || '') + '</span><span class="mn">' + esc(x.he || '') + '</span></div><div class="iac"><button class="ic" data-act="sayRaw" data-t="' + esc(x.text) + '">🔊</button></div></div>').join('') + '</div>' +
+      (s.phrases.length ? '<h3>' + esc(T('chatPhrases')) + '</h3><div class="items">' + s.phrases.map((x, i) => '<div class="irow"><div class="itx"><span class="tgt md" lang="' + tl + '" dir="' + LANGS[lang].dir + '">' + esc(x.text) + '</span><span class="pr">' + esc(x.heb || x.roman || '') + '</span><span class="mn">' + esc(x.he || '') + '</span></div><div class="iac"><button class="ic" data-act="sayRaw" data-t="' + esc(sayStr(lang, x.text, x.heb)) + '">🔊</button></div></div>').join('') + '</div>' +
         '<button class="btn gold" data-act="chatAddMine">➕ ' + esc(T('chatAddMine')) + '</button>' : '') + '</div>';
   }
   if (!CHAT.busy && CHAT.sugg.length && !CHAT.summary) h += '<p class="tiny">' + esc(T('chatSugg')) + '</p><div class="suggs">' + CHAT.sugg.map((x, i) => '<button class="sugg" data-act="chatSugg" data-n="' + i + '"><span class="tgt sm" lang="' + tl + '">' + esc(x.text) + '</span><small>' + esc(st.ui === 'he' ? (x.heb || '') : '') + (x.he ? ' · ' + esc(x.he) : '') + '</small></button>').join('') + '</div>';
@@ -230,7 +230,7 @@ SCREENS.tips = () => {
   const lang = st.lang, tl = LANGS[lang].tts, dir = LANGS[lang].dir, list = TIPS[lang] || [];
   return header('💡 ' + T('tips') + ' · ' + LN(lang)) + '<p class="note">' + esc(T('tipsIntro')) + '</p>' +
     (list.length ? list.map((t, i) => '<details class="card tip"' + (i === 0 ? ' open' : '') + '><summary>' + esc(tr(t.t)) + '</summary><p>' + esc(tr(t.b)) + '</p>' +
-      (t.ex || []).map(e => '<div class="irow"><div class="itx"><span class="tgt md" lang="' + tl + '" dir="' + dir + '">' + esc(e[0]) + '</span><span class="pr">' + esc(st.ui === 'he' ? e[2] : (e[1] || e[2])) + '</span><span class="mn">' + esc(st.ui === 'he' ? e[3] : e[4]) + '</span></div><div class="iac"><button class="ic" data-act="sayRaw" data-t="' + esc(e[0]) + '">🔊</button><button class="ic" data-act="sayRaw" data-slow="1" data-t="' + esc(e[0]) + '">🐢</button></div></div>').join('') +
+      (t.ex || []).map(e => '<div class="irow"><div class="itx"><span class="tgt md" lang="' + tl + '" dir="' + dir + '">' + esc(e[0]) + '</span><span class="pr">' + esc(st.ui === 'he' ? e[2] : (e[1] || e[2])) + '</span><span class="mn">' + esc(st.ui === 'he' ? e[3] : e[4]) + '</span></div><div class="iac"><button class="ic" data-act="sayRaw" data-t="' + esc(sayStr(lang, e[0], e[2])) + '">🔊</button><button class="ic" data-act="sayRaw" data-slow="1" data-t="' + esc(sayStr(lang, e[0], e[2])) + '">🐢</button></div></div>').join('') +
       '</details>').join('') : '<p class="empty">' + esc(T('nothingNow')) + '</p>') +
     '<p class="hint">🪄 ' + esc(T('tipsAsk')) + '</p>';
 };
@@ -247,8 +247,8 @@ Object.assign(ACT, {
   chatTr: () => { CHAT.showTr = !CHAT.showTr; render(); },
   chatNew: () => { Object.assign(CHAT, { scen: null, msgs: [], sugg: [], summary: null }); render(); },
   chatEnd: () => chatSummary(),
-  chatSayRaw: d => { const m = CHAT.msgs[+d.n]; if (m) speak(d.f === 'better' ? m.better : m.text, st.lang, !!d.slow, null, !m.me); },
-  chatBig: d => { const m = CHAT.msgs[+d.n]; if (m) bigShow(m.text, st.lang, st.ui === 'he' ? (m.heb || m.roman) : (m.roman || m.heb), m.he); },
+  chatSayRaw: d => { const m = CHAT.msgs[+d.n]; if (m) speak(d.f === 'better' ? sayStr(st.lang, m.better, m.betterHeb) : sayStr(st.lang, m.text, m.heb), st.lang, !!d.slow, null, !m.me); },
+  chatBig: d => { const m = CHAT.msgs[+d.n]; if (m) bigShow(m.text, st.lang, st.ui === 'he' ? (m.heb || m.roman) : (m.roman || m.heb), m.he, sayStr(st.lang, m.text, m.heb)); },
   chatAddMine: () => {
     const s = CHAT.summary; if (!s) return;
     const list = st.custom[st.lang] = st.custom[st.lang] || [];
@@ -271,5 +271,5 @@ document.addEventListener('pointerdown', e => {
   ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => row.addEventListener(ev, cancel));
 });
 
-window.__MODS.features = '1.8.0';
+window.__MODS.features = '1.9.0';
 boot();

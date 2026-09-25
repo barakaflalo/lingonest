@@ -295,10 +295,10 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "🇮🇹 Italian: 407 words and phrases, alphabet and combinations (ch, gn, gli, sc…), numbers and prices in euro, tips (including coffee culture) and emergency numbers.",
-  "wn2": "🇧🇷 Brazilian Portuguese: 407 words and phrases, nasal sounds (ão, em), prices in reais, and obrigado/obrigada by speaker gender.",
-  "wn3": "🇷🇴 Romanian: 407 words and phrases, all 31 letters (Ă, Â, Î, Ș, Ț), prices in lei with the \"de\" rule after 20, tips and emergency number 112.",
-  "wn4": "Now 10 languages — each loads only when needed.",
+  "wn1": "🕎 Yiddish: 407 words and phrases plus 22 expressions found in no other language — nakhes, takhles, biz hundert un tsvantsik…",
+  "wn2": "Standard YIVO spelling in Hebrew letters, Latin romanization, and a simple Israeli-style pronunciation line.",
+  "wn3": "🔊 No device has a Yiddish voice — read-aloud uses the Hebrew voice on the pronunciation line. It is approximate, not a native accent.",
+  "wn4": "Yiddish alphabet (אַ, אָ, ײַ, פֿ…), tips (Hebrew-origin words, standard vs. Hasidic pronunciation) and numbers.",
   "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
@@ -483,6 +483,7 @@ LANG.en = {
   "b_speaker": "Speaker",
   "bd_speaker": "10 correct spoken answers",
   "b_kit": "Ready to go",
-  "bd_kit": "Created a travel-kit card"
+  "bd_kit": "Created a travel-kit card",
+  "cat_yid": "Yiddish expressions"
 };
-window.__MODS['ui-en'] = '1.8.0';
+window.__MODS['ui-en'] = '1.9.0';

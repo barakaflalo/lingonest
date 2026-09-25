@@ -5,7 +5,7 @@
 'use strict';
 window.__MODS = window.__MODS || {};
 const LANG = {};                                  /* UI dictionaries (filled by ui-xx.js) */
-const ALPHA = {}, VOWELS = {}, TONES = {}, TWISTER = {}, WD = {}, GENDER_F = {}, CUR_SYM = {}, LANG_NOTE = {}, TIPS = {}, EMERG = {}, COUNTRY = {}, VOWEL_NOTE = {};
+const ALPHA = {}, VOWELS = {}, TONES = {}, TWISTER = {}, WD = {}, GENDER_F = {}, CUR_SYM = {}, LANG_NOTE = {}, TIPS = {}, EMERG = {}, COUNTRY = {}, VOWEL_NOTE = {}, SPEAK_HEB = {};
 const LOADED = {};                                /* lang code → version of the loaded pack */
 
 /* Target languages. To add one: add a line here + create lang-xx.js (copy an existing pack) + add it to sw.js. */
@@ -19,7 +19,8 @@ const LANGS = {
   ary: { flag: "🇲🇦", tts: "ar-MA", dir: "rtl", native: "الدارجة", name: {"he": "מרוקאית", "en": "Moroccan Arabic (Darija)", "ru": "Марокканский арабский", "es": "Árabe marroquí", "ar": "الدارجة المغربية"} },
   it: { flag: "🇮🇹", tts: "it-IT", dir: "ltr", native: "Italiano", name: {"he": "איטלקית", "en": "Italian", "ru": "Итальянский", "es": "Italiano", "ar": "الإيطالية"} },
   pt: { flag: "🇧🇷", tts: "pt-BR", dir: "ltr", native: "Português", name: {"he": "פורטוגזית", "en": "Portuguese (Brazil)", "ru": "Португальский", "es": "Portugués", "ar": "البرتغالية"} },
-  ro: { flag: "🇷🇴", tts: "ro-RO", dir: "ltr", native: "Română", name: {"he": "רומנית", "en": "Romanian", "ru": "Румынский", "es": "Rumano", "ar": "الرومانية"} }
+  ro: { flag: "🇷🇴", tts: "ro-RO", dir: "ltr", native: "Română", name: {"he": "רומנית", "en": "Romanian", "ru": "Румынский", "es": "Rumano", "ar": "الرومانية"} },
+  yi: { flag: "🕎", tts: "he-IL", dir: "rtl", native: "ייִדיש", name: {"he": "יידיש", "en": "Yiddish", "ru": "Идиш", "es": "Ídish", "ar": "اليديشية"} }
 };
 /* Short letters-screen notes (keys in ui-xx.js). New languages can instead pass note:{he,en,...} in their pack. */
 const ALPHA_NOTE = {"en":"noteEn","es":"noteEs","ru":"noteRu","ar":"noteAr","th":"noteTh"};
@@ -31,10 +32,12 @@ const MAXL = 9;
 const CAT_ICON = { greet: '👋', num: '🔢', basic: '⭐', food: '🍜', trans: '🚕', shop: '🛍️', emerg: '🚑', time: '🕒', phr: '🗣️', mine: '✏️',
   hotel: '🏨', days: '📅', colors: '🎨', people: '👨‍👩‍👧', body: '🩺', adj: '↔️', verbs: '🏃', conv: '💬',
   animals: '🐘', fruits: '🍍', veggies: '🥕', dishes: '🍲', places: '🏛️', things: '🎒',
-  s_food: '🍽️', s_shop: '🛒', s_move: '🚌', s_hotel: '🛎️', s_social: '🤝', s_help: '🆘', weather: '🌦️', jobs: '👷', feel: '😊', dirs: '🧭' };
+  s_food: '🍽️', s_shop: '🛒', s_move: '🚌', s_hotel: '🛎️', s_social: '🤝', s_help: '🆘', weather: '🌦️', jobs: '👷', feel: '😊', dirs: '🧭', yid: '🕯️' };
 const WORD_CATS = ['greet', 'num', 'basic', 'food', 'fruits', 'veggies', 'dishes', 'trans', 'dirs', 'places', 'shop', 'things', 'hotel', 'time', 'weather', 'days', 'colors', 'people', 'jobs', 'body', 'feel', 'animals', 'adj', 'verbs', 'emerg', 'mine'];
-const PHRASE_CATS = ['phr', 'conv', 's_food', 's_shop', 's_move', 's_hotel', 's_social', 's_help'];
-const isPhraseCat = c => c === 'phr' || c === 'conv' || c.startsWith('s_') || c.startsWith('dlg_');
+const PHRASE_CATS = ['phr', 'conv', 's_food', 's_shop', 's_move', 's_hotel', 's_social', 's_help', 'yid'];
+/* categories that exist only in some languages (other packs may skip them) */
+const ONLY_LANG = { yid: ['yi'] };
+const isPhraseCat = c => c === 'phr' || c === 'conv' || c === 'yid' || c.startsWith('s_') || c.startsWith('dlg_');
 
 /* Concepts: [id, category, level, Hebrew meaning, English meaning]. The id is the permanent key for progress — never rename one. */
 const CONCEPTS = [
@@ -482,7 +485,30 @@ const CONCEPTS = [
   ["dir_next","dirs",7,"ליד","Next to"],
   ["dir_back","dirs",7,"אחורה","Back"],
   ["dir_up","dirs",7,"למעלה","Up"],
-  ["dir_down","dirs",7,"למטה","Down"]
+  ["dir_down","dirs",7,"למטה","Down"],
+  /* yid — Yiddish-only expressions (ONLY_LANG) */
+  ["yx_nu", "yid", 8, "נו? (יאללה / ובכן?)", "Nu? (well? come on)"],
+  ["yx_oyvey", "yid", 8, "אוי ואבוי!", "Oh no!"],
+  ["yx_mazltov", "yid", 8, "מזל טוב!", "Congratulations!"],
+  ["yx_gutshabes", "yid", 8, "שבת שלום!", "Good Shabbos!"],
+  ["yx_gutyor", "yid", 8, "שנה טובה!", "Happy New Year!"],
+  ["yx_gezunt", "yid", 8, "לבריאות! (אחרי עיטוש)", "Bless you!"],
+  ["yx_biz120", "yid", 8, "עד מאה ועשרים!", "Till 120!"],
+  ["yx_zolzayn", "yid", 8, "שיהיה במזל טוב!", "May it bring luck!"],
+  ["yx_shoyn", "yid", 8, "כבר! / די, מספיק", "Already! / Enough"],
+  ["yx_takhles", "yid", 8, "תכל׳ס", "Bottom line"],
+  ["yx_khutspe", "yid", 8, "חוצפה", "Chutzpah"],
+  ["yx_shlep", "yid", 8, "לסחוב (שלעפּ)", "To schlep"],
+  ["yx_kvetsh", "yid", 8, "לקטר, להתלונן", "To kvetch"],
+  ["yx_nakhes", "yid", 8, "נחת (בעיקר מהילדים)", "Pride and joy"],
+  ["yx_mentsh", "yid", 8, "בן אדם הגון", "A decent person"],
+  ["yx_shmues", "yid", 8, "לשוחח, לפטפט", "To chat"],
+  ["yx_bobe", "yid", 8, "סבתא", "Grandma"],
+  ["yx_zeyde", "yid", 8, "סבא", "Grandpa"],
+  ["yx_est", "yid", 8, "תאכלו, ילדים!", "Eat, children!"],
+  ["yx_borkhhashem", "yid", 8, "ברוך השם", "Thank God"],
+  ["yx_sheynkeyt", "yid", 8, "איזה יופי!", "What a beauty!"],
+  ["yx_gornisht", "yid", 8, "כלום, שום דבר", "Nothing at all"]
 ];
 
 /* Dialogues: [id, icon, lines] — line = 'M:<concept>' (you) or 'T:<concept>' (the local person). Names: ui key dlg_<id> */
@@ -497,6 +523,7 @@ const LINGO = {
     if (pack.twister) TWISTER[code] = pack.twister;
     if (pack.note) LANG_NOTE[code] = pack.note;
     if (pack.vowelNote) VOWEL_NOTE[code] = pack.vowelNote;
+    if (pack.speakHeb) SPEAK_HEB[code] = true;      /* no voice for this language: read the Hebrew-letter pronunciation with the Hebrew voice */
     CUR_SYM[code] = pack.curSym || '';
     TIPS[code] = pack.tips || [];
     EMERG[code] = pack.emergency || [];
@@ -511,4 +538,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.8.0';
+window.__MODS.content = '1.9.0';
