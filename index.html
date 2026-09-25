@@ -1,0 +1,2276 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" data-theme="gold" data-mode="night">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self' https://generativelanguage.googleapis.com https://api.anthropic.com https://api.openai.com http://localhost:11434; object-src 'none'; base-uri 'none'; manifest-src 'self'; worker-src 'self'; form-action 'none'">
+<title>LingoNest</title>
+<meta name="description" content="LingoNest — ללמוד לדבר, בכל מקום. אותיות, מילים ומשפטים לטיול באנגלית, ספרדית, רוסית, ערבית ותאית, עם הקראה בקול.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="LingoNest · AppNest">
+<meta property="og:description" content="ללמוד לדבר, בכל מקום">
+<meta property="og:image" content="icon-512.png">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Noto+Serif:wght@500;700&family=Noto+Serif+Thai:wght@500;700&family=Noto+Naskh+Arabic:wght@500;700&display=swap">
+<style>
+/* ===== LingoNest — style.css ===== */
+:root{--r:14px;--r2:22px;--ui:'Assistant','Segoe UI',system-ui,-apple-system,'Noto Sans Hebrew',Arial,sans-serif;
+  --script:'Noto Serif','Noto Serif Thai','Noto Naskh Arabic','Times New Roman',serif}
+:root[data-theme=gold]{--accN:#D4AF37;--accD:#8A6A12;--bgN:#000000;--sfN:#100E08}
+:root[data-theme=sapphire]{--accN:#8FB4E8;--accD:#1F4E8C;--bgN:#02060F;--sfN:#0A1222}
+:root[data-theme=emerald]{--accN:#4FC39A;--accD:#0E6B4B;--bgN:#010A06;--sfN:#07170F}
+:root[data-theme=wine]{--accN:#E29AA8;--accD:#8C2A3E;--bgN:#0A0205;--sfN:#1A0A10}
+:root[data-theme=copper]{--accN:#E0955A;--accD:#93501C;--bgN:#0A0502;--sfN:#1A0F07}
+:root[data-mode=night]{--bg:var(--bgN);--sf:var(--sfN);--tx:#F3EFE6;--mu:#A9A294;--acc:var(--accN);--on:#000;--bd:color-mix(in srgb,var(--accN) 38%,transparent);--ok:#56C98A;--no:#F07167}
+:root[data-mode=day]{--bg:#F6F5F1;--sf:#FFFFFF;--tx:#17150F;--mu:#5E5A50;--acc:var(--accD);--on:#fff;--bd:color-mix(in srgb,var(--accD) 40%,transparent);--ok:#1E8E4F;--no:#C0392B}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--ui);font-size:17px;line-height:1.5;-webkit-tap-highlight-color:transparent}
+body{min-height:100vh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--acc)}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px;border-radius:8px}
+.skip{position:absolute;inset-inline-start:-999px;top:0;background:var(--acc);color:var(--on);padding:8px 14px;z-index:99}
+.skip:focus{inset-inline-start:8px}
+#app{max-width:560px;margin:0 auto;padding:14px 16px 90px}
+#app.enter{animation:in .22s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* top / header */
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand b{display:block;font-size:1.25rem;letter-spacing:.02em}
+.brand small{display:block;color:var(--mu);font-size:.8rem;margin-top:-3px}
+.logo{display:grid;place-items:center;width:40px;height:40px;border:1.5px solid var(--acc);border-radius:12px;color:var(--acc);font-size:1.3rem}
+.logo.big{width:72px;height:72px;font-size:2.2rem;margin:0 auto 8px;border-radius:20px}
+.tools{display:flex;align-items:center;gap:4px}
+.ic{min-width:44px;height:44px;border-radius:12px;border:1px solid var(--bd);background:transparent;cursor:pointer;font-size:1.15rem;display:inline-grid;place-items:center;padding:0 8px}
+.ic:hover{background:color-mix(in srgb,var(--acc) 10%,transparent)}
+.ic.xl{min-width:64px;height:64px;font-size:1.7rem;border-radius:18px}
+.dot{width:14px;height:14px;border-radius:50%;border:0;background:var(--no);cursor:pointer;margin:0 8px;box-shadow:0 0 0 3px color-mix(in srgb,var(--no) 25%,transparent)}
+.dot.on{background:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 25%,transparent)}
+.dot.inl{display:inline-block;margin:0 6px;vertical-align:middle;cursor:default}
+.hello{color:var(--mu);margin:14px 0 8px}
+.bar{display:flex;align-items:center;gap:10px;margin-bottom:14px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:5}
+.bar h2{flex:1;margin:0;font-size:1.15rem;outline:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.back{border:1.5px solid var(--acc);color:var(--acc);background:transparent;border-radius:12px;height:46px;padding:0 16px;font-weight:700;cursor:pointer;flex-shrink:0}
+.back .arr{font-size:1.2rem}
+.home-ic{border:1px solid var(--bd);background:transparent;border-radius:12px;width:46px;height:46px;font-size:1.3rem;cursor:pointer;flex-shrink:0}
+.lp{flex:1;height:8px;border-radius:9px;background:color-mix(in srgb,var(--acc) 15%,transparent);overflow:hidden}
+.lp i{display:block;height:100%;width:0;background:var(--acc);transition:width .3s}
+
+/* language chips */
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:none}
+.chips.wrap{flex-wrap:wrap;justify-content:center}
+.chip{display:flex;align-items:center;gap:6px;border:1px solid var(--bd);background:transparent;border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+.chip small{color:var(--mu);font-size:.75rem}
+.chip.on{background:var(--acc);color:var(--on);border-color:var(--acc)}
+.chip.on small{color:var(--on);opacity:.75}
+.fl{font-size:1.2rem}
+
+/* hero — the one memorable piece: the word, set large like an engraving */
+.hero{border:1px solid var(--bd);border-radius:var(--r2);padding:18px 18px 20px;background:var(--sf);margin-top:4px}
+.hero-top{display:flex;justify-content:space-between;color:var(--mu);font-size:.9rem}
+.streak{color:var(--acc);font-weight:700}
+.wod{text-align:center;margin:14px 0 4px}
+.wod-sub{display:flex;flex-direction:column;align-items:center;gap:2px;margin-bottom:10px}
+.tgt{font-family:var(--script);font-weight:500;unicode-bidi:isolate}
+.tgt[lang=th-TH]{font-family:'Noto Serif Thai','Noto Sans Thai','Leelawadee UI',Tahoma,serif}
+.tgt[lang=ar-SA]{font-family:'Noto Naskh Arabic','Traditional Arabic','Segoe UI',serif}
+.tgt.xxl{font-size:5.2rem;line-height:1.15;color:var(--acc);display:block}
+.tgt.xl{font-size:clamp(2.2rem,11vw,3.6rem);line-height:1.2;color:var(--acc);display:block;word-break:break-word}
+.tgt.lg{font-size:1.65rem;line-height:1.3;display:block}
+.tgt.md{font-size:1.25rem;line-height:1.35;display:block}
+.tgt.sm{font-size:1.05rem}
+.pr{color:var(--tx);font-weight:600}
+.pr em{color:var(--mu);font-style:normal;font-weight:400;font-size:.85em}
+.mn{color:var(--mu)}
+.big{font-size:1.2rem}
+.rule{border:0;height:1px;background:var(--bd);margin:16px 0 12px}
+.lvl{display:flex;justify-content:space-between;font-size:.92rem;margin-bottom:6px}
+.pbar{height:7px;border-radius:9px;background:color-mix(in srgb,var(--acc) 14%,transparent);overflow:hidden;margin:4px 0}
+.pbar i{display:block;height:100%;background:var(--acc);border-radius:9px}
+.cta{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;min-height:60px;margin-top:14px;border:0;border-radius:16px;background:var(--acc);color:var(--on);font-weight:800;font-size:1.15rem;cursor:pointer;padding:10px 16px}
+.cta small{font-weight:600;font-size:.82rem;opacity:.8}
+.cta.slim{min-height:50px;font-size:1.02rem;margin:8px 0}
+.cta:disabled{opacity:.6}
+.row{display:flex;gap:8px;align-items:center;margin:8px 0}
+.row.c{justify-content:center}
+.row.wrap{flex-wrap:wrap}
+
+/* home grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:start;border:1px solid var(--bd);background:transparent;border-radius:var(--r);padding:14px;cursor:pointer;min-height:104px}
+.tile span{font-size:1.5rem}
+.tile b{font-size:1.05rem}
+.tile small{color:var(--mu);font-size:.8rem;line-height:1.3}
+.tile.wide{grid-column:span 2;flex-direction:row;align-items:center;gap:12px;min-height:70px}
+.tile.wide small{display:block}
+.tile.wide b{display:block}
+.tile:hover,.trow:hover{border-color:var(--acc)}
+.badge{text-align:center;color:var(--mu);font-size:.78rem;margin-top:26px;letter-spacing:.04em}
+.warn{border:1px solid var(--no);color:var(--no);border-radius:12px;padding:10px 12px;font-size:.9rem}
+
+/* letters */
+.note{color:var(--mu);font-size:.95rem;margin:0 0 6px}
+.letters{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:8px;margin-top:10px}
+.lt{aspect-ratio:1;border:1px solid var(--bd);border-radius:12px;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px}
+.lt .tgt{font-size:1.6rem;line-height:1.1}
+.lt small{font-size:.66rem;color:var(--mu);text-align:center;line-height:1.1;max-height:2.2em;overflow:hidden}
+.lt.s{border-color:var(--acc)}
+.lt.m{background:color-mix(in srgb,var(--acc) 18%,transparent);border-color:var(--acc)}
+.legend{display:flex;gap:8px;align-items:center;color:var(--mu);font-size:.8rem;margin-top:10px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid var(--acc)}
+.legend i.m{background:color-mix(in srgb,var(--acc) 30%,transparent)}
+.ldet{text-align:center}
+
+/* lists */
+.list{display:flex;flex-direction:column;gap:8px}
+.trow{display:flex;align-items:center;gap:12px;border:1px solid var(--bd);background:transparent;border-radius:var(--r);padding:12px 14px;cursor:pointer;text-align:start;text-decoration:none;color:inherit;width:100%}
+.trow:disabled{opacity:.45;cursor:default}
+.ti{font-size:1.5rem;width:34px;text-align:center}
+.tt{flex:1;display:flex;flex-direction:column}
+.tt small{color:var(--mu);font-size:.82rem}
+.items{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.irow{display:flex;gap:10px;align-items:center;border:1px solid var(--bd);border-radius:var(--r);padding:12px;background:var(--sf);user-select:none}
+.irow.m{border-inline-start:4px solid var(--acc)}
+.itx{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.itx .pr{font-size:.95rem}
+.itx .mn{font-size:.88rem}
+.iac{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end;max-width:100px}
+.iac .ic{min-width:40px;height:40px;font-size:1rem}
+.fav{color:var(--mu)}
+.fav.on{color:var(--acc);border-color:var(--acc)}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--acc);background:transparent;color:var(--tx);border-radius:12px;min-height:46px;padding:8px 14px;cursor:pointer;text-decoration:none;font-weight:600}
+.btn.gold{background:color-mix(in srgb,var(--acc) 16%,transparent)}
+.btn.red{border-color:var(--no);color:var(--no)}
+.btn:disabled{opacity:.5}
+.tag{font-size:.65rem;font-weight:800;border:1px solid currentColor;border-radius:6px;padding:0 5px;margin-inline-start:4px;vertical-align:middle}
+.empty,.hint{color:var(--mu);font-size:.92rem}
+.tiny{color:var(--mu);font-size:.78rem}
+.link{background:none;border:0;color:var(--acc);text-decoration:underline;cursor:pointer;padding:0}
+h3{font-size:1.02rem;margin:20px 0 8px}
+
+/* lesson */
+.card{border:1px solid var(--bd);border-radius:var(--r2);background:var(--sf);padding:18px;margin-top:6px}
+.card.intro,.card.sum,.card.result{text-align:center}
+.new{display:inline-block;background:var(--acc);color:var(--on);font-weight:800;font-size:.75rem;border-radius:99px;padding:2px 10px;margin-bottom:6px}
+.qh{color:var(--mu);margin:0 0 6px;text-align:center}
+.prompt{text-align:center;min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.ask{font-size:1.5rem;font-weight:700;margin:0}
+.listen{width:96px;height:96px;border-radius:50%;border:2px solid var(--acc);background:transparent;font-size:2.4rem;cursor:pointer}
+.opts{display:grid;gap:8px;margin-top:14px}
+.opt{border:1px solid var(--bd);background:transparent;border-radius:14px;min-height:56px;padding:10px 14px;cursor:pointer;font-size:1.05rem;text-align:center}
+.opt .tgt{color:var(--tx)}
+.opt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,transparent)}
+.opt.wrong{border-color:var(--no);background:color-mix(in srgb,var(--no) 16%,transparent)}
+.fb{margin-top:12px;padding:10px;border-radius:12px;text-align:center}
+.fb.ok{color:var(--ok)}
+.fb.no{color:var(--no)}
+.fb .tgt,.fb .pr{color:var(--tx)}
+.big-num{font-size:3.4rem;font-weight:800;color:var(--acc);margin:0}
+.said{min-height:1.5em;margin:6px 0}
+.said.ok{color:var(--ok)}
+.said.no{color:var(--mu)}
+
+/* speak */
+.seg{display:flex;border:1px solid var(--bd);border-radius:12px;overflow:hidden;margin:8px 0}
+.seg button{flex:1;border:0;background:transparent;padding:10px 6px;cursor:pointer;min-height:46px;display:flex;flex-direction:column;align-items:center;font-weight:600}
+.seg button small{color:var(--mu);font-weight:400;font-size:.75rem}
+.seg button.on{background:var(--acc);color:var(--on)}
+.seg button.on small{color:var(--on);opacity:.75}
+.fld{display:flex;flex-direction:column;gap:4px;margin:10px 0}
+.fld span{font-size:.9rem;color:var(--mu)}
+.fld input,.fld select,.fld textarea{background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:12px;min-height:48px;width:100%}
+.fld textarea{resize:vertical;font-size:1.1rem}
+input[type=range]{accent-color:var(--acc);padding:0!important;border:0!important;background:transparent!important}
+
+/* progress */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stats div{border:1px solid var(--bd);border-radius:var(--r);padding:12px;text-align:center}
+.stats b{display:block;font-size:1.5rem;color:var(--acc)}
+.stats small{color:var(--mu);font-size:.8rem}
+.chart{display:flex;align-items:flex-end;gap:6px;height:150px;border:1px solid var(--bd);border-radius:var(--r);padding:12px 10px 8px}
+.chart .col{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:2px}
+.chart i{display:block;width:70%;min-height:2px;background:var(--acc);border-radius:6px 6px 2px 2px}
+.chart small{font-size:.68rem;color:var(--mu)}
+.chart b{font-size:.72rem}
+.lvrow{display:grid;grid-template-columns:1fr auto;gap:0 8px;margin:8px 0}
+.lvrow .pbar{grid-column:span 2}
+
+/* settings */
+.set h3{margin-top:0}
+.sws{display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between;margin:6px 0}
+.sw{display:flex;flex-direction:column;align-items:center;gap:4px;background:transparent;border:0;cursor:pointer;padding:4px;min-width:56px}
+.sw i{width:44px;height:44px;border-radius:50%;border:3px solid transparent}
+.sw.on i{border-color:var(--tx)}
+.sw small{font-size:.7rem;color:var(--mu)}
+.sw-gold i{background:linear-gradient(135deg,#000 50%,#D4AF37 50%)}
+.sw-sapphire i{background:linear-gradient(135deg,#02060F 50%,#8FB4E8 50%)}
+.sw-emerald i{background:linear-gradient(135deg,#010A06 50%,#4FC39A 50%)}
+.sw-wine i{background:linear-gradient(135deg,#0A0205 50%,#E29AA8 50%)}
+.sw-copper i{background:linear-gradient(135deg,#0A0502 50%,#E0955A 50%)}
+.provs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.prov{border:1px solid var(--bd);background:transparent;border-radius:12px;padding:10px;cursor:pointer;display:flex;align-items:center;gap:4px;justify-content:center;min-height:48px}
+.prov.on{border:2px solid var(--acc);background:color-mix(in srgb,var(--acc) 12%,transparent)}
+.okd{color:var(--ok);font-style:normal;font-size:.7rem}
+details{margin:6px 0}
+summary{cursor:pointer;color:var(--acc);font-weight:600}
+.diag{font-size:.72rem;white-space:pre-wrap;word-break:break-all;background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:10px;max-height:220px;overflow:auto;direction:ltr;text-align:left}
+.danger{border-color:var(--no)}
+.about{text-align:center}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0}
+.kv dt{color:var(--mu)}
+.kv dd{margin:0}
+
+/* modal, big show, toasts */
+.modal-wrap{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center;z-index:50;animation:fade .15s}
+@keyframes fade{from{opacity:0}}
+.modal{position:relative;background:var(--sf);border:1px solid var(--bd);border-radius:22px 22px 0 0;padding:22px 18px calc(22px + env(safe-area-inset-bottom));width:100%;max-width:560px;max-height:90vh;overflow:auto}
+@media (min-width:700px){.modal-wrap{align-items:center}.modal{border-radius:22px}}
+.modal .x{position:absolute;top:10px;inset-inline-end:10px;width:40px;height:40px;border-radius:50%;border:1px solid var(--bd);background:transparent;cursor:pointer}
+.modal h3{margin-top:0;padding-inline-end:40px}
+.cm{font-size:1.05rem;margin:10px 0 16px}
+.guide{text-align:center}
+.gstep{color:var(--mu);font-size:.8rem;margin:0}
+.gic{font-size:3rem}
+.bigshow{position:fixed;inset:0;background:var(--bg);z-index:60;display:flex;align-items:center;justify-content:center;padding:20px;text-align:center}
+.bigshow .x{position:absolute;top:calc(12px + env(safe-area-inset-top));inset-inline-end:12px;width:52px;height:52px;border-radius:50%;border:1px solid var(--bd);background:transparent;font-size:1.3rem;cursor:pointer}
+.bs-in{max-width:95vw}
+.bigshow .tgt{color:var(--acc);line-height:1.15;margin:0 0 18px;word-break:break-word}
+.bigshow .pr{font-size:1.4rem;margin:0}
+.bigshow .mn{font-size:1.1rem}
+#toasts{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom));left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:80;pointer-events:none;padding:0 14px}
+.toast{background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:12px;max-width:520px;font-size:.92rem;box-shadow:0 6px 20px rgba(0,0,0,.3);transition:opacity .3s}
+.toast.err{background:var(--no);color:#fff}
+.toast.warn{border:2px solid var(--acc)}
+.toast.out{opacity:0}
+#print{display:none}
+@media print{
+  body>*:not(#print){display:none!important}
+  #print{display:block;color:#000;font-family:var(--ui)}
+  #print table{width:100%;border-collapse:collapse;margin-bottom:16px}
+  #print td{border:1px solid #999;padding:6px 8px;vertical-align:top}
+  #print td.tgt{font-size:1.2rem}
+}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#app">דלג לתוכן</a>
+<main id="app"></main>
+<div id="toasts"></div>
+<div id="print"></div>
+<script>
+/* LingoNest v1.0.0 · © AppNest 2026 · Barak Aflalo */
+/* ===== LingoNest — data.js : content (languages, alphabets, words, phrases) =====
+   Adding a language later = add an entry to LANGS + ALPHA + WD. Nothing else changes. */
+
+const LANGS = {
+  en: { flag: '🇬🇧', tts: 'en-US', dir: 'ltr', native: 'English',  name: { he: 'אנגלית', en: 'English', ru: 'Английский', es: 'Inglés', ar: 'الإنجليزية' } },
+  es: { flag: '🇪🇸', tts: 'es-ES', dir: 'ltr', native: 'Español',  name: { he: 'ספרדית', en: 'Spanish', ru: 'Испанский', es: 'Español', ar: 'الإسبانية' } },
+  ru: { flag: '🇷🇺', tts: 'ru-RU', dir: 'ltr', native: 'Русский',  name: { he: 'רוסית', en: 'Russian', ru: 'Русский', es: 'Ruso', ar: 'الروسية' } },
+  ar: { flag: '🇸🇦', tts: 'ar-SA', dir: 'rtl', native: 'العربية',  name: { he: 'ערבית', en: 'Arabic', ru: 'Арабский', es: 'Árabe', ar: 'العربية' } },
+  th: { flag: '🇹🇭', tts: 'th-TH', dir: 'ltr', native: 'ภาษาไทย', name: { he: 'תאילנדית', en: 'Thai', ru: 'Тайский', es: 'Tailandés', ar: 'التايلاندية' } }
+};
+
+/* Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name/sound] */
+const ALPHA = {
+  en: [
+    ['A a','A','אֵיי / אַ','ay'],['B b','B','ב','bee'],['C c','C','ק / ס','see'],['D d','D','ד','dee'],['E e','E','אִי / אֶ','ee'],
+    ['F f','F','פ','ef'],['G g','G','ג / ג׳','jee'],['H h','H','ה','aitch'],['I i','I','אַיי / אִ','eye'],['J j','J','ג׳','jay'],
+    ['K k','K','ק','kay'],['L l','L','ל','el'],['M m','M','מ','em'],['N n','N','נ','en'],['O o','O','אוֹ','oh'],
+    ['P p','P','פּ','pee'],['Q q','Q','ק (קוּ)','kyoo'],['R r','R','ר','ar'],['S s','S','ס','es'],['T t','T','ט','tee'],
+    ['U u','U','יוּ / אַ','yoo'],['V v','V','ו (V)','vee'],['W w','W','וו (W)','double-u'],['X x','X','קס','ex'],['Y y','Y','י','wye'],['Z z','Z','ז','zee']
+  ],
+  es: [
+    ['A a','a','אַ','a'],['B b','be','ב','be'],['C c','ce','ק / ס','ce'],['D d','de','ד','de'],['E e','e','אֶ','e'],
+    ['F f','efe','פ','efe'],['G g','ge','ג / ח','ge'],['H h','hache','שקטה','hache (silent)'],['I i','i','אִי','i'],['J j','jota','ח','jota'],
+    ['K k','ka','ק','ka'],['L l','ele','ל','ele'],['M m','eme','מ','eme'],['N n','ene','נ','ene'],['Ñ ñ','eñe','נְיְ (כמו ניו)','eñe (ny)'],
+    ['O o','o','אוֹ','o'],['P p','pe','פּ','pe'],['Q q','cu','ק','cu'],['R r','erre','ר מתגלגלת','erre (rolled)'],['S s','ese','ס','ese'],
+    ['T t','te','ט','te'],['U u','u','אוּ','u'],['V v','uve','ב','uve (b)'],['W w','uve doble','ו','uve doble'],['X x','equis','קס','equis'],
+    ['Y y','ye','י','ye'],['Z z','zeta','ס (בספרד: ת׳)','zeta']
+  ],
+  ru: [
+    ['А а','а','אַ','a'],['Б б','бэ','ב','b'],['В в','вэ','ו (V)','v'],['Г г','гэ','ג','g'],['Д д','дэ','ד','d'],
+    ['Е е','е','יֶה','ye'],['Ё ё','ё','יוֹ','yo'],['Ж ж','жэ','ז׳','zh'],['З з','зэ','ז','z'],['И и','и','אִי','i'],
+    ['Й й','и краткое','י קצרה','y'],['К к','ка','ק','k'],['Л л','эль','ל','l'],['М м','эм','מ','m'],['Н н','эн','נ','n'],
+    ['О о','о','אוֹ','o'],['П п','пэ','פּ','p'],['Р р','эр','ר מתגלגלת','r'],['С с','эс','ס','s'],['Т т','тэ','ט','t'],
+    ['У у','у','אוּ','u'],['Ф ф','эф','פ','f'],['Х х','ха','ח','kh'],['Ц ц','цэ','צ','ts'],['Ч ч','чэ','צ׳','ch'],
+    ['Ш ш','ша','ש','sh'],['Щ щ','ща','שְׁצ׳ (ש רכה וארוכה)','shch'],['Ъ ъ','твёрдый знак','סימן קשה (בלי צליל)','hard sign'],['Ы ы','ы','אִי עמוקה','y (deep i)'],
+    ['Ь ь','мягкий знак','סימן רך (מרכך)','soft sign'],['Э э','э','אֶ','e'],['Ю ю','ю','יוּ','yu'],['Я я','я','יָה','ya']
+  ],
+  ar: [
+    ['ا','ألف','א','alif'],['ب','باء','ב','ba'],['ت','تاء','ת','ta'],['ث','ثاء','ת׳ (th כמו think)','tha'],['ج','جيم','ג׳','jim'],
+    ['ح','حاء','ח','ḥa'],['خ','خاء','ח׳ (כ גרונית)','kha'],['د','دال','ד','dal'],['ذ','ذال','ד׳ (th כמו this)','dhal'],['ر','راء','ר מתגלגלת','ra'],
+    ['ز','زاي','ז','zay'],['س','سين','ס','sin'],['ش','شين','ש','shin'],['ص','صاد','צ׳ (ס נחרצת)','ṣad'],['ض','ضاد','ד נחרצת','ḍad'],
+    ['ط','طاء','ט','ṭa'],['ظ','ظاء','ט׳ (ד׳ נחרצת)','ẓa'],['ع','عين','ע גרונית','ʿayn'],['غ','غين','ע׳ (ר צרפתית)','ghayn'],['ف','فاء','פ','fa'],
+    ['ق','قاف','ק גרונית','qaf'],['ك','كاف','כ / ק','kaf'],['ل','لام','ל','lam'],['م','ميم','מ','mim'],['ن','نون','נ','nun'],
+    ['ه','هاء','ה','ha'],['و','واو','ו','waw'],['ي','ياء','י','ya']
+  ],
+  th: [
+    ['ก','ก ไก่','ג/ק רכה (גור גאי)','gor gai'],['ข','ข ไข่','ק (קור קאי)','khor khai'],['ฃ','ฃ ขวด','ק — לא בשימוש','khor khuat'],['ค','ค ควาย','ק (קור קוואי)','khor khwai'],
+    ['ฅ','ฅ คน','ק — לא בשימוש','khor khon'],['ฆ','ฆ ระฆัง','ק (קור רקאנג)','khor rakhang'],['ง','ง งู','נג (נגור נגו)','ngor ngu'],['จ','จ จาน','ג׳ (ג׳ור ג׳אן)','jor jan'],
+    ['ฉ','ฉ ฉิ่ง','צ׳ (צ׳ור צ׳ינג)','chor ching'],['ช','ช ช้าง','צ׳ (צ׳ור צ׳אנג)','chor chang'],['ซ','ซ โซ่','ס (סור סו)','sor so'],['ฌ','ฌ เฌอ','צ׳ (נדירה)','chor choe'],
+    ['ญ','ญ หญิง','י (יור יינג)','yor ying'],['ฎ','ฎ ชฎา','ד (נדירה)','dor chada'],['ฏ','ฏ ปฏัก','ט (נדירה)','tor patak'],['ฐ','ฐ ฐาน','ט (נדירה)','thor than'],
+    ['ฑ','ฑ มณโฑ','ט (נדירה)','thor montho'],['ฒ','ฒ ผู้เฒ่า','ט (נדירה)','thor phu thao'],['ณ','ณ เณร','נ (נדירה)','nor nen'],['ด','ด เด็ก','ד (דור דק)','dor dek'],
+    ['ต','ต เต่า','ט רכה (טור טאו)','tor tao'],['ถ','ถ ถุง','ט (טור טונג)','thor thung'],['ท','ท ทหาร','ט (טור טהאן)','thor thahan'],['ธ','ธ ธง','ט (טור טונג)','thor thong'],
+    ['น','น หนู','נ (נור נו)','nor nu'],['บ','บ ใบไม้','ב (בור באי-מאי)','bor bai mai'],['ป','ป ปลา','פּ רכה (פור פלא)','por pla'],['ผ','ผ ผึ้ง','פּ (פור פאנג)','phor phueng'],
+    ['ฝ','ฝ ฝา','פ (פור פא)','for fa'],['พ','พ พาน','פּ (פור פאן)','phor phan'],['ฟ','ฟ ฟัน','פ (פור פאן)','for fan'],['ภ','ภ สำเภา','פּ (נדירה)','phor samphao'],
+    ['ม','ม ม้า','מ (מור מא)','mor ma'],['ย','ย ยักษ์','י (יור יאק)','yor yak'],['ร','ร เรือ','ר (רור רואה)','ror ruea'],['ล','ล ลิง','ל (לור לינג)','lor ling'],
+    ['ว','ว แหวน','ו (וור ואן)','wor waen'],['ศ','ศ ศาลา','ס (סור סאלא)','sor sala'],['ษ','ษ ฤๅษี','ס (נדירה)','sor rue-si'],['ส','ส เสือ','ס (סור סואה)','sor suea'],
+    ['ห','ห หีบ','ה (הור היפ)','hor hip'],['ฬ','ฬ จุฬา','ל (נדירה)','lor chula'],['อ','อ อ่าง','א (אור אנג)','or ang'],['ฮ','ฮ นกฮูก','ה (הור נוק-הוק)','hor nok huk']
+  ]
+};
+
+/* Concepts: [id, category, level, Hebrew meaning, English meaning]
+   Levels: 1 = letters, 2 = core survival words, 3 = travel vocabulary, 4 = phrases, 5 = my words */
+const CONCEPTS = [
+  ['hello','greet',2,'שלום','Hello'],['bye','greet',2,'להתראות','Goodbye'],['morning','greet',2,'בוקר טוב','Good morning'],
+  ['thanks','greet',2,'תודה','Thank you'],['please','greet',2,'בבקשה','Please'],['sorry','greet',2,'סליחה','Sorry'],
+  ['yes','greet',2,'כן','Yes'],['no','greet',2,'לא','No'],['howareyou','greet',2,'מה שלומך?','How are you?'],
+  ['good','greet',2,'טוב','Good'],['ok','greet',2,'בסדר','OK'],
+  ['n1','num',2,'1 · אחת','1 · One'],['n2','num',2,'2 · שתיים','2 · Two'],['n3','num',2,'3 · שלוש','3 · Three'],['n4','num',2,'4 · ארבע','4 · Four'],
+  ['n5','num',2,'5 · חמש','5 · Five'],['n6','num',2,'6 · שש','6 · Six'],['n7','num',2,'7 · שבע','7 · Seven'],['n8','num',2,'8 · שמונה','8 · Eight'],
+  ['n9','num',2,'9 · תשע','9 · Nine'],['n10','num',2,'10 · עשר','10 · Ten'],
+  ['water','basic',2,'מים','Water'],['toilet','basic',2,'שירותים','Toilet'],['where','basic',2,'איפה?','Where?'],
+  ['howmuch','basic',2,'כמה?','How much?'],['this','basic',2,'זה','This'],['friend','basic',2,'חבר','Friend'],
+  ['food','food',3,'אוכל','Food'],['bread','food',3,'לחם','Bread'],['coffee','food',3,'קפה','Coffee'],['tea','food',3,'תה','Tea'],
+  ['chicken','food',3,'עוף','Chicken'],['fish','food',3,'דג','Fish'],['rice','food',3,'אורז','Rice'],['beer','food',3,'בירה','Beer'],
+  ['bill','food',3,'החשבון','The bill'],['tasty','food',3,'טעים','Delicious'],
+  ['taxi','trans',3,'מונית','Taxi'],['bus','trans',3,'אוטובוס','Bus'],['train','trans',3,'רכבת','Train'],['airport','trans',3,'שדה תעופה','Airport'],
+  ['hotel','trans',3,'מלון','Hotel'],['left','trans',3,'שמאלה','Left'],['right','trans',3,'ימינה','Right'],['straight','trans',3,'ישר','Straight ahead'],
+  ['stop','trans',3,'עצור','Stop'],['ticket','trans',3,'כרטיס','Ticket'],
+  ['money','shop',3,'כסף','Money'],['expensive','shop',3,'יקר','Expensive'],['cheap','shop',3,'זול','Cheap'],['market','shop',3,'שוק','Market'],
+  ['pharmacy','shop',3,'בית מרקחת','Pharmacy'],['open','shop',3,'פתוח','Open'],['closed','shop',3,'סגור','Closed'],
+  ['help','emerg',3,'הצילו!','Help!'],['police','emerg',3,'משטרה','Police'],['doctor','emerg',3,'רופא','Doctor'],['hospital','emerg',3,'בית חולים','Hospital'],
+  ['today','time',3,'היום','Today'],['tomorrow','time',3,'מחר','Tomorrow'],['yesterday','time',3,'אתמול','Yesterday'],['now','time',3,'עכשיו','Now'],
+  ['p_toilet','phr',4,'איפה השירותים?','Where is the toilet?'],['p_cost','phr',4,'כמה זה עולה?','How much does it cost?'],
+  ['p_nounder','phr',4,'אני לא מבין','I don\'t understand'],['p_english','phr',4,'אתה מדבר אנגלית?','Do you speak English?'],
+  ['p_slow','phr',4,'דבר לאט בבקשה','Please speak slowly'],['p_bill','phr',4,'את החשבון בבקשה','The bill, please'],
+  ['p_want','phr',4,'אני רוצה את זה','I want this one'],['p_expensive','phr',4,'זה יקר מדי','It\'s too expensive'],
+  ['p_discount','phr',4,'אפשר הנחה?','Can I get a discount?'],['p_address','phr',4,'קח אותי לכתובת הזאת','Take me to this address'],
+  ['p_hotel','phr',4,'איפה המלון?','Where is the hotel?'],['p_doctor','phr',4,'אני צריך רופא','I need a doctor'],
+  ['p_police','phr',4,'תתקשר למשטרה!','Call the police!'],['p_israel','phr',4,'אני מישראל','I\'m from Israel'],
+  ['p_name','phr',4,'קוראים לי...','My name is...'],['p_nice','phr',4,'נעים מאוד','Nice to meet you'],
+  ['p_water','phr',4,'מים בבקשה','Water, please'],['p_help','phr',4,'אתה יכול לעזור לי?','Can you help me?'],
+  ['p_what','phr',4,'מה זה?','What is this?'],['p_nospicy','phr',4,'בלי חריף בבקשה','Not spicy, please']
+];
+
+/* Translations — one line per concept: id | native text | Latin transliteration | pronunciation in Hebrew letters */
+const WD_RAW = {
+en: `hello|Hello||הלו
+bye|Goodbye||גוּד-באי
+morning|Good morning||גוּד מורנינג
+thanks|Thank you||תנק יו
+please|Please||פליז
+sorry|Sorry||סורי
+yes|Yes||יס
+no|No||נואו
+howareyou|How are you?||האו אר יו
+good|Good||גוּד
+ok|OK||אוקיי
+n1|One||וואן
+n2|Two||טו
+n3|Three||ת׳רי
+n4|Four||פור
+n5|Five||פייב
+n6|Six||סיקס
+n7|Seven||סבן
+n8|Eight||אייט
+n9|Nine||ניין
+n10|Ten||טן
+water|Water||ווטר
+toilet|Toilet||טוילט
+where|Where?||וור
+howmuch|How much?||האו מאץ׳
+this|This||דיס
+friend|Friend||פרנד
+food|Food||פוּד
+bread|Bread||ברד
+coffee|Coffee||קופי
+tea|Tea||טי
+chicken|Chicken||צ׳יקן
+fish|Fish||פיש
+rice|Rice||רייס
+beer|Beer||ביר
+bill|The bill||דה ביל
+tasty|Delicious||דלישס
+taxi|Taxi||טקסי
+bus|Bus||באס
+train|Train||טריין
+airport|Airport||ארפורט
+hotel|Hotel||הוטל
+left|Left||לפט
+right|Right||רייט
+straight|Straight ahead||סטרייט אהד
+stop|Stop||סטופ
+ticket|Ticket||טיקט
+money|Money||מאני
+expensive|Expensive||אקספנסיב
+cheap|Cheap||צ׳יפ
+market|Market||מרקט
+pharmacy|Pharmacy||פרמסי
+open|Open||אופן
+closed|Closed||קלוזד
+help|Help!||הלפ
+police|Police||פוליס
+doctor|Doctor||דוקטור
+hospital|Hospital||הוספיטל
+today|Today||טודיי
+tomorrow|Tomorrow||טומורו
+yesterday|Yesterday||יסטרדיי
+now|Now||נאו
+p_toilet|Where is the restroom?||וור איז דה רסטרום
+p_cost|How much does it cost?||האו מאץ׳ דאז איט קוסט
+p_nounder|I don't understand||איי דונט אנדרסטנד
+p_english|Do you speak English?||דו יו ספיק אינגליש
+p_slow|Please speak slowly||פליז ספיק סלואולי
+p_bill|The bill, please||דה ביל, פליז
+p_want|I want this one||איי וואנט דיס וואן
+p_expensive|It's too expensive||איטס טו אקספנסיב
+p_discount|Can I get a discount?||קן איי גט א דיסקאונט
+p_address|Please take me to this address||פליז טייק מי טו דיס אדרס
+p_hotel|Where is the hotel?||וור איז דה הוטל
+p_doctor|I need a doctor||איי ניד א דוקטור
+p_police|Call the police!||קול דה פוליס
+p_israel|I'm from Israel||איים פרום איזראל
+p_name|My name is ...||מאי ניים איז
+p_nice|Nice to meet you||נייס טו מיט יו
+p_water|Water, please||ווטר, פליז
+p_help|Can you help me?||קן יו הלפ מי
+p_what|What is this?||וואט איז דיס
+p_nospicy|Not spicy, please||נוט ספייסי, פליז`,
+
+es: `hello|Hola||אולה
+bye|Adiós||אדיוס
+morning|Buenos días||בואנוס דיאס
+thanks|Gracias||גרסיאס
+please|Por favor||פור פבור
+sorry|Perdón||פרדון
+yes|Sí||סי
+no|No||נו
+howareyou|¿Cómo estás?||קומו אסטאס
+good|Bien||ביין
+ok|Está bien||אסטה ביין
+n1|Uno||אונו
+n2|Dos||דוס
+n3|Tres||טרס
+n4|Cuatro||קואטרו
+n5|Cinco||סינקו
+n6|Seis||סייס
+n7|Siete||סייטה
+n8|Ocho||אוצ׳ו
+n9|Nueve||נואבה
+n10|Diez||דייס
+water|Agua||אגואה
+toilet|El baño||אל באניו
+where|¿Dónde?||דונדה
+howmuch|¿Cuánto?||קואנטו
+this|Esto||אסטו
+friend|Amigo||אמיגו
+food|Comida||קומידה
+bread|Pan||פאן
+coffee|Café||קפה
+tea|Té||טה
+chicken|Pollo||פויו
+fish|Pescado||פסקאדו
+rice|Arroz||ארוס
+beer|Cerveza||סרבסה
+bill|La cuenta||לה קואנטה
+tasty|Delicioso||דליסיוסו
+taxi|Taxi||טקסי
+bus|Autobús||אאוטובוס
+train|Tren||טרן
+airport|Aeropuerto||אארופוארטו
+hotel|Hotel||אוטל
+left|Izquierda||איסקיירדה
+right|Derecha||דרצ׳ה
+straight|Todo recto||טודו רקטו
+stop|Alto||אלטו
+ticket|Boleto||בולטו
+money|Dinero||דינרו
+expensive|Caro||קארו
+cheap|Barato||בראטו
+market|Mercado||מרקאדו
+pharmacy|Farmacia||פרמסיה
+open|Abierto||אביירטו
+closed|Cerrado||סראדו
+help|¡Ayuda!||איודה
+police|Policía||פוליסיה
+doctor|Médico||מדיקו
+hospital|Hospital||אוספיטל
+today|Hoy||אוי
+tomorrow|Mañana||מניאנה
+yesterday|Ayer||אייר
+now|Ahora||אאורה
+p_toilet|¿Dónde está el baño?||דונדה אסטה אל באניו
+p_cost|¿Cuánto cuesta?||קואנטו קואסטה
+p_nounder|No entiendo||נו אנטיינדו
+p_english|¿Habla inglés?||אבלה אינגלס
+p_slow|Hable más despacio, por favor||אבלה מאס דספסיו, פור פבור
+p_bill|La cuenta, por favor||לה קואנטה, פור פבור
+p_want|Quiero esto||קיירו אסטו
+p_expensive|Es muy caro||אס מוי קארו
+p_discount|¿Me hace un descuento?||מה אסה און דסקואנטו
+p_address|Lléveme a esta dirección, por favor||ייבמה א אסטה דירקסיון, פור פבור
+p_hotel|¿Dónde está el hotel?||דונדה אסטה אל אוטל
+p_doctor|Necesito un médico||נססיטו און מדיקו
+p_police|¡Llame a la policía!||יאמה א לה פוליסיה
+p_israel|Soy de Israel||סוי דה איסראל
+p_name|Me llamo ...||מה יאמו
+p_nice|Mucho gusto||מוצ׳ו גוסטו
+p_water|Agua, por favor||אגואה, פור פבור
+p_help|¿Me puede ayudar?||מה פואדה איודאר
+p_what|¿Qué es esto?||קה אס אסטו
+p_nospicy|Sin picante, por favor||סין פיקאנטה, פור פבור`,
+
+ru: `hello|Здравствуйте|zdravstvuyte|זדרסטבויטה
+bye|До свидания|do svidaniya|דו סבידאניה
+morning|Доброе утро|dobroye utro|דוברויה אוטרה
+thanks|Спасибо|spasibo|ספסיבה
+please|Пожалуйста|pozhaluysta|פאז׳לוסטה
+sorry|Извините|izvinite|איזביניטה
+yes|Да|da|דה
+no|Нет|net|ניעט
+howareyou|Как дела?|kak dela|קאק דילה
+good|Хорошо|khorosho|חרשו
+ok|Ладно|ladno|לאדנה
+n1|Один|odin|אדין
+n2|Два|dva|דבה
+n3|Три|tri|טרי
+n4|Четыре|chetyre|צ׳יטירה
+n5|Пять|pyat|פיאט
+n6|Шесть|shest|שסט
+n7|Семь|sem|סיים
+n8|Восемь|vosem|ווסים
+n9|Девять|devyat|דייביט
+n10|Десять|desyat|דייסיט
+water|Вода|voda|ואדה
+toilet|Туалет|tualet|טואלייט
+where|Где?|gde|גדיה
+howmuch|Сколько?|skolko|סקולקה
+this|Это|eto|אטה
+friend|Друг|drug|דרוק
+food|Еда|yeda|יידה
+bread|Хлеб|khleb|חלייפ
+coffee|Кофе|kofe|קופיה
+tea|Чай|chay|צ׳אי
+chicken|Курица|kuritsa|קוריצה
+fish|Рыба|ryba|ריבה
+rice|Рис|ris|ריס
+beer|Пиво|pivo|פיבה
+bill|Счёт|schyot|שיוט
+tasty|Вкусно|vkusno|פקוסנה
+taxi|Такси|taksi|טקסי
+bus|Автобус|avtobus|אפטובוס
+train|Поезд|poyezd|פויעזד
+airport|Аэропорт|aeroport|אירופורט
+hotel|Гостиница|gostinitsa|גסטיניצה
+left|Налево|nalevo|נליעבה
+right|Направо|napravo|נפראבה
+straight|Прямо|pryamo|פריאמה
+stop|Стоп|stop|סטופ
+ticket|Билет|bilet|בילייט
+money|Деньги|dengi|דייניגי
+expensive|Дорого|dorogo|דורגה
+cheap|Дёшево|dyoshevo|דיושבה
+market|Рынок|rynok|רינק
+pharmacy|Аптека|apteka|אפטייקה
+open|Открыто|otkryto|אטקריטה
+closed|Закрыто|zakryto|זקריטה
+help|Помогите!|pomogite|פאמאגיטיה
+police|Полиция|politsiya|פליציה
+doctor|Врач|vrach|וראץ׳
+hospital|Больница|bolnitsa|בולניצה
+today|Сегодня|segodnya|סיבודניה
+tomorrow|Завтра|zavtra|זאפטרה
+yesterday|Вчера|vchera|פצ׳ירה
+now|Сейчас|seychas|סיצ׳אס
+p_toilet|Где туалет?|gde tualet|גדיה טואלייט
+p_cost|Сколько это стоит?|skolko eto stoit|סקולקה אטה סטויט
+p_nounder|Я не понимаю|ya ne ponimayu|יא ני פנימאיו
+p_english|Вы говорите по-английски?|vy govorite po-angliyski|וי גבריטיה פא-אנגלייסקי
+p_slow|Говорите медленнее, пожалуйста|govorite medlenneye, pozhaluysta|גבריטיה מיידליניה, פאז׳לוסטה
+p_bill|Счёт, пожалуйста|schyot, pozhaluysta|שיוט, פאז׳לוסטה
+p_want|Я хочу это|ya khochu eto|יא חצ׳ו אטה
+p_expensive|Это слишком дорого|eto slishkom dorogo|אטה סלישקם דורגה
+p_discount|Можно скидку?|mozhno skidku|מוז׳נה סקידקו
+p_address|Отвезите меня по этому адресу|otvezite menya po etomu adresu|אטביזיטיה מיניא פא אטמו אדרסו
+p_hotel|Где гостиница?|gde gostinitsa|גדיה גסטיניצה
+p_doctor|Мне нужен врач|mne nuzhen vrach|מניה נוז׳ן וראץ׳
+p_police|Вызовите полицию!|vyzovite politsiyu|ויזאביטיה פליציו
+p_israel|Я из Израиля|ya iz Izrailya|יא איז איזראילה
+p_name|Меня зовут ...|menya zovut|מיניא זבוט
+p_nice|Очень приятно|ochen priyatno|אוצ׳ן פריאטנה
+p_water|Воды, пожалуйста|vody, pozhaluysta|ואדי, פאז׳לוסטה
+p_help|Вы можете мне помочь?|vy mozhete mne pomoch|וי מוז׳טיה מניה פאמוץ׳
+p_what|Что это?|chto eto|שטו אטה
+p_nospicy|Не острое, пожалуйста|ne ostroye, pozhaluysta|ני אוסטרויה, פאז׳לוסטה`,
+
+ar: `hello|مرحبا|marhaba|מרחבא
+bye|مع السلامة|ma'a as-salama|מע א-סלאמה
+morning|صباح الخير|sabah al-khayr|צבאח אל-ח׳יר
+thanks|شكرا|shukran|שוכרן
+please|من فضلك|min fadlak|מן פדלכ
+sorry|آسف|asif|אסף
+yes|نعم|na'am|נעם
+no|لا|la|לא
+howareyou|كيف حالك؟|kayf halak|כיף חאלכ
+good|جيد|jayyid|ג׳ייד
+ok|حسنا|hasanan|חסנן
+n1|واحد|wahid|ואחד
+n2|اثنان|ithnan|אתנאן
+n3|ثلاثة|thalatha|תלאתה
+n4|أربعة|arba'a|ארבעה
+n5|خمسة|khamsa|ח׳מסה
+n6|ستة|sitta|סתה
+n7|سبعة|sab'a|סבעה
+n8|ثمانية|thamaniya|תמאניה
+n9|تسعة|tis'a|תסעה
+n10|عشرة|'ashara|עשרה
+water|ماء|maa|מאא
+toilet|الحمام|al-hammam|אל-חמאם
+where|أين؟|ayna|אין
+howmuch|كم؟|kam|כם
+this|هذا|hatha|האד׳א
+friend|صديق|sadiq|צדיק
+food|طعام|ta'am|טעאם
+bread|خبز|khubz|ח׳ובז
+coffee|قهوة|qahwa|קהווה
+tea|شاي|shay|שאי
+chicken|دجاج|dajaj|דג׳אג׳
+fish|سمك|samak|סמכ
+rice|أرز|aruzz|ארז
+beer|بيرة|bira|בירה
+bill|الحساب|al-hisab|אל-חסאב
+tasty|لذيذ|ladhidh|לד׳יד׳
+taxi|تاكسي|taksi|טאכסי
+bus|حافلة|hafila|חאפלה
+train|قطار|qitar|קטאר
+airport|مطار|matar|מטאר
+hotel|فندق|funduq|פונדק
+left|يسار|yasar|יסאר
+right|يمين|yamin|ימין
+straight|على طول|'ala tul|עלא טול
+stop|قف|qif|קף
+ticket|تذكرة|tadhkira|תד׳כרה
+money|نقود|nuqud|נוקוד
+expensive|غالي|ghali|ע׳אלי
+cheap|رخيص|rakhis|רח׳יץ
+market|سوق|suq|סוק
+pharmacy|صيدلية|saydaliyya|צידליה
+open|مفتوح|maftuh|מפתוח
+closed|مغلق|mughlaq|מע׳לק
+help|النجدة!|an-najda|א-נג׳דה
+police|شرطة|shurta|שורטה
+doctor|طبيب|tabib|טביב
+hospital|مستشفى|mustashfa|מוסתשפא
+today|اليوم|al-yawm|אל-יום
+tomorrow|غدا|ghadan|ע׳דן
+yesterday|أمس|ams|אמס
+now|الآن|al-an|אל-אן
+p_toilet|أين الحمام؟|ayna al-hammam|אין אל-חמאם
+p_cost|كم السعر؟|kam as-si'r|כם א-סער
+p_nounder|لا أفهم|la afham|לא אפהם
+p_english|هل تتكلم الإنجليزية؟|hal tatakallam al-injliziyya|הל תתכלם אל-אינג׳ליזיה
+p_slow|تكلم ببطء من فضلك|takallam bi-but' min fadlak|תכלם בבוטא מן פדלכ
+p_bill|الحساب من فضلك|al-hisab min fadlak|אל-חסאב מן פדלכ
+p_want|أريد هذا|urid hatha|אוריד האד׳א
+p_expensive|هذا غالٍ جدا|hatha ghali jiddan|האד׳א ע׳אלי ג׳דן
+p_discount|هل يمكن تخفيض؟|hal yumkin takhfid|הל יומכן תח׳פיץ
+p_address|خذني إلى هذا العنوان|khudhni ila hatha al-'unwan|ח׳ד׳ני אלא האד׳א אל-עונואן
+p_hotel|أين الفندق؟|ayna al-funduq|אין אל-פונדק
+p_doctor|أحتاج إلى طبيب|ahtaj ila tabib|אחתאג׳ אלא טביב
+p_police|اتصل بالشرطة!|ittasil bish-shurta|אתצל באשורטה
+p_israel|أنا من إسرائيل|ana min isra'il|אנא מן אסראאיל
+p_name|اسمي ...|ismi|אסמי
+p_nice|تشرفنا|tasharrafna|תשרפנא
+p_water|ماء من فضلك|maa min fadlak|מאא מן פדלכ
+p_help|هل يمكنك مساعدتي؟|hal yumkinuka musa'adati|הל יומכנכ מסאעדתי
+p_what|ما هذا؟|ma hatha|מא האד׳א
+p_nospicy|بدون حار من فضلك|bidun harr min fadlak|בדון חאר מן פדלכ`,
+
+th: `hello|สวัสดีครับ|sawatdee khrap|סוואדי קראפ
+bye|ลาก่อนครับ|la kon khrap|לא-גון קראפ
+morning|สวัสดีตอนเช้า|sawatdee ton chao|סוואדי טון צ׳או
+thanks|ขอบคุณครับ|khop khun khrap|קופ קון קראפ
+please|กรุณา|karuna|גרונא
+sorry|ขอโทษครับ|kho thot khrap|קו-טוט קראפ
+yes|ใช่|chai|צ׳אי
+no|ไม่|mai|מאי
+howareyou|สบายดีไหม|sabai dee mai|סבאי די מאי
+good|ดี|dee|די
+ok|โอเค|okay|אוקיי
+n1|หนึ่ง|nueng|נאנג
+n2|สอง|song|סונג
+n3|สาม|sam|סאם
+n4|สี่|si|סי
+n5|ห้า|ha|הא
+n6|หก|hok|הוק
+n7|เจ็ด|chet|ג׳ט
+n8|แปด|paet|פאט
+n9|เก้า|kao|גאו
+n10|สิบ|sip|סיפ
+water|น้ำ|nam|נאם
+toilet|ห้องน้ำ|hong nam|הונג נאם
+where|ที่ไหน|thi nai|טי-נאי
+howmuch|เท่าไหร่|thao rai|טאו-ראי
+this|อันนี้|an ni|אן-ני
+friend|เพื่อน|phuean|פואן
+food|อาหาร|a-han|אהאן
+bread|ขนมปัง|khanom pang|קנום-פאנג
+coffee|กาแฟ|kafae|גאפה
+tea|ชา|cha|צ׳א
+chicken|ไก่|kai|גאי
+fish|ปลา|pla|פלא
+rice|ข้าว|khao|קאו
+beer|เบียร์|bia|ביא
+bill|เช็คบิล|chek bin|צ׳ק בין
+tasty|อร่อย|aroi|ארוי
+taxi|แท็กซี่|thaeksi|טקסי
+bus|รถเมล์|rot me|רוט-מה
+train|รถไฟ|rot fai|רוט-פאי
+airport|สนามบิน|sanam bin|סנאם-בין
+hotel|โรงแรม|rong raem|רונג-רם
+left|ซ้าย|sai|סאי
+right|ขวา|khwa|קווא
+straight|ตรงไป|trong pai|טרונג-פאי
+stop|หยุด|yut|יוט
+ticket|ตั๋ว|tua|טואה
+money|เงิน|ngoen|נגן
+expensive|แพง|phaeng|פנג
+cheap|ถูก|thuk|טוק
+market|ตลาด|talat|טלאט
+pharmacy|ร้านขายยา|ran khai ya|ראן-קאי-יא
+open|เปิด|poet|פוט
+closed|ปิด|pit|פיט
+help|ช่วยด้วย|chuai duai|צ׳ואי דואי
+police|ตำรวจ|tamruat|טאמרואט
+doctor|หมอ|mo|מו
+hospital|โรงพยาบาล|rong phayaban|רונג-פיאבאן
+today|วันนี้|wan ni|וואן-ני
+tomorrow|พรุ่งนี้|phrung ni|פרונג-ני
+yesterday|เมื่อวาน|muea wan|מואה-וואן
+now|ตอนนี้|ton ni|טון-ני
+p_toilet|ห้องน้ำอยู่ที่ไหนครับ|hong nam yu thi nai khrap|הונג נאם יו טי-נאי קראפ
+p_cost|ราคาเท่าไหร่ครับ|ra-kha thao rai khrap|ראקא טאו-ראי קראפ
+p_nounder|ผมไม่เข้าใจครับ|phom mai khao jai khrap|פום מאי קאו-ג׳אי קראפ
+p_english|คุณพูดภาษาอังกฤษได้ไหมครับ|khun phut phasa angkrit dai mai khrap|קון פוט פאסא אנגקריט דאי מאי קראפ
+p_slow|พูดช้าๆ หน่อยครับ|phut cha cha noi khrap|פוט צ׳א-צ׳א נוי קראפ
+p_bill|เช็คบิลด้วยครับ|chek bin duai khrap|צ׳ק בין דואי קראפ
+p_want|ผมเอาอันนี้ครับ|phom ao an ni khrap|פום או אן-ני קראפ
+p_expensive|แพงไปครับ|phaeng pai khrap|פנג פאי קראפ
+p_discount|ลดได้ไหมครับ|lot dai mai khrap|לוט דאי מאי קראפ
+p_address|ไปที่อยู่นี้ครับ|pai thi yu ni khrap|פאי טי-יו ני קראפ
+p_hotel|โรงแรมอยู่ที่ไหนครับ|rong raem yu thi nai khrap|רונג-רם יו טי-נאי קראפ
+p_doctor|ผมต้องการหมอครับ|phom tongkan mo khrap|פום טונג-גאן מו קראפ
+p_police|เรียกตำรวจด้วยครับ|riak tamruat duai khrap|ריאק טאמרואט דואי קראפ
+p_israel|ผมมาจากอิสราเอลครับ|phom ma chak Israel khrap|פום מא ג׳אק איסראל קראפ
+p_name|ผมชื่อ ... ครับ|phom chue ... khrap|פום צ׳ו ... קראפ
+p_nice|ยินดีที่ได้รู้จักครับ|yin di thi dai ru chak khrap|יין-די טי דאי רו-ג׳אק קראפ
+p_water|ขอน้ำหน่อยครับ|kho nam noi khrap|קו נאם נוי קראפ
+p_help|ช่วยผมได้ไหมครับ|chuai phom dai mai khrap|צ׳ואי פום דאי מאי קראפ
+p_what|นี่คืออะไรครับ|ni khue arai khrap|ני קו אראי קראפ
+p_nospicy|ไม่เผ็ดครับ|mai phet khrap|מאי פט קראפ`
+};
+
+/* Short notes shown on the letters screen (keys resolved through T()) */
+const ALPHA_NOTE = { en: 'noteEn', es: 'noteEs', ru: 'noteRu', ar: 'noteAr', th: 'noteTh' };
+
+const WD = {};
+for (const l in WD_RAW) {
+  WD[l] = {};
+  WD_RAW[l].split('\n').forEach(line => {
+    const p = line.split('|');
+    if (p.length >= 4) WD[l][p[0].trim()] = [p[1].trim(), p[2].trim(), p[3].trim()];
+  });
+}
+
+/* ===== LingoNest — i18n.js : UI text in 5 languages (he, en, ru, es, ar). Missing key → English. ===== */
+const LANG = {
+he: {
+  tagline: 'ללמוד לדבר, בכל מקום', helloName: 'שלום {n}, לאן נוסעים היום?', helloAnon: 'שלום! לאן נוסעים היום?',
+  chooseLang: 'בחירת שפה', wordOfDay: 'מילת היום', streak: 'רצף ימים', streakN: 'רצף: {n} ימים',
+  level: 'רמה', lvl1: 'אותיות וצלילים', lvl2: 'מילות הישרדות', lvl3: 'אוצר מילים לטיול', lvl4: 'משפטים לטיול', lvl5: 'המילים שלי',
+  continue: 'המשך ללמוד', ctaSub: '{d} לחזרה · {n} חדשות להיום',
+  letters: 'אותיות', lettersCount: 'אותיות', words: 'מילים', wordsSub: 'לפי נושאים', phrases: 'משפטים', phrasesSub: 'משפטים מוכנים לטיול',
+  practice: 'תרגול', practiceSub: 'חזרות, מועדפים, טעויות', speakForMe: 'דבר בשבילי', speakSub: 'כתוב משפט, והאפליקציה תקריא ב{l}',
+  progress: 'ההתקדמות שלי', progressSub: 'רמות, רצף וגרף שבועי',
+  aiStatus: 'חיבור בינה', connected: 'מחובר', notConnected: 'לא מחובר', design: 'עיצוב', about: 'אודות', settings: 'הגדרות',
+  back: 'חזרה', home: 'דף הבית', listen: 'השמע', slow: 'השמע לאט', showBig: 'הצג גדול', fav: 'מועדף', edit: 'עריכה',
+  fileWarn: 'האפליקציה נפתחה מקובץ מקומי. מיקרופון, עבודה אופליין והתקנה לא יעבדו כך — פתח אותה מהכתובת באינטרנט.',
+  noteEn: 'באנגלית 26 אותיות. לכל אות שם משלה, והצליל משתנה לפי המילה.',
+  noteEs: 'בספרדית קוראים כמעט בדיוק כמו שכותבים. שים לב ל-Ñ, ל-J (ח) ול-H השקטה.',
+  noteRu: 'באלפבית הקירילי 33 אותיות. חלקן נראות כמו אנגלית אבל נשמעות אחרת (Р = ר, Н = נ, В = ו).',
+  noteAr: 'ערבית נכתבת מימין לשמאל, כמו עברית. לרוב האותיות יש צורה שונה בתחילת, באמצע ובסוף מילה.',
+  noteTh: 'בתאית 44 עיצורים, והצליל תלוי גם בטון. התנועות ייכנסו בגרסה הבאה — בינתיים המילים והמשפטים מלמדים אותן בפועל.',
+  noteGeneric: 'האותיות של השפה עם הצליל שלהן.',
+  practiceLetters: 'תרגול אותיות', seen: 'ראיתי', mastered: 'שולט',
+  cat_greet: 'ברכות ונימוס', cat_num: 'מספרים', cat_basic: 'מילות יסוד', cat_food: 'אוכל ומסעדה', cat_trans: 'תחבורה וכיוונים',
+  cat_shop: 'קניות וכסף', cat_emerg: 'חירום', cat_time: 'זמן', cat_phr: 'משפטים לטיול', cat_mine: 'המילים שלי', cat_letters: 'אותיות',
+  mineEmpty: 'עוד ריק — הוסף מילים משלך', mineEmptyLong: 'עוד אין כאן מילים. הוסף מילה ידנית, או צור חבילת מילים לפי נושא עם בינה.',
+  practiceThis: 'תרגל את הנושא', addWord: 'הוסף מילה', editWord: 'עריכת מילה', aiWordsBtn: 'צור מילים לפי נושא',
+  itemsN: 'פריטים', prDue: 'חזרות שהגיע זמנן', prFav: 'המועדפים שלי', prWeak: 'הטעויות שלי', prListen: 'תרגול שמיעה',
+  nothingNow: 'אין כרגע מה לתרגל כאן. נסה נושא אחר או חזור מחר.',
+  newItem: 'חדש', sayIt: 'נסה להגיד', gotIt: 'הבנתי, הלאה', soundsLike: 'נשמע כמו:', whichLetter: 'איזו אות נשמעת כך?',
+  qT2M: 'מה פירוש המילה?', qM2T: 'איך אומרים את זה?', qA2T: 'מה שמעת?', qT2S: 'איך נשמעת האות?', qS2T: 'איזו אות?',
+  right: 'נכון!', wrongWas: 'התשובה הנכונה:', next: 'הבא', sumLine: 'צדקת ב-{ok} מתוך {t}', sumNew: 'למדת {n} פריטים חדשים',
+  another: 'עוד סבב', listening: '🎤 מקשיב…', saidGood: 'מעולה, הבנתי אותך!', saidHeard: 'שמעתי:',
+  noTTS: 'הדפדפן הזה לא תומך בהקראה.', noVoice: 'אין במכשיר קול ל{l}. ההגדרות מסבירות איך להוסיף.',
+  noSR: 'זיהוי דיבור עובד בכרום במחשב ובאנדרואיד.', srErr: 'זיהוי הדיבור נכשל', fileMic: 'המיקרופון עובד רק כשהאפליקציה פתוחה מכתובת https.',
+  speakIntro: 'כתוב מה שאתה רוצה להגיד, והאפליקציה תתרגם ותקריא בקול — או תציג בגדול כדי להראות לאדם שמולך.',
+  modeTranslate: 'תרגם מעברית', modeDirect: 'הקלדה ב{l}', typeIn: 'כתוב ב{l}', typeHe: 'מה תרצה להגיד?', spkPh: 'לדוגמה: איפה אפשר לקנות כרטיס סים?',
+  playIt: 'השמע', translate: 'תרגם והשמע', noAiHint: 'תרגום חופשי דורש חיבור בינה (Gemini בחינם). בלי חיבור — אפשר לפתוח ב-Google Translate או להקליד ישירות בשפה.',
+  connectAi: 'חבר בינה', saveIt: 'שמור', aiDisclaimer: 'תרגום של בינה — ברוב המקרים מדויק, אבל כדאי לבדוק משפטים חשובים.',
+  myPhrases: 'המשפטים שלי', noPhrases: 'עוד לא שמרת משפטים. משפט ששמרת יחכה כאן גם בלי אינטרנט.', printBook: 'שיחון להדפסה / PDF',
+  editPhrase: 'עריכת משפט', fSrc: 'המשפט המקורי', fText: 'הטקסט ב{l}', fHeb: 'הגייה באותיות עבריות', fRoman: 'תעתיק לטיני', fMeaning: 'הפירוש בעברית',
+  save: 'שמור', delete: 'מחק', cancel: 'ביטול', close: 'סגור', saved: 'נשמר', deleted: 'נמחק', confirmDelete: 'למחוק? אי אפשר לבטל.',
+  fillBoth: 'צריך למלא פירוש וטקסט.', typeFirst: 'קודם כתוב משפט.', working: 'עובד…',
+  needAi: 'הפעולה הזו דורשת חיבור בינה. אפשר לחבר Gemini בחינם בהגדרות.',
+  aiWordsHint: 'כתוב נושא, והבינה תיצור מילים שימושיות עם הגייה. הן יתווספו לרמה 5 ויכנסו לתרגול.',
+  topic: 'נושא', topicPh: 'לדוגמה: חוף ים, מלון, שוק לילה', howMany: 'כמה מילים', generate: 'צור מילים', fillTopic: 'כתוב נושא.',
+  addedN: 'נוספו {n} מילים', aiErr: 'שגיאת בינה', aiBadJson: 'הבינה החזירה תשובה לא תקינה, נסה שוב', aiNoKey: 'לא הוגדר מפתח בינה', aiOk: 'החיבור עובד',
+  last7: '7 הימים האחרונים', levelsIn: 'רמות ב{l}', allLangs: 'כל השפות', totalAnswers: 'תשובות', levelRule: 'עוברים לרמה הבאה כששולטים ב-70% מהרמה הנוכחית. פריט נחשב "שולט" אחרי 3 תשובות נכונות ברצף בחזרות מרווחות.',
+  profile: 'פרופיל', userName: 'שם משתמש', uiLang: 'שפת הממשק', night: 'לילה', day: 'יום',
+  th_gold: 'שחור־זהב', th_sapphire: 'ספיר', th_emerald: 'אמרלד', th_wine: 'בורדו', th_copper: 'נחושת',
+  pace: 'קצב למידה', paceHint: 'כמה פריטים חדשים ביום. החזרות מגיעות בנוסף, בזמן הנכון.', paceEasy: 'רגוע', paceNormal: 'רגיל', paceFast: 'אינטנסיבי', perDay: 'ליום',
+  voiceSec: 'הקראה', rate: 'מהירות', voiceFor: 'קול ל{l}', autoVoice: 'אוטומטי (הכי טוב שנמצא)', voiceFound: 'נמצא קול: {v}',
+  voiceMissing: 'לא נמצא במכשיר קול ל{l}, ולכן ההקראה עלולה לא לעבוד.', howAddVoice: 'איך מוסיפים קול?',
+  addVoiceWin: 'Windows: הגדרות ← שעה ושפה ← דיבור ← הוספת קולות, ובחר את השפה. אחר כך סגור ופתח את הדפדפן.',
+  addVoiceAnd: 'אנדרואיד: הגדרות ← ניהול כללי ← המרת טקסט לדיבור ← מנוע Google ← התקנת נתוני קול, ובחר את השפה.',
+  addVoiceIos: 'אייפון: הגדרות ← נגישות ← תוכן מוקרא ← קולות, ובחר את השפה.',
+  testVoice: 'בדוק קול', iSpeakAs: 'אני מדבר בלשון', male: 'זכר', female: 'נקבה',
+  genderHint: 'בתאית גבר מסיים משפט ב-ครับ (קראפ) ואישה ב-ค่ะ (קא). הבחירה משנה את כל המשפטים ואת התרגום.',
+  aiSec: 'חיבור בינה (Pro)', aiIntro: 'האפליקציה עובדת במלואה גם בלי בינה. חיבור מפתח משלך מוסיף תרגום של כל משפט ויצירת מילים לפי נושא.',
+  howKey: 'איך משיגים מפתח?',
+  key_gemini: 'חינם, בלי כרטיס אשראי: היכנס עם חשבון Google ל-AI Studio, לחץ "Create API key", העתק והדבק כאן.',
+  key_claude: 'היכנס ל-Anthropic Console, צור מפתח ב-API Keys, העתק והדבק כאן. נדרש אמצעי תשלום.',
+  key_openai: 'היכנס ל-OpenAI Platform, צור מפתח ב-API keys, העתק והדבק כאן. נדרש אמצעי תשלום.',
+  key_local: 'התקן Ollama במחשב, הרץ מודל (למשל llama3.1), ובחר אותו ברשימה. הכול נשאר במחשב.',
+  apiKey: 'מפתח API', keySaved: 'שמור', saveKey: 'שמור מפתח', disconnect: 'נתק', model: 'מודל', autoModel: 'אוטומטי (מומלץ)',
+  refreshModels: 'רענן מודלים', testAi: 'בדוק חיבור', keyEmpty: 'הדבק מפתח קודם.',
+  keyEnc: 'המפתח מוצפן ונשמר מקומית במכשיר, ואינו נכלל בגיבויים.', keyMem: 'הדפדפן חוסם אחסון מוצפן — המפתח יישמר רק עד סגירת האפליקציה.',
+  confirmDisconnect: 'לנתק ולמחוק את המפתח מהמכשיר?', disconnected: 'נותק', modelsN: 'נמצאו {n} מודלים',
+  aiPrivacy: 'פעולות בינה שולחות את הטקסט שכתבת לספק שבחרת בלבד. המפתח לא עובר דרך שום שרת של AppNest.',
+  backupSec: 'גיבוי ושיתוף', exportJson: 'גיבוי מלא (JSON)', importJson: 'שחזור מגיבוי', exported: 'הקובץ ירד',
+  backupNote: 'הגיבוי כולל התקדמות, משפטים ומילים — בלי מפתחות בינה. שחזור מחליף את כל הנתונים.',
+  confirmRestore: 'לשחזר גיבוי מ-{d} ({u})? כל הנתונים הנוכחיים יוחלפו.', restore: 'שחזר', restored: 'שוחזר בהצלחה', badFile: 'הקובץ לא נראה כמו גיבוי של LingoNest.',
+  persistOk: 'האחסון מוגן ממחיקה אוטומטית של הדפדפן.', persistNo: 'הדפדפן לא אישר אחסון מתמשך — מומלץ לגבות מדי פעם.',
+  guide: 'מדריך', showGuide: 'הצג מדריך', diag: 'אבחון', noErrors: 'לא נרשמו שגיאות.', copyDiag: 'העתק דוח', copied: 'הועתק', copyFail: 'ההעתקה נכשלה',
+  resetSec: 'מחיקת הכל', resetHint: 'מוחק התקדמות, משפטים, מילים, הגדרות ומפתחות, ומחזיר למצב התקנה ראשונה.', resetAll: 'מחק את כל הנתונים',
+  reset1: 'למחוק את כל הנתונים באפליקציה?', reset2: 'בטוח? אין דרך לשחזר בלי גיבוי.', continueBtn: 'המשך',
+  version: 'גרסה', developer: 'פיתוח', platform: 'פלטפורמה', storage: 'אחסון', onDevice: 'על המכשיר בלבד', license: 'רישיון',
+  store: 'חנות AppNest', shareApp: 'שתף את האפליקציה', feedback: 'שלח משוב', privacy: 'מדיניות פרטיות',
+  shareText: 'לומד שפות עם LingoNest {u}', linkCopied: 'הקישור הועתק',
+  disclaimer: 'התוכן, ההגייה בעברית והתרגומים הם עזרי לימוד ועשויים להיות לא מדויקים. במצבי חירום אמיתיים פנה לגורם מוסמך.',
+  saveFail: 'השמירה נכשלה — ייתכן שהאחסון מלא.', backupNudge: 'עבר זמן מאז הגיבוי האחרון. כדאי לגבות בהגדרות.',
+  phrasebook: 'שיחון', date: 'תאריך', boxInfo: 'רמת שליטה {b}/6 · נכון {c} · טעות {w}', notYet: 'עוד לא תרגלת את האות הזו.',
+  skip: 'דלג', start: 'בוא נתחיל',
+  g1t: 'ברוך הבא ל-LingoNest', g1b: 'לומדים את הבסיס של שפה חדשה: אותיות, מילים ומשפטים כדי להסתדר בטיול. הכול בעברית, עם הגייה באותיות עבריות.',
+  g2t: 'איזו שפה קודם?', g2b: 'אפשר להחליף שפה בכל רגע מדף הבית. ההתקדמות נשמרת לכל שפה בנפרד.',
+  g3t: 'רמות לפי הקצב שלך', g3b: 'מתחילים באותיות, ממשיכים למילים ולמשפטים. "המשך ללמוד" בוחר בשבילך מה חדש ומה צריך חזרה.',
+  g4t: 'דבר בשבילי', g4b: 'כתוב משפט, והאפליקציה תקריא אותו בקול או תציג בגדול למי שמולך. שמור משפטים לשימוש בלי אינטרנט.',
+  g5t: 'בדוק את הרמקול', g5b: 'ההקראה משתמשת בקולות של המכשיר. אם שפה לא נשמעת, בהגדרות יש הסבר איך להוסיף קול.'
+},
+en: {
+  tagline: 'Learn to speak, anywhere', helloName: 'Hi {n}, where are we going today?', helloAnon: 'Hi! Where are we going today?',
+  chooseLang: 'Choose language', wordOfDay: 'Word of the day', streak: 'Day streak', streakN: 'Streak: {n} days',
+  level: 'Level', lvl1: 'Letters & sounds', lvl2: 'Survival words', lvl3: 'Travel vocabulary', lvl4: 'Travel phrases', lvl5: 'My words',
+  continue: 'Continue learning', ctaSub: '{d} to review · {n} new today',
+  letters: 'Letters', lettersCount: 'letters', words: 'Words', wordsSub: 'By topic', phrases: 'Phrases', phrasesSub: 'Ready-made travel phrases',
+  practice: 'Practice', practiceSub: 'Reviews, favorites, mistakes', speakForMe: 'Speak for me', speakSub: 'Type a sentence and hear it in {l}',
+  progress: 'My progress', progressSub: 'Levels, streak and weekly chart',
+  aiStatus: 'AI connection', connected: 'connected', notConnected: 'not connected', design: 'Design', about: 'About', settings: 'Settings',
+  back: 'Back', home: 'Home', listen: 'Play', slow: 'Play slowly', showBig: 'Show big', fav: 'Favorite', edit: 'Edit',
+  fileWarn: 'The app was opened from a local file. Microphone, offline mode and install won\'t work — open it from its web address.',
+  noteEn: 'English has 26 letters. Each has a name, and its sound changes from word to word.',
+  noteEs: 'Spanish is read almost exactly as written. Watch for Ñ, J (a throaty h) and the silent H.',
+  noteRu: 'Cyrillic has 33 letters. Some look like English but sound different (Р = r, Н = n, В = v).',
+  noteAr: 'Arabic is written right to left. Most letters change shape at the start, middle and end of a word.',
+  noteTh: 'Thai has 44 consonants, and tone changes meaning. Vowels come in the next version — words and phrases already teach them in practice.',
+  noteGeneric: 'The letters of the language with their sounds.',
+  practiceLetters: 'Practice letters', seen: 'Seen', mastered: 'Mastered',
+  cat_greet: 'Greetings & manners', cat_num: 'Numbers', cat_basic: 'Basic words', cat_food: 'Food & restaurant', cat_trans: 'Transport & directions',
+  cat_shop: 'Shopping & money', cat_emerg: 'Emergency', cat_time: 'Time', cat_phr: 'Travel phrases', cat_mine: 'My words', cat_letters: 'Letters',
+  mineEmpty: 'Empty — add your own words', mineEmptyLong: 'No words here yet. Add one by hand, or create a word pack by topic with AI.',
+  practiceThis: 'Practice this topic', addWord: 'Add word', editWord: 'Edit word', aiWordsBtn: 'Create words by topic',
+  itemsN: 'items', prDue: 'Reviews due now', prFav: 'My favorites', prWeak: 'My mistakes', prListen: 'Listening practice',
+  nothingNow: 'Nothing to practice here right now. Try another topic or come back tomorrow.',
+  newItem: 'New', sayIt: 'Try saying it', gotIt: 'Got it, next', soundsLike: 'Sounds like:', whichLetter: 'Which letter sounds like this?',
+  qT2M: 'What does it mean?', qM2T: 'How do you say this?', qA2T: 'What did you hear?', qT2S: 'How does this letter sound?', qS2T: 'Which letter?',
+  right: 'Correct!', wrongWas: 'The right answer:', next: 'Next', sumLine: 'You got {ok} of {t} right', sumNew: 'You learned {n} new items',
+  another: 'Another round', listening: '🎤 Listening…', saidGood: 'Great, I understood you!', saidHeard: 'I heard:',
+  noTTS: 'This browser doesn\'t support read-aloud.', noVoice: 'No {l} voice on this device. Settings explain how to add one.',
+  noSR: 'Speech recognition works in Chrome on desktop and Android.', srErr: 'Speech recognition failed', fileMic: 'The microphone only works when the app is opened from an https address.',
+  speakIntro: 'Type what you want to say. The app translates it and reads it aloud — or shows it big for the person in front of you.',
+  modeTranslate: 'Translate', modeDirect: 'Type in {l}', typeIn: 'Write in {l}', typeHe: 'What do you want to say?', spkPh: 'For example: where can I buy a SIM card?',
+  playIt: 'Play', translate: 'Translate & play', noAiHint: 'Free translation needs an AI connection (Gemini is free). Without it, open Google Translate or type directly in the language.',
+  connectAi: 'Connect AI', saveIt: 'Save', aiDisclaimer: 'AI translation — usually accurate, but double-check important sentences.',
+  myPhrases: 'My phrases', noPhrases: 'No saved phrases yet. Saved phrases work offline too.', printBook: 'Printable phrasebook / PDF',
+  editPhrase: 'Edit phrase', fSrc: 'Original sentence', fText: 'Text in {l}', fHeb: 'Pronunciation in Hebrew letters', fRoman: 'Latin transliteration', fMeaning: 'Meaning',
+  save: 'Save', delete: 'Delete', cancel: 'Cancel', close: 'Close', saved: 'Saved', deleted: 'Deleted', confirmDelete: 'Delete? This can\'t be undone.',
+  fillBoth: 'Fill in both the meaning and the text.', typeFirst: 'Type a sentence first.', working: 'Working…',
+  needAi: 'This needs an AI connection. You can connect Gemini for free in Settings.',
+  aiWordsHint: 'Type a topic and AI will create useful words with pronunciation. They are added to level 5 and to your practice.',
+  topic: 'Topic', topicPh: 'For example: beach, hotel, night market', howMany: 'How many words', generate: 'Create words', fillTopic: 'Type a topic.',
+  addedN: '{n} words added', aiErr: 'AI error', aiBadJson: 'The AI returned an invalid answer, try again', aiNoKey: 'No AI key set', aiOk: 'Connection works',
+  last7: 'Last 7 days', levelsIn: 'Levels in {l}', allLangs: 'All languages', totalAnswers: 'answers', levelRule: 'You move up a level once you master 70% of the current one. An item counts as mastered after 3 correct answers in a row across spaced reviews.',
+  profile: 'Profile', userName: 'User name', uiLang: 'Interface language', night: 'Night', day: 'Day',
+  th_gold: 'Black & gold', th_sapphire: 'Sapphire', th_emerald: 'Emerald', th_wine: 'Wine', th_copper: 'Copper',
+  pace: 'Learning pace', paceHint: 'New items per day. Reviews come on top of that, at the right time.', paceEasy: 'Relaxed', paceNormal: 'Normal', paceFast: 'Intensive', perDay: 'day',
+  voiceSec: 'Read-aloud', rate: 'Speed', voiceFor: 'Voice for {l}', autoVoice: 'Automatic (best found)', voiceFound: 'Voice found: {v}',
+  voiceMissing: 'No {l} voice found on this device, so read-aloud may not work.', howAddVoice: 'How do I add a voice?',
+  addVoiceWin: 'Windows: Settings → Time & language → Speech → Add voices, and pick the language. Then restart the browser.',
+  addVoiceAnd: 'Android: Settings → General management → Text-to-speech → Google engine → Install voice data, and pick the language.',
+  addVoiceIos: 'iPhone: Settings → Accessibility → Spoken content → Voices, and pick the language.',
+  testVoice: 'Test voice', iSpeakAs: 'I speak as', male: 'Male', female: 'Female',
+  genderHint: 'In Thai men end sentences with ครับ (khrap) and women with ค่ะ (kha). This changes all phrases and translations.',
+  aiSec: 'AI connection (Pro)', aiIntro: 'The app works fully without AI. Adding your own key unlocks translating any sentence and creating words by topic.',
+  howKey: 'How do I get a key?',
+  key_gemini: 'Free, no credit card: sign in to AI Studio with a Google account, click "Create API key", copy and paste it here.',
+  key_claude: 'Sign in to the Anthropic Console, create a key under API Keys, copy and paste it here. Requires a payment method.',
+  key_openai: 'Sign in to the OpenAI Platform, create a key under API keys, copy and paste it here. Requires a payment method.',
+  key_local: 'Install Ollama on your computer, run a model (e.g. llama3.1) and pick it in the list. Everything stays on your computer.',
+  apiKey: 'API key', keySaved: 'saved', saveKey: 'Save key', disconnect: 'Disconnect', model: 'Model', autoModel: 'Automatic (recommended)',
+  refreshModels: 'Refresh models', testAi: 'Test connection', keyEmpty: 'Paste a key first.',
+  keyEnc: 'The key is encrypted, stored on this device, and never included in backups.', keyMem: 'The browser blocks encrypted storage — the key is kept only until the app closes.',
+  confirmDisconnect: 'Disconnect and delete the key from this device?', disconnected: 'Disconnected', modelsN: '{n} models found',
+  aiPrivacy: 'AI actions send the text you typed only to the provider you chose. The key never passes through any AppNest server.',
+  backupSec: 'Backup & sharing', exportJson: 'Full backup (JSON)', importJson: 'Restore from backup', exported: 'File downloaded',
+  backupNote: 'The backup includes progress, phrases and words — without AI keys. Restoring replaces all data.',
+  confirmRestore: 'Restore the backup from {d} ({u})? All current data will be replaced.', restore: 'Restore', restored: 'Restored', badFile: 'This file doesn\'t look like a LingoNest backup.',
+  persistOk: 'Storage is protected from automatic browser cleanup.', persistNo: 'The browser didn\'t grant persistent storage — back up now and then.',
+  guide: 'Guide', showGuide: 'Show guide', diag: 'Diagnostics', noErrors: 'No errors logged.', copyDiag: 'Copy report', copied: 'Copied', copyFail: 'Copy failed',
+  resetSec: 'Delete everything', resetHint: 'Deletes progress, phrases, words, settings and keys, and returns to a fresh install.', resetAll: 'Delete all data',
+  reset1: 'Delete all data in the app?', reset2: 'Sure? There is no way back without a backup.', continueBtn: 'Continue',
+  version: 'Version', developer: 'Developer', platform: 'Platform', storage: 'Storage', onDevice: 'On this device only', license: 'License',
+  store: 'AppNest store', shareApp: 'Share the app', feedback: 'Send feedback', privacy: 'Privacy policy',
+  shareText: 'Learning languages with LingoNest {u}', linkCopied: 'Link copied',
+  disclaimer: 'Content, pronunciation guides and translations are learning aids and may be inaccurate. In a real emergency contact the proper authorities.',
+  saveFail: 'Saving failed — storage may be full.', backupNudge: 'It\'s been a while since your last backup. Back up in Settings.',
+  phrasebook: 'Phrasebook', date: 'Date', boxInfo: 'Mastery {b}/6 · right {c} · wrong {w}', notYet: 'You haven\'t practiced this letter yet.',
+  skip: 'Skip', start: 'Let\'s start',
+  g1t: 'Welcome to LingoNest', g1b: 'Learn the basics of a new language: letters, words and phrases to get by on a trip, with pronunciation you can read.',
+  g2t: 'Which language first?', g2b: 'Switch languages anytime from the home screen. Progress is saved per language.',
+  g3t: 'Levels at your pace', g3b: 'Start with letters, move on to words and phrases. "Continue learning" picks what\'s new and what needs review.',
+  g4t: 'Speak for me', g4b: 'Type a sentence and the app reads it aloud or shows it big to the person in front of you. Save phrases for offline use.',
+  g5t: 'Check your speaker', g5b: 'Read-aloud uses your device\'s voices. If a language is silent, Settings explain how to add a voice.'
+},
+ru: {
+  tagline: 'Учись говорить где угодно', helloName: 'Привет, {n}! Куда едем сегодня?', helloAnon: 'Привет! Куда едем сегодня?',
+  chooseLang: 'Выбор языка', wordOfDay: 'Слово дня', streak: 'Серия дней', streakN: 'Серия: {n} дн.',
+  level: 'Уровень', lvl1: 'Буквы и звуки', lvl2: 'Слова для выживания', lvl3: 'Словарь для поездки', lvl4: 'Фразы для поездки', lvl5: 'Мои слова',
+  continue: 'Продолжить', ctaSub: '{d} на повтор · {n} новых сегодня',
+  letters: 'Буквы', lettersCount: 'букв', words: 'Слова', wordsSub: 'По темам', phrases: 'Фразы', phrasesSub: 'Готовые фразы для поездки',
+  practice: 'Практика', practiceSub: 'Повторы, избранное, ошибки', speakForMe: 'Скажи за меня', speakSub: 'Напиши фразу и услышь её на языке: {l}',
+  progress: 'Мой прогресс', progressSub: 'Уровни, серия и график недели',
+  aiStatus: 'Подключение ИИ', connected: 'подключено', notConnected: 'не подключено', design: 'Оформление', about: 'О приложении', settings: 'Настройки',
+  back: 'Назад', home: 'Главная', listen: 'Слушать', slow: 'Слушать медленно', showBig: 'Показать крупно', fav: 'Избранное', edit: 'Изменить',
+  fileWarn: 'Приложение открыто из локального файла. Микрофон, офлайн и установка так не работают — откройте его по веб-адресу.',
+  noteEn: 'В английском 26 букв. У каждой есть название, а звук меняется от слова к слову.',
+  noteEs: 'Испанский читается почти так, как пишется. Обратите внимание на Ñ, J (как «х») и немую H.',
+  noteRu: 'В кириллице 33 буквы.',
+  noteAr: 'Арабский пишется справа налево. Большинство букв меняют форму в начале, середине и конце слова.',
+  noteTh: 'В тайском 44 согласных, а тон меняет смысл. Гласные появятся в следующей версии — слова и фразы уже учат их на практике.',
+  noteGeneric: 'Буквы языка и их звучание.',
+  practiceLetters: 'Тренировать буквы', seen: 'Видел', mastered: 'Освоено',
+  cat_greet: 'Приветствия и вежливость', cat_num: 'Числа', cat_basic: 'Базовые слова', cat_food: 'Еда и ресторан', cat_trans: 'Транспорт и направления',
+  cat_shop: 'Покупки и деньги', cat_emerg: 'Экстренные случаи', cat_time: 'Время', cat_phr: 'Фразы для поездки', cat_mine: 'Мои слова', cat_letters: 'Буквы',
+  mineEmpty: 'Пусто — добавьте свои слова', mineEmptyLong: 'Здесь пока нет слов. Добавьте слово вручную или создайте набор по теме с помощью ИИ.',
+  practiceThis: 'Тренировать тему', addWord: 'Добавить слово', editWord: 'Изменить слово', aiWordsBtn: 'Создать слова по теме',
+  itemsN: 'шт.', prDue: 'Повторы на сейчас', prFav: 'Избранное', prWeak: 'Мои ошибки', prListen: 'Тренировка слуха',
+  nothingNow: 'Сейчас здесь нечего тренировать. Выберите другую тему или вернитесь завтра.',
+  newItem: 'Новое', sayIt: 'Попробуй сказать', gotIt: 'Понятно, дальше', soundsLike: 'Звучит как:', whichLetter: 'Какая буква так звучит?',
+  qT2M: 'Что это значит?', qM2T: 'Как это сказать?', qA2T: 'Что вы услышали?', qT2S: 'Как звучит буква?', qS2T: 'Какая буква?',
+  right: 'Верно!', wrongWas: 'Правильный ответ:', next: 'Далее', sumLine: 'Верно {ok} из {t}', sumNew: 'Новых элементов: {n}',
+  another: 'Ещё раунд', listening: '🎤 Слушаю…', saidGood: 'Отлично, я вас понял!', saidHeard: 'Я услышал:',
+  noTTS: 'Этот браузер не поддерживает озвучку.', noVoice: 'На устройстве нет голоса для языка: {l}. В настройках есть инструкция.',
+  noSR: 'Распознавание речи работает в Chrome на компьютере и Android.', srErr: 'Ошибка распознавания речи', fileMic: 'Микрофон работает, только если приложение открыто по адресу https.',
+  speakIntro: 'Напишите, что хотите сказать. Приложение переведёт и озвучит — или покажет крупно собеседнику.',
+  modeTranslate: 'Перевести', modeDirect: 'Писать на: {l}', typeIn: 'Пишите на: {l}', typeHe: 'Что вы хотите сказать?', spkPh: 'Например: где купить SIM-карту?',
+  playIt: 'Слушать', translate: 'Перевести и озвучить', noAiHint: 'Свободный перевод требует подключения ИИ (Gemini бесплатно). Без него откройте Google Translate или пишите сразу на языке.',
+  connectAi: 'Подключить ИИ', saveIt: 'Сохранить', aiDisclaimer: 'Перевод ИИ обычно точен, но важные фразы лучше перепроверить.',
+  myPhrases: 'Мои фразы', noPhrases: 'Пока нет сохранённых фраз. Сохранённые фразы работают и без интернета.', printBook: 'Разговорник для печати / PDF',
+  editPhrase: 'Изменить фразу', fSrc: 'Исходная фраза', fText: 'Текст на: {l}', fHeb: 'Произношение ивритскими буквами', fRoman: 'Латинская транслитерация', fMeaning: 'Значение',
+  save: 'Сохранить', delete: 'Удалить', cancel: 'Отмена', close: 'Закрыть', saved: 'Сохранено', deleted: 'Удалено', confirmDelete: 'Удалить? Отменить нельзя.',
+  fillBoth: 'Заполните значение и текст.', typeFirst: 'Сначала напишите фразу.', working: 'Работаю…',
+  needAi: 'Для этого нужен ИИ. Gemini можно подключить бесплатно в настройках.',
+  aiWordsHint: 'Напишите тему — ИИ создаст полезные слова с произношением. Они попадут на уровень 5 и в практику.',
+  topic: 'Тема', topicPh: 'Например: пляж, отель, ночной рынок', howMany: 'Сколько слов', generate: 'Создать слова', fillTopic: 'Напишите тему.',
+  addedN: 'Добавлено слов: {n}', aiErr: 'Ошибка ИИ', aiBadJson: 'ИИ вернул некорректный ответ, попробуйте ещё раз', aiNoKey: 'Ключ ИИ не задан', aiOk: 'Подключение работает',
+  last7: 'Последние 7 дней', levelsIn: 'Уровни: {l}', allLangs: 'Все языки', totalAnswers: 'ответов', levelRule: 'Следующий уровень открывается, когда освоено 70% текущего. Элемент освоен после 3 верных ответов подряд в интервальных повторениях.',
+  profile: 'Профиль', userName: 'Имя пользователя', uiLang: 'Язык интерфейса', night: 'Ночь', day: 'День',
+  th_gold: 'Чёрный с золотом', th_sapphire: 'Сапфир', th_emerald: 'Изумруд', th_wine: 'Бордо', th_copper: 'Медь',
+  pace: 'Темп обучения', paceHint: 'Новых элементов в день. Повторы добавляются сверху в нужное время.', paceEasy: 'Спокойно', paceNormal: 'Обычно', paceFast: 'Интенсивно', perDay: 'день',
+  voiceSec: 'Озвучка', rate: 'Скорость', voiceFor: 'Голос: {l}', autoVoice: 'Автоматически (лучший найденный)', voiceFound: 'Найден голос: {v}',
+  voiceMissing: 'На устройстве нет голоса для языка: {l}, озвучка может не работать.', howAddVoice: 'Как добавить голос?',
+  addVoiceWin: 'Windows: Параметры → Время и язык → Речь → Добавить голоса, выберите язык. Затем перезапустите браузер.',
+  addVoiceAnd: 'Android: Настройки → Общие → Синтез речи → Google → Установить голосовые данные, выберите язык.',
+  addVoiceIos: 'iPhone: Настройки → Универсальный доступ → Устное содержимое → Голоса, выберите язык.',
+  testVoice: 'Проверить голос', iSpeakAs: 'Я говорю в роде', male: 'Мужской', female: 'Женский',
+  genderHint: 'В тайском мужчины заканчивают фразу на ครับ (кхрап), женщины — на ค่ะ (кха). Выбор меняет все фразы и переводы.',
+  aiSec: 'Подключение ИИ (Pro)', aiIntro: 'Приложение полностью работает без ИИ. Свой ключ добавляет перевод любых фраз и создание слов по теме.',
+  howKey: 'Как получить ключ?',
+  key_gemini: 'Бесплатно, без карты: войдите в AI Studio через Google, нажмите «Create API key», скопируйте и вставьте сюда.',
+  key_claude: 'Войдите в Anthropic Console, создайте ключ в API Keys, скопируйте и вставьте сюда. Нужен способ оплаты.',
+  key_openai: 'Войдите в OpenAI Platform, создайте ключ в API keys, скопируйте и вставьте сюда. Нужен способ оплаты.',
+  key_local: 'Установите Ollama, запустите модель (например llama3.1) и выберите её в списке. Всё остаётся на компьютере.',
+  apiKey: 'API-ключ', keySaved: 'сохранён', saveKey: 'Сохранить ключ', disconnect: 'Отключить', model: 'Модель', autoModel: 'Автоматически (рекомендуется)',
+  refreshModels: 'Обновить модели', testAi: 'Проверить', keyEmpty: 'Сначала вставьте ключ.',
+  keyEnc: 'Ключ зашифрован, хранится на устройстве и не попадает в резервные копии.', keyMem: 'Браузер блокирует зашифрованное хранение — ключ сохранится только до закрытия.',
+  confirmDisconnect: 'Отключить и удалить ключ с устройства?', disconnected: 'Отключено', modelsN: 'Найдено моделей: {n}',
+  aiPrivacy: 'Действия ИИ отправляют ваш текст только выбранному провайдеру. Ключ не проходит через серверы AppNest.',
+  backupSec: 'Резервная копия', exportJson: 'Полная копия (JSON)', importJson: 'Восстановить', exported: 'Файл скачан',
+  backupNote: 'Копия включает прогресс, фразы и слова — без ключей ИИ. Восстановление заменяет все данные.',
+  confirmRestore: 'Восстановить копию от {d} ({u})? Текущие данные будут заменены.', restore: 'Восстановить', restored: 'Восстановлено', badFile: 'Файл не похож на копию LingoNest.',
+  persistOk: 'Хранилище защищено от автоочистки браузера.', persistNo: 'Браузер не дал постоянное хранилище — делайте копии время от времени.',
+  guide: 'Руководство', showGuide: 'Показать руководство', diag: 'Диагностика', noErrors: 'Ошибок нет.', copyDiag: 'Копировать отчёт', copied: 'Скопировано', copyFail: 'Не удалось скопировать',
+  resetSec: 'Удалить всё', resetHint: 'Удаляет прогресс, фразы, слова, настройки и ключи и возвращает к первой установке.', resetAll: 'Удалить все данные',
+  reset1: 'Удалить все данные приложения?', reset2: 'Точно? Без резервной копии вернуть нельзя.', continueBtn: 'Продолжить',
+  version: 'Версия', developer: 'Разработчик', platform: 'Платформа', storage: 'Хранение', onDevice: 'Только на устройстве', license: 'Лицензия',
+  store: 'Магазин AppNest', shareApp: 'Поделиться', feedback: 'Отзыв', privacy: 'Политика конфиденциальности',
+  shareText: 'Учу языки с LingoNest {u}', linkCopied: 'Ссылка скопирована',
+  disclaimer: 'Материалы, произношение и переводы — учебные подсказки и могут быть неточны. В экстренной ситуации обращайтесь в службы.',
+  saveFail: 'Не удалось сохранить — возможно, хранилище заполнено.', backupNudge: 'Давно не было резервной копии. Сделайте её в настройках.',
+  phrasebook: 'Разговорник', date: 'Дата', boxInfo: 'Освоение {b}/6 · верно {c} · ошибок {w}', notYet: 'Эту букву вы ещё не тренировали.',
+  skip: 'Пропустить', start: 'Начнём',
+  g1t: 'Добро пожаловать в LingoNest', g1b: 'Основы нового языка: буквы, слова и фразы, чтобы справиться в поездке.',
+  g2t: 'С какого языка начнём?', g2b: 'Язык можно сменить в любой момент на главной. Прогресс хранится для каждого языка.',
+  g3t: 'Уровни в вашем темпе', g3b: 'Сначала буквы, потом слова и фразы. «Продолжить» подбирает новое и повторы.',
+  g4t: 'Скажи за меня', g4b: 'Напишите фразу — приложение озвучит её или покажет крупно. Сохраняйте фразы для офлайна.',
+  g5t: 'Проверьте звук', g5b: 'Озвучка использует голоса устройства. Если язык молчит, в настройках есть инструкция.'
+},
+es: {
+  tagline: 'Aprende a hablar, en cualquier lugar', helloName: '¡Hola {n}! ¿A dónde vamos hoy?', helloAnon: '¡Hola! ¿A dónde vamos hoy?',
+  chooseLang: 'Elegir idioma', wordOfDay: 'Palabra del día', streak: 'Racha de días', streakN: 'Racha: {n} días',
+  level: 'Nivel', lvl1: 'Letras y sonidos', lvl2: 'Palabras de supervivencia', lvl3: 'Vocabulario de viaje', lvl4: 'Frases de viaje', lvl5: 'Mis palabras',
+  continue: 'Seguir aprendiendo', ctaSub: '{d} por repasar · {n} nuevas hoy',
+  letters: 'Letras', lettersCount: 'letras', words: 'Palabras', wordsSub: 'Por temas', phrases: 'Frases', phrasesSub: 'Frases listas para viajar',
+  practice: 'Práctica', practiceSub: 'Repasos, favoritos, errores', speakForMe: 'Habla por mí', speakSub: 'Escribe una frase y escúchala en {l}',
+  progress: 'Mi progreso', progressSub: 'Niveles, racha y gráfico semanal',
+  aiStatus: 'Conexión IA', connected: 'conectada', notConnected: 'sin conexión', design: 'Diseño', about: 'Acerca de', settings: 'Ajustes',
+  back: 'Volver', home: 'Inicio', listen: 'Escuchar', slow: 'Escuchar despacio', showBig: 'Mostrar grande', fav: 'Favorito', edit: 'Editar',
+  fileWarn: 'La app se abrió desde un archivo local. El micrófono, el modo sin conexión y la instalación no funcionarán — ábrela desde su dirección web.',
+  noteEn: 'El inglés tiene 26 letras. Cada una tiene nombre y su sonido cambia según la palabra.',
+  noteEs: 'El español se lee casi como se escribe. Atención a Ñ, J y la H muda.',
+  noteRu: 'El cirílico tiene 33 letras. Algunas parecen latinas pero suenan distinto (Р = r, Н = n, В = v).',
+  noteAr: 'El árabe se escribe de derecha a izquierda. Casi todas las letras cambian de forma al inicio, en medio y al final.',
+  noteTh: 'El tailandés tiene 44 consonantes y el tono cambia el significado. Las vocales llegan en la próxima versión — las palabras y frases ya las enseñan.',
+  noteGeneric: 'Las letras del idioma con su sonido.',
+  practiceLetters: 'Practicar letras', seen: 'Vista', mastered: 'Dominada',
+  cat_greet: 'Saludos y cortesía', cat_num: 'Números', cat_basic: 'Palabras básicas', cat_food: 'Comida y restaurante', cat_trans: 'Transporte y direcciones',
+  cat_shop: 'Compras y dinero', cat_emerg: 'Emergencias', cat_time: 'Tiempo', cat_phr: 'Frases de viaje', cat_mine: 'Mis palabras', cat_letters: 'Letras',
+  mineEmpty: 'Vacío — añade tus palabras', mineEmptyLong: 'Aún no hay palabras. Añade una a mano o crea un paquete por tema con IA.',
+  practiceThis: 'Practicar este tema', addWord: 'Añadir palabra', editWord: 'Editar palabra', aiWordsBtn: 'Crear palabras por tema',
+  itemsN: 'elementos', prDue: 'Repasos pendientes', prFav: 'Mis favoritos', prWeak: 'Mis errores', prListen: 'Práctica auditiva',
+  nothingNow: 'Ahora no hay nada que practicar aquí. Prueba otro tema o vuelve mañana.',
+  newItem: 'Nuevo', sayIt: 'Intenta decirlo', gotIt: 'Entendido, siguiente', soundsLike: 'Suena como:', whichLetter: '¿Qué letra suena así?',
+  qT2M: '¿Qué significa?', qM2T: '¿Cómo se dice?', qA2T: '¿Qué escuchaste?', qT2S: '¿Cómo suena la letra?', qS2T: '¿Qué letra?',
+  right: '¡Correcto!', wrongWas: 'La respuesta correcta:', next: 'Siguiente', sumLine: 'Acertaste {ok} de {t}', sumNew: 'Aprendiste {n} elementos nuevos',
+  another: 'Otra ronda', listening: '🎤 Escuchando…', saidGood: '¡Genial, te entendí!', saidHeard: 'Escuché:',
+  noTTS: 'Este navegador no admite lectura en voz alta.', noVoice: 'No hay voz de {l} en este dispositivo. En Ajustes se explica cómo añadirla.',
+  noSR: 'El reconocimiento de voz funciona en Chrome de escritorio y Android.', srErr: 'Falló el reconocimiento de voz', fileMic: 'El micrófono solo funciona si la app se abre desde una dirección https.',
+  speakIntro: 'Escribe lo que quieres decir. La app lo traduce y lo lee en voz alta, o lo muestra grande para la persona que tienes delante.',
+  modeTranslate: 'Traducir', modeDirect: 'Escribir en {l}', typeIn: 'Escribe en {l}', typeHe: '¿Qué quieres decir?', spkPh: 'Por ejemplo: ¿dónde compro una tarjeta SIM?',
+  playIt: 'Escuchar', translate: 'Traducir y escuchar', noAiHint: 'La traducción libre necesita conexión IA (Gemini es gratis). Sin ella, abre Google Translate o escribe directamente en el idioma.',
+  connectAi: 'Conectar IA', saveIt: 'Guardar', aiDisclaimer: 'Traducción con IA: suele ser precisa, pero revisa las frases importantes.',
+  myPhrases: 'Mis frases', noPhrases: 'Aún no guardaste frases. Las frases guardadas funcionan sin internet.', printBook: 'Libro de frases imprimible / PDF',
+  editPhrase: 'Editar frase', fSrc: 'Frase original', fText: 'Texto en {l}', fHeb: 'Pronunciación en letras hebreas', fRoman: 'Transliteración latina', fMeaning: 'Significado',
+  save: 'Guardar', delete: 'Eliminar', cancel: 'Cancelar', close: 'Cerrar', saved: 'Guardado', deleted: 'Eliminado', confirmDelete: '¿Eliminar? No se puede deshacer.',
+  fillBoth: 'Completa el significado y el texto.', typeFirst: 'Primero escribe una frase.', working: 'Trabajando…',
+  needAi: 'Esto necesita conexión IA. Puedes conectar Gemini gratis en Ajustes.',
+  aiWordsHint: 'Escribe un tema y la IA creará palabras útiles con pronunciación. Se añaden al nivel 5 y a tu práctica.',
+  topic: 'Tema', topicPh: 'Por ejemplo: playa, hotel, mercado nocturno', howMany: 'Cuántas palabras', generate: 'Crear palabras', fillTopic: 'Escribe un tema.',
+  addedN: '{n} palabras añadidas', aiErr: 'Error de IA', aiBadJson: 'La IA devolvió una respuesta no válida, inténtalo de nuevo', aiNoKey: 'No hay clave de IA', aiOk: 'La conexión funciona',
+  last7: 'Últimos 7 días', levelsIn: 'Niveles en {l}', allLangs: 'Todos los idiomas', totalAnswers: 'respuestas', levelRule: 'Subes de nivel al dominar el 70% del actual. Un elemento se domina tras 3 aciertos seguidos en repasos espaciados.',
+  profile: 'Perfil', userName: 'Nombre de usuario', uiLang: 'Idioma de la interfaz', night: 'Noche', day: 'Día',
+  th_gold: 'Negro y oro', th_sapphire: 'Zafiro', th_emerald: 'Esmeralda', th_wine: 'Burdeos', th_copper: 'Cobre',
+  pace: 'Ritmo de aprendizaje', paceHint: 'Elementos nuevos por día. Los repasos se suman en el momento justo.', paceEasy: 'Tranquilo', paceNormal: 'Normal', paceFast: 'Intensivo', perDay: 'día',
+  voiceSec: 'Lectura en voz alta', rate: 'Velocidad', voiceFor: 'Voz para {l}', autoVoice: 'Automática (la mejor encontrada)', voiceFound: 'Voz encontrada: {v}',
+  voiceMissing: 'No hay voz de {l} en este dispositivo, la lectura puede no funcionar.', howAddVoice: '¿Cómo añadir una voz?',
+  addVoiceWin: 'Windows: Configuración → Hora e idioma → Voz → Agregar voces, elige el idioma. Luego reinicia el navegador.',
+  addVoiceAnd: 'Android: Ajustes → Administración general → Texto a voz → Motor de Google → Instalar datos de voz, elige el idioma.',
+  addVoiceIos: 'iPhone: Ajustes → Accesibilidad → Contenido leído → Voces, elige el idioma.',
+  testVoice: 'Probar voz', iSpeakAs: 'Hablo en género', male: 'Masculino', female: 'Femenino',
+  genderHint: 'En tailandés los hombres terminan con ครับ (khrap) y las mujeres con ค่ะ (kha). Esto cambia todas las frases y traducciones.',
+  aiSec: 'Conexión IA (Pro)', aiIntro: 'La app funciona completa sin IA. Tu propia clave añade traducción de cualquier frase y palabras por tema.',
+  howKey: '¿Cómo obtengo una clave?',
+  key_gemini: 'Gratis, sin tarjeta: entra en AI Studio con tu cuenta de Google, pulsa "Create API key", cópiala y pégala aquí.',
+  key_claude: 'Entra en Anthropic Console, crea una clave en API Keys, cópiala y pégala aquí. Requiere método de pago.',
+  key_openai: 'Entra en OpenAI Platform, crea una clave en API keys, cópiala y pégala aquí. Requiere método de pago.',
+  key_local: 'Instala Ollama, ejecuta un modelo (p. ej. llama3.1) y elígelo en la lista. Todo queda en tu ordenador.',
+  apiKey: 'Clave API', keySaved: 'guardada', saveKey: 'Guardar clave', disconnect: 'Desconectar', model: 'Modelo', autoModel: 'Automático (recomendado)',
+  refreshModels: 'Actualizar modelos', testAi: 'Probar conexión', keyEmpty: 'Pega una clave primero.',
+  keyEnc: 'La clave se cifra, se guarda en este dispositivo y nunca va en las copias.', keyMem: 'El navegador bloquea el almacenamiento cifrado: la clave dura hasta cerrar la app.',
+  confirmDisconnect: '¿Desconectar y borrar la clave del dispositivo?', disconnected: 'Desconectado', modelsN: '{n} modelos encontrados',
+  aiPrivacy: 'Las acciones de IA envían tu texto solo al proveedor elegido. La clave nunca pasa por servidores de AppNest.',
+  backupSec: 'Copia de seguridad', exportJson: 'Copia completa (JSON)', importJson: 'Restaurar copia', exported: 'Archivo descargado',
+  backupNote: 'La copia incluye progreso, frases y palabras, sin claves de IA. Restaurar reemplaza todos los datos.',
+  confirmRestore: '¿Restaurar la copia del {d} ({u})? Se reemplazarán todos los datos actuales.', restore: 'Restaurar', restored: 'Restaurado', badFile: 'Este archivo no parece una copia de LingoNest.',
+  persistOk: 'El almacenamiento está protegido de la limpieza automática.', persistNo: 'El navegador no concedió almacenamiento persistente: haz copias de vez en cuando.',
+  guide: 'Guía', showGuide: 'Ver guía', diag: 'Diagnóstico', noErrors: 'No hay errores registrados.', copyDiag: 'Copiar informe', copied: 'Copiado', copyFail: 'No se pudo copiar',
+  resetSec: 'Borrar todo', resetHint: 'Borra progreso, frases, palabras, ajustes y claves, y vuelve a una instalación nueva.', resetAll: 'Borrar todos los datos',
+  reset1: '¿Borrar todos los datos de la app?', reset2: '¿Seguro? Sin copia no hay vuelta atrás.', continueBtn: 'Continuar',
+  version: 'Versión', developer: 'Desarrollo', platform: 'Plataforma', storage: 'Almacenamiento', onDevice: 'Solo en el dispositivo', license: 'Licencia',
+  store: 'Tienda AppNest', shareApp: 'Compartir la app', feedback: 'Enviar comentarios', privacy: 'Política de privacidad',
+  shareText: 'Aprendo idiomas con LingoNest {u}', linkCopied: 'Enlace copiado',
+  disclaimer: 'El contenido, la pronunciación y las traducciones son ayudas de estudio y pueden ser imprecisos. En una emergencia real contacta a las autoridades.',
+  saveFail: 'No se pudo guardar: el almacenamiento puede estar lleno.', backupNudge: 'Hace tiempo de tu última copia. Hazla en Ajustes.',
+  phrasebook: 'Libro de frases', date: 'Fecha', boxInfo: 'Dominio {b}/6 · aciertos {c} · errores {w}', notYet: 'Aún no practicaste esta letra.',
+  skip: 'Saltar', start: 'Empecemos',
+  g1t: 'Bienvenido a LingoNest', g1b: 'Aprende lo básico de un idioma nuevo: letras, palabras y frases para defenderte en un viaje.',
+  g2t: '¿Qué idioma primero?', g2b: 'Cambia de idioma cuando quieras desde el inicio. El progreso se guarda por idioma.',
+  g3t: 'Niveles a tu ritmo', g3b: 'Empieza por las letras y sigue con palabras y frases. "Seguir aprendiendo" elige lo nuevo y los repasos.',
+  g4t: 'Habla por mí', g4b: 'Escribe una frase y la app la lee o la muestra grande. Guarda frases para usarlas sin conexión.',
+  g5t: 'Prueba el altavoz', g5b: 'La lectura usa las voces del dispositivo. Si un idioma no suena, Ajustes explica cómo añadir una voz.'
+},
+ar: {
+  tagline: 'تعلّم الكلام في كل مكان', helloName: 'مرحبا {n}، إلى أين اليوم؟', helloAnon: 'مرحبا! إلى أين اليوم؟',
+  chooseLang: 'اختيار اللغة', wordOfDay: 'كلمة اليوم', streak: 'أيام متتالية', streakN: 'متتالية: {n} أيام',
+  level: 'المستوى', lvl1: 'الحروف والأصوات', lvl2: 'كلمات أساسية للنجاة', lvl3: 'مفردات السفر', lvl4: 'جمل السفر', lvl5: 'كلماتي',
+  continue: 'تابع التعلّم', ctaSub: '{d} للمراجعة · {n} جديدة اليوم',
+  letters: 'الحروف', lettersCount: 'حرفا', words: 'الكلمات', wordsSub: 'حسب الموضوع', phrases: 'الجمل', phrasesSub: 'جمل جاهزة للسفر',
+  practice: 'تدريب', practiceSub: 'مراجعات، مفضلة، أخطاء', speakForMe: 'تكلّم عني', speakSub: 'اكتب جملة واسمعها بـ{l}',
+  progress: 'تقدّمي', progressSub: 'المستويات والأيام والرسم الأسبوعي',
+  aiStatus: 'اتصال الذكاء الاصطناعي', connected: 'متصل', notConnected: 'غير متصل', design: 'التصميم', about: 'حول التطبيق', settings: 'الإعدادات',
+  back: 'رجوع', home: 'الرئيسية', listen: 'استمع', slow: 'استمع ببطء', showBig: 'عرض كبير', fav: 'مفضلة', edit: 'تعديل',
+  fileWarn: 'فُتح التطبيق من ملف محلي. الميكروفون والعمل دون اتصال والتثبيت لن تعمل — افتحه من عنوانه على الإنترنت.',
+  noteEn: 'في الإنجليزية 26 حرفا. لكل حرف اسم، ويتغير صوته حسب الكلمة.',
+  noteEs: 'الإسبانية تُقرأ تقريبا كما تُكتب. انتبه إلى Ñ و J و H الصامتة.',
+  noteRu: 'في الأبجدية السيريلية 33 حرفا. بعضها يشبه اللاتينية لكن يُلفظ مختلفا (Р = ر، Н = ن، В = ف).',
+  noteAr: 'تُكتب العربية من اليمين إلى اليسار. تتغير أشكال معظم الحروف في بداية الكلمة ووسطها ونهايتها.',
+  noteTh: 'في التايلاندية 44 حرفا ساكنا، والنغمة تغيّر المعنى. الحركات في الإصدار القادم — الكلمات والجمل تعلّمها عمليا.',
+  noteGeneric: 'حروف اللغة مع أصواتها.',
+  practiceLetters: 'تدريب الحروف', seen: 'شوهد', mastered: 'متقن',
+  cat_greet: 'تحيات ومجاملات', cat_num: 'أرقام', cat_basic: 'كلمات أساسية', cat_food: 'طعام ومطعم', cat_trans: 'مواصلات واتجاهات',
+  cat_shop: 'تسوّق ونقود', cat_emerg: 'طوارئ', cat_time: 'الوقت', cat_phr: 'جمل السفر', cat_mine: 'كلماتي', cat_letters: 'الحروف',
+  mineEmpty: 'فارغ — أضف كلماتك', mineEmptyLong: 'لا توجد كلمات بعد. أضف كلمة يدويا أو أنشئ مجموعة حسب الموضوع بالذكاء الاصطناعي.',
+  practiceThis: 'تدرّب على الموضوع', addWord: 'إضافة كلمة', editWord: 'تعديل كلمة', aiWordsBtn: 'إنشاء كلمات حسب الموضوع',
+  itemsN: 'عناصر', prDue: 'مراجعات حان وقتها', prFav: 'مفضلتي', prWeak: 'أخطائي', prListen: 'تدريب الاستماع',
+  nothingNow: 'لا شيء للتدريب هنا الآن. جرّب موضوعا آخر أو عد غدا.',
+  newItem: 'جديد', sayIt: 'جرّب أن تقولها', gotIt: 'فهمت، التالي', soundsLike: 'يُلفظ مثل:', whichLetter: 'أي حرف يُلفظ هكذا؟',
+  qT2M: 'ما معناها؟', qM2T: 'كيف تقول هذا؟', qA2T: 'ماذا سمعت؟', qT2S: 'كيف يُلفظ الحرف؟', qS2T: 'أي حرف؟',
+  right: 'صحيح!', wrongWas: 'الإجابة الصحيحة:', next: 'التالي', sumLine: 'أصبت في {ok} من {t}', sumNew: 'تعلّمت {n} عناصر جديدة',
+  another: 'جولة أخرى', listening: '🎤 أستمع…', saidGood: 'ممتاز، فهمتك!', saidHeard: 'سمعت:',
+  noTTS: 'هذا المتصفح لا يدعم القراءة بصوت عال.', noVoice: 'لا يوجد صوت لـ{l} على هذا الجهاز. الإعدادات تشرح كيفية إضافته.',
+  noSR: 'التعرف على الكلام يعمل في كروم على الحاسوب وأندرويد.', srErr: 'فشل التعرف على الكلام', fileMic: 'الميكروفون يعمل فقط عند فتح التطبيق من عنوان https.',
+  speakIntro: 'اكتب ما تريد قوله. يترجمه التطبيق ويقرؤه بصوت عال، أو يعرضه كبيرا للشخص أمامك.',
+  modeTranslate: 'ترجمة', modeDirect: 'الكتابة بـ{l}', typeIn: 'اكتب بـ{l}', typeHe: 'ماذا تريد أن تقول؟', spkPh: 'مثلا: أين أشتري شريحة SIM؟',
+  playIt: 'استمع', translate: 'ترجم واستمع', noAiHint: 'الترجمة الحرة تحتاج اتصالا بالذكاء الاصطناعي (Gemini مجاني). بدونه افتح Google Translate أو اكتب مباشرة باللغة.',
+  connectAi: 'ربط الذكاء الاصطناعي', saveIt: 'حفظ', aiDisclaimer: 'ترجمة بالذكاء الاصطناعي — دقيقة غالبا، لكن راجع الجمل المهمة.',
+  myPhrases: 'جملي', noPhrases: 'لم تحفظ جملا بعد. الجمل المحفوظة تعمل دون إنترنت.', printBook: 'كتيّب عبارات للطباعة / PDF',
+  editPhrase: 'تعديل جملة', fSrc: 'الجملة الأصلية', fText: 'النص بـ{l}', fHeb: 'النطق بحروف عبرية', fRoman: 'النطق بحروف لاتينية', fMeaning: 'المعنى',
+  save: 'حفظ', delete: 'حذف', cancel: 'إلغاء', close: 'إغلاق', saved: 'تم الحفظ', deleted: 'تم الحذف', confirmDelete: 'حذف؟ لا يمكن التراجع.',
+  fillBoth: 'املأ المعنى والنص.', typeFirst: 'اكتب جملة أولا.', working: 'جار العمل…',
+  needAi: 'هذا يحتاج اتصالا بالذكاء الاصطناعي. يمكنك ربط Gemini مجانا في الإعدادات.',
+  aiWordsHint: 'اكتب موضوعا وسينشئ الذكاء الاصطناعي كلمات مفيدة مع النطق. تُضاف إلى المستوى 5 وإلى التدريب.',
+  topic: 'الموضوع', topicPh: 'مثلا: شاطئ، فندق، سوق ليلي', howMany: 'كم كلمة', generate: 'إنشاء كلمات', fillTopic: 'اكتب موضوعا.',
+  addedN: 'أُضيفت {n} كلمات', aiErr: 'خطأ في الذكاء الاصطناعي', aiBadJson: 'أعاد الذكاء الاصطناعي إجابة غير صالحة، حاول مجددا', aiNoKey: 'لم يُضبط مفتاح', aiOk: 'الاتصال يعمل',
+  last7: 'آخر 7 أيام', levelsIn: 'المستويات في {l}', allLangs: 'كل اللغات', totalAnswers: 'إجابات', levelRule: 'تنتقل إلى المستوى التالي عند إتقان 70% من الحالي. يُعتبر العنصر متقنا بعد 3 إجابات صحيحة متتالية في مراجعات متباعدة.',
+  profile: 'الملف الشخصي', userName: 'اسم المستخدم', uiLang: 'لغة الواجهة', night: 'ليل', day: 'نهار',
+  th_gold: 'أسود وذهبي', th_sapphire: 'ياقوتي', th_emerald: 'زمردي', th_wine: 'نبيذي', th_copper: 'نحاسي',
+  pace: 'وتيرة التعلّم', paceHint: 'عناصر جديدة يوميا. المراجعات تُضاف في وقتها المناسب.', paceEasy: 'هادئ', paceNormal: 'عادي', paceFast: 'مكثّف', perDay: 'يوم',
+  voiceSec: 'القراءة بصوت عال', rate: 'السرعة', voiceFor: 'صوت {l}', autoVoice: 'تلقائي (أفضل صوت متاح)', voiceFound: 'تم العثور على صوت: {v}',
+  voiceMissing: 'لا يوجد صوت لـ{l} على هذا الجهاز، وقد لا تعمل القراءة.', howAddVoice: 'كيف أضيف صوتا؟',
+  addVoiceWin: 'ويندوز: الإعدادات ← الوقت واللغة ← الكلام ← إضافة أصوات، واختر اللغة. ثم أعد تشغيل المتصفح.',
+  addVoiceAnd: 'أندرويد: الإعدادات ← الإدارة العامة ← تحويل النص إلى كلام ← محرك Google ← تثبيت بيانات الصوت، واختر اللغة.',
+  addVoiceIos: 'آيفون: الإعدادات ← تسهيلات الاستخدام ← المحتوى المنطوق ← الأصوات، واختر اللغة.',
+  testVoice: 'اختبار الصوت', iSpeakAs: 'أتكلم بصيغة', male: 'المذكر', female: 'المؤنث',
+  genderHint: 'في التايلاندية ينهي الرجال الجملة بـ ครับ (خراب) والنساء بـ ค่ะ (خا). يغيّر هذا كل الجمل والترجمات.',
+  aiSec: 'اتصال الذكاء الاصطناعي (Pro)', aiIntro: 'التطبيق يعمل بالكامل دون ذكاء اصطناعي. مفتاحك الخاص يضيف ترجمة أي جملة وإنشاء كلمات حسب الموضوع.',
+  howKey: 'كيف أحصل على مفتاح؟',
+  key_gemini: 'مجانا ودون بطاقة: ادخل إلى AI Studio بحساب Google، اضغط "Create API key"، انسخه والصقه هنا.',
+  key_claude: 'ادخل إلى Anthropic Console، أنشئ مفتاحا في API Keys، انسخه والصقه هنا. يتطلب وسيلة دفع.',
+  key_openai: 'ادخل إلى OpenAI Platform، أنشئ مفتاحا في API keys، انسخه والصقه هنا. يتطلب وسيلة دفع.',
+  key_local: 'ثبّت Ollama على حاسوبك، شغّل نموذجا (مثل llama3.1) واختره من القائمة. كل شيء يبقى على حاسوبك.',
+  apiKey: 'مفتاح API', keySaved: 'محفوظ', saveKey: 'حفظ المفتاح', disconnect: 'قطع الاتصال', model: 'النموذج', autoModel: 'تلقائي (موصى به)',
+  refreshModels: 'تحديث النماذج', testAi: 'اختبار الاتصال', keyEmpty: 'الصق مفتاحا أولا.',
+  keyEnc: 'المفتاح مشفّر ومحفوظ على هذا الجهاز ولا يُضمّن في النسخ الاحتياطية.', keyMem: 'المتصفح يمنع التخزين المشفّر — سيبقى المفتاح حتى إغلاق التطبيق فقط.',
+  confirmDisconnect: 'قطع الاتصال وحذف المفتاح من الجهاز؟', disconnected: 'تم قطع الاتصال', modelsN: 'تم العثور على {n} نماذج',
+  aiPrivacy: 'عمليات الذكاء الاصطناعي ترسل نصك فقط إلى المزوّد الذي اخترته. المفتاح لا يمر بأي خادم لـ AppNest.',
+  backupSec: 'النسخ الاحتياطي', exportJson: 'نسخة كاملة (JSON)', importJson: 'استعادة نسخة', exported: 'تم تنزيل الملف',
+  backupNote: 'تشمل النسخة التقدم والجمل والكلمات — دون مفاتيح. الاستعادة تستبدل كل البيانات.',
+  confirmRestore: 'استعادة نسخة {d} ({u})؟ ستُستبدل كل البيانات الحالية.', restore: 'استعادة', restored: 'تمت الاستعادة', badFile: 'هذا الملف لا يبدو نسخة من LingoNest.',
+  persistOk: 'التخزين محمي من التنظيف التلقائي للمتصفح.', persistNo: 'لم يمنح المتصفح تخزينا دائما — احفظ نسخة من حين لآخر.',
+  guide: 'الدليل', showGuide: 'عرض الدليل', diag: 'التشخيص', noErrors: 'لا أخطاء مسجلة.', copyDiag: 'نسخ التقرير', copied: 'تم النسخ', copyFail: 'فشل النسخ',
+  resetSec: 'حذف كل شيء', resetHint: 'يحذف التقدم والجمل والكلمات والإعدادات والمفاتيح ويعيد التطبيق كأنه جديد.', resetAll: 'حذف كل البيانات',
+  reset1: 'حذف كل بيانات التطبيق؟', reset2: 'متأكد؟ لا رجوع دون نسخة احتياطية.', continueBtn: 'متابعة',
+  version: 'الإصدار', developer: 'التطوير', platform: 'المنصة', storage: 'التخزين', onDevice: 'على الجهاز فقط', license: 'الترخيص',
+  store: 'متجر AppNest', shareApp: 'شارك التطبيق', feedback: 'أرسل ملاحظات', privacy: 'سياسة الخصوصية',
+  shareText: 'أتعلم اللغات مع LingoNest {u}', linkCopied: 'تم نسخ الرابط',
+  disclaimer: 'المحتوى والنطق والترجمات أدوات تعلم وقد لا تكون دقيقة. في حالة طوارئ حقيقية تواصل مع الجهات المختصة.',
+  saveFail: 'فشل الحفظ — قد تكون مساحة التخزين ممتلئة.', backupNudge: 'مر وقت منذ آخر نسخة احتياطية. احفظ نسخة من الإعدادات.',
+  phrasebook: 'كتيّب عبارات', date: 'التاريخ', boxInfo: 'الإتقان {b}/6 · صحيح {c} · خطأ {w}', notYet: 'لم تتدرب على هذا الحرف بعد.',
+  skip: 'تخطٍ', start: 'لنبدأ',
+  g1t: 'مرحبا بك في LingoNest', g1b: 'تعلّم أساسيات لغة جديدة: حروف وكلمات وجمل لتتدبر أمرك في السفر.',
+  g2t: 'أي لغة أولا؟', g2b: 'غيّر اللغة متى شئت من الرئيسية. يُحفظ التقدم لكل لغة على حدة.',
+  g3t: 'مستويات حسب وتيرتك', g3b: 'ابدأ بالحروف ثم الكلمات والجمل. "تابع التعلّم" يختار الجديد والمراجعات.',
+  g4t: 'تكلّم عني', g4b: 'اكتب جملة وسيقرؤها التطبيق أو يعرضها كبيرة. احفظ الجمل لاستخدامها دون اتصال.',
+  g5t: 'اختبر السماعة', g5b: 'القراءة تستخدم أصوات الجهاز. إن لم تُسمع لغة، تشرح الإعدادات كيفية إضافة صوت.'
+}
+};
+
+/* ===== LingoNest — app.js : engine, screens, speech, AI (BYOK), storage ===== */
+'use strict';
+const APP = { name: 'LingoNest', ver: '1.0.0' };
+
+/* ---------- error log (last 10, shown in diagnostics) ---------- */
+function logErr(m, f, l) {
+  try {
+    const a = JSON.parse(localStorage.getItem('ln_errs') || '[]');
+    a.unshift({ m: String(m).slice(0, 200), f: String(f || '').split('/').pop(), l: l || 0, t: Date.now() });
+    localStorage.setItem('ln_errs', JSON.stringify(a.slice(0, 10)));
+  } catch (_) {}
+}
+addEventListener('error', e => logErr(e.message, e.filename, e.lineno));
+addEventListener('unhandledrejection', e => logErr((e.reason && e.reason.message) || e.reason, 'promise', 0));
+
+/* ---------- storage shim: localStorage → memory ---------- */
+const S = (() => {
+  const mem = {}; let ok = true;
+  try { localStorage.setItem('__t', '1'); localStorage.removeItem('__t'); } catch (e) { ok = false; }
+  return {
+    ok,
+    get(k, d) { try { const v = ok ? localStorage.getItem(k) : mem[k]; return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) {
+      const s = JSON.stringify(v);
+      try { if (ok) localStorage.setItem(k, s); else mem[k] = s; return true; }
+      catch (e) { mem[k] = s; toast(T('saveFail'), 'err', 5000); return false; }
+    },
+    del(k) { try { if (ok) localStorage.removeItem(k); else delete mem[k]; } catch (e) {} }
+  };
+})();
+
+/* ---------- state ---------- */
+const DEF = {
+  v: 1, user: '', ui: 'he', theme: 'gold', mode: 'night', lang: 'th', goal: 10, rate: 0.9, gender: 'm',
+  voices: {}, onb: false, prog: {}, log: {}, newLog: {}, streak: { last: '', n: 0 }, phrases: [], custom: {},
+  favs: {}, ai: { provider: 'gemini', model: '', has: {} }, backupAt: 0, firstUse: 0
+};
+let st = Object.assign({}, DEF, S.get('ln_state', {}));
+st.ai = Object.assign({}, DEF.ai, st.ai || {});
+if (!LANGS[st.lang]) st.lang = 'th';
+if (!st.firstUse) st.firstUse = Date.now();
+function save() { S.set('ln_state', st); }
+
+/* ---------- i18n ---------- */
+function T(k, vars) {
+  let s = (LANG[st.ui] && LANG[st.ui][k]) || LANG.en[k] || k;
+  if (vars) for (const v in vars) s = s.split('{' + v + '}').join(vars[v]);
+  return s;
+}
+const isRTL = () => st.ui === 'he' || st.ui === 'ar';
+const LN = l => LANGS[l].name[st.ui] || LANGS[l].name.en;
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const today = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const dayKey = off => { const d = new Date(); d.setDate(d.getDate() + off); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+
+function toast(msg, kind, ms) {
+  const el = document.createElement('div');
+  el.className = 'toast ' + (kind || '');
+  el.setAttribute('role', 'status');
+  el.textContent = msg;
+  $('#toasts').appendChild(el);
+  setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 300); }, ms || 2600);
+}
+
+/* ---------- content model ---------- */
+function thaiGender(s) {
+  if (st.gender !== 'f' || !s) return s;
+  return s.replace(/ครับ/g, 'ค่ะ').replace(/ผม/g, 'ดิฉัน').replace(/\bkhrap\b/g, 'kha').replace(/\bphom\b/g, 'dichan')
+          .replace(/קראפ/g, 'קא').replace(/פום/g, 'דיצ׳אן');
+}
+let _itemsCache = {};
+function items(lang) {
+  const key = lang + st.gender + (st.custom[lang] || []).length + JSON.stringify((st.custom[lang] || []).map(c => c.id + c.text));
+  if (_itemsCache[lang] && _itemsCache[lang].key === key) return _itemsCache[lang].list;
+  const g = lang === 'th' ? thaiGender : (s => s);
+  const L = [];
+  (ALPHA[lang] || []).forEach((a, i) => L.push({ k: 'L:' + i, type: 'L', lvl: 1, cat: 'letters', text: a[0], tts: a[1], heb: a[2], roman: a[3], he: a[2], en: a[3] }));
+  CONCEPTS.forEach(c => {
+    const t = WD[lang] && WD[lang][c[0]]; if (!t) return;
+    L.push({ k: 'W:' + c[0], type: c[1] === 'phr' ? 'P' : 'W', lvl: c[2], cat: c[1], he: c[3], en: c[4], text: g(t[0]), roman: g(t[1]), heb: g(t[2]) });
+  });
+  (st.custom[lang] || []).forEach(c => L.push({ k: 'C:' + c.id, type: 'W', lvl: 5, cat: 'mine', he: c.he, en: c.he, text: c.text, roman: c.roman || '', heb: c.heb || '', cid: c.id }));
+  _itemsCache[lang] = { key, list: L };
+  return L;
+}
+const meaning = it => (st.ui === 'he' ? it.he : it.en) || it.he || it.en;
+const pron = it => (st.ui === 'he' ? (it.heb || it.roman) : (it.roman || it.heb)) || '';
+const pron2 = it => (st.ui === 'he' && it.heb && it.roman && it.type !== 'L') ? it.roman : '';
+const ttsText = it => it.tts || it.text.replace(/\.\.\./g, ' ');
+
+function P(lang) { st.prog[lang] = st.prog[lang] || {}; return st.prog[lang]; }
+const IV = [0, 5 * 60e3, 864e5, 3 * 864e5, 7 * 864e5, 16 * 864e5, 35 * 864e5];
+function grade(lang, k, ok) {
+  const p = P(lang);
+  const r = p[k] || { b: 0, d: 0, c: 0, w: 0 };
+  if (ok) { r.b = Math.min(6, r.b + 1); r.c++; } else { r.b = 1; r.w++; }
+  r.d = Date.now() + IV[r.b];
+  p[k] = r;
+  const t = today();
+  st.log[t] = (st.log[t] || 0) + 1;
+  const y = dayKey(-1);
+  if (st.streak.last !== t) { st.streak.n = st.streak.last === y ? st.streak.n + 1 : 1; st.streak.last = t; }
+  save();
+}
+function levelStats(lang) {
+  const p = P(lang), all = items(lang), out = {};
+  for (let l = 1; l <= 5; l++) {
+    const L = all.filter(i => i.lvl === l);
+    out[l] = { total: L.length, seen: L.filter(i => p[i.k]).length, mastered: L.filter(i => p[i.k] && p[i.k].b >= 3).length };
+  }
+  return out;
+}
+function curLevel(lang) {
+  const s = levelStats(lang);
+  for (let l = 1; l <= 4; l++) if (s[l].total && s[l].mastered / s[l].total < 0.7) return l;
+  return s[5].total ? 5 : 4;
+}
+function langPct(lang) {
+  const all = items(lang), p = P(lang);
+  if (!all.length) return 0;
+  return Math.round(100 * all.filter(i => p[i.k] && p[i.k].b >= 3).length / all.length);
+}
+function dueCount(lang) { const p = P(lang), now = Date.now(); return items(lang).filter(i => p[i.k] && p[i.k].d <= now).length; }
+function newLeft() { return Math.max(0, st.goal - (st.newLog[today()] || 0)); }
+
+/* ---------- speech: text-to-speech ---------- */
+let VOICES = [];
+const warnedVoice = {};
+function loadVoices() { if ('speechSynthesis' in window) VOICES = speechSynthesis.getVoices() || []; }
+if ('speechSynthesis' in window) {
+  loadVoices();
+  speechSynthesis.onvoiceschanged = () => { loadVoices(); if (NAV.cur === 'settings') render(); };
+}
+function voicesFor(lang) {
+  const pre = LANGS[lang].tts.slice(0, 2).toLowerCase();
+  return VOICES.filter(v => (v.lang || '').replace('_', '-').toLowerCase().startsWith(pre));
+}
+function voiceFor(lang) {
+  const c = voicesFor(lang);
+  if (!c.length) return null;
+  const chosen = c.find(v => v.name === st.voices[lang]);
+  if (chosen) return chosen;
+  const full = LANGS[lang].tts.toLowerCase();
+  return c.find(v => /google|natural|online/i.test(v.name) && v.lang.replace('_', '-').toLowerCase() === full) ||
+         c.find(v => v.lang.replace('_', '-').toLowerCase() === full) || c[0];
+}
+function speak(text, lang, slow) {
+  if (!('speechSynthesis' in window)) { toast(T('noTTS'), 'err', 4000); return; }
+  if (!text) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = LANGS[lang].tts;
+  const v = voiceFor(lang);
+  if (v) u.voice = v;
+  else if (!warnedVoice[lang]) { warnedVoice[lang] = 1; toast(T('noVoice', { l: LN(lang) }), 'warn', 6000); }
+  u.rate = slow ? Math.max(0.35, st.rate * 0.6) : st.rate;
+  setTimeout(() => speechSynthesis.speak(u), 30);
+}
+
+/* ---------- speech: recognition (say it) ---------- */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f\u064B-\u065F]/g, '').replace(/[^\p{L}\p{N}]/gu, ''); }
+function sim(a, b) {
+  if (!a || !b) return 0;
+  if (a === b || a.includes(b) || b.includes(a)) return 1;
+  const m = a.length, n = b.length, d = Array.from({ length: m + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= n; j++) d[0][j] = j;
+  for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return 1 - d[m][n] / Math.max(m, n);
+}
+function sayIt(it, lang, out) {
+  if (!SR) { toast(T('noSR'), 'warn', 5000); return; }
+  if (location.protocol === 'file:') { toast(T('fileMic'), 'warn', 6000); return; }
+  const r = new SR();
+  r.lang = LANGS[lang].tts; r.maxAlternatives = 4; r.interimResults = false;
+  if (out) out.textContent = T('listening');
+  r.onresult = e => {
+    const alts = [...e.results[0]].map(a => a.transcript);
+    const target = norm(it.type === 'L' ? it.tts : it.text);
+    const best = Math.max(...alts.map(a => sim(norm(a), target)));
+    if (out) {
+      out.innerHTML = best >= 0.72 ? '✅ ' + esc(T('saidGood')) : '🔁 ' + esc(T('saidHeard')) + ' <b dir="auto">' + esc(alts[0]) + '</b>';
+      out.className = 'said ' + (best >= 0.72 ? 'ok' : 'no');
+    }
+  };
+  r.onerror = e => { if (out) out.textContent = ''; toast(T('srErr') + ' (' + e.error + ')', 'err', 4000); };
+  r.onend = () => { if (out && out.textContent === T('listening')) out.textContent = ''; };
+  try { r.start(); } catch (e) { toast(T('srErr'), 'err'); }
+}
+
+/* ---------- IndexedDB (secrets) + AES-GCM key encryption ---------- */
+const IDB = {
+  db: null,
+  open() {
+    if (this.db) return Promise.resolve(this.db);
+    return new Promise((res, rej) => {
+      if (!('indexedDB' in window)) return rej(new Error('no idb'));
+      const r = indexedDB.open('lingonest', 1);
+      r.onupgradeneeded = () => r.result.createObjectStore('secrets');
+      r.onsuccess = () => { this.db = r.result; res(this.db); };
+      r.onerror = () => rej(r.error);
+    });
+  },
+  async tx(mode, fn) {
+    const db = await this.open();
+    return new Promise((res, rej) => { const s = db.transaction('secrets', mode).objectStore('secrets'); const q = fn(s); q.onsuccess = () => res(q.result); q.onerror = () => rej(q.error); });
+  },
+  get(k) { return this.tx('readonly', s => s.get(k)); },
+  put(k, v) { return this.tx('readwrite', s => s.put(v, k)); },
+  del(k) { return this.tx('readwrite', s => s.delete(k)); },
+  clear() { return this.tx('readwrite', s => s.clear()); }
+};
+const memKeys = {};
+async function cryptoKey() {
+  let k = await IDB.get('ck');
+  if (!k) { k = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']); await IDB.put('ck', k); }
+  return k;
+}
+function cleanKey(k) { return String(k || '').split(/[,\n\r\s]+/).map(x => x.trim()).filter(Boolean)[0] || ''; }
+async function setKey(provider, plain) {
+  plain = cleanKey(plain);
+  if (!plain) { delete memKeys[provider]; try { await IDB.del('ak_' + provider); } catch (e) {} st.ai.has[provider] = false; save(); return 'none'; }
+  memKeys[provider] = plain; st.ai.has[provider] = true; save();
+  try {
+    const ck = await cryptoKey();
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, ck, new TextEncoder().encode(plain));
+    const back = new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, ck, ct));
+    if (back !== plain) throw new Error('verify');
+    await IDB.put('ak_' + provider, { iv, ct });
+    return 'enc';
+  } catch (e) { return 'mem'; }
+}
+async function getKey(provider) {
+  if (provider === 'local') return 'local';
+  if (memKeys[provider]) return memKeys[provider];
+  try {
+    const r = await IDB.get('ak_' + provider);
+    if (!r) return '';
+    const ck = await cryptoKey();
+    memKeys[provider] = new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: r.iv }, ck, r.ct));
+    return memKeys[provider];
+  } catch (e) { return ''; }
+}
+const aiReady = () => st.ai.provider === 'local' || !!st.ai.has[st.ai.provider];
+
+/* ---------- AI (BYOK) — golden rule: default + fallback chain + live model list ---------- */
+const AI = {
+  gemini: { tag: 'FREE', link: 'https://aistudio.google.com/app/apikey', models: ['gemini-flash-latest', 'gemini-2.5-flash', 'gemini-flash-lite-latest'] },
+  claude: { tag: 'API', link: 'https://console.anthropic.com/settings/keys', models: ['claude-haiku-4-5', 'claude-sonnet-4-6', 'claude-sonnet-4-5'] },
+  openai: { tag: 'API', link: 'https://platform.openai.com/api-keys', models: ['gpt-4o-mini', 'gpt-4.1-mini', 'gpt-4o'] },
+  local:  { tag: 'LOCAL', link: 'https://ollama.com', models: ['llama3.1', 'qwen2.5', 'gemma2'] }
+};
+const hdr = v => String(v).replace(/[^\x20-\x7E]/g, '');
+async function httpJSON(url, opt) {
+  const r = await fetch(url, opt);
+  let j = null; try { j = await r.json(); } catch (e) {}
+  if (!r.ok) { const e = new Error((j && (j.error && (j.error.message || j.error.type) || j.message)) || ('HTTP ' + r.status)); e.status = r.status; throw e; }
+  return j;
+}
+async function callModel(p, model, key, prompt) {
+  if (p === 'gemini') {
+    const j = await httpJSON('https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent?key=' + encodeURIComponent(hdr(key)), {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.3, responseMimeType: 'application/json' } })
+    });
+    return ((j.candidates || [])[0] && j.candidates[0].content.parts.map(x => x.text || '').join('')) || '';
+  }
+  if (p === 'claude') {
+    const j = await httpJSON('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': hdr(key), 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model, max_tokens: 1500, messages: [{ role: 'user', content: prompt }] })
+    });
+    return (j.content || []).map(c => c.text || '').join('');
+  }
+  const url = p === 'local' ? 'http://localhost:11434/v1/chat/completions' : 'https://api.openai.com/v1/chat/completions';
+  const h = { 'Content-Type': 'application/json' };
+  if (p === 'openai') h.Authorization = 'Bearer ' + hdr(key);
+  const body = { model, temperature: 0.3, messages: [{ role: 'user', content: prompt }] };
+  if (p === 'openai') body.response_format = { type: 'json_object' };
+  const j = await httpJSON(url, { method: 'POST', headers: h, body: JSON.stringify(body) });
+  return (j.choices && j.choices[0] && j.choices[0].message.content) || '';
+}
+async function aiJSON(prompt) {
+  const p = st.ai.provider;
+  const key = await getKey(p);
+  if (!key) throw new Error(T('aiNoKey'));
+  const base = AI[p].models;
+  const chain = st.ai.model ? [st.ai.model].concat(base.filter(m => m !== st.ai.model)) : base;
+  let last;
+  for (const m of chain) {
+    try {
+      const txt = await callModel(p, m, key, prompt);
+      const a = txt.indexOf('{'), b = txt.lastIndexOf('}');
+      if (a < 0 || b < a) throw new Error(T('aiBadJson'));
+      return JSON.parse(txt.slice(a, b + 1));
+    } catch (e) {
+      last = e;
+      if (e.status === 404 || (e.status === 400 && /model/i.test(e.message))) continue;
+      throw e;
+    }
+  }
+  throw last || new Error('AI');
+}
+async function liveModels() {
+  const p = st.ai.provider, key = await getKey(p);
+  if (!key) throw new Error(T('aiNoKey'));
+  if (p === 'gemini') {
+    const j = await httpJSON('https://generativelanguage.googleapis.com/v1beta/models?key=' + encodeURIComponent(hdr(key)));
+    return (j.models || []).filter(m => (m.supportedGenerationMethods || []).includes('generateContent')).map(m => m.name.replace('models/', '')).filter(n => /gemini/.test(n));
+  }
+  if (p === 'claude') {
+    const j = await httpJSON('https://api.anthropic.com/v1/models', { headers: { 'x-api-key': hdr(key), 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' } });
+    return (j.data || []).map(m => m.id);
+  }
+  if (p === 'openai') {
+    const j = await httpJSON('https://api.openai.com/v1/models', { headers: { Authorization: 'Bearer ' + hdr(key) } });
+    return (j.data || []).map(m => m.id).filter(id => /^(gpt|o\d)/.test(id)).sort();
+  }
+  const j = await httpJSON('http://localhost:11434/api/tags');
+  return (j.models || []).map(m => m.name);
+}
+function aiLangName(l) { return LANGS[l].name.en; }
+function genderNote(l) {
+  if (l === 'th') return st.gender === 'f' ? ' The speaker is female: use ค่ะ/คะ and ดิฉัน.' : ' The speaker is male: use ครับ and ผม.';
+  return st.gender === 'f' ? ' The speaker is female (use feminine forms where grammar requires).' : ' The speaker is male (use masculine forms where grammar requires).';
+}
+async function aiTranslate(text, lang) {
+  const prompt = 'You translate short travel sentences for a Hebrew-speaking traveler. Translate the sentence below into ' + aiLangName(lang) +
+    ' exactly as a native speaker would say it naturally and politely to a local person.' + genderNote(lang) +
+    ' Return ONLY a JSON object: {"text":"translation in native script","roman":"simple Latin transliteration","heb":"pronunciation written in Hebrew letters without niqqud","back":"literal meaning of your translation, in Hebrew"}.\nSentence: """' + text + '"""';
+  return aiJSON(prompt);
+}
+async function aiWords(topic, lang, n) {
+  const prompt = 'Create ' + n + ' useful ' + aiLangName(lang) + ' vocabulary items for a Hebrew-speaking traveler about the topic: "' + topic + '". Prefer everyday words and short expressions actually used by locals.' + genderNote(lang) +
+    ' Return ONLY a JSON object: {"items":[{"he":"meaning in Hebrew","text":"word in native script","roman":"simple Latin transliteration","heb":"pronunciation written in Hebrew letters without niqqud"}]}';
+  const j = await aiJSON(prompt);
+  return (j.items || []).filter(x => x && x.text && x.he).slice(0, n);
+}
+
+/* ---------- navigation ---------- */
+const NAV = { cur: 'home', arg: null, stack: [] };
+function go(id, arg, noPush) {
+  if (!noPush && NAV.cur !== id) NAV.stack.push({ id: NAV.cur, arg: NAV.arg });
+  if (id === 'home') NAV.stack = [];
+  NAV.cur = id; NAV.arg = arg;
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
+  render();
+  window.scrollTo(0, 0);
+  const m = $('#app'); m.classList.remove('enter'); void m.offsetWidth; m.classList.add('enter');
+  const h = m.querySelector('h1,h2'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+}
+function back() { const p = NAV.stack.pop(); if (p) go(p.id, p.arg, true); else go('home', null, true); }
+
+/* ---------- theming ---------- */
+const THEMES = ['gold', 'sapphire', 'emerald', 'wine', 'copper'];
+function applyTheme() {
+  const d = document.documentElement;
+  d.setAttribute('data-theme', st.theme);
+  d.setAttribute('data-mode', st.mode);
+  d.lang = st.ui === 'he' ? 'he' : st.ui;
+  d.dir = isRTL() ? 'rtl' : 'ltr';
+  const m = document.querySelector('meta[name=theme-color]');
+  if (m) m.content = getComputedStyle(d).getPropertyValue('--bg').trim() || '#000000';
+}
+
+/* ---------- UI atoms ---------- */
+const tgt = (it, lang, cls) => '<span class="tgt ' + (cls || '') + '" lang="' + LANGS[lang].tts + '" dir="' + LANGS[lang].dir + '">' + esc(it.text) + '</span>';
+const backBtn = () => '<button class="back" data-act="back" aria-label="' + esc(T('back')) + '"><span class="arr">' + (isRTL() ? '→' : '←') + '</span> ' + esc(T('back')) + '</button>';
+const header = title => '<header class="bar">' + backBtn() + '<h2>' + esc(title) + '</h2><button class="home-ic" data-act="home" aria-label="' + esc(T('home')) + '">⌂</button></header>';
+const bar = (v, max) => '<div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="' + max + '" aria-valuenow="' + v + '"><i style="width:' + (max ? Math.round(100 * v / max) : 0) + '%"></i></div>';
+const soundBtns = (k) => '<button class="ic" data-act="say" data-k="' + esc(k) + '" aria-label="' + esc(T('listen')) + '">🔊</button><button class="ic" data-act="say" data-slow="1" data-k="' + esc(k) + '" aria-label="' + esc(T('slow')) + '">🐢</button>';
+function findItem(lang, k) { return items(lang).find(i => i.k === k); }
+
+/* ---------- render router ---------- */
+function render() {
+  applyTheme();
+  const f = SCREENS[NAV.cur] || SCREENS.home;
+  $('#app').innerHTML = f(NAV.arg);
+  if (NAV.cur === 'lesson') LESSON.paint();
+  document.title = APP.name;
+}
+const SCREENS = {};
+
+/* ===== HOME ===== */
+SCREENS.home = () => {
+  const lang = st.lang, stats = levelStats(lang), cur = curLevel(lang), s = stats[cur];
+  const due = dueCount(lang), nl = newLeft();
+  const all = items(lang).filter(i => i.type !== 'L');
+  const wod = all[(Math.floor(Date.now() / 864e5) * 7) % all.length];
+  const chips = Object.keys(LANGS).map(l => '<button class="chip' + (l === lang ? ' on' : '') + '" data-act="setLang" data-l="' + l + '" aria-pressed="' + (l === lang) + '"><span class="fl">' + LANGS[l].flag + '</span><span>' + esc(LN(l)) + '</span><small>' + langPct(l) + '%</small></button>').join('');
+  return `
+  <header class="top">
+    <div class="brand"><span class="logo" aria-hidden="true">✦</span><div><b>${APP.name}</b><small>${esc(T('tagline'))}</small></div></div>
+    <div class="tools">
+      <button class="dot ${aiReady() ? 'on' : ''}" data-act="nav" data-to="settings" data-sec="ai" aria-label="${esc(T('aiStatus'))}: ${aiReady() ? esc(T('connected')) : esc(T('notConnected'))}"></button>
+      <button class="ic" data-act="themeSheet" aria-label="${esc(T('design'))}">🎨</button>
+      <button class="ic" data-act="nav" data-to="about" aria-label="${esc(T('about'))}">ℹ️</button>
+      <button class="ic" data-act="nav" data-to="settings" aria-label="${esc(T('settings'))}">⚙️</button>
+    </div>
+  </header>
+  <p class="hello">${esc(st.user ? T('helloName', { n: st.user }) : T('helloAnon'))}</p>
+  <nav class="chips" aria-label="${esc(T('chooseLang'))}">${chips}</nav>
+  <section class="hero" aria-label="${esc(T('wordOfDay'))}">
+    <div class="hero-top"><span>${esc(T('wordOfDay'))}</span><span class="streak" title="${esc(T('streak'))}">🔥 ${st.streak.last === today() || st.streak.last === dayKey(-1) ? st.streak.n : 0}</span></div>
+    <div class="wod">${tgt(wod, lang, 'xl')}</div>
+    <div class="wod-sub"><span class="pr">${esc(pron(wod))}</span><span class="mn">${esc(meaning(wod))}</span></div>
+    <div class="row c">${soundBtns(wod.k)}<button class="ic" data-act="big" data-k="${wod.k}" aria-label="${esc(T('showBig'))}">⛶</button></div>
+    <hr class="rule">
+    <div class="lvl"><span>${esc(T('level'))} ${cur} · ${esc(T('lvl' + cur))}</span><span>${s.mastered}/${s.total}</span></div>
+    ${bar(s.mastered, s.total)}
+    <button class="cta" data-act="startAuto">▶ ${esc(T('continue'))}<small>${esc(T('ctaSub', { d: due, n: nl }))}</small></button>
+  </section>
+  <div class="grid">
+    <button class="tile" data-act="nav" data-to="letters"><span>🔤</span><b>${esc(T('letters'))}</b><small>${(ALPHA[lang] || []).length} ${esc(T('lettersCount'))}</small></button>
+    <button class="tile" data-act="nav" data-to="topics"><span>💬</span><b>${esc(T('words'))}</b><small>${esc(T('wordsSub'))}</small></button>
+    <button class="tile" data-act="nav" data-to="list" data-arg="phr"><span>🗣️</span><b>${esc(T('phrases'))}</b><small>${esc(T('phrasesSub'))}</small></button>
+    <button class="tile" data-act="nav" data-to="practice"><span>🎯</span><b>${esc(T('practice'))}</b><small>${esc(T('practiceSub'))}</small></button>
+    <button class="tile wide" data-act="nav" data-to="speak"><span>📢</span><b>${esc(T('speakForMe'))}</b><small>${esc(T('speakSub', { l: LN(lang) }))}</small></button>
+    <button class="tile wide" data-act="nav" data-to="progress"><span>📈</span><b>${esc(T('progress'))}</b><small>${esc(T('progressSub'))}</small></button>
+  </div>
+  ${location.protocol === 'file:' ? '<p class="warn">⚠️ ' + esc(T('fileWarn')) + '</p>' : ''}
+  <footer class="badge">AppNest · v${APP.ver}</footer>`;
+};
+
+/* ===== LETTERS ===== */
+SCREENS.letters = () => {
+  const lang = st.lang, p = P(lang);
+  const tiles = items(lang).filter(i => i.type === 'L').map(i => {
+    const r = p[i.k]; const cls = r ? (r.b >= 3 ? 'm' : 's') : '';
+    return '<button class="lt ' + cls + '" data-act="letter" data-k="' + i.k + '"><span class="tgt" lang="' + LANGS[lang].tts + '">' + esc(i.text) + '</span><small>' + esc(st.ui === 'he' ? i.heb.split(' (')[0] : i.roman) + '</small></button>';
+  }).join('');
+  return header(T('letters') + ' · ' + LN(lang)) + `
+  <p class="note">${esc(T(ALPHA_NOTE[lang] || 'noteGeneric'))}</p>
+  <button class="cta slim" data-act="startScope" data-scope="L">🎯 ${esc(T('practiceLetters'))}</button>
+  <div class="letters">${tiles}</div>
+  <p class="legend"><i class="s"></i>${esc(T('seen'))} <i class="m"></i>${esc(T('mastered'))}</p>`;
+};
+
+/* ===== TOPICS ===== */
+const CAT_ICON = { greet: '👋', num: '🔢', basic: '⭐', food: '🍜', trans: '🚕', shop: '🛍️', emerg: '🚑', time: '🕒', phr: '🗣️', mine: '✏️' };
+SCREENS.topics = () => {
+  const lang = st.lang, p = P(lang), all = items(lang);
+  const cats = ['greet', 'num', 'basic', 'food', 'trans', 'shop', 'emerg', 'time', 'mine'];
+  const rows = cats.map(c => {
+    const L = all.filter(i => i.cat === c), m = L.filter(i => p[i.k] && p[i.k].b >= 3).length;
+    return '<button class="trow" data-act="nav" data-to="list" data-arg="' + c + '"><span class="ti">' + CAT_ICON[c] + '</span><span class="tt"><b>' + esc(T('cat_' + c)) + '</b><small>' + (c === 'mine' && !L.length ? esc(T('mineEmpty')) : m + '/' + L.length + ' · ' + esc(T('level')) + ' ' + (L[0] ? L[0].lvl : 5)) + '</small>' + (L.length ? bar(m, L.length) : '') + '</span></button>';
+  }).join('');
+  return header(T('words') + ' · ' + LN(lang)) + '<div class="list">' + rows + '</div>';
+};
+
+/* ===== ITEM LIST (category) ===== */
+SCREENS.list = cat => {
+  const lang = st.lang, p = P(lang), favs = st.favs[lang] || [];
+  const L = items(lang).filter(i => i.cat === cat);
+  const rows = L.map(i => {
+    const r = p[i.k];
+    return '<div class="irow' + (r && r.b >= 3 ? ' m' : '') + '"' + (i.cid ? ' data-lp="custom" data-id="' + i.cid + '"' : '') + '>' +
+      '<div class="itx">' + tgt(i, lang, cat === 'phr' ? 'md' : 'lg') + '<span class="pr">' + esc(pron(i)) + (pron2(i) ? ' <em>' + esc(pron2(i)) + '</em>' : '') + '</span><span class="mn">' + esc(meaning(i)) + '</span></div>' +
+      '<div class="iac">' + soundBtns(i.k) +
+      '<button class="ic" data-act="big" data-k="' + i.k + '" aria-label="' + esc(T('showBig')) + '">⛶</button>' +
+      '<button class="ic fav' + (favs.includes(i.k) ? ' on' : '') + '" data-act="fav" data-k="' + i.k + '" aria-label="' + esc(T('fav')) + '" aria-pressed="' + favs.includes(i.k) + '">★</button>' +
+      (i.cid ? '<button class="ic" data-act="editCustom" data-id="' + i.cid + '" aria-label="' + esc(T('edit')) + '">✎</button>' : '') +
+      '</div></div>';
+  }).join('');
+  const mineTools = cat === 'mine' ? `<div class="row wrap">
+      <button class="btn" data-act="addCustom">➕ ${esc(T('addWord'))}</button>
+      <button class="btn gold" data-act="aiWords">✨ ${esc(T('aiWordsBtn'))}${aiReady() ? '' : ' <span class="tag">PRO</span>'}</button></div>` : '';
+  return header(T('cat_' + cat) + ' · ' + LN(lang)) +
+    (L.length ? '<button class="cta slim" data-act="startScope" data-scope="cat:' + cat + '">🎯 ' + esc(T('practiceThis')) + '</button>' : '') +
+    mineTools + (L.length ? '<div class="items">' + rows + '</div>' : '<p class="empty">' + esc(T('mineEmptyLong')) + '</p>');
+};
+
+/* ===== PRACTICE MENU ===== */
+SCREENS.practice = () => {
+  const lang = st.lang, p = P(lang), all = items(lang), now = Date.now(), favs = st.favs[lang] || [];
+  const due = all.filter(i => p[i.k] && p[i.k].d <= now).length;
+  const weak = all.filter(i => p[i.k] && (p[i.k].w > 0 && p[i.k].b <= 2)).length;
+  const opt = (scope, ic, label, n) => '<button class="trow" data-act="startScope" data-scope="' + scope + '"' + (n === 0 ? ' disabled' : '') + '><span class="ti">' + ic + '</span><span class="tt"><b>' + esc(label) + '</b><small>' + (n == null ? '' : n + ' ' + esc(T('itemsN'))) + '</small></span></button>';
+  return header(T('practice') + ' · ' + LN(lang)) + '<div class="list">' +
+    opt('due', '⏰', T('prDue'), due) + opt('L', '🔤', T('letters'), all.filter(i => i.type === 'L').length) +
+    opt('W', '💬', T('words'), all.filter(i => i.type === 'W').length) + opt('P', '🗣️', T('phrases'), all.filter(i => i.type === 'P').length) +
+    opt('fav', '★', T('prFav'), favs.length) + opt('weak', '🩹', T('prWeak'), weak) + opt('listen', '🎧', T('prListen'), null) +
+    '</div>';
+};
+
+/* ===== LESSON (session engine) ===== */
+const LESSON = {
+  q: [], i: 0, ok: 0, bad: 0, fresh: 0, answered: false, lang: 'th', listenOnly: false,
+  start(scope) {
+    const lang = this.lang = st.lang, p = P(lang), all = items(lang), now = Date.now();
+    let q = [];
+    this.listenOnly = scope === 'listen';
+    if (scope === 'auto') {
+      const cur = curLevel(lang);
+      const due = all.filter(i => p[i.k] && p[i.k].d <= now && i.lvl <= cur + 1).sort((a, b) => p[a.k].d - p[b.k].d).slice(0, 15);
+      let fresh = all.filter(i => !p[i.k] && i.lvl === cur).slice(0, Math.min(newLeft(), 7));
+      if (!fresh.length && !due.length) fresh = all.filter(i => !p[i.k] && i.lvl <= cur + 1).slice(0, 5);
+      q = fresh.map(it => ({ it, intro: true })).concat(shuffle(due.concat(fresh)).map(it => ({ it })));
+      this.fresh = fresh.length;
+    } else {
+      let pool;
+      if (scope === 'due') pool = all.filter(i => p[i.k] && p[i.k].d <= now);
+      else if (scope === 'fav') pool = all.filter(i => (st.favs[lang] || []).includes(i.k));
+      else if (scope === 'weak') pool = all.filter(i => p[i.k] && p[i.k].w > 0 && p[i.k].b <= 2);
+      else if (scope === 'listen') pool = all.filter(i => i.type !== 'L' && (p[i.k] || i.lvl <= 2));
+      else if (scope.startsWith('cat:')) pool = all.filter(i => i.cat === scope.slice(4));
+      else pool = all.filter(i => i.type === scope);
+      pool = shuffle(pool).slice(0, 10);
+      q = pool.filter(it => !p[it.k] && scope !== 'listen').map(it => ({ it, intro: true })).concat(pool.map(it => ({ it })));
+      this.fresh = pool.filter(it => !p[it.k]).length;
+    }
+    if (!q.length) { toast(T('nothingNow'), '', 3500); return; }
+    if (this.fresh) { st.newLog[today()] = (st.newLog[today()] || 0) + this.fresh; save(); }
+    Object.assign(this, { q, i: 0, ok: 0, bad: 0, answered: false });
+    go('lesson');
+  },
+  makeQ(step) {
+    const it = step.it, lang = this.lang;
+    const same = items(lang).filter(x => x.type === it.type && x.k !== it.k && x.text !== it.text && meaning(x) !== meaning(it));
+    const opts = shuffle(shuffle(same).slice(0, 3).concat([it]));
+    let kind = step.kind;
+    if (!kind) {
+      kind = this.listenOnly ? 'A2T' : pick(it.type === 'L' ? ['T2S', 'S2T', 'A2T'] : ['T2M', 'M2T', 'A2T', 'T2M']);
+      if (!('speechSynthesis' in window) && kind === 'A2T') kind = 'T2M';
+      step.kind = kind; step.opts = opts;
+    }
+    return step;
+  },
+  paint() {
+    const box = $('#lesson'); if (!box) return;
+    const lang = this.lang;
+    if (this.i >= this.q.length) { box.innerHTML = this.summary(); return; }
+    const step = this.q[this.i], it = step.it;
+    $('#lprog').style.width = Math.round(100 * this.i / this.q.length) + '%';
+    if (step.intro) {
+      const said = SR ? '<button class="btn" data-act="sayIt" data-k="' + it.k + '">🎤 ' + esc(T('sayIt')) + '</button>' : '';
+      box.innerHTML = '<div class="card intro"><span class="new">' + esc(T('newItem')) + '</span>' + tgt(it, lang, it.type === 'P' ? 'lg' : 'xl') +
+        '<p class="pr big">' + esc(pron(it)) + (pron2(it) ? ' <em>' + esc(pron2(it)) + '</em>' : '') + '</p><p class="mn big">' + esc(it.type === 'L' ? T('soundsLike') + ' ' + (st.ui === 'he' ? it.heb : it.roman) : meaning(it)) + '</p>' +
+        '<div class="row c">' + soundBtns(it.k) + said + '</div><p class="said" id="said" aria-live="polite"></p>' +
+        '<button class="cta" data-act="lnext">' + esc(T('gotIt')) + '</button></div>';
+      setTimeout(() => speak(ttsText(it), lang), 250);
+      return;
+    }
+    this.makeQ(step);
+    const k = step.kind;
+    let prompt = '';
+    if (k === 'T2M' || k === 'T2S') prompt = tgt(it, lang, it.type === 'P' ? 'lg' : 'xl');
+    else if (k === 'M2T') prompt = '<p class="ask">' + esc(meaning(it)) + '</p>';
+    else if (k === 'S2T') prompt = '<p class="ask">' + esc(T('whichLetter')) + '</p><p class="ask big">' + esc(st.ui === 'he' ? it.heb : it.roman) + '</p>';
+    else prompt = '<button class="listen" data-act="say" data-k="' + it.k + '" aria-label="' + esc(T('listen')) + '">🔊</button><button class="ic" data-act="say" data-slow="1" data-k="' + it.k + '">🐢</button>';
+    const q = { T2M: 'qT2M', M2T: 'qM2T', A2T: 'qA2T', T2S: 'qT2S', S2T: 'qS2T' }[k];
+    const showsTarget = k === 'M2T' || k === 'A2T' || k === 'S2T';
+    const opts = step.opts.map((o, n) => '<button class="opt" data-act="answer" data-n="' + n + '">' +
+      (showsTarget ? tgt(o, lang, 'md') : esc(k === 'T2S' ? (st.ui === 'he' ? o.heb : o.roman) : meaning(o))) + '</button>').join('');
+    box.innerHTML = '<div class="card"><p class="qh">' + esc(T(q)) + '</p><div class="prompt">' + prompt + '</div><div class="opts">' + opts + '</div><div id="fb" aria-live="polite"></div></div>';
+    this.answered = false;
+    if (k === 'A2T') setTimeout(() => speak(ttsText(it), lang), 250);
+  },
+  answer(n) {
+    if (this.answered) return;
+    this.answered = true;
+    const step = this.q[this.i], it = step.it, chosen = step.opts[n], good = chosen.k === it.k;
+    grade(this.lang, it.k, good);
+    good ? this.ok++ : this.bad++;
+    document.querySelectorAll('.opt').forEach((b, j) => {
+      b.disabled = true;
+      if (step.opts[j].k === it.k) b.classList.add('right'); else if (j === n) b.classList.add('wrong');
+    });
+    if (!good && !step.retry) this.q.push({ it, retry: true });
+    try { navigator.vibrate && navigator.vibrate(good ? 20 : [40, 40, 40]); } catch (e) {}
+    const fb = $('#fb');
+    fb.innerHTML = '<div class="fb ' + (good ? 'ok' : 'no') + '"><b>' + esc(good ? T('right') : T('wrongWas')) + '</b> ' + tgt(it, this.lang, 'sm') + ' · <span class="pr">' + esc(pron(it)) + '</span> · ' + esc(it.type === 'L' ? (st.ui === 'he' ? it.heb : it.roman) : meaning(it)) + '</div><button class="cta" data-act="lnext">' + esc(T('next')) + '</button>';
+    speak(ttsText(it), this.lang);
+    const nb = fb.querySelector('.cta'); if (nb) nb.focus();
+  },
+  next() { this.i++; this.paint(); },
+  summary() {
+    $('#lprog').style.width = '100%';
+    const tot = this.ok + this.bad, pct = tot ? Math.round(100 * this.ok / tot) : 100;
+    return '<div class="card sum"><p class="big-num">' + pct + '%</p><p>' + esc(T('sumLine', { ok: this.ok, t: tot })) + '</p>' +
+      (this.fresh ? '<p>' + esc(T('sumNew', { n: this.fresh })) + '</p>' : '') + '<p>🔥 ' + esc(T('streakN', { n: st.streak.n })) + '</p>' +
+      '<div class="row c wrap"><button class="cta" data-act="startAuto">▶ ' + esc(T('another')) + '</button><button class="btn" data-act="home">⌂ ' + esc(T('home')) + '</button></div></div>';
+  }
+};
+SCREENS.lesson = () => '<header class="bar">' + backBtn() + '<div class="lp"><i id="lprog"></i></div><button class="home-ic" data-act="home" aria-label="' + esc(T('home')) + '">⌂</button></header><div id="lesson"></div>';
+
+/* ===== SPEAK FOR ME ===== */
+let SPK = { src: '', res: null, direct: false };
+SCREENS.speak = () => {
+  const lang = st.lang;
+  const saved = st.phrases.filter(x => x.lang === lang);
+  const res = SPK.res;
+  const gt = 'https://translate.google.com/?sl=auto&tl=' + (lang === 'he' ? 'iw' : lang) + '&op=translate&text=' + encodeURIComponent(SPK.src || '');
+  return header(T('speakForMe') + ' · ' + LN(lang)) + `
+  <p class="note">${esc(T('speakIntro'))}</p>
+  <div class="seg" role="tablist">
+    <button role="tab" class="${SPK.direct ? '' : 'on'}" aria-selected="${!SPK.direct}" data-act="spkMode" data-v="0">${esc(T('modeTranslate'))}</button>
+    <button role="tab" class="${SPK.direct ? 'on' : ''}" aria-selected="${SPK.direct}" data-act="spkMode" data-v="1">${esc(T('modeDirect', { l: LN(lang) }))}</button>
+  </div>
+  <label class="fld"><span>${esc(SPK.direct ? T('typeIn', { l: LN(lang) }) : T('typeHe'))}</span>
+    <textarea id="spkIn" rows="3" dir="${SPK.direct ? LANGS[lang].dir : 'auto'}" placeholder="${esc(SPK.direct ? '' : T('spkPh'))}">${esc(SPK.src)}</textarea></label>
+  <div class="row wrap">
+    ${SPK.direct ? `<button class="cta slim" data-act="spkDirect">🔊 ${esc(T('playIt'))}</button>`
+      : `<button class="cta slim" data-act="spkTranslate">✨ ${esc(T('translate'))}${aiReady() ? '' : ' <span class="tag">PRO</span>'}</button>
+         <a class="btn" href="${esc(gt)}" target="_blank" rel="noopener" data-act="gtLink">🌐 Google Translate</a>`}
+  </div>
+  ${!SPK.direct && !aiReady() ? '<p class="hint">' + esc(T('noAiHint')) + ' <button class="link" data-act="nav" data-to="settings" data-sec="ai">' + esc(T('connectAi')) + '</button></p>' : ''}
+  ${res ? `<div class="card result">
+      ${tgt(res, lang, 'lg')}
+      <p class="pr big">${esc(st.ui === 'he' ? (res.heb || res.roman) : (res.roman || res.heb))}</p>
+      ${res.back ? '<p class="mn">↩︎ ' + esc(res.back) + '</p>' : ''}
+      <div class="row c wrap">
+        <button class="ic" data-act="spkSay">🔊</button><button class="ic" data-act="spkSay" data-slow="1">🐢</button>
+        <button class="btn" data-act="spkBig">⛶ ${esc(T('showBig'))}</button>
+        <button class="btn gold" data-act="spkSave">💾 ${esc(T('saveIt'))}</button>
+      </div>
+      ${res.ai ? '<p class="tiny">' + esc(T('aiDisclaimer')) + '</p>' : ''}
+    </div>` : ''}
+  <h3>${esc(T('myPhrases'))} (${saved.length})</h3>
+  ${saved.length ? '<div class="items">' + saved.map(x => `<div class="irow" data-lp="phrase" data-id="${x.id}">
+      <div class="itx"><span class="tgt md" lang="${LANGS[lang].tts}" dir="${LANGS[lang].dir}">${esc(x.text)}</span>
+      <span class="pr">${esc(st.ui === 'he' ? (x.heb || x.roman) : (x.roman || x.heb))}</span><span class="mn">${esc(x.src)}</span></div>
+      <div class="iac"><button class="ic" data-act="phSay" data-id="${x.id}" aria-label="${esc(T('listen'))}">🔊</button>
+      <button class="ic" data-act="phBig" data-id="${x.id}" aria-label="${esc(T('showBig'))}">⛶</button>
+      <button class="ic" data-act="phEdit" data-id="${x.id}" aria-label="${esc(T('edit'))}">✎</button></div></div>`).join('') + '</div>'
+    : '<p class="empty">' + esc(T('noPhrases')) + '</p>'}
+  ${saved.length ? '<button class="btn" data-act="printBook">🖨️ ' + esc(T('printBook')) + '</button>' : ''}`;
+};
+
+/* ===== PROGRESS ===== */
+SCREENS.progress = () => {
+  const lang = st.lang, stats = levelStats(lang);
+  const days = []; let mx = 1;
+  for (let o = -6; o <= 0; o++) { const k = dayKey(o); const v = st.log[k] || 0; mx = Math.max(mx, v); days.push({ k, v }); }
+  const dn = d => new Date(d.k + 'T12:00').toLocaleDateString(st.ui === 'he' ? 'he-IL' : st.ui, { weekday: 'short' });
+  const chart = '<div class="chart" role="img" aria-label="' + esc(T('last7')) + '">' + days.map(d => '<div class="col"><i style="height:' + Math.round(100 * d.v / mx) + '%"></i><small>' + esc(dn(d)) + '</small><b>' + d.v + '</b></div>').join('') + '</div>';
+  const lv = [1, 2, 3, 4, 5].filter(l => stats[l].total).map(l => '<div class="lvrow"><span>' + l + ' · ' + esc(T('lvl' + l)) + '</span><span>' + stats[l].mastered + '/' + stats[l].total + '</span>' + bar(stats[l].mastered, stats[l].total) + '</div>').join('');
+  const other = Object.keys(LANGS).map(l => '<div class="lvrow"><span>' + LANGS[l].flag + ' ' + esc(LN(l)) + '</span><span>' + langPct(l) + '%</span>' + bar(langPct(l), 100) + '</div>').join('');
+  const total = Object.values(st.log).reduce((a, b) => a + b, 0);
+  return header(T('progress')) + `
+  <div class="stats"><div><b>🔥 ${st.streak.last === today() || st.streak.last === dayKey(-1) ? st.streak.n : 0}</b><small>${esc(T('streak'))}</small></div>
+  <div><b>${total}</b><small>${esc(T('totalAnswers'))}</small></div><div><b>${curLevel(lang)}</b><small>${esc(T('level'))} · ${esc(LN(lang))}</small></div></div>
+  <h3>${esc(T('last7'))}</h3>${chart}
+  <h3>${esc(T('levelsIn', { l: LN(lang) }))}</h3><div class="card">${lv}</div>
+  <p class="hint">${esc(T('levelRule'))}</p>
+  <h3>${esc(T('allLangs'))}</h3><div class="card">${other}</div>`;
+};
+
+/* ===== SETTINGS ===== */
+SCREENS.settings = sec => {
+  const lang = st.lang, vs = voicesFor(lang), cur = voiceFor(lang);
+  const prov = st.ai.provider;
+  const uiOpts = ['he', 'en', 'ru', 'es', 'ar'].map(u => '<option value="' + u + '"' + (st.ui === u ? ' selected' : '') + '>' + { he: 'עברית', en: 'English', ru: 'Русский', es: 'Español', ar: 'العربية' }[u] + '</option>').join('');
+  const sw = THEMES.map(t => '<button class="sw sw-' + t + (st.theme === t ? ' on' : '') + '" data-act="setTheme" data-t="' + t + '" aria-label="' + esc(T('th_' + t)) + '" aria-pressed="' + (st.theme === t) + '"><i></i><small>' + esc(T('th_' + t)) + '</small></button>').join('');
+  const vOpts = '<option value="">' + esc(T('autoVoice')) + '</option>' + vs.map(v => '<option' + (st.voices[lang] === v.name ? ' selected' : '') + '>' + esc(v.name) + '</option>').join('');
+  const provs = Object.keys(AI).map(p => '<button class="prov' + (prov === p ? ' on' : '') + '" data-act="setProv" data-p="' + p + '" aria-pressed="' + (prov === p) + '"><b>' + { gemini: 'Gemini', claude: 'Claude', openai: 'ChatGPT', local: 'Ollama' }[p] + '</b><span class="tag">' + AI[p].tag + '</span>' + (st.ai.has[p] ? '<i class="okd">●</i>' : '') + '</button>').join('');
+  const mOpts = [''].concat(AI[prov].models).concat((st.ai.live && st.ai.live[prov]) || []).filter((m, i, a) => a.indexOf(m) === i)
+    .map(m => '<option value="' + esc(m) + '"' + (st.ai.model === m ? ' selected' : '') + '>' + esc(m || T('autoModel')) + '</option>').join('');
+  const errs = S.get('ln_errs', []);
+  setTimeout(() => { if (sec) { const el = document.getElementById('sec-' + sec); if (el) el.scrollIntoView({ block: 'start' }); } persistStatus(); }, 50);
+  return header(T('settings')) + `
+  <section class="card set"><h3>👤 ${esc(T('profile'))}</h3>
+    <label class="fld"><span>${esc(T('userName'))}</span><input id="uName" value="${esc(st.user)}" maxlength="40" autocomplete="nickname" data-ch="user"></label>
+    <label class="fld"><span>${esc(T('uiLang'))}</span><select data-ch="ui">${uiOpts}</select></label>
+  </section>
+  <section class="card set"><h3>🎨 ${esc(T('design'))}</h3><div class="sws">${sw}</div>
+    <div class="seg"><button class="${st.mode === 'night' ? 'on' : ''}" data-act="setMode" data-m="night">🌙 ${esc(T('night'))}</button><button class="${st.mode === 'day' ? 'on' : ''}" data-act="setMode" data-m="day">☀️ ${esc(T('day'))}</button></div>
+  </section>
+  <section class="card set"><h3>🐇 ${esc(T('pace'))}</h3><p class="hint">${esc(T('paceHint'))}</p>
+    <div class="seg">${[[5, 'paceEasy'], [10, 'paceNormal'], [20, 'paceFast']].map(([n, k]) => '<button class="' + (st.goal === n ? 'on' : '') + '" data-act="setGoal" data-n="' + n + '">' + esc(T(k)) + '<small>' + n + '/' + esc(T('perDay')) + '</small></button>').join('')}</div>
+  </section>
+  <section class="card set" id="sec-voice"><h3>🔊 ${esc(T('voiceSec'))}</h3>
+    <label class="fld"><span>${esc(T('rate'))}: <b id="rateV">${st.rate.toFixed(2)}</b></span><input type="range" min="0.5" max="1.2" step="0.05" value="${st.rate}" data-ch="rate"></label>
+    <label class="fld"><span>${esc(T('voiceFor', { l: LN(lang) }))}</span><select data-ch="voice">${vOpts}</select></label>
+    <p class="${cur ? 'hint' : 'warn'}">${cur ? '✅ ' + esc(T('voiceFound', { v: cur.name })) : '⚠️ ' + esc(T('voiceMissing', { l: LN(lang) }))}</p>
+    ${cur ? '' : '<details><summary>' + esc(T('howAddVoice')) + '</summary><p class="hint">' + esc(T('addVoiceWin')) + '</p><p class="hint">' + esc(T('addVoiceAnd')) + '</p><p class="hint">' + esc(T('addVoiceIos')) + '</p></details>'}
+    <button class="btn" data-act="testVoice">▶ ${esc(T('testVoice'))}</button>
+    <label class="fld"><span>${esc(T('iSpeakAs'))}</span></label>
+    <div class="seg"><button class="${st.gender === 'm' ? 'on' : ''}" data-act="setGender" data-g="m">${esc(T('male'))}</button><button class="${st.gender === 'f' ? 'on' : ''}" data-act="setGender" data-g="f">${esc(T('female'))}</button></div>
+    <p class="hint">${esc(T('genderHint'))}</p>
+  </section>
+  <section class="card set" id="sec-ai"><h3>✨ ${esc(T('aiSec'))} <span class="dot inl ${aiReady() ? 'on' : ''}"></span></h3>
+    <p class="hint">${esc(T('aiIntro'))}</p>
+    <div class="provs">${provs}</div>
+    <details open><summary>${esc(T('howKey'))}</summary><p class="hint">${esc(T('key_' + prov))}</p>
+      <a class="link" href="${AI[prov].link}" target="_blank" rel="noopener">${esc(AI[prov].link.replace('https://', ''))}</a>
+      ${prov === 'gemini' ? ' · <a class="link" href="https://www.youtube.com/results?search_query=how+to+get+gemini+api+key+google+ai+studio" target="_blank" rel="noopener">▶ YouTube</a>' : ''}</details>
+    ${prov === 'local' ? '' : `<label class="fld"><span>${esc(T('apiKey'))}</span><input id="aiKey" type="password" autocomplete="off" spellcheck="false" placeholder="${st.ai.has[prov] ? '••••••••  (' + esc(T('keySaved')) + ')' : ''}"></label>
+    <div class="row wrap"><button class="btn gold" data-act="saveKey">💾 ${esc(T('saveKey'))}</button>${st.ai.has[prov] ? '<button class="btn" data-act="disconnect">⏏ ' + esc(T('disconnect')) + '</button>' : ''}</div>`}
+    <label class="fld"><span>${esc(T('model'))}</span><select data-ch="model">${mOpts}</select></label>
+    <div class="row wrap"><button class="btn" data-act="refreshModels">↻ ${esc(T('refreshModels'))}</button><button class="btn" data-act="testAi">🔌 ${esc(T('testAi'))}</button></div>
+    <p class="tiny">🔒 ${esc(T('aiPrivacy'))}</p>
+  </section>
+  <section class="card set"><h3>💾 ${esc(T('backupSec'))}</h3>
+    <div class="row wrap"><button class="btn" data-act="exportJson">⬇️ ${esc(T('exportJson'))}</button>
+    <label class="btn">⬆️ ${esc(T('importJson'))}<input type="file" accept=".json,application/json" data-ch="import" hidden></label>
+    <button class="btn" data-act="exportCsv">📊 CSV / Excel</button><button class="btn" data-act="printBook">🖨️ PDF</button></div>
+    <p class="tiny">${esc(T('backupNote'))}</p><p class="tiny" id="persist"></p>
+  </section>
+  <section class="card set"><h3>🧭 ${esc(T('guide'))}</h3><button class="btn" data-act="guide">▶ ${esc(T('showGuide'))}</button></section>
+  <section class="card set"><h3>🩺 ${esc(T('diag'))}</h3>
+    <pre class="diag" id="diagTxt">${esc(diagText())}</pre>
+    ${errs.length ? '' : '<p class="tiny">' + esc(T('noErrors')) + '</p>'}
+    <button class="btn" data-act="copyDiag">📋 ${esc(T('copyDiag'))}</button>
+  </section>
+  <section class="card set danger"><h3>🗑️ ${esc(T('resetSec'))}</h3><p class="hint">${esc(T('resetHint'))}</p><button class="btn red" data-act="resetAll">${esc(T('resetAll'))}</button></section>
+  <footer class="badge">AppNest · v${APP.ver}</footer>`;
+};
+function diagText() {
+  const errs = S.get('ln_errs', []);
+  return [APP.name + ' v' + APP.ver, 'UA: ' + navigator.userAgent.slice(0, 120), 'protocol: ' + location.protocol,
+    'TTS: ' + ('speechSynthesis' in window) + ' · voices: ' + VOICES.length + ' · ' + Object.keys(LANGS).map(l => l + ':' + voicesFor(l).length).join(' '),
+    'SpeechRecognition: ' + !!SR, 'localStorage: ' + S.ok + ' · IndexedDB: ' + ('indexedDB' in window) + ' · crypto: ' + !!(window.crypto && crypto.subtle),
+    'SW: ' + ('serviceWorker' in navigator && !!navigator.serviceWorker.controller), 'AI: ' + st.ai.provider + ' · ready: ' + aiReady() + ' · model: ' + (st.ai.model || 'auto'),
+    'errors: ' + errs.length].concat(errs.map(e => new Date(e.t).toISOString().slice(0, 16) + ' ' + e.m + ' @' + e.f + ':' + e.l)).join('\n');
+}
+async function persistStatus() {
+  const el = $('#persist'); if (!el) return;
+  try {
+    if (navigator.storage && navigator.storage.persisted) {
+      let p = await navigator.storage.persisted();
+      if (!p && navigator.storage.persist) p = await navigator.storage.persist();
+      el.textContent = '📦 ' + T(p ? 'persistOk' : 'persistNo');
+    }
+  } catch (e) {}
+}
+
+/* ===== ABOUT ===== */
+SCREENS.about = () => header(T('about')) + `
+  <div class="card about"><span class="logo big" aria-hidden="true">✦</span><h3>${APP.name}</h3><p>${esc(T('tagline'))}</p><p class="tiny">v${APP.ver}</p></div>
+  <div class="card"><dl class="kv">
+    <dt>${esc(T('version'))}</dt><dd>${APP.ver}</dd><dt>${esc(T('developer'))}</dt><dd>Barak Aflalo</dd>
+    <dt>${esc(T('platform'))}</dt><dd>PWA · HTML5</dd><dt>${esc(T('storage'))}</dt><dd>${esc(T('onDevice'))}</dd>
+    <dt>${esc(T('license'))}</dt><dd>© AppNest 2026</dd></dl></div>
+  <div class="list">
+    <a class="trow" href="https://barakaflalo.github.io/appnest" target="_blank" rel="noopener"><span class="ti">🏪</span><span class="tt"><b>${esc(T('store'))}</b></span></a>
+    <button class="trow" data-act="shareApp"><span class="ti">📤</span><span class="tt"><b>${esc(T('shareApp'))}</b></span></button>
+    <a class="trow" href="mailto:appnest55@gmail.com?subject=${encodeURIComponent(APP.name + ' v' + APP.ver)}"><span class="ti">✉️</span><span class="tt"><b>${esc(T('feedback'))}</b></span></a>
+    <button class="trow" data-act="guide"><span class="ti">🧭</span><span class="tt"><b>${esc(T('showGuide'))}</b></span></button>
+    <a class="trow" href="privacy_policy.html" target="_blank" rel="noopener"><span class="ti">🔒</span><span class="tt"><b>${esc(T('privacy'))}</b></span></a>
+  </div>
+  <p class="tiny">${esc(T('disclaimer'))}</p>
+  <footer class="badge">AppNest · v${APP.ver}</footer>`;
+
+/* ---------- modal / overlays ---------- */
+let lastFocus = null;
+function modal(html, cls) {
+  closeModal();
+  lastFocus = document.activeElement;
+  const w = document.createElement('div');
+  w.className = 'modal-wrap'; w.id = 'modal';
+  w.innerHTML = '<div class="modal ' + (cls || '') + '" role="dialog" aria-modal="true"><button class="x" data-act="closeModal" aria-label="' + esc(T('close')) + '">✕</button>' + html + '</div>';
+  w.addEventListener('click', e => { if (e.target === w) closeModal(); });
+  document.body.appendChild(w);
+  const f = w.querySelector('input,textarea,select,button:not(.x)') || w.querySelector('.x'); if (f) f.focus();
+}
+function closeModal() { const m = $('#modal'); if (m) { m.remove(); if (lastFocus && lastFocus.focus) try { lastFocus.focus(); } catch (e) {} } }
+function confirmBox(msg, okLabel, cb, danger) {
+  modal('<p class="cm">' + esc(msg) + '</p><div class="row c wrap"><button class="btn ' + (danger ? 'red' : 'gold') + '" id="cmOk">' + esc(okLabel) + '</button><button class="btn" data-act="closeModal">' + esc(T('cancel')) + '</button></div>');
+  $('#cmOk').onclick = () => { closeModal(); cb(); };
+}
+function bigShow(text, lang, pr, mn) {
+  const w = document.createElement('div');
+  w.className = 'bigshow'; w.id = 'bigshow'; w.setAttribute('role', 'dialog'); w.setAttribute('aria-modal', 'true');
+  const len = [...text].length, size = len < 6 ? 30 : len < 14 ? 18 : len < 30 ? 11 : 8;
+  w.innerHTML = '<button class="x" id="bsX" aria-label="' + esc(T('close')) + '">✕</button><div class="bs-in"><p class="tgt" lang="' + LANGS[lang].tts + '" dir="' + LANGS[lang].dir + '" style="font-size:' + size + 'vmin">' + esc(text) + '</p>' +
+    (pr ? '<p class="pr">' + esc(pr) + '</p>' : '') + (mn ? '<p class="mn">' + esc(mn) + '</p>' : '') +
+    '<div class="row c"><button class="ic xl" id="bsSay">🔊</button><button class="ic xl" id="bsSlow">🐢</button></div></div>';
+  document.body.appendChild(w);
+  $('#bsX').onclick = () => w.remove();
+  $('#bsSay').onclick = () => speak(text.replace(/\.\.\./g, ' '), lang);
+  $('#bsSlow').onclick = () => speak(text.replace(/\.\.\./g, ' '), lang, true);
+  $('#bsX').focus();
+  try { if (w.requestFullscreen && matchMedia('(max-width:700px)').matches) w.requestFullscreen().catch(() => {}); } catch (e) {}
+}
+function themeSheet() {
+  modal('<h3>🎨 ' + esc(T('design')) + '</h3><div class="sws">' + THEMES.map(t => '<button class="sw sw-' + t + (st.theme === t ? ' on' : '') + '" data-act="setTheme" data-t="' + t + '" aria-pressed="' + (st.theme === t) + '"><i></i><small>' + esc(T('th_' + t)) + '</small></button>').join('') +
+    '</div><div class="seg"><button class="' + (st.mode === 'night' ? 'on' : '') + '" data-act="setMode" data-m="night">🌙 ' + esc(T('night')) + '</button><button class="' + (st.mode === 'day' ? 'on' : '') + '" data-act="setMode" data-m="day">☀️ ' + esc(T('day')) + '</button></div>');
+}
+
+/* ---------- custom words (level 5) ---------- */
+function customForm(c) {
+  const lang = st.lang;
+  modal('<h3>' + esc(c ? T('editWord') : T('addWord')) + ' · ' + esc(LN(lang)) + '</h3>' +
+    '<label class="fld"><span>' + esc(T('fMeaning')) + '</span><input id="cHe" value="' + esc(c ? c.he : '') + '" dir="auto"></label>' +
+    '<label class="fld"><span>' + esc(T('fText', { l: LN(lang) })) + '</span><input id="cTx" value="' + esc(c ? c.text : '') + '" dir="' + LANGS[lang].dir + '" lang="' + LANGS[lang].tts + '"></label>' +
+    '<label class="fld"><span>' + esc(T('fHeb')) + '</span><input id="cHb" value="' + esc(c ? c.heb : '') + '" dir="rtl"></label>' +
+    '<label class="fld"><span>' + esc(T('fRoman')) + '</span><input id="cRo" value="' + esc(c ? c.roman : '') + '" dir="ltr"></label>' +
+    '<div class="row wrap"><button class="btn gold" id="cSave">💾 ' + esc(T('save')) + '</button><button class="btn" id="cTest">🔊</button>' + (c ? '<button class="btn red" id="cDel">🗑️ ' + esc(T('delete')) + '</button>' : '') + '</div>');
+  $('#cTest').onclick = () => speak($('#cTx').value, lang);
+  $('#cSave').onclick = () => {
+    const he = $('#cHe').value.trim(), text = $('#cTx').value.trim();
+    if (!he || !text) { toast(T('fillBoth'), 'warn'); return; }
+    const list = st.custom[lang] = st.custom[lang] || [];
+    const rec = { id: c ? c.id : uid(), he, text, heb: $('#cHb').value.trim(), roman: $('#cRo').value.trim() };
+    if (c) list[list.findIndex(x => x.id === c.id)] = rec; else list.push(rec);
+    save(); closeModal(); render(); toast(T('saved'));
+  };
+  if (c) $('#cDel').onclick = () => confirmBox(T('confirmDelete'), T('delete'), () => {
+    st.custom[lang] = st.custom[lang].filter(x => x.id !== c.id); delete P(lang)['C:' + c.id]; save(); render(); toast(T('deleted'));
+  }, true);
+}
+function aiWordsForm() {
+  if (!aiReady()) { toast(T('needAi'), 'warn', 4000); go('settings', 'ai'); return; }
+  const lang = st.lang;
+  modal('<h3>✨ ' + esc(T('aiWordsBtn')) + ' · ' + esc(LN(lang)) + '</h3><p class="hint">' + esc(T('aiWordsHint')) + '</p>' +
+    '<label class="fld"><span>' + esc(T('topic')) + '</span><input id="aTopic" placeholder="' + esc(T('topicPh')) + '" dir="auto"></label>' +
+    '<label class="fld"><span>' + esc(T('howMany')) + '</span><select id="aN"><option>5</option><option selected>10</option><option>15</option></select></label>' +
+    '<button class="cta slim" id="aGo">✨ ' + esc(T('generate')) + '</button><p class="tiny">' + esc(T('aiPrivacy')) + '</p>');
+  $('#aGo').onclick = async () => {
+    const topic = $('#aTopic').value.trim(); if (!topic) { toast(T('fillTopic'), 'warn'); return; }
+    const b = $('#aGo'); b.disabled = true; b.textContent = '⏳ ' + T('working');
+    try {
+      const got = await aiWords(topic, lang, +$('#aN').value);
+      const list = st.custom[lang] = st.custom[lang] || [];
+      got.forEach(x => list.push({ id: uid(), he: String(x.he), text: String(x.text), heb: String(x.heb || ''), roman: String(x.roman || '') }));
+      save(); closeModal(); render(); toast(T('addedN', { n: got.length }));
+    } catch (e) { b.disabled = false; b.textContent = '✨ ' + T('generate'); toast(T('aiErr') + ': ' + e.message, 'err', 6000); }
+  };
+}
+
+/* ---------- phrase edit ---------- */
+function phraseForm(x) {
+  modal('<h3>✎ ' + esc(T('editPhrase')) + '</h3>' +
+    '<label class="fld"><span>' + esc(T('fSrc')) + '</span><input id="pSrc" value="' + esc(x.src) + '" dir="auto"></label>' +
+    '<label class="fld"><span>' + esc(T('fText', { l: LN(x.lang) })) + '</span><textarea id="pTx" rows="2" dir="' + LANGS[x.lang].dir + '">' + esc(x.text) + '</textarea></label>' +
+    '<label class="fld"><span>' + esc(T('fHeb')) + '</span><input id="pHb" value="' + esc(x.heb || '') + '" dir="rtl"></label>' +
+    '<label class="fld"><span>' + esc(T('fRoman')) + '</span><input id="pRo" value="' + esc(x.roman || '') + '" dir="ltr"></label>' +
+    '<div class="row wrap"><button class="btn gold" id="pSave">💾 ' + esc(T('save')) + '</button><button class="btn red" id="pDel">🗑️ ' + esc(T('delete')) + '</button></div>');
+  $('#pSave').onclick = () => {
+    Object.assign(x, { src: $('#pSrc').value.trim(), text: $('#pTx').value.trim(), heb: $('#pHb').value.trim(), roman: $('#pRo').value.trim() });
+    if (!x.text) { toast(T('fillBoth'), 'warn'); return; }
+    save(); closeModal(); render(); toast(T('saved'));
+  };
+  $('#pDel').onclick = () => confirmBox(T('confirmDelete'), T('delete'), () => { st.phrases = st.phrases.filter(p => p.id !== x.id); save(); render(); toast(T('deleted')); }, true);
+}
+
+/* ---------- export / import / print ---------- */
+function download(name, data, type) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([data], { type }));
+  a.download = name; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+const stamp = () => today();
+function exportJson() {
+  const data = { app: APP.name, ver: APP.ver, user: st.user, date: new Date().toISOString(), secretsIncluded: false, state: Object.assign({}, st, { ai: { provider: st.ai.provider, model: st.ai.model, has: {} } }) };
+  download('lingonest-safe-backup-' + stamp() + '.json', JSON.stringify(data, null, 1), 'application/json');
+  st.backupAt = Date.now(); save(); toast(T('exported'));
+}
+function importJson(file) {
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const j = JSON.parse(r.result);
+      if (!j || !j.state || j.app !== APP.name) throw new Error('format');
+      confirmBox(T('confirmRestore', { d: (j.date || '').slice(0, 10), u: j.user || '—' }), T('restore'), () => {
+        const keepHas = st.ai.has;
+        st = Object.assign({}, DEF, j.state); st.ai = Object.assign({}, DEF.ai, j.state.ai || {}, { has: keepHas });
+        _itemsCache = {}; save(); go('home'); toast(T('restored'));
+      }, true);
+    } catch (e) { toast(T('badFile'), 'err', 4000); }
+  };
+  r.readAsText(file);
+}
+function csvCell(v) { v = String(v == null ? '' : v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+function exportCsv() {
+  const rows = [[T('userName') + ': ' + (st.user || '—'), T('date') + ': ' + stamp()], [], ['lang', 'level', 'category', 'text', 'pronunciation', 'meaning', 'box', 'correct', 'wrong']];
+  Object.keys(LANGS).forEach(l => { const p = P(l); items(l).forEach(i => { const r = p[i.k] || {}; rows.push([l, i.lvl, i.cat, i.text, i.heb || i.roman, i.type === 'L' ? i.roman : i.he, r.b || 0, r.c || 0, r.w || 0]); }); });
+  rows.push([], [T('myPhrases')], ['lang', 'source', 'text', 'pronunciation']);
+  st.phrases.forEach(x => rows.push([x.lang, x.src, x.text, x.heb || x.roman]));
+  download('lingonest-' + stamp() + '.csv', '\ufeff' + rows.map(r => r.map(csvCell).join(',')).join('\r\n'), 'text/csv;charset=utf-8');
+  toast(T('exported'));
+}
+function printBook() {
+  const lang = st.lang;
+  const mine = st.phrases.filter(x => x.lang === lang);
+  const base = items(lang).filter(i => i.type === 'P');
+  const row = (a, b, c) => '<tr><td class="tgt" lang="' + LANGS[lang].tts + '" dir="' + LANGS[lang].dir + '">' + esc(a) + '</td><td>' + esc(b) + '</td><td>' + esc(c) + '</td></tr>';
+  $('#print').innerHTML = '<h1>' + esc(T('phrasebook')) + ' · ' + esc(LN(lang)) + '</h1><p>' + esc((st.user ? st.user + ' · ' : '') + stamp()) + ' · ' + APP.name + '</p>' +
+    (mine.length ? '<h2>' + esc(T('myPhrases')) + '</h2><table>' + mine.map(x => row(x.text, x.heb || x.roman, x.src)).join('') + '</table>' : '') +
+    '<h2>' + esc(T('phrases')) + '</h2><table>' + base.map(i => row(i.text, pron(i), meaning(i))).join('') + '</table>';
+  setTimeout(() => window.print(), 100);
+}
+
+/* ---------- onboarding guide ---------- */
+function guide(step) {
+  step = step || 0;
+  const S5 = [['👋', 'g1t', 'g1b'], ['🌍', 'g2t', 'g2b'], ['🪜', 'g3t', 'g3b'], ['📢', 'g4t', 'g4b'], ['🔊', 'g5t', 'g5b']];
+  const [ic, t, b] = S5[step];
+  const langPick = step === 1 ? '<div class="chips wrap">' + Object.keys(LANGS).map(l => '<button class="chip' + (st.lang === l ? ' on' : '') + '" data-act="gLang" data-l="' + l + '"><span class="fl">' + LANGS[l].flag + '</span><span>' + esc(LN(l)) + '</span></button>').join('') + '</div>' : '';
+  const nameIn = step === 4 ? '<label class="fld"><span>' + esc(T('userName')) + '</span><input id="gName" value="' + esc(st.user) + '" maxlength="40"></label>' : '';
+  modal('<div class="guide"><p class="gstep">' + (step + 1) + ' / 5</p><div class="gic">' + ic + '</div><h3>' + esc(T(t)) + '</h3><p>' + esc(T(b)) + '</p>' + langPick + nameIn +
+    '<div class="row c wrap">' + (step < 4 ? '<button class="cta slim" id="gNext">' + esc(T('next')) + '</button><button class="btn" id="gSkip">' + esc(T('skip')) + '</button>' : '<button class="cta slim" id="gDone">' + esc(T('start')) + '</button>') + '</div></div>');
+  const done = () => { const n = $('#gName'); if (n) st.user = n.value.trim(); st.onb = true; save(); closeModal(); render(); };
+  if ($('#gNext')) $('#gNext').onclick = () => guide(step + 1);
+  if ($('#gSkip')) $('#gSkip').onclick = done;
+  if ($('#gDone')) $('#gDone').onclick = done;
+}
+
+/* ---------- actions (event delegation) ---------- */
+const ACT = {
+  back, home: () => go('home'), closeModal,
+  nav: d => go(d.to, d.sec || d.arg || null),
+  setLang: d => { st.lang = d.l; save(); render(); },
+  gLang: d => { st.lang = d.l; save(); document.querySelectorAll('[data-act=gLang]').forEach(b => b.classList.toggle('on', b.dataset.l === d.l)); },
+  themeSheet,
+  setTheme: d => { st.theme = d.t; save(); applyTheme(); document.querySelectorAll('.sw').forEach(b => { b.classList.toggle('on', b.dataset.t === d.t); b.setAttribute('aria-pressed', b.dataset.t === d.t); }); },
+  setMode: d => { st.mode = d.m; save(); applyTheme(); document.querySelectorAll('[data-act=setMode]').forEach(b => b.classList.toggle('on', b.dataset.m === d.m)); },
+  setGoal: d => { st.goal = +d.n; save(); render(); },
+  setGender: d => { st.gender = d.g; _itemsCache = {}; save(); render(); },
+  say: d => { const it = findItem(st.lang, d.k) || findItem(LESSON.lang, d.k); if (it) speak(ttsText(it), st.lang, !!d.slow); },
+  big: d => { const it = findItem(st.lang, d.k); if (it) bigShow(it.text, st.lang, pron(it), it.type === 'L' ? '' : meaning(it)); },
+  fav: (d, el) => { const f = st.favs[st.lang] = st.favs[st.lang] || []; const i = f.indexOf(d.k); if (i >= 0) f.splice(i, 1); else f.push(d.k); save(); el.classList.toggle('on', i < 0); el.setAttribute('aria-pressed', i < 0); },
+  letter: d => {
+    const it = findItem(st.lang, d.k), r = P(st.lang)[d.k];
+    modal('<div class="ldet">' + tgt(it, st.lang, 'xxl') + '<p class="pr big">' + esc(it.tts) + '</p><p class="mn big">' + esc(T('soundsLike')) + ' ' + esc(st.ui === 'he' ? it.heb : it.roman) + '</p>' +
+      (st.ui === 'he' ? '<p class="tiny">' + esc(it.roman) + '</p>' : '') + '<div class="row c">' + soundBtns(it.k) + (SR ? '<button class="btn" data-act="sayIt" data-k="' + it.k + '">🎤 ' + esc(T('sayIt')) + '</button>' : '') + '</div><p class="said" id="said" aria-live="polite"></p>' +
+      '<p class="tiny">' + esc(r ? T('boxInfo', { b: r.b, c: r.c, w: r.w }) : T('notYet')) + '</p></div>');
+    speak(it.tts, st.lang);
+  },
+  sayIt: d => { const it = findItem(st.lang, d.k); if (it) sayIt(it, st.lang, $('#said')); },
+  startAuto: () => LESSON.start('auto'),
+  startScope: d => LESSON.start(d.scope),
+  answer: d => LESSON.answer(+d.n),
+  lnext: () => LESSON.next(),
+  addCustom: () => customForm(null),
+  editCustom: d => customForm((st.custom[st.lang] || []).find(x => x.id === d.id)),
+  aiWords: aiWordsForm,
+  spkMode: d => { SPK.src = ($('#spkIn') || {}).value || SPK.src; SPK.direct = d.v === '1'; SPK.res = null; render(); },
+  spkDirect: () => { const v = $('#spkIn').value.trim(); if (!v) { toast(T('typeFirst'), 'warn'); return; } SPK.src = v; SPK.res = { text: v, roman: '', heb: '', back: '', src: v }; render(); speak(v, st.lang); },
+  spkTranslate: async (d, el) => {
+    const v = $('#spkIn').value.trim(); if (!v) { toast(T('typeFirst'), 'warn'); return; }
+    SPK.src = v;
+    if (!aiReady()) { toast(T('needAi'), 'warn', 4500); render(); return; }
+    el.disabled = true; el.innerHTML = '⏳ ' + esc(T('working'));
+    try {
+      const r = await aiTranslate(v, st.lang);
+      if (!r || !r.text) throw new Error(T('aiBadJson'));
+      SPK.res = { text: String(r.text), roman: String(r.roman || ''), heb: String(r.heb || ''), back: String(r.back || ''), src: v, ai: true };
+      render(); speak(SPK.res.text, st.lang);
+    } catch (e) { el.disabled = false; el.innerHTML = '✨ ' + esc(T('translate')); toast(T('aiErr') + ': ' + e.message, 'err', 6000); }
+  },
+  gtLink: () => { const v = $('#spkIn'); if (v) SPK.src = v.value; },
+  spkSay: d => SPK.res && speak(SPK.res.text, st.lang, !!d.slow),
+  spkBig: () => SPK.res && bigShow(SPK.res.text, st.lang, st.ui === 'he' ? (SPK.res.heb || SPK.res.roman) : (SPK.res.roman || SPK.res.heb), SPK.res.src),
+  spkSave: () => {
+    if (!SPK.res) return;
+    st.phrases.unshift({ id: uid(), lang: st.lang, src: SPK.res.src, text: SPK.res.text, roman: SPK.res.roman, heb: SPK.res.heb, ts: Date.now() });
+    save(); SPK.res = null; SPK.src = ''; render(); toast(T('saved'));
+  },
+  phSay: d => { const x = st.phrases.find(p => p.id === d.id); if (x) speak(x.text, x.lang); },
+  phBig: d => { const x = st.phrases.find(p => p.id === d.id); if (x) bigShow(x.text, x.lang, st.ui === 'he' ? (x.heb || x.roman) : (x.roman || x.heb), x.src); },
+  phEdit: d => { const x = st.phrases.find(p => p.id === d.id); if (x) phraseForm(x); },
+  printBook,
+  testVoice: () => { const it = items(st.lang).find(i => i.k === 'W:hello'); speak(it ? it.text : 'Hello', st.lang); },
+  setProv: d => { st.ai.provider = d.p; st.ai.model = ''; save(); render(); },
+  saveKey: async () => {
+    const v = $('#aiKey').value; if (!cleanKey(v)) { toast(T('keyEmpty'), 'warn'); return; }
+    const r = await setKey(st.ai.provider, v);
+    toast(r === 'enc' ? T('keyEnc') : T('keyMem'), r === 'enc' ? '' : 'warn', 4500); render();
+  },
+  disconnect: () => confirmBox(T('confirmDisconnect'), T('disconnect'), async () => { await setKey(st.ai.provider, ''); render(); toast(T('disconnected')); }),
+  refreshModels: async (d, el) => {
+    el.disabled = true;
+    try { const list = await liveModels(); st.ai.live = st.ai.live || {}; st.ai.live[st.ai.provider] = list.slice(0, 40); save(); render(); toast(T('modelsN', { n: list.length })); }
+    catch (e) { el.disabled = false; toast(T('aiErr') + ': ' + e.message, 'err', 6000); }
+  },
+  testAi: async (d, el) => {
+    el.disabled = true; el.textContent = '⏳ ' + T('working');
+    try { const r = await aiTranslate('תודה רבה', 'en'); if (!r.text) throw new Error(T('aiBadJson')); toast('✅ ' + T('aiOk') + ' — ' + r.text, '', 4000); }
+    catch (e) { toast(T('aiErr') + ': ' + e.message, 'err', 7000); }
+    render();
+  },
+  exportJson, exportCsv,
+  guide: () => guide(0),
+  copyDiag: () => { const t = diagText(); (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast(T('copied')), () => toast(T('copyFail'), 'warn')); },
+  resetAll: () => confirmBox(T('reset1'), T('continueBtn'), () => confirmBox(T('reset2'), T('resetAll'), async () => {
+    try { await IDB.clear(); } catch (e) {}
+    ['ln_state', 'ln_errs'].forEach(k => S.del(k));
+    try { const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); } catch (e) {}
+    location.reload();
+  }, true), true),
+  shareApp: async () => {
+    const data = { title: APP.name, text: T('shareText', { u: st.user || '' }), url: location.href.split('#')[0] };
+    try { if (navigator.share) await navigator.share(data); else { await navigator.clipboard.writeText(data.url); toast(T('linkCopied')); } } catch (e) {}
+  }
+};
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]');
+  if (!el || el.disabled) return;
+  const a = ACT[el.dataset.act];
+  if (!a) return;
+  if (el.tagName === 'A' && el.dataset.act !== 'gtLink') e.preventDefault();
+  a(el.dataset, el, e);
+});
+document.addEventListener('change', e => {
+  const k = e.target.dataset && e.target.dataset.ch; if (!k) return;
+  const v = e.target.value;
+  if (k === 'ui') { st.ui = v; save(); render(); }
+  else if (k === 'voice') { st.voices[st.lang] = v; save(); render(); speak((findItem(st.lang, 'W:hello') || {}).text || 'Hello', st.lang); }
+  else if (k === 'model') { st.ai.model = v; save(); }
+  else if (k === 'import') { if (e.target.files[0]) importJson(e.target.files[0]); e.target.value = ''; }
+  else if (k === 'user') { st.user = v.trim(); save(); }
+  else if (k === 'rate') { st.rate = +v; save(); }
+});
+document.addEventListener('input', e => {
+  const k = e.target.dataset && e.target.dataset.ch;
+  if (k === 'rate') { const r = $('#rateV'); if (r) r.textContent = (+e.target.value).toFixed(2); }
+  if (k === 'user') { st.user = e.target.value.trim(); save(); }
+  if (e.target.id === 'spkIn') SPK.src = e.target.value;
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { const b = $('#bigshow'); if (b) { b.remove(); return; } if ($('#modal')) { closeModal(); return; } }
+  if (e.key === 'Tab' && $('#modal')) {
+    const f = [...$('#modal').querySelectorAll('button,input,select,textarea,a[href]')].filter(x => !x.disabled && x.offsetParent !== null);
+    if (!f.length) return;
+    if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+    else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+  }
+  if (NAV.cur === 'lesson' && !$('#modal') && /^[1-4]$/.test(e.key)) { const b = document.querySelectorAll('.opt')[+e.key - 1]; if (b && !b.disabled) b.click(); }
+});
+/* long press → edit (phrases, custom words) */
+let lpT = null;
+document.addEventListener('pointerdown', e => {
+  const row = e.target.closest('[data-lp]'); if (!row || e.target.closest('button')) return;
+  lpT = setTimeout(() => {
+    lpT = null;
+    if (row.dataset.lp === 'phrase') ACT.phEdit({ id: row.dataset.id });
+    else ACT.editCustom({ id: row.dataset.id });
+    try { navigator.vibrate && navigator.vibrate(15); } catch (_) {}
+  }, 550);
+});
+['pointerup', 'pointerleave', 'pointercancel', 'scroll'].forEach(ev => document.addEventListener(ev, () => { if (lpT) { clearTimeout(lpT); lpT = null; } }, true));
+
+/* ---------- boot ---------- */
+function boot() {
+  applyTheme();
+  render();
+  if (!st.onb) setTimeout(() => guide(0), 300);
+  else if (st.backupAt && Date.now() - st.backupAt > 30 * 864e5 && Object.keys(st.log).length > 5) setTimeout(() => toast(T('backupNudge'), '', 5000), 1500);
+  else if (!st.backupAt && Date.now() - st.firstUse > 14 * 864e5) setTimeout(() => toast(T('backupNudge'), '', 5000), 1500);
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(e => logErr('sw: ' + e.message, 'sw', 0));
+}
+window.__MODS = window.__MODS || {}; window.__MODS.app = 1;
+
+boot();
+</script>
+</body>
+</html>

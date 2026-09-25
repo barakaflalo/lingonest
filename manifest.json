@@ -1,0 +1,19 @@
+{
+  "name": "LingoNest – ללמוד לדבר, בכל מקום",
+  "short_name": "LingoNest",
+  "description": "אותיות, מילים ומשפטים לטיול באנגלית, ספרדית, רוסית, ערבית ותאית — עם הקראה בקול. AppNest.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "lang": "he",
+  "dir": "rtl",
+  "categories": ["education", "travel"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
