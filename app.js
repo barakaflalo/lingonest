@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.13.0' };
+const APP = { name: 'LingoNest', ver: '1.14.0' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -717,6 +717,9 @@ const QA_STYLE = {
   tr: 'Turkish: the Hebrew-letter pronunciation is an approximation (ı, ö, ü, ğ have no Hebrew equivalent). The Latin column is empty on purpose.',
   ko: 'Korean: polite -yo / -nida style on purpose; the Latin column is Revised Romanization (sound changes between syllables are only partly shown); the Hebrew column is an approximation (Korean ㄱ/ㄷ/ㅂ are between k/g, t/d, p/b).',
   ja: 'Japanese: polite desu/masu style on purpose; the Latin column is Hepburn romanization with long-vowel macrons; the Hebrew column is an approximation (the final u in desu/masu is barely pronounced, written דס/מס on purpose).',
+  ha: 'Standard (Kano) Hausa in Boko Latin spelling with hooked letters ɓ ɗ ƙ; tones are not marked on purpose. The Latin column is empty on purpose.',
+  yo: 'Standard Yoruba with under-dots (ẹ ọ ṣ) but WITHOUT tone marks on purpose (as in everyday writing) — do not flag missing tone marks. Prices on the Prices screen are in English on purpose (market practice). The Latin column is empty on purpose.',
+  ig: 'Standard Igbo with under-dots (ị ọ ụ ṅ) but WITHOUT tone marks on purpose — do not flag missing tone marks. English loanwords common in Nigeria are fine. The Latin column is empty on purpose.',
   sw: 'Standard Swahili (Kiswahili sanifu) as used in Tanzania and Kenya; the Latin column is empty on purpose; Hebrew-letter pronunciation is an approximation. Swahili time (saa moja = 7 am) is intentional in dialogues.',
   am: 'Amharic in Ge\'ez script; the Latin column is a simple romanization (\' marks ejectives); the Hebrew column is an approximation. Polite forms (እባክዎ, ነዎት) are intentional. Ethiopian clock time in dialogues (1 o\'clock = 7 am) is intentional.',
   zh: 'Mandarin Chinese in SIMPLIFIED characters; the Latin column is pinyin with tone marks; the Hebrew column is an approximation without tones. 两 before 百/千/万 is intentional.',
@@ -1566,4 +1569,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.13.0';
+window.__MODS.app = '1.14.0';

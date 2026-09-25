@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ro', {
-  ver: '1.13.0',
+  ver: '1.14.0',
   curSym: "lei",
   country: {"he": "רומניה ומולדובה", "en": "Romania & Moldova", "ru": "Румыния и Молдова", "es": "Rumanía y Moldavia", "ar": "رومانيا ومولدوفا"},
   emergency: [

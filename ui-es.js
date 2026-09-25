@@ -295,10 +295,10 @@ LANG.es = {
   "sayMore": "Aún no, volverá en el repaso",
   "noSpeech": "No oí nada. Pulsa 🎤 y habla cerca del teléfono.",
   "newIn": "Novedades de {v}",
-  "wn1": "🇹🇿 Suajili: 407 palabras y frases, precios en chelines y consejos.",
-  "wn2": "🇪🇹 Amhárico: 407 palabras y frases en ge'ez, precios en birr y consejos.",
-  "wn3": "🔊 Si no hay voz, la app lee la pronunciación con la voz hebrea.",
-  "wn4": "Ahora 20 idiomas.",
+  "wn1": "🇳🇬 Hausa: 407 palabras y frases, precios en nairas y consejos.",
+  "wn2": "🇳🇬 Yoruba: 407 palabras y frases, saludos y consejos; los precios en inglés, como en el mercado.",
+  "wn3": "🇳🇬 Igbo: 407 palabras y frases, conteo decimal simple y consejos.",
+  "wn4": "🔊 No hay voces para estos idiomas: la lectura usa la voz hebrea. Ahora 23 idiomas.",
   "wn5": "Tu progreso se conservó.",
   "lvl8": "Frases completas",
   "lvl9": "Mis palabras",
@@ -487,4 +487,4 @@ LANG.es = {
   "cat_yid": "Expresiones en ídish",
   "voiceFallback": "No hay voz de {l} en este dispositivo: leo la pronunciación con la voz hebrea (aproximada)."
 };
-window.__MODS['ui-es'] = '1.13.0';
+window.__MODS['ui-es'] = '1.14.0';

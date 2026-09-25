@@ -295,10 +295,10 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "🇹🇿 Swahili: 407 words and phrases — the language of Tanzania, Kenya and Uganda. Prices in shillings and tips (Mambo/Poa, pole pole, and Swahili time that starts at sunrise!).",
-  "wn2": "🇪🇹 Amharic: 407 words and phrases in Ge'ez script, the 33 base letters and 7 forms, prices in birr and tips (a cousin of Hebrew, Ethiopian time and calendar, the coffee ceremony).",
-  "wn3": "🔊 If your device has no Swahili or Amharic voice, the app reads the pronunciation with the Hebrew voice and tells you so.",
-  "wn4": "Now 20 languages. Next: Hausa, Yoruba and Igbo (Nigeria), then Twi (Ghana) and Luganda (Uganda).",
+  "wn1": "🇳🇬 Hausa: 407 words and phrases — the language of northern Nigeria and Niger. Prices in naira and tips (long greetings, Don Allah, Arabic loans, bargaining).",
+  "wn2": "🇳🇬 Yoruba: 407 words and phrases (with ẹ, ọ, ṣ), greetings for each time of day, respect for elders, and a tip on the special counting system — so prices are shown in English, as in the market.",
+  "wn3": "🇳🇬 Igbo: 407 words and phrases, simple decimal counting (prices fully in Igbo) and tips (Kedụ?, proverbs, the kola ceremony).",
+  "wn4": "🔊 Devices have no voices for these languages — read-aloud uses the Hebrew voice on the pronunciation (approximate). Now 23 languages.",
   "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
@@ -487,4 +487,4 @@ LANG.en = {
   "cat_yid": "Yiddish expressions",
   "voiceFallback": "No {l} voice on this device — reading the pronunciation with the Hebrew voice (approximate)."
 };
-window.__MODS['ui-en'] = '1.13.0';
+window.__MODS['ui-en'] = '1.14.0';

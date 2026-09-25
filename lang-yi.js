@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('yi', {
-  ver: '1.13.0',
+  ver: '1.14.0',
   curSym: "$",
   /* no Yiddish TTS voice exists: speak the Hebrew-friendly pronunciation column with the Hebrew voice (LANGS.yi.tts = he-IL) */
   speakHeb: true,
