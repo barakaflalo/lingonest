@@ -1,7 +1,7 @@
 # LingoNest — מבנה האפליקציה ומדריך הרחבה
 
 **LingoNest** · ללמוד לדבר, בכל מקום · AppNest · Barak Aflalo
-גרסה נוכחית: **1.14.0**
+גרסה נוכחית: **1.15.0**
 
 ---
 
@@ -21,7 +21,7 @@
 | `features.js` | שיחה עם בינה, ערכת טיול, טיפים ודקדוק, יעד שבועי ותגים. **קורא ל-`boot()` בסוף** — המודול האחרון של האפליקציה | תמיד, אחרי `app.js` |
 | `appnest-assistant.js` | **מנוע עוזר AppNest המשותף — זהה בייט-בבייט בכל האפליקציות. לא עורכים אותו כאן.** משנים רק את `assistant-map.js` | תמיד, אחרון |
 | `ui-he.js` `ui-ru.js` `ui-es.js` `ui-ar.js` | טקסטי ממשק לכל שפת ממשק | רק שפת הממשק שנבחרה |
-| `lang-th.js` `lang-ar.js` `lang-ru.js` `lang-es.js` `lang-en.js` `lang-fr.js` `lang-ary.js` `lang-it.js` `lang-pt.js` `lang-ro.js` `lang-yi.js` `lang-de.js` `lang-el.js` `lang-ja.js` `lang-zh.js` `lang-hi.js` `lang-tr.js` `lang-ko.js` `lang-sw.js` `lang-am.js` `lang-ha.js` `lang-yo.js` `lang-ig.js` | **חבילת שפה**: אלפבית, תנועות, טונים, כל התרגומים, מספרים ומטבע, צורות זכר/נקבה, טיפי דקדוק, מספרי חירום | שפת הלימוד מיד, השאר ברקע |
+| `lang-th.js` `lang-ar.js` `lang-ru.js` `lang-es.js` `lang-en.js` `lang-fr.js` `lang-ary.js` `lang-it.js` `lang-pt.js` `lang-ro.js` `lang-yi.js` `lang-de.js` `lang-el.js` `lang-ja.js` `lang-zh.js` `lang-hi.js` `lang-tr.js` `lang-ko.js` `lang-sw.js` `lang-am.js` `lang-ha.js` `lang-yo.js` `lang-ig.js` `lang-tw.js` `lang-lg.js` | **חבילת שפה**: אלפבית, תנועות, טונים, כל התרגומים, מספרים ומטבע, צורות זכר/נקבה, טיפי דקדוק, מספרי חירום | שפת הלימוד מיד, השאר ברקע |
 | `sw.js` | עבודה אופליין. שומר את כל הקבצים במכשיר | — |
 | `manifest.json`, `icon-*.png`, `privacy_policy.html`, `.nojekyll` | PWA ו-GitHub Pages | — |
 
@@ -73,6 +73,7 @@
 תיקון שהוחל נשמר במכשיר (`st.fix`) וגובר על קובץ השפה. את הדוח מעתיקים ושולחים, ואז מכניסים את התיקונים לקבצי `lang-xx.js` בגרסה הבאה.
 
 ## היסטוריה
+- **1.15.0** — טווי (lang-tw.js, גאנה) ולוגנדה (lang-lg.js, אוגנדה). 25 שפות.
 - **1.14.0** — ניגריה: האוסה (lang-ha.js), יורובה (lang-yo.js), איגבו (lang-ig.js). ביורובה מחירים באנגלית (כמו בשוק), מספרים ביורובה ברשימת המילים. 23 שפות.
 - **1.13.0** — סווהילית (lang-sw.js) ואמהרית (lang-am.js). מנגנון `voiceFallback: 'heb'`: אם אין במכשיר קול לשפה, ההקראה עוברת להגייה בעברית בקול העברי (עם הודעה). 20 שפות.
 - **1.12.0** — טורקית (lang-tr.js) וקוריאנית (lang-ko.js). 18 שפות.

@@ -295,10 +295,10 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "🇳🇬 Hausa: 407 words and phrases — the language of northern Nigeria and Niger. Prices in naira and tips (long greetings, Don Allah, Arabic loans, bargaining).",
-  "wn2": "🇳🇬 Yoruba: 407 words and phrases (with ẹ, ọ, ṣ), greetings for each time of day, respect for elders, and a tip on the special counting system — so prices are shown in English, as in the market.",
-  "wn3": "🇳🇬 Igbo: 407 words and phrases, simple decimal counting (prices fully in Igbo) and tips (Kedụ?, proverbs, the kola ceremony).",
-  "wn4": "🔊 Devices have no voices for these languages — read-aloud uses the Hebrew voice on the pronunciation (approximate). Now 23 languages.",
+  "wn1": "🇬🇭 Twi: 407 words and phrases — Ghana's most widespread local language. Prices in cedis, special clusters (ky, tw, hy) and tips (Akwaaba, day names, right hand only, Chale).",
+  "wn2": "🇺🇬 Luganda: 407 words and phrases — the language of Kampala. Prices in shillings (with omutwalo = 10,000) and tips (Gyebale ko, boda-boda, respect for elders).",
+  "wn3": "With these two, all five African countries you visited are covered: Tanzania, Uganda, Ethiopia, Nigeria and Ghana.",
+  "wn4": "🔊 Read-aloud for these uses the Hebrew voice on the pronunciation (approximate). Now 25 languages.",
   "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
@@ -487,4 +487,4 @@ LANG.en = {
   "cat_yid": "Yiddish expressions",
   "voiceFallback": "No {l} voice on this device — reading the pronunciation with the Hebrew voice (approximate)."
 };
-window.__MODS['ui-en'] = '1.14.0';
+window.__MODS['ui-en'] = '1.15.0';

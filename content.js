@@ -32,7 +32,9 @@ const LANGS = {
   am: { flag: "🇪🇹", tts: "am-ET", dir: "ltr", native: "አማርኛ", name: {"he": "אמהרית", "en": "Amharic", "ru": "Амхарский", "es": "Amhárico", "ar": "الأمهرية"} },
   ha: { flag: "🇳🇬", tts: "ha-NG", dir: "ltr", native: "Hausa", name: {"he": "האוסה", "en": "Hausa", "ru": "Хауса", "es": "Hausa", "ar": "الهوسا"} },
   yo: { flag: "🇳🇬", tts: "yo-NG", dir: "ltr", native: "Yorùbá", name: {"he": "יורובה", "en": "Yoruba", "ru": "Йоруба", "es": "Yoruba", "ar": "اليوروبا"} },
-  ig: { flag: "🇳🇬", tts: "ig-NG", dir: "ltr", native: "Igbo", name: {"he": "איגבו", "en": "Igbo", "ru": "Игбо", "es": "Igbo", "ar": "الإيغبو"} }
+  ig: { flag: "🇳🇬", tts: "ig-NG", dir: "ltr", native: "Igbo", name: {"he": "איגבו", "en": "Igbo", "ru": "Игбо", "es": "Igbo", "ar": "الإيغبو"} },
+  tw: { flag: "🇬🇭", tts: "ak-GH", dir: "ltr", native: "Twi", name: {"he": "טווי", "en": "Twi (Akan)", "ru": "Тви", "es": "Twi", "ar": "التوي"} },
+  lg: { flag: "🇺🇬", tts: "lg-UG", dir: "ltr", native: "Luganda", name: {"he": "לוגנדה", "en": "Luganda", "ru": "Луганда", "es": "Luganda", "ar": "اللوغندا"} }
 };
 /* Short letters-screen notes (keys in ui-xx.js). New languages can instead pass note:{he,en,...} in their pack. */
 const ALPHA_NOTE = {"en":"noteEn","es":"noteEs","ru":"noteRu","ar":"noteAr","th":"noteTh"};
@@ -554,4 +556,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.14.0';
+window.__MODS.content = '1.15.0';
