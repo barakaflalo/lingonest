@@ -25,7 +25,9 @@ const LANGS = {
   el: { flag: "🇬🇷", tts: "el-GR", dir: "ltr", native: "Ελληνικά", name: {"he": "יוונית", "en": "Greek", "ru": "Греческий", "es": "Griego", "ar": "اليونانية"} },
   ja: { flag: "🇯🇵", tts: "ja-JP", dir: "ltr", native: "日本語", name: {"he": "יפנית", "en": "Japanese", "ru": "Японский", "es": "Japonés", "ar": "اليابانية"} },
   zh: { flag: "🇨🇳", tts: "zh-CN", dir: "ltr", native: "中文", name: {"he": "סינית", "en": "Mandarin Chinese", "ru": "Китайский", "es": "Chino mandarín", "ar": "الصينية"} },
-  hi: { flag: "🇮🇳", tts: "hi-IN", dir: "ltr", native: "हिन्दी", name: {"he": "הינדי", "en": "Hindi", "ru": "Хинди", "es": "Hindi", "ar": "الهندية"} }
+  hi: { flag: "🇮🇳", tts: "hi-IN", dir: "ltr", native: "हिन्दी", name: {"he": "הינדי", "en": "Hindi", "ru": "Хинди", "es": "Hindi", "ar": "الهندية"} },
+  tr: { flag: "🇹🇷", tts: "tr-TR", dir: "ltr", native: "Türkçe", name: {"he": "טורקית", "en": "Turkish", "ru": "Турецкий", "es": "Turco", "ar": "التركية"} },
+  ko: { flag: "🇰🇷", tts: "ko-KR", dir: "ltr", native: "한국어", name: {"he": "קוריאנית", "en": "Korean", "ru": "Корейский", "es": "Coreano", "ar": "الكورية"} }
 };
 /* Short letters-screen notes (keys in ui-xx.js). New languages can instead pass note:{he,en,...} in their pack. */
 const ALPHA_NOTE = {"en":"noteEn","es":"noteEs","ru":"noteRu","ar":"noteAr","th":"noteTh"};
@@ -546,4 +548,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.11.0';
+window.__MODS.content = '1.12.0';

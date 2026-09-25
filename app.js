@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.11.0' };
+const APP = { name: 'LingoNest', ver: '1.12.0' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -710,6 +710,8 @@ const QA_STYLE = {
   ary: 'This is Moroccan Darija (not Modern Standard Arabic) — judge it as spoken Moroccan Arabic. Darija has no fixed spelling: accept common Moroccan spellings. The Latin column deliberately uses the Moroccan chat alphabet (3 = ع, 7 = ح, 9 = ق). French loanwords common in Morocco are correct.',
   de: 'German: the Hebrew-letter pronunciation is an approximation (umlauts ä/ö/ü have no Hebrew equivalent); German numbers are one word and hyphenated in the Hebrew column on purpose. The Latin column is empty on purpose.',
   el: 'Greek: the Latin column is a simple phonetic transliteration (not ancient-style); Hebrew-letter pronunciation is an approximation (δ/θ/γ have no exact Hebrew equivalent). Modern Greek only.',
+  tr: 'Turkish: the Hebrew-letter pronunciation is an approximation (ı, ö, ü, ğ have no Hebrew equivalent). The Latin column is empty on purpose.',
+  ko: 'Korean: polite -yo / -nida style on purpose; the Latin column is Revised Romanization (sound changes between syllables are only partly shown); the Hebrew column is an approximation (Korean ㄱ/ㄷ/ㅂ are between k/g, t/d, p/b).',
   ja: 'Japanese: polite desu/masu style on purpose; the Latin column is Hepburn romanization with long-vowel macrons; the Hebrew column is an approximation (the final u in desu/masu is barely pronounced, written דס/מס on purpose).',
   zh: 'Mandarin Chinese in SIMPLIFIED characters; the Latin column is pinyin with tone marks; the Hebrew column is an approximation without tones. 两 before 百/千/万 is intentional.',
   hi: 'Hindi in Devanagari; the Latin column is a simple popular romanization (not IAST); the Hebrew column is an approximation (aspiration and retroflex sounds are not marked). Phrases are deliberately gender-neutral where possible; male speaker forms elsewhere. Common English loanwords (टॉयलेट, होटल, टिकट) are natural Hindi usage.',
@@ -1558,4 +1560,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.11.0';
+window.__MODS.app = '1.12.0';

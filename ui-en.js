@@ -295,11 +295,11 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "🇯🇵 Japanese: 407 polite (desu/masu) words and phrases, hiragana and katakana (46+46), numbers and prices in yen including 万, and tips (sumimasen, no tipping!).",
-  "wn2": "🇨🇳 Mandarin: 407 words and phrases in characters and pinyin, pinyin sounds, the 4 tones with the \"ma\" example, prices in yuan and tips.",
-  "wn3": "🇮🇳 Hindi: 407 words and phrases in Devanagari, 33 consonants and vowels (with how they attach), prices in rupees (with lakh) and tips.",
-  "wn4": "Sentence builder works in Japanese and Chinese too — the app splits sentences into words itself.",
-  "wn5": "Now 16 languages. Your progress was kept.",
+  "wn1": "🇹🇷 Turkish: 407 words and phrases, all 29 letters (ç, ş, ğ, ı…), prices in lira and tips (long words from regular pieces, tea and bargaining, familiar Arabic loans).",
+  "wn2": "🇰🇷 Korean: 407 polite (-yo) words and phrases, Hangul — 19 consonants and 17 vowels including how they form syllable blocks — and prices in won (with 만).",
+  "wn3": "Korean tips: juseyo for everything, two number systems, and etiquette (both hands, no tipping).",
+  "wn4": "Now 18 languages in the app.",
+  "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
   "cat_animals": "Animals",
@@ -486,4 +486,4 @@ LANG.en = {
   "bd_kit": "Created a travel-kit card",
   "cat_yid": "Yiddish expressions"
 };
-window.__MODS['ui-en'] = '1.11.0';
+window.__MODS['ui-en'] = '1.12.0';

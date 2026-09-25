@@ -295,11 +295,11 @@ LANG.es = {
   "sayMore": "Aún no, volverá en el repaso",
   "noSpeech": "No oí nada. Pulsa 🎤 y habla cerca del teléfono.",
   "newIn": "Novedades de {v}",
-  "wn1": "🇯🇵 Japonés: 407 palabras y frases corteses, hiragana y katakana, precios en yenes y consejos.",
-  "wn2": "🇨🇳 Chino: 407 palabras y frases en caracteres y pinyin, los 4 tonos, precios en yuanes y consejos.",
-  "wn3": "🇮🇳 Hindi: 407 palabras y frases en devanagari, consonantes y vocales, precios en rupias y consejos.",
-  "wn4": "Construir frases funciona también en japonés y chino.",
-  "wn5": "Ahora 16 idiomas. Tu progreso se conservó.",
+  "wn1": "🇹🇷 Turco: 407 palabras y frases, las 29 letras, precios en liras y consejos.",
+  "wn2": "🇰🇷 Coreano: 407 palabras y frases corteses, hangul, precios en wones y consejos.",
+  "wn3": "Consejos de coreano: 주세요, dos sistemas numéricos y etiqueta.",
+  "wn4": "Ahora 18 idiomas.",
+  "wn5": "Tu progreso se conservó.",
   "lvl8": "Frases completas",
   "lvl9": "Mis palabras",
   "cat_animals": "Animales",
@@ -486,4 +486,4 @@ LANG.es = {
   "bd_kit": "Creaste una tarjeta del kit",
   "cat_yid": "Expresiones en ídish"
 };
-window.__MODS['ui-es'] = '1.11.0';
+window.__MODS['ui-es'] = '1.12.0';
