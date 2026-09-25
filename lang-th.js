@@ -3,7 +3,7 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('th', {
-  ver: '1.5.1',
+  ver: '1.5.2',
   curSym: "฿",
   alpha: [
     ["ก","ก ไก่","ג/ק רכה (גור גאי)","gor gai"],
@@ -84,21 +84,21 @@ LINGO.registerLang('th', {
 bye|ลาก่อนครับ|la kon khrap|לא-גון קראפ
 morning|สวัสดีตอนเช้า|sawatdee ton chao|סוואדי טון צ׳או
 thanks|ขอบคุณครับ|khop khun khrap|קופ קון קראפ
-please|กรุณา|karuna|גרונא
+please|ขอ ... หน่อยครับ|kho ... noi khrap|קו ... נוי קראפ
 sorry|ขอโทษครับ|kho thot khrap|קו-טוט קראפ
 yes|ใช่|chai|צ׳אי
 no|ไม่|mai|מאי
-howareyou|สบายดีไหม|sabai dee mai|סבאי די מאי
+howareyou|สบายดีไหมครับ|sabai dee mai khrap|סבאי די מאי קראפ
 good|ดี|dee|די
 ok|โอเค|okay|אוקיי
-n1|หนึ่ง|nueng|נאנג
+n1|หนึ่ง|nueng|נונג
 n2|สอง|song|סונג
 n3|สาม|sam|סאם
 n4|สี่|si|סי
 n5|ห้า|ha|הא
 n6|หก|hok|הוק
 n7|เจ็ด|chet|ג׳ט
-n8|แปด|paet|פאט
+n8|แปด|paet|פֶט
 n9|เก้า|kao|גאו
 n10|สิบ|sip|סיפ
 water|น้ำ|nam|נאם
@@ -121,18 +121,18 @@ taxi|แท็กซี่|thaeksi|טקסי
 bus|รถเมล์|rot me|רוט-מה
 train|รถไฟ|rot fai|רוט-פאי
 airport|สนามบิน|sanam bin|סנאם-בין
-hotel|โรงแรม|rong raem|רונג-רם
+hotel|โรงแรม|rong raem|רונג-רֶם
 left|ซ้าย|sai|סאי
 right|ขวา|khwa|קווא
 straight|ตรงไป|trong pai|טרונג-פאי
 stop|หยุด|yut|יוט
 ticket|ตั๋ว|tua|טואה
-money|เงิน|ngoen|נגן
-expensive|แพง|phaeng|פנג
+money|เงิน|ngoen|נגֶן
+expensive|แพง|phaeng|פֶנג
 cheap|ถูก|thuk|טוק
 market|ตลาด|talat|טלאט
 pharmacy|ร้านขายยา|ran khai ya|ראן-קאי-יא
-open|เปิด|poet|פוט
+open|เปิด|poet|פֶט
 closed|ปิด|pit|פיט
 help|ช่วยด้วย|chuai duai|צ׳ואי דואי
 police|ตำรวจ|tamruat|טאמרואט
@@ -149,10 +149,10 @@ p_english|คุณพูดภาษาอังกฤษได้ไหมค�
 p_slow|พูดช้าๆ หน่อยครับ|phut cha cha noi khrap|פוט צ׳א-צ׳א נוי קראפ
 p_bill|เช็คบิลด้วยครับ|chek bin duai khrap|צ׳ק בין דואי קראפ
 p_want|ผมเอาอันนี้ครับ|phom ao an ni khrap|פום או אן-ני קראפ
-p_expensive|แพงไปครับ|phaeng pai khrap|פנג פאי קראפ
+p_expensive|แพงไปครับ|phaeng pai khrap|פֶנג פאי קראפ
 p_discount|ลดได้ไหมครับ|lot dai mai khrap|לוט דאי מאי קראפ
 p_address|ไปที่อยู่นี้ครับ|pai thi yu ni khrap|פאי טי-יו ני קראפ
-p_hotel|โรงแรมอยู่ที่ไหนครับ|rong raem yu thi nai khrap|רונג-רם יו טי-נאי קראפ
+p_hotel|โรงแรมอยู่ที่ไหนครับ|rong raem yu thi nai khrap|רונג-רֶם יו טי-נאי קראפ
 p_doctor|ผมต้องการหมอครับ|phom tongkan mo khrap|פום טונג-גאן מו קראפ
 p_police|เรียกตำรวจด้วยครับ|riak tamruat duai khrap|ריאק טאמרואט דואי קראפ
 p_israel|ผมมาจากอิสราเอลครับ|phom ma chak Israel khrap|פום מא ג׳אק איסראל קראפ
@@ -169,7 +169,7 @@ meat|เนื้อ|nuea|נואה
 milk|นม|nom|נום
 spicy|เผ็ด|phet|פט
 restaurant|ร้านอาหาร|ran a-han|ראן אהאן
-ice|น้ำแข็ง|nam khaeng|נאם קאנג
+ice|น้ำแข็ง|nam khaeng|נאם קֶנג
 room|ห้อง|hong|הונג
 key|กุญแจ|kunjae|גונג׳ה
 bed|เตียง|tiang|טיאנג
@@ -179,17 +179,17 @@ passport|พาสปอร์ต|phatsapot|פאססאפוט
 n0|ศูนย์|sun|סון
 n20|ยี่สิบ|yi sip|יי-סיפ
 n50|ห้าสิบ|ha sip|הא-סיפ
-n100|หนึ่งร้อย|nueng roi|נאנג רוי
-n1000|หนึ่งพัน|nueng phan|נאנג פאן
+n100|หนึ่งร้อย|nueng roi|נונג רוי
+n1000|หนึ่งพัน|nueng phan|נונג פאן
 mon|วันจันทร์|wan chan|וואן ג׳אן
 tue|วันอังคาร|wan angkhan|וואן אנגקאן
 wed|วันพุธ|wan phut|וואן פוט
-thu|วันพฤหัสบดี|wan pharuehat|וואן פרוהאט
+thu|วันพฤหัสบดี|wan pharuehatsabodi|וואן פרוהאט-סה-בו-די
 fri|วันศุกร์|wan suk|וואן סוק
 sat|วันเสาร์|wan sao|וואן סאו
 sun|วันอาทิตย์|wan athit|וואן אטיט
-red|สีแดง|si daeng|סי דאנג
-blue|สีฟ้า|si fa|סי פא
+red|สีแดง|si daeng|סי דֶנג
+blue|สีน้ำเงิน|si nam ngoen|סי נאם-נגֶן
 green|สีเขียว|si khiao|סי קיאו
 yellow|สีเหลือง|si lueang|סי לואנג
 black|สีดำ|si dam|סי דאם
@@ -221,11 +221,11 @@ sleep|นอน|non|נון
 understand|เข้าใจ|khao jai|קאו-ג׳אי
 c_table|โต๊ะสำหรับสองคนครับ|to samrap song khon khrap|טו סאמראפ סונג קון קראפ
 c_menu|ขอเมนูหน่อยครับ|kho menu noi khrap|קו מנו נוי קראפ
-c_noice|ไม่ใส่น้ำแข็งครับ|mai sai nam khaeng khrap|מאי סאי נאם קאנג קראפ
+c_noice|ไม่ใส่น้ำแข็งครับ|mai sai nam khaeng khrap|מאי סאי נאם קֶנג קראפ
 c_nomeat|ผมไม่กินเนื้อสัตว์ครับ|phom mai kin nuea sat khrap|פום מאי גין נואה סאט קראפ
 c_allergy|ผมแพ้ถั่วครับ|phom phae thua khrap|פום פה טואה קראפ
 c_delicious|อร่อยมาก!|aroi mak|ארוי מאק
-c_reserv|ผมจองไว้แล้วครับ|phom chong wai laeo khrap|פום ג׳ונג ואי לאו קראפ
+c_reserv|ผมจองไว้แล้วครับ|phom chong wai laeo khrap|פום ג׳ונג ואי לֶאו קראפ
 c_wifi|รหัสไวไฟคืออะไรครับ|rahat wai fai khue arai khrap|ראהאט ואי-פאי קו אראי קראפ
 c_checkout|เช็คเอาท์กี่โมงครับ|chek ao ki mong khrap|צ׳ק-אאו גי מונג קראפ
 c_howget|ไปที่นั่นยังไงครับ|pai thi nan yang ngai khrap|פאי טי-נאן יאנג-נגאי קראפ
@@ -235,12 +235,12 @@ c_card|จ่ายด้วยบัตรได้ไหมครับ|chai d
 c_looking|ดูเฉยๆ ครับ ขอบคุณครับ|du choei choei khrap, khop khun khrap|דו צ׳ואי-צ׳ואי קראפ, קופ קון קראפ
 c_yourname|คุณชื่ออะไรครับ|khun chue arai khrap|קון צ׳ו אראי קראפ
 c_wherefrom|คุณมาจากไหนครับ|khun ma chak nai khrap|קון מא ג׳אק נאי קראפ
-c_seeyou|แล้วเจอกันครับ|laeo choe kan khrap|לאו ג׳ה גאן קראפ
-c_cheers|ชนแก้ว!|chon kaeo|צ׳ון גאו
+c_seeyou|แล้วเจอกันครับ|laeo choe kan khrap|לֶאו ג׳ה גאן קראפ
+c_cheers|ชนแก้ว!|chon kaeo|צ׳ון גֶאו
 c_lost|ผมหลงทางครับ|phom long thang khrap|פום לונג טאנג קראפ
 c_passport|ผมทำพาสปอร์ตหายครับ|phom tham phatsapot hai khrap|פום טאם פאססאפוט האי קראפ
 c_hurts|เจ็บตรงนี้ครับ|chep trong ni khrap|ג׳פ טרונג-ני קראפ
-c_time|กี่โมงแล้วครับ|ki mong laeo khrap|גי מונג לאו קראפ
+c_time|กี่โมงแล้วครับ|ki mong laeo khrap|גי מונג לֶאו קראפ
 c_again|พูดอีกครั้งได้ไหมครับ|phut ik khrang dai mai khrap|פוט איק קראנג דאי מאי קראפ
 c_write|เขียนให้หน่อยได้ไหมครับ|khian hai noi dai mai khrap|קיאן האי נוי דאי מאי קראפ
 n11|สิบเอ็ด|sip et|סיפ-אט
@@ -250,17 +250,17 @@ n14|สิบสี่|sip si|סיפ-סי
 n15|สิบห้า|sip ha|סיפ-הא
 n16|สิบหก|sip hok|סיפ-הוק
 n17|สิบเจ็ด|sip chet|סיפ-ג׳ט
-n18|สิบแปด|sip paet|סיפ-פאט
+n18|สิบแปด|sip paet|סיפ-פֶט
 n19|สิบเก้า|sip kao|סיפ-גאו
 n30|สามสิบ|sam sip|סאם-סיפ
 n40|สี่สิบ|si sip|סי-סיפ
 n60|หกสิบ|hok sip|הוק-סיפ
 n70|เจ็ดสิบ|chet sip|ג׳ט-סיפ
-n80|แปดสิบ|paet sip|פאט-סיפ
+n80|แปดสิบ|paet sip|פֶט-סיפ
 n90|เก้าสิบ|kao sip|גאו-סיפ
 n200|สองร้อย|song roi|סונג רוי
 n500|ห้าร้อย|ha roi|הא רוי
-n10000|หนึ่งหมื่น|nueng muen|נאנג מון
+n10000|หนึ่งหมื่น|nueng muen|נונג מון
 t_morning|ตอนเช้า|ton chao|טון צ׳או
 t_evening|ตอนเย็น|ton yen|טון יין
 t_night|กลางคืน|klang khuen|גלאנג קון
@@ -270,7 +270,7 @@ t_year|ปี|pi|פי
 t_hour|ชั่วโมง|chua mong|צ׳ואה-מונג
 t_minute|นาที|nathi|נאטי
 dog|หมา|ma|מא
-cat|แมว|maeo|מאו
+cat|แมว|maeo|מֶאו
 bird|นก|nok|נוק
 horse|ม้า|ma|מא
 cow|วัว|wua|וואה
@@ -281,12 +281,12 @@ snake|งู|ngu|נגו
 mosquito|ยุง|yung|יונג
 lion|สิงโต|singto|סינג-טו
 duck|เป็ด|pet|פט
-apple|แอปเปิ้ล|appoen|אפ-פן
+apple|แอปเปิ้ล|appoen|אֶפ-פֶן
 banana|กล้วย|kluai|גלואי
 orange|ส้ม|som|סום
 mango|มะม่วง|mamuang|מה-מואנג
 pineapple|สับปะรด|sapparot|סאפ-פה-רוט
-watermelon|แตงโม|taeng mo|טנג-מו
+watermelon|แตงโม|taeng mo|טֶנג-מו
 coconut|มะพร้าว|maphrao|מה-פראו
 grapes|องุ่น|a-ngun|אה-נגון
 lemon|มะนาว|manao|מה-נאו
@@ -296,7 +296,7 @@ tomato|มะเขือเทศ|makhuea thet|מה-קואה-טט
 potato|มันฝรั่ง|man farang|מאן-פרנג
 onion|หัวหอม|hua hom|הואה-הום
 garlic|กระเทียม|krathiam|גרה-טיאם
-cucumber|แตงกวา|taeng kwa|טנג-גווא
+cucumber|แตงกวา|taeng kwa|טֶנג-גווא
 carrot|แครอท|khaerot|קה-רוט
 chili|พริก|phrik|פריק
 corn|ข้าวโพด|khao phot|קאו-פוט
@@ -320,7 +320,7 @@ dinner|อาหารเย็น|a-han yen|אהאן יין
 fork|ส้อม|som|סום
 spoon|ช้อน|chon|צ׳ון
 knife|มีด|mit|מיט
-glass|แก้ว|kaeo|גאו
+glass|แก้ว|kaeo|גֶאו
 plate|จาน|chan|ג׳אן
 bank|ธนาคาร|thanakhan|טה-נא-קאן
 atm|ตู้เอทีเอ็ม|tu ATM|טו אי-טי-אם
@@ -340,9 +340,9 @@ bag|กระเป๋า|krapao|גרה-פאו
 shoes|รองเท้า|rong thao|רונג-טאו
 clothes|เสื้อผ้า|suea pha|סואה-פא
 hat|หมวก|muak|מואק
-glasses|แว่นตา|waen ta|ואן-טא
-map|แผนที่|phaen thi|פאן-טי
-sunscreen|ครีมกันแดด|khrim kan daet|קרים גאן-דאט
+glasses|แว่นตา|waen ta|וֶן-טא
+map|แผนที่|phaen thi|פֶן-טי
+sunscreen|ครีมกันแดด|khrim kan daet|קרים גאן-דֶט
 umbrella|ร่ม|rom|רום
 come|มา|ma|מא
 want|อยาก|yak|יאק
@@ -354,7 +354,7 @@ give|ให้|hai|האי
 take|เอา|ao|או
 pay|จ่าย|chai|ג׳אי
 wait|รอ|ro|רו
-walk|เดิน|doen|דון
+walk|เดิน|doen|דֶן
 read|อ่าน|an|אן
 write|เขียน|khian|קיאן
 love|รัก|rak|ראק
@@ -378,7 +378,7 @@ difficult|ยาก|yak|יאק
 many|เยอะ|yoe|יה
 sf_order|ขอสั่งอาหารครับ|kho sang a-han khrap|קו סאנג אהאן קראפ
 sf_recommend|มีอะไรแนะนำไหมครับ|mi arai nae nam mai khrap|מי אראי נה-נאם מאי קראפ
-sf_bottle|ขอน้ำเปล่าขวดหนึ่งครับ|kho nam plao khuat nueng khrap|קו נאם פלאו קואט נאנג קראפ
+sf_bottle|ขอน้ำเปล่าขวดหนึ่งครับ|kho nam plao khuat nueng khrap|קו נאם פלאו קואט נונג קראפ
 sf_isspicy|อันนี้เผ็ดไหมครับ|an ni phet mai khrap|אן-ני פט מאי קראפ
 sf_onemore|ขออีกอันครับ|kho ik an khrap|קו איק אן קראפ
 sf_nosugar|ไม่ใส่น้ำตาลครับ|mai sai namtan khrap|מאי סאי נאם-טאן קראפ
@@ -386,14 +386,14 @@ sf_takeaway|ใส่ถุงกลับบ้านครับ|sai thung kla
 ss_smaller|มีไซส์เล็กกว่านี้ไหมครับ|mi sai lek kwa ni mai khrap|מי סאי לק גווא ני מאי קראפ
 ss_try|ลองได้ไหมครับ|long dai mai khrap|לונג דאי מאי קראפ
 ss_two|เอาสองอันครับ|ao song an khrap|או סונג אן קראפ
-ss_change|มีเงินทอนไหมครับ|mi ngoen thon mai khrap|מי נגן טון מאי קראפ
+ss_change|มีเงินทอนไหมครับ|mi ngoen thon mai khrap|מי נגֶן טון מאי קראפ
 ss_last|ราคาสุดท้ายเท่าไหร่ครับ|ra-kha sut thai thao rai khrap|ראקא סוט-טאי טאו-ראי קראפ
 ss_bag|ขอถุงหน่อยครับ|kho thung noi khrap|קו טונג נוי קראפ
 sm_busstop|ป้ายรถเมล์อยู่ที่ไหนครับ|pai rot me yu thi nai khrap|פאי רוט-מה יו טי-נאי קראפ
 sm_trainleave|รถไฟออกกี่โมงครับ|rot fai ok ki mong khrap|רוט-פאי אוק גי מונג קראפ
-sm_oneticket|ขอตั๋วหนึ่งใบครับ|kho tua nueng bai khrap|קו טואה נאנג באי קראפ
+sm_oneticket|ขอตั๋วหนึ่งใบครับ|kho tua nueng bai khrap|קו טואה נונג באי קראפ
 sm_howlong|ใช้เวลานานไหมครับ|chai wela nan mai khrap|צ׳אי ולא נאן מאי קראפ
-sm_meter|เปิดมิเตอร์ด้วยครับ|poet mitoe duai khrap|פוט מיטר דואי קראפ
+sm_meter|เปิดมิเตอร์ด้วยครับ|poet mitoe duai khrap|פֶט מיטר דואי קראפ
 sm_slowdrive|ขับช้าๆ หน่อยครับ|khap cha cha noi khrap|קאפ צ׳א-צ׳א נוי קראפ
 sm_airport|ไปสนามบินครับ|pai sanam bin khrap|פאי סנאם-בין קראפ
 sh_leavebag|ฝากกระเป๋าไว้ที่นี่ได้ไหมครับ|fak krapao wai thi ni dai mai khrap|פאק גרה-פאו ואי טי-ני דאי מאי קראפ
@@ -417,16 +417,16 @@ sp_helpme|ช่วยผมด้วยครับ|chuai phom duai khrap|צ׳�
 sp_stolen|กระเป๋าผมถูกขโมยครับ|krapao phom thuk khamoi khrap|גרה-פאו פום טוק קה-מוי קראפ
 sp_embassy|ผมต้องการไปสถานทูตอิสราเอลครับ|phom tongkan pai sathan thut Israel khrap|פום טונג-גאן פאי סה-טאן-טוט איסראל קראפ
 dt1|ไปไหนคะ|pai nai kha|פאי נאי קא
-dt2|ไปโรงแรมนี้ครับ|pai rong raem ni khrap|פאי רונג-רם ני קראפ
+dt2|ไปโรงแรมนี้ครับ|pai rong raem ni khrap|פאי רונג-רֶם ני קראפ
 dt3|ได้ค่ะ ขึ้นมาเลยค่ะ|dai kha, khuen ma loei kha|דאי קא, קון מא לוי קא
 dt4|เท่าไหร่ครับ|thao rai khrap|טאו-ראי קראפ
 dt5|สองร้อยค่ะ|song roi kha|סונג רוי קא
-dt6|เปิดมิเตอร์หน่อยครับ|poet mitoe noi khrap|פוט מיטר נוי קראפ
+dt6|เปิดมิเตอร์หน่อยครับ|poet mitoe noi khrap|פֶט מיטר נוי קראפ
 dt7|ได้เลยค่ะ|dai loei kha|דאי לוי קא
 dt8|จอดตรงนี้ครับ ขอบคุณครับ|chot trong ni khrap, khop khun khrap|ג׳וט טרונג-ני קראפ, קופ קון קראפ
 dm1|อันนี้เท่าไหร่ครับ|an ni thao rai khrap|אן-ני טאו-ראי קראפ
 dm2|สามร้อยค่ะ|sam roi kha|סאם רוי קא
-dm3|แพงไปครับ สองร้อยได้ไหมครับ|phaeng pai khrap, song roi dai mai khrap|פנג פאי קראפ, סונג רוי דאי מאי קראפ
+dm3|แพงไปครับ สองร้อยได้ไหมครับ|phaeng pai khrap, song roi dai mai khrap|פֶנג פאי קראפ, סונג רוי דאי מאי קראפ
 dm4|สองร้อยห้าสิบค่ะ ราคาสุดท้ายค่ะ|song roi ha sip kha, ra-kha sut thai kha|סונג רוי הא-סיפ קא, ראקא סוט-טאי קא
 dm5|โอเค เอาครับ|okay, ao khrap|אוקיי, או קראפ
 dm6|ขอบคุณมากค่ะ|khop khun mak kha|קופ קון מאק קא
@@ -436,7 +436,7 @@ dr3|จะสั่งอะไรคะ|cha sang arai kha|ג׳ה סאנג אר�
 dr4|ข้าวผัดไก่ ไม่เผ็ดครับ|khao phat kai, mai phet khrap|קאו פאט גאי, מאי פט קראפ
 dr5|ดื่มอะไรคะ|duem arai kha|דום אראי קא
 dr6|น้ำเปล่าครับ|nam plao khrap|נאם פלאו קראפ
-dr7|เก็บเงินด้วยครับ|kep ngoen duai khrap|גפ נגן דואי קראפ
+dr7|เก็บเงินด้วยครับ|kep ngoen duai khrap|גפ נגֶן דואי קראפ
 dh1|สวัสดีครับ ผมจองห้องไว้ครับ|sawatdee khrap, phom chong hong wai khrap|סוואדי קראפ, פום ג׳ונג הונג ואי קראפ
 dh2|ชื่ออะไรคะ|chue arai kha|צ׳ו אראי קא
 dh3|ชื่อ ... ครับ|chue ... khrap|צ׳ו ... קראפ
@@ -445,9 +445,9 @@ dh5|ห้องสามศูนย์ห้าค่ะ|hong sam sun ha kha|�
 dh6|อาหารเช้ากี่โมงครับ|a-han chao ki mong khrap|אהאן צ׳או גי מונג קראפ
 dh7|เจ็ดโมงถึงสิบโมงค่ะ|chet mong thueng sip mong kha|ג׳ט מונג טונג סיפ מונג קא
 dd1|ขอโทษครับ สถานีอยู่ที่ไหนครับ|kho thot khrap, sathani yu thi nai khrap|קו-טוט קראפ, סה-טא-ני יו טי-נאי קראפ
-dd2|ตรงไปแล้วเลี้ยวซ้ายค่ะ|trong pai laeo liao sai kha|טרונג-פאי לאו ליאו סאי קא
+dd2|ตรงไปแล้วเลี้ยวซ้ายค่ะ|trong pai laeo liao sai kha|טרונג-פאי לֶאו ליאו סאי קא
 dd3|ไกลจากที่นี่ไหมครับ|klai chak thi ni mai khrap|גלאי ג׳אק טי-ני מאי קראפ
-dd4|ไม่ไกลค่ะ เดินห้านาทีค่ะ|mai klai kha, doen ha nathi kha|מאי גלאי קא, דון הא נאטי קא
+dd4|ไม่ไกลค่ะ เดินห้านาทีค่ะ|mai klai kha, doen ha nathi kha|מאי גלאי קא, דֶן הא נאטי קא
 dd5|ขอบคุณมากครับ|khop khun mak khrap|קופ קון מאק קראפ
 w_weather|อากาศ|akat|אה-גאט
 w_sun|พระอาทิตย์|phra athit|פרה-אה-טיט
@@ -475,25 +475,25 @@ e_surprised|ประหลาดใจ|pralat chai|פרה-לאט ג׳אי
 e_calm|ใจเย็น|chai yen|ג׳אי יין
 e_excited|ตื่นเต้น|tuen ten|טון-טן
 e_love|ตกหลุมรัก|tok lum rak|טוק לום ראק
-dir_north|เหนือ|nuea|נואה
-dir_south|ใต้|tai|טאי
-dir_east|ตะวันออก|tawan ok|טה-וואן-אוק
-dir_west|ตะวันตก|tawan tok|טה-וואן-טוק
+dir_north|ทิศเหนือ|thit nuea|טיט נואה
+dir_south|ทิศใต้|thit tai|טיט טאי
+dir_east|ทิศตะวันออก|thit tawan ok|טיט טה-וואן-אוק
+dir_west|ทิศตะวันตก|thit tawan tok|טיט טה-וואן-טוק
 dir_corner|หัวมุม|hua mum|הואה-מום
-dir_light|ไฟแดง|fai daeng|פאי-דאנג
-dir_behind|ข้างหลัง|khang lang|קאנג-לאנג
+dir_light|ไฟแดง|fai daeng|פאי-דֶנג
+dir_behind|ข้างหลัง|khâng lǎng|קאנג-לאנג (טון עולה)
 dir_front|ข้างหน้า|khang na|קאנג-נא
 dir_next|ข้างๆ|khang khang|קאנג-קאנג
 dir_back|ถอยหลัง|thoi lang|טוי-לאנג
 dir_up|ข้างบน|khang bon|קאנג-בון
-dir_down|ข้างล่าง|khang lang|קאנג-לאנג`
+dir_down|ข้างล่าง|khâng lâng|קאנג-לאנג (טון יורד)`
 });
 
 /* ---- numbers & prices (0–999,999) → tokens [text, roman, hebrew] ---- */
 /* ---- Thai ---- */
 NW.th = (() => {
-  const D = [['ศูนย์','sun','סון'],['หนึ่ง','nueng','נאנג'],['สอง','song','סונג'],['สาม','sam','סאם'],['สี่','si','סי'],['ห้า','ha','הא'],['หก','hok','הוק'],['เจ็ด','chet','ג׳ט'],['แปด','paet','פאט'],['เก้า','kao','גאו']];
-  const U = [['แสน','saen','סאן'],['หมื่น','muen','מון'],['พัน','phan','פאן'],['ร้อย','roi','רוי'],['สิบ','sip','סיפ']];
+  const D = [['ศูนย์','sun','סון'],['หนึ่ง','nueng','נונג'],['สอง','song','סונג'],['สาม','sam','סאם'],['สี่','si','סי'],['ห้า','ha','הא'],['หก','hok','הוק'],['เจ็ด','chet','ג׳ט'],['แปด','paet','פֶט'],['เก้า','kao','גאו']];
+  const U = [['แสน','saen','סֶן'],['หมื่น','muen','מון'],['พัน','phan','פאן'],['ร้อย','roi','רוי'],['สิบ','sip','סיפ']];
   return n => {
     if (n === 0) return [tk(...D[0])];
     const s = String(n).padStart(6, '0'), out = [];

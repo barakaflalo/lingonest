@@ -392,4 +392,4 @@ LANG.ru = {
   "qaResume": "Продолжить с {d} из {t}",
   "qaRestart": "Начать заново"
 };
-window.__MODS['ui-ru'] = '1.5.1';
+window.__MODS['ui-ru'] = '1.5.2';

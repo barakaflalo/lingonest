@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.5.1' };
+const APP = { name: 'LingoNest', ver: '1.5.2' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -682,8 +682,14 @@ function cardGrade(ok) {
 
 /* ===== CONTENT QUALITY CHECK (Pro, uses the user's AI key) ===== */
 const QA = { run: 0, busy: false, done: 0, total: 0, next: 0, issues: [], lang: '', msg: '', finished: false };
-(() => { const saved = S.get('ln_qa', null); if (saved) Object.assign(QA, saved, { busy: false, msg: '' }); })();
-function qaSave() { S.set('ln_qa', { lang: QA.lang, done: QA.done, total: QA.total, next: QA.next, issues: QA.issues, finished: QA.finished }); }
+/* saved progress is only valid for the same release — a new release may already contain the fixes */
+(() => { const saved = S.get('ln_qa', null); if (saved && saved.ver === APP.ver) Object.assign(QA, saved, { busy: false, msg: '' }); else if (saved) S.del('ln_qa'); })();
+function qaSave() { S.set('ln_qa', { ver: APP.ver, lang: QA.lang, done: QA.done, total: QA.total, next: QA.next, issues: QA.issues, finished: QA.finished }); }
+/* house style of the Hebrew-letter pronunciation — told to the reviewer so it doesn't flag deliberate choices */
+const QA_STYLE = {
+  _: 'Hebrew-letter pronunciation is deliberately simple: no niqqud (a segol is used only for the open e sound), aspiration is NOT marked, stress and tone are not marked. Equivalent Hebrew spellings (ו/וו, ט/ת, כ/ק) are fine. Do NOT report these conventions.',
+  th: 'Thai conventions used on purpose: ก→ג, ข/ค→ק, ต→ט, ท/ถ→ט, ป→פ, พ/ผ→פ, จ→ג׳, ช→צ׳, final ล/ร→ן (e.g. แอปเปิ้ล = אֶפ-פֶן), the vowel ึ/ื → ו. Tones are not written.'
+};
 function qaBatches(lang) {
   const ids = CONCEPTS.map(c => c[0]).filter(id => WD[lang] && WD[lang][id]);
   const out = []; for (let i = 0; i < ids.length; i += 30) out.push(ids.slice(i, i + 30)); return out;
@@ -703,7 +709,7 @@ async function qaRun(resume) {
     const prompt = 'You are a native ' + LANGS[lang].name.en + ' speaker and an experienced teacher, reviewing a travel phrasebook for Hebrew speakers. ' +
       'Each line: id | Hebrew meaning | ' + LANGS[lang].name.en + ' text | Latin transliteration | pronunciation written in Hebrew letters. ' +
       'Report ONLY real problems: a wrong or unnatural translation for the Hebrew meaning, spelling mistakes, or a transliteration / Hebrew-letter pronunciation that would clearly lead to a wrong pronunciation. ' +
-      'Ignore small stylistic choices. The traveler is male, so male speaker forms are intentional' + (lang === 'th' ? ' (ครับ, ผม); lines where a local vendor or driver speaks may use ค่ะ on purpose' : '') + '. ' +
+      'Ignore small stylistic choices. ' + QA_STYLE._ + ' ' + (QA_STYLE[lang] || '') + ' The traveler is male, so male speaker forms are intentional' + (lang === 'th' ? ' (ครับ, ผม); lines where a local vendor or driver speaks may use ค่ะ on purpose' : '') + '. ' +
       'Return ONLY JSON: {"issues":[{"id":"...","problem":"short explanation in Hebrew","text":"corrected native text, or empty if fine","roman":"corrected transliteration, or empty","heb":"corrected Hebrew-letter pronunciation, or empty"}]}. If everything is fine return {"issues":[]}.\n\n' + lines;
     let tries = 0, res = null;
     while (!res) {
@@ -1515,4 +1521,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 boot();
-window.__MODS.app = '1.5.1';
+window.__MODS.app = '1.5.2';

@@ -100,4 +100,4 @@ window.APPNEST_ASSISTANT_CONFIG = {
     'בוא נתרגל — תפתח לי שיעור'
   ]
 };
-window.__MODS['assistant-map'] = '1.5.1';
+window.__MODS['assistant-map'] = '1.5.2';

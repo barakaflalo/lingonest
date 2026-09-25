@@ -392,4 +392,4 @@ LANG.en = {
   "qaResume": "Continue from {d} of {t}",
   "qaRestart": "Start over"
 };
-window.__MODS['ui-en'] = '1.5.1';
+window.__MODS['ui-en'] = '1.5.2';

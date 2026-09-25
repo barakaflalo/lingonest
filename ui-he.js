@@ -392,4 +392,4 @@ LANG.he = {
   "qaResume": "המשך מ-{d} מתוך {t}",
   "qaRestart": "התחל מחדש"
 };
-window.__MODS['ui-he'] = '1.5.1';
+window.__MODS['ui-he'] = '1.5.2';

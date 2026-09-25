@@ -392,4 +392,4 @@ LANG.ar = {
   "qaResume": "تابع من {d} من {t}",
   "qaRestart": "ابدأ من جديد"
 };
-window.__MODS['ui-ar'] = '1.5.1';
+window.__MODS['ui-ar'] = '1.5.2';
