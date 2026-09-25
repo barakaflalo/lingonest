@@ -1,8 +1,8 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.5.2' };
-const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map'];
+const APP = { name: 'LingoNest', ver: '1.6.0' };
+const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
 function logErr(m, f, l) {
@@ -35,7 +35,7 @@ const S = (() => {
 const DEF = {
   v: 1, user: '', ui: 'he', theme: 'gold', mode: 'night', lang: 'th', goal: 10, rate: 0.9, gender: 'm',
   voices: {}, onb: false, prog: {}, log: {}, newLog: {}, streak: { last: '', n: 0 }, phrases: [], custom: {},
-  favs: {}, ai: { provider: 'gemini', model: '', has: {} }, backupAt: 0, firstUse: 0, seenVer: '', fix: {}
+  favs: {}, ai: { provider: 'gemini', model: '', has: {} }, backupAt: 0, firstUse: 0, seenVer: '', fix: {}, kit: [], badges: {}, flags: {}, weekGoal: 100
 };
 let st = Object.assign({}, DEF, S.get('ln_state', {}));
 st.ai = Object.assign({}, DEF.ai, st.ai || {});
@@ -113,6 +113,7 @@ function grade(lang, k, ok) {
   const y = dayKey(-1);
   if (st.streak.last !== t) { st.streak.n = st.streak.last === y ? st.streak.n + 1 : 1; st.streak.last = t; }
   save();
+  if (typeof onGraded === 'function') onGraded(lang, k, ok);
 }
 function levelStats(lang) {
   const p = P(lang), all = items(lang), out = {};
@@ -423,7 +424,7 @@ SCREENS.home = () => {
   <nav class="chips" aria-label="${esc(T('chooseLang'))}">${chips}</nav>
   <button class="search-btn" data-act="nav" data-to="search">🔍 <span>${esc(T('searchBtn', { l: LN(lang) }))}</span></button>
   <section class="hero" aria-label="${esc(T('wordOfDay'))}">
-    <div class="hero-top"><span>${esc(T('wordOfDay'))}</span><span class="streak" title="${esc(T('streak'))}">🔥 ${st.streak.last === today() || st.streak.last === dayKey(-1) ? st.streak.n : 0}</span></div>
+    <div class="hero-top"><span>${esc(T('wordOfDay'))}</span><span>${typeof weekCount === 'function' ? '<span class="wk" title="' + esc(T('weekGoal')) + '">🎯 ' + weekCount() + '/' + (st.weekGoal || 100) + '</span> ' : ''}<span class="streak" title="${esc(T('streak'))}">🔥 ${st.streak.last === today() || st.streak.last === dayKey(-1) ? st.streak.n : 0}</span></span></div>
     <div class="wod">${tgt(wod, lang, 'xl')}</div>
     <div class="wod-sub"><span class="pr">${esc(pron(wod))}</span><span class="mn">${esc(meaning(wod))}</span></div>
     <div class="row c">${soundBtns(wod.k)}<button class="ic" data-act="big" data-k="${wod.k}" aria-label="${esc(T('showBig'))}">⛶</button></div>
@@ -439,6 +440,10 @@ SCREENS.home = () => {
     <button class="tile" data-act="nav" data-to="practice"><span>🎯</span><b>${esc(T('practice'))}</b><small>${esc(T('practiceSub'))}</small></button>
     <button class="tile" data-act="nav" data-to="dialogs"><span>🎭</span><b>${esc(T('dialogs'))}</b><small>${esc(T('dialogsSub', { n: DIALOGS.length }))}</small></button>
     <button class="tile" data-act="nav" data-to="price"><span>💰</span><b>${esc(T('prices'))}</b><small>${esc(T('pricesSub'))}</small></button>
+    <button class="tile" data-act="nav" data-to="chat"><span>🤖</span><b>${esc(T('chat'))}</b><small>${esc(T('chatSub'))}</small></button>
+    <button class="tile" data-act="nav" data-to="kit"><span>🧳</span><b>${esc(T('kit'))}</b><small>${esc(T('kitSub'))}</small></button>
+    <button class="tile" data-act="nav" data-to="tips"><span>💡</span><b>${esc(T('tips'))}</b><small>${esc(T('tipsSub'))}</small></button>
+    <button class="tile" data-act="nav" data-to="search"><span>🔍</span><b>${esc(T('searchTitle'))}</b><small>${esc(T('searchSub'))}</small></button>
     <button class="tile wide" data-act="nav" data-to="speak"><span>📢</span><b>${esc(T('speakForMe'))}</b><small>${esc(T('speakSub', { l: LN(lang) }))}</small></button>
     <button class="tile wide" data-act="nav" data-to="progress"><span>📈</span><b>${esc(T('progress'))}</b><small>${esc(T('progressSub'))}</small></button>
   </div>
@@ -922,6 +927,7 @@ const LESSON = {
     const it = this.q[this.i].it;
     grade(this.lang, it.k, ok);
     ok ? this.ok++ : this.bad++;
+    if (ok && typeof flag === 'function') flag('say');
     $('#fb').innerHTML = '<div class="fb ' + (ok ? 'ok' : 'no') + '"><b>' + esc(ok ? T('saidGood') : T('sayMore')) + '</b></div><button class="cta" data-act="lnext">' + esc(T('next')) + '</button>';
     const nb = $('#fb .cta'); if (nb) nb.focus();
   },
@@ -992,10 +998,12 @@ SCREENS.progress = () => {
   return header(T('progress')) + `
   <div class="stats"><div><b>🔥 ${st.streak.last === today() || st.streak.last === dayKey(-1) ? st.streak.n : 0}</b><small>${esc(T('streak'))}</small></div>
   <div><b>${total}</b><small>${esc(T('totalAnswers'))}</small></div><div><b>${curLevel(lang)}</b><small>${esc(T('level'))} · ${esc(LN(lang))}</small></div></div>
+  ${typeof goalHTML === 'function' ? goalHTML() : ''}
   <h3>${esc(T('last7'))}</h3>${chart}
   <h3>${esc(T('levelsIn', { l: LN(lang) }))}</h3><div class="card">${lv}</div>
   <p class="hint">${esc(T('levelRule'))}</p>
-  <h3>${esc(T('allLangs'))}</h3><div class="card">${other}</div>`;
+  <h3>${esc(T('allLangs'))}</h3><div class="card">${other}</div>
+  ${typeof badgesHTML === 'function' ? '<h3>🏅 ' + esc(T('badges')) + ' (' + Object.keys(st.badges || {}).length + ')</h3>' + badgesHTML() : ''}`;
 };
 
 /* ===== SETTINGS ===== */
@@ -1020,6 +1028,8 @@ SCREENS.settings = sec => {
   </section>
   <section class="card set"><h3>🐇 ${esc(T('pace'))}</h3><p class="hint">${esc(T('paceHint'))}</p>
     <div class="seg">${[[5, 'paceEasy'], [10, 'paceNormal'], [20, 'paceFast']].map(([n, k]) => '<button class="' + (st.goal === n ? 'on' : '') + '" data-act="setGoal" data-n="' + n + '">' + esc(T(k)) + '<small>' + n + '/' + esc(T('perDay')) + '</small></button>').join('')}</div>
+    <p class="hint">🎯 ${esc(T('weekGoalHint'))}</p>
+    <div class="seg">${[50, 100, 200, 350].map(n => '<button class="' + ((st.weekGoal || 100) === n ? 'on' : '') + '" data-act="setWeekGoal" data-n="' + n + '">' + n + '<small>' + esc(T('perWeek')) + '</small></button>').join('')}</div>
   </section>
   <section class="card set" id="sec-voice"><h3>🔊 ${esc(T('voiceSec'))}</h3>
     <label class="fld"><span>${esc(T('rate'))}: <b id="rateV">${st.rate.toFixed(2)}</b></span><input type="range" min="0.5" max="1.2" step="0.05" value="${st.rate}" data-ch="rate"></label>
@@ -1298,7 +1308,7 @@ const ACT = {
   dlgPlay: d => dlgPlay(d.arg),
   dlgLine: d => { dlgStop(); const x = dlgLines(NAV.arg).find(l => l.n === +d.n); if (x) speak(ttsText(x.it), st.lang, !!d.slow, null, !x.me); },
   dlgRole: d => { dlgStop(); DLG.role = d.v === '1'; DLG.shown = {}; render(); },
-  dlgReveal: d => { DLG.shown[d.n] = 1; render(); const x = dlgLines(NAV.arg).find(l => l.n === +d.n); if (x) speak(ttsText(x.it), st.lang); },
+  dlgReveal: d => { DLG.shown[d.n] = 1; if (typeof flag === 'function') flag('role'); render(); const x = dlgLines(NAV.arg).find(l => l.n === +d.n); if (x) speak(ttsText(x.it), st.lang); },
   dlgSay: d => { const x = dlgLines(NAV.arg).find(l => l.n === +d.n); if (x) sayIt(x.it, st.lang, $('#said' + d.n), ok => { if (ok) { grade(st.lang, x.it.k, true); setTimeout(() => { DLG.shown[d.n] = 1; render(); }, 900); } }); },
   priceSet: d => { PRICE.n = +d.n; const i = $('#pIn'); if (i) i.value = PRICE.n; $('#pRes').innerHTML = priceHTML(); ACT.priceSay({}); },
   priceCur: d => { PRICE.cur = d.v === '1'; render(); },
@@ -1494,6 +1504,7 @@ function whatsNew() {
 
 /* ---------- boot ---------- */
 async function boot() {
+  window.__BOOTED = true;
   window.__MODS.app = APP.ver;
   checkMods();
   applyTheme();
@@ -1520,5 +1531,5 @@ async function boot() {
   /* other languages load in the background (home-screen %, offline availability) */
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
-boot();
-window.__MODS.app = '1.5.2';
+/* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
+window.__MODS.app = '1.6.0';

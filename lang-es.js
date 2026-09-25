@@ -3,8 +3,24 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('es', {
-  ver: '1.5.2',
+  ver: '1.6.0',
   curSym: "€",
+  /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
+  country: {"he": "ספרד ואמריקה הלטינית", "en": "Spain & Latin America", "ru": "Испания и Латинская Америка", "es": "España y Latinoamérica", "ar": "إسبانيا وأمريكا اللاتينية"},
+  emergency: [
+    ["🇪🇸", {"he": "ספרד (וכל האיחוד האירופי) — חירום", "en": "Spain (and all EU) — emergency", "ru": "Испания (и весь ЕС) — экстренная служба", "es": "España (y toda la UE) — emergencias", "ar": "إسبانيا (وكل الاتحاد الأوروبي) — الطوارئ"}, "112"],
+    ["🇲🇽", {"he": "מקסיקו ורוב אמריקה הלטינית — חירום", "en": "Mexico & most of Latin America", "ru": "Мексика и большая часть Латинской Америки", "es": "México y la mayor parte de Latinoamérica", "ar": "المكسيك ومعظم أمريكا اللاتينية"}, "911"],
+    ["🇦🇷", {"he": "ארגנטינה — משטרה / אמבולנס", "en": "Argentina — police / ambulance", "ru": "Аргентина — полиция / скорая", "es": "Argentina — policía / ambulancia", "ar": "الأرجنتين — الشرطة / الإسعاف"}, "911", "107"]
+  ],
+  /* grammar & culture tips: t=title, b=body ({he,en}), ex=[native, roman, heb, meaning he, meaning en] */
+  tips: [
+    {"t": {"he": "זכר ונקבה: el / la, ‎-o / -a", "en": "Gender: el / la, -o / -a"}, "b": {"he": "לכל שם עצם יש מין, ובדרך כלל -o זכר ו--a נקבה. התואר מתאים את עצמו: el hotel bonito, la playa bonita.", "en": "Every noun has a gender, usually -o masculine and -a feminine. Adjectives agree: el hotel bonito, la playa bonita."}, "ex": [["La playa es bonita", "la plaia es bonita", "לה פלאיה אס בוניטה", "החוף יפה", "The beach is beautiful"], ["El hotel es bonito", "el otel es bonito", "אל אוטל אס בוניטו", "המלון יפה", "The hotel is beautiful"]]},
+    {"t": {"he": "ser מול estar — שני \"להיות\"", "en": "ser vs. estar — two \"to be\""}, "b": {"he": "ser למשהו קבוע (מאיפה אני, מי אני): Soy de Israel. estar למצב זמני או מיקום: Estoy cansado (אני עייף), ¿Dónde está el baño?", "en": "ser for permanent things (origin, identity): Soy de Israel. estar for states and location: Estoy cansado, ¿Dónde está el baño?"}, "ex": [["Soy de Israel", "soi de israel", "סוי דה איסראל", "אני מישראל", "I'm from Israel"], ["Estoy cansado", "estoi kansado", "אסטוי קנסאדו", "אני עייף", "I'm tired"]]},
+    {"t": {"he": "tú מול usted", "en": "tú vs. usted"}, "b": {"he": "usted (אוסטד) הוא \"אתה\" מנומס — למבוגרים, לפקידים, לשוטרים. באמריקה הלטינית משתמשים בו יותר מאשר בספרד. בספק — usted.", "en": "usted is the polite \"you\" — for older people, officials, police. More common in Latin America than Spain. When in doubt — usted."}, "ex": [["¿Me puede ayudar?", "me puede aiudar", "מה פואדה איודאר", "אתה יכול לעזור לי? (מנומס)", "Can you help me? (polite)"]]},
+    {"t": {"he": "קוראים כמו שכותבים — עם כמה הפתעות", "en": "Read as written — with a few surprises"}, "b": {"he": "H שקטה (hola = אולה), J = ח (jota), LL ו-Y = י (calle = קאיה), Ñ = ני. בספרד Z ו-CE/CI נשמעים כמו th באנגלית; באמריקה הלטינית — ס.", "en": "H is silent, J = kh, LL and Y = y, Ñ = ny. In Spain Z and CE/CI sound like English th; in Latin America — s."}, "ex": [["Hola", "ola", "אולה", "שלום", "Hello"], ["La calle", "la kaie", "לה קאיה", "הרחוב", "The street"]]},
+    {"t": {"he": "סימני שאלה הפוכים ושאלה בלי שינוי סדר", "en": "Upside-down marks, same word order"}, "b": {"he": "שאלה נפתחת ב-¿ ונסגרת ב-?. אפשר לשאול פשוט בעליית טון, בלי לשנות את סדר המילים: ¿Tiene agua? = יש לך מים?", "en": "Questions open with ¿ and close with ?. Just raise your voice — no word-order change: ¿Tiene agua?"}, "ex": [["¿Tiene agua?", "tiene agua", "טיינה אגואה", "יש לך מים?", "Do you have water?"]]},
+    {"t": {"he": "להזמין בנימוס: quisiera", "en": "Ordering politely: quisiera"}, "b": {"he": "quiero = אני רוצה (ישיר), quisiera = הייתי רוצה (מנומס יותר). במסעדה ובחנות quisiera + por favor נשמע מצוין.", "en": "quiero = I want (direct), quisiera = I'd like (more polite). In restaurants, quisiera + por favor sounds great."}, "ex": [["Quisiera un café, por favor", "kisiera un kafe, por fabor", "קיסיירה און קפה, פור פבור", "הייתי רוצה קפה, בבקשה", "I'd like a coffee, please"]]}
+  ],
   alpha: [
     ["A a","a","אַ","a"],
     ["B b","be","ב","be"],

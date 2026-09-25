@@ -7,7 +7,7 @@ window.APPNEST_ASSISTANT_CONFIG = {
 
   appDescription: [
     'LingoNest היא אפליקציה ללימוד שפות לטיול, מבוססת עברית. שפות לימוד: אנגלית, ספרדית, רוסית, ערבית ותאית.',
-    'יש בה אותיות ותנועות, מילים לפי נושאים, משפטים לפי מצבים, דיאלוגים מהחיים, מחירים ומספרים, "דבר בשבילי" (תרגום והקראה של משפט), חיפוש "איך אומרים", תרגול (בחירה, שמיעה, דיבור, בניית משפטים, הכתבה, כרטיסיות) ו-9 רמות עם חזרות מרווחות.',
+    'יש בה אותיות ותנועות, שיחה עם בינה (הבינה משחקת מקומי), ערכת טיול (מספרי חירום וכרטיסים אישיים), טיפים ודקדוק, יעד שבועי ותגים, מילים לפי נושאים, משפטים לפי מצבים, דיאלוגים מהחיים, מחירים ומספרים, "דבר בשבילי" (תרגום והקראה של משפט), חיפוש "איך אומרים", תרגול (בחירה, שמיעה, דיבור, בניית משפטים, הכתבה, כרטיסיות) ו-9 רמות עם חזרות מרווחות.',
     'התפקיד שלך: מורה סבלני וחבר לטיול. הסבר מילים, דקדוק, הגייה והבדלים תרבותיים בקצרה ובפשטות, עם דוגמה אחת או שתיים.',
     'כל פעם שאתה כותב מילה או משפט בשפה זרה — כתוב אותו בכתב המקורי, ומיד אחריו בסוגריים את ההגייה באותיות עבריות (ובמידת הצורך גם תעתיק לטיני). אל תכתוב שפה זרה בלי הגייה.',
     'התאם את התשובות לשפה שהמשתמש לומד כרגע ולרמה שלו (מופיעים במצב האפליקציה למטה). בתאית — שים לב ללשון הדובר (זכר: ครับ/ผม, נקבה: ค่ะ/ดิฉัน) לפי מה שמופיע במצב.',
@@ -25,6 +25,9 @@ window.APPNEST_ASSISTANT_CONFIG = {
     { name: 'דיאלוגים', screen: 'dialogs' },
     { name: 'מחירים ומספרים', screen: 'price' },
     { name: 'דבר בשבילי', screen: 'speak' },
+    { name: 'שיחה עם בינה', screen: 'chat' },
+    { name: 'ערכת טיול', screen: 'kit' },
+    { name: 'טיפים ודקדוק', screen: 'tips' },
     { name: 'איך אומרים (חיפוש)', screen: 'search' },
     { name: 'ההתקדמות שלי', screen: 'progress' },
     { name: 'בדיקת איכות תוכן', screen: 'qa' },
@@ -67,6 +70,7 @@ window.APPNEST_ASSISTANT_CONFIG = {
       if (NAV.cur === 'lesson' && LESSON.q[LESSON.i]) lines.push('הפריט שמתורגל עכשיו: ' + show(LESSON.q[LESSON.i].it));
       if (NAV.cur === 'cards' && CARDS.deck[CARDS.i]) lines.push('הכרטיס שעל המסך: ' + show(CARDS.deck[CARDS.i]));
       if (NAV.cur === 'dialog' && NAV.arg) lines.push('הדיאלוג שעל המסך:\n' + dlgLines(NAV.arg).map(function (x) { return (x.me ? 'אתה: ' : 'מקומי: ') + show(x.it); }).join('\n'));
+      if (NAV.cur === 'chat' && typeof CHAT !== 'undefined' && CHAT.msgs.length) lines.push('שיחת התרגול שעל המסך:\n' + CHAT.msgs.slice(-10).map(function (m) { return (m.me ? 'המשתמש: ' : 'המקומי: ') + m.text; }).join('\n'));
       if (NAV.cur === 'speak' && SPK.res) lines.push('התרגום האחרון ב"דבר בשבילי": ' + SPK.res.text + ' [' + (SPK.res.heb || SPK.res.roman) + ']');
       var weak = items(lang).filter(function (i) { var r = P(lang)[i.k]; return r && r.w > 0 && r.b <= 2; }).slice(0, 12);
       if (weak.length) lines.push('מילים שהמשתמש מתקשה בהן:\n' + weak.map(show).join('\n'));
@@ -100,4 +104,4 @@ window.APPNEST_ASSISTANT_CONFIG = {
     'בוא נתרגל — תפתח לי שיעור'
   ]
 };
-window.__MODS['assistant-map'] = '1.5.2';
+window.__MODS['assistant-map'] = '1.6.0';

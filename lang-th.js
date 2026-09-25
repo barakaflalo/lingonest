@@ -3,8 +3,25 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('th', {
-  ver: '1.5.2',
+  ver: '1.6.0',
   curSym: "฿",
+  /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
+  country: {"he": "תאילנד", "en": "Thailand", "ru": "Таиланд", "es": "Tailandia", "ar": "تايلاند"},
+  emergency: [
+    ["🚓", {"he": "משטרה", "en": "Police", "ru": "Полиция", "es": "Policía", "ar": "الشرطة"}, "191"],
+    ["🚑", {"he": "אמבולנס / מצב חירום רפואי", "en": "Ambulance / medical", "ru": "Скорая помощь", "es": "Ambulancia", "ar": "الإسعاف"}, "1669"],
+    ["👮", {"he": "משטרת תיירים (מדברים אנגלית)", "en": "Tourist police (English)", "ru": "Туристическая полиция (англ.)", "es": "Policía turística (inglés)", "ar": "شرطة السياحة (بالإنجليزية)"}, "1155"],
+    ["🚒", {"he": "כבאות", "en": "Fire", "ru": "Пожарные", "es": "Bomberos", "ar": "الإطفاء"}, "199"]
+  ],
+  /* grammar & culture tips: t=title, b=body ({he,en}), ex=[native, roman, heb, meaning he, meaning en] */
+  tips: [
+    {"t": {"he": "ครับ / ค่ะ בסוף כמעט כל משפט", "en": "ครับ / ค่ะ at the end of almost every sentence"}, "b": {"he": "זו מילת הנימוס הכי חשובה בתאית. גבר אומר ครับ (קראפ), אישה אומרת ค่ะ (קא), ובשאלה אישה אומרת คะ (קָה). משפט בלעדיה נשמע קר ואפילו גס.", "en": "The most important politeness word in Thai. Men say ครับ (khrap), women say ค่ะ (kha), and ask questions with คะ. Without it a sentence sounds cold, even rude."}, "ex": [["สวัสดีครับ", "sawatdee khrap", "סוואדי קראפ", "שלום (גבר)", "Hello (man)"], ["ขอบคุณค่ะ", "khop khun kha", "קופ קון קא", "תודה (אישה)", "Thank you (woman)"]]},
+    {"t": {"he": "אין זמנים — יש מילות זמן", "en": "No tenses — just time words"}, "b": {"he": "הפועל בתאית לא משתנה אף פעם. כדי לומר עבר או עתיד מוסיפים מילה: แล้ว (לֶאו, כבר) בסוף לעבר, จะ (ג׳ה) לפני הפועל לעתיד, או פשוט מילת זמן כמו พรุ่งนี้ (מחר).", "en": "Thai verbs never change. For past add แล้ว (already) at the end, for future put จะ before the verb, or just use a time word like พรุ่งนี้ (tomorrow)."}, "ex": [["ผมกินแล้วครับ", "phom kin laeo khrap", "פום גין לֶאו קראפ", "כבר אכלתי", "I've already eaten"], ["พรุ่งนี้ผมจะไปครับ", "phrung ni phom cha pai khrap", "פרונג-ני פום ג׳ה פאי קראפ", "מחר אני אלך", "Tomorrow I'll go"]]},
+    {"t": {"he": "שאלות כן/לא: ไหม בסוף", "en": "Yes/no questions: ไหม at the end"}, "b": {"he": "לוקחים משפט רגיל ומוסיפים ไหม (מאי) בסוף — וזו שאלה. עונים בחזרה על הפועל: ได้ (דאי) = אפשר, ไม่ได้ (מאי דאי) = אי אפשר. אין מילה אחת ל\"כן\".", "en": "Take a normal sentence and add ไหม at the end. Answer by repeating the verb: ได้ = can, ไม่ได้ = can't. There's no single word for \"yes\"."}, "ex": [["ลดได้ไหมครับ", "lot dai mai khrap", "לוט דאי מאי קראפ", "אפשר הנחה?", "Can you lower it?"], ["ได้ครับ", "dai khrap", "דאי קראפ", "כן, אפשר", "Yes, I can"]]},
+    {"t": {"he": "שלילה: ไม่ לפני הפועל או התואר", "en": "Negation: ไม่ before the verb or adjective"}, "b": {"he": "ไม่ (מאי, בטון יורד) הופך כל דבר לשלילה. זו אחת המילים שהכי תשתמש בהן — במיוחד ไม่เผ็ด (לא חריף).", "en": "ไม่ (falling tone) negates anything. One of the words you'll use most — especially ไม่เผ็ด (not spicy)."}, "ex": [["ไม่เผ็ดครับ", "mai phet khrap", "מאי פט קראפ", "לא חריף", "Not spicy"], ["ผมไม่เข้าใจครับ", "phom mai khao jai khrap", "פום מאי קאו-ג׳אי קראפ", "אני לא מבין", "I don't understand"]]},
+    {"t": {"he": "התואר בא אחרי שם העצם — כמו בעברית", "en": "Adjectives come after the noun"}, "b": {"he": "בדיוק כמו בעברית: \"מים קרים\" ולא \"קרים מים\". גם שמות מנות בנויים כך — ข้าวผัดไก่ = אורז מטוגן עוף.", "en": "Just like Hebrew: \"water cold\". Dish names work the same way — ข้าวผัดไก่ = rice fried chicken."}, "ex": [["น้ำเย็น", "nam yen", "נאם יין", "מים קרים", "Cold water"], ["ข้าวผัดไก่", "khao phat kai", "קאו פאט גאי", "אורז מטוגן עם עוף", "Chicken fried rice"]]},
+    {"t": {"he": "ไม่เป็นไร — הגישה התאילנדית", "en": "ไม่เป็นไร — the Thai attitude"}, "b": {"he": "\"מאי פן ראי\" = אין בעיה, לא נורא, על לא דבר. תשמע את זה כל הזמן. בתאילנד מעריכים רוגע — הרמת קול או כעס בפומבי נחשבים איבוד פנים. חיוך ו-ไม่เป็นไร פותרים הרבה.", "en": "\"Mai pen rai\" = no problem, never mind, you're welcome. You'll hear it constantly. Thais value calm — raising your voice means losing face. A smile and ไม่เป็นไร solve a lot."}, "ex": [["ไม่เป็นไรครับ", "mai pen rai khrap", "מאי פן ראי קראפ", "אין בעיה", "No problem"]]}
+  ],
   alpha: [
     ["ก","ก ไก่","ג/ק רכה (גור גאי)","gor gai"],
     ["ข","ข ไข่","ק (קור קאי)","khor khai"],

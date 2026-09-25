@@ -5,7 +5,7 @@
 'use strict';
 window.__MODS = window.__MODS || {};
 const LANG = {};                                  /* UI dictionaries (filled by ui-xx.js) */
-const ALPHA = {}, VOWELS = {}, TONES = {}, TWISTER = {}, WD = {}, GENDER_F = {}, CUR_SYM = {}, LANG_NOTE = {};
+const ALPHA = {}, VOWELS = {}, TONES = {}, TWISTER = {}, WD = {}, GENDER_F = {}, CUR_SYM = {}, LANG_NOTE = {}, TIPS = {}, EMERG = {}, COUNTRY = {};
 const LOADED = {};                                /* lang code → version of the loaded pack */
 
 /* Target languages. To add one: add a line here + create lang-xx.js (copy an existing pack) + add it to sw.js. */
@@ -492,6 +492,9 @@ const LINGO = {
     if (pack.twister) TWISTER[code] = pack.twister;
     if (pack.note) LANG_NOTE[code] = pack.note;
     CUR_SYM[code] = pack.curSym || '';
+    TIPS[code] = pack.tips || [];
+    EMERG[code] = pack.emergency || [];
+    COUNTRY[code] = pack.country || null;
     GENDER_F[code] = (pack.gender || []).map(([src, flags, to]) => [new RegExp(src, flags), to]);
     const w = WD[code] = {};
     String(pack.words || '').split('\n').forEach(line => {
@@ -502,4 +505,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.5.2';
+window.__MODS.content = '1.6.0';

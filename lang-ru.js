@@ -3,8 +3,25 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('ru', {
-  ver: '1.5.2',
+  ver: '1.6.0',
   curSym: "₽",
+  /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
+  country: {"he": "רוסיה", "en": "Russia", "ru": "Россия", "es": "Rusia", "ar": "روسيا"},
+  emergency: [
+    ["🆘", {"he": "מספר חירום כללי", "en": "General emergency", "ru": "Единый номер", "es": "Emergencias general", "ar": "الطوارئ العامة"}, "112"],
+    ["🚓", {"he": "משטרה", "en": "Police", "ru": "Полиция", "es": "Policía", "ar": "الشرطة"}, "102"],
+    ["🚑", {"he": "אמבולנס", "en": "Ambulance", "ru": "Скорая помощь", "es": "Ambulancia", "ar": "الإسعاف"}, "103"],
+    ["🚒", {"he": "כבאות", "en": "Fire", "ru": "Пожарные", "es": "Bomberos", "ar": "الإطفاء"}, "101"]
+  ],
+  /* grammar & culture tips: t=title, b=body ({he,en}), ex=[native, roman, heb, meaning he, meaning en] */
+  tips: [
+    {"t": {"he": "אין \"הוא/יש\" בהווה", "en": "No \"is/am\" in the present"}, "b": {"he": "כמו בעברית: Я турист = אני תייר, בלי פועל. Это = זה/זאת: Это мой паспорт = זה הדרכון שלי.", "en": "Like Hebrew: Я турист = I (am) a tourist. Это = this is: Это мой паспорт = this is my passport."}, "ex": [["Я турист", "ya turist", "יא טוריסט", "אני תייר", "I'm a tourist"], ["Это мой паспорт", "eto moy pasport", "אטה מוי פאספארט", "זה הדרכון שלי", "This is my passport"]]},
+    {"t": {"he": "ההטעמה משנה את הצליל", "en": "Stress changes the sound"}, "b": {"he": "ברוסית O בלי הטעמה נשמע כמו \"א\": молоко נקרא \"מלאקו\" ולא \"מולוקו\". לכן בהגייה בעברית תראה הרבה א במקום ו — זה בכוונה.", "en": "Unstressed O sounds like \"a\": молоко is read \"malako\". That's why the Hebrew pronunciation often shows א instead of ו."}, "ex": [["Молоко", "moloko", "מלאקו", "חלב", "Milk"], ["Хорошо", "khorosho", "חרשו", "טוב", "Good"]]},
+    {"t": {"he": "סיומות משתנות (יחסות)", "en": "Endings change (cases)"}, "b": {"he": "שמות עצם משנים סיומת לפי התפקיד במשפט: вода (מים) אבל \"Воды, пожалуйста\" (מים בבקשה). אל תיבהל — גם עם סיומת לא נכונה יבינו אותך מצוין.", "en": "Nouns change endings by role: вода (water) but \"Воды, пожалуйста\". Don't worry — even with the wrong ending you'll be understood."}, "ex": [["Вода", "voda", "ואדה", "מים", "Water"], ["Воды, пожалуйста", "vody, pozhaluysta", "ואדי, פאז׳לוסטה", "מים, בבקשה", "Water, please"]]},
+    {"t": {"he": "Вы מול ты", "en": "Вы vs. ты"}, "b": {"he": "Вы (וי) היא פנייה מנומסת — לזרים, למבוגרים, למלצרים ולנהגים. ты (טי) רק לחברים ולילדים. בספק — Вы.", "en": "Вы is polite — for strangers, older people, waiters, drivers. ты only for friends and kids. When in doubt — Вы."}, "ex": [["Вы говорите по-английски?", "vy govorite po-angliyski", "וי גבריטיה פא-אנגלייסקי", "אתה מדבר אנגלית? (מנומס)", "Do you speak English? (polite)"]]},
+    {"t": {"he": "מספרים ומטבע: рубль / рубля / рублей", "en": "Numbers + currency: рубль / рубля / рублей"}, "b": {"he": "המילה אחרי מספר משתנה: 1 рубль, 2–4 рубля, 5 ומעלה рублей. במסך \"מחירים ומספרים\" האפליקציה עושה את זה בשבילך.", "en": "The word after a number changes: 1 рубль, 2–4 рубля, 5+ рублей. The Prices screen does it for you."}, "ex": [["Два рубля", "dva rublya", "דבה רובליה", "שני רובל", "Two roubles"], ["Сто рублей", "sto rubley", "סטו רובליי", "מאה רובל", "A hundred roubles"]]},
+    {"t": {"he": "זכר ונקבה בעבר", "en": "Past tense has gender"}, "b": {"he": "בזמן עבר הפועל משתנה לפי המדבר: גבר אומר я потерял (איבדתי), אישה я потеряла. בהגדרות אפשר לבחור \"אני מדבר בלשון נקבה\" והמשפטים יתעדכנו.", "en": "Past verbs agree with the speaker: a man says я потерял, a woman я потеряла. Pick your form in Settings and phrases update."}, "ex": [["Я потерял паспорт", "ya poteryal pasport", "יא פטיריאל פאספארט", "איבדתי את הדרכון (גבר)", "I lost my passport (man)"]]}
+  ],
   alpha: [
     ["А а","а","אַ","a"],
     ["Б б","бэ","ב","b"],

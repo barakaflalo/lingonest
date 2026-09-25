@@ -3,8 +3,25 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('en', {
-  ver: '1.5.2',
+  ver: '1.6.0',
   curSym: "$",
+  /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
+  country: {"he": "מדינות דוברות אנגלית", "en": "English-speaking countries", "ru": "Англоязычные страны", "es": "Países de habla inglesa", "ar": "الدول الناطقة بالإنجليزية"},
+  emergency: [
+    ["🇺🇸", {"he": "ארה״ב וקנדה — חירום", "en": "USA & Canada — emergency", "ru": "США и Канада — экстренная служба", "es": "EE. UU. y Canadá — emergencias", "ar": "الولايات المتحدة وكندا — الطوارئ"}, "911"],
+    ["🇬🇧", {"he": "בריטניה — חירום (גם 112 עובד)", "en": "UK — emergency (112 works too)", "ru": "Великобритания (112 тоже работает)", "es": "Reino Unido (112 también funciona)", "ar": "بريطانيا (يعمل 112 أيضا)"}, "999"],
+    ["🇦🇺", {"he": "אוסטרליה — חירום", "en": "Australia — emergency", "ru": "Австралия — экстренная служба", "es": "Australia — emergencias", "ar": "أستراليا — الطوارئ"}, "000"],
+    ["🇪🇺", {"he": "אירופה — חירום", "en": "Europe — emergency", "ru": "Европа — экстренная служба", "es": "Europa — emergencias", "ar": "أوروبا — الطوارئ"}, "112"]
+  ],
+  /* grammar & culture tips: t=title, b=body ({he,en}), ex=[native, roman, heb, meaning he, meaning en] */
+  tips: [
+    {"t": {"he": "סדר קבוע: מי – עושה – מה", "en": "Fixed order: who – does – what"}, "b": {"he": "באנגלית סדר המילים כמעט תמיד קבוע: נושא, פועל, מושא. I want water — לא \"Water I want\".", "en": "English word order is almost always subject – verb – object: I want water."}, "ex": [["I want water", "", "איי וואנט ווטר", "אני רוצה מים", "I want water"]]},
+    {"t": {"he": "שאלות עם Do / Does", "en": "Questions with Do / Does"}, "b": {"he": "כדי לשאול, מוסיפים Do בהתחלה: You have a room → Do you have a room? עם Is/Are הופכים סדר: Is it far?", "en": "To ask, add Do at the start: Do you have a room? With is/are, swap the order: Is it far?"}, "ex": [["Do you have a room?", "", "דו יו הב א רום", "יש לכם חדר?", "Do you have a room?"], ["Is it far?", "", "איז איט פאר", "זה רחוק?", "Is it far?"]]},
+    {"t": {"he": "נימוס: Could you / Can I have", "en": "Politeness: Could you / Can I have"}, "b": {"he": "\"I want\" נשמע ישיר מדי. במסעדה ובחנות אומרים Can I have… או Could I get…, ומבקשים עזרה ב-Could you… please?", "en": "\"I want\" can sound blunt. Say Can I have… / Could I get…, and ask for help with Could you… please?"}, "ex": [["Can I have the bill, please?", "", "קן איי הב דה ביל, פליז", "אפשר את החשבון?", "Can I have the bill, please?"], ["Could you help me, please?", "", "קוד יו הלפ מי, פליז", "תוכל לעזור לי?", "Could you help me, please?"]]},
+    {"t": {"he": "כתיב והגייה לא תמיד תואמים", "en": "Spelling and sound often differ"}, "b": {"he": "באנגלית יש אותיות שקטות (knife = נייף, hour = אאואר) ו-th שנשמע כמו ת׳ (thank) או ד׳ (this). לכן כדאי ללמוד כל מילה עם הצליל שלה — כפתור 🔊 הוא החבר הכי טוב שלך.", "en": "English has silent letters (knife, hour) and th sounds (thank / this). Learn every word with its sound — 🔊 is your best friend."}, "ex": [["Knife", "", "נייף", "סכין", "Knife"], ["Thank you", "", "ת׳נק יו", "תודה", "Thank you"]]},
+    {"t": {"he": "a / an / the", "en": "a / an / the"}, "b": {"he": "the = ה׳ הידיעה. a (או an לפני תנועה) = \"אחד\" לא מוגדר: a ticket, an apple. בעברית אין מקבילה ל-a, אז קל לשכוח אותו.", "en": "the = definite. a (an before a vowel) = \"one\": a ticket, an apple. Hebrew has no \"a\", so it's easy to forget."}, "ex": [["A ticket, please", "", "א טיקט, פליז", "כרטיס, בבקשה", "A ticket, please"], ["An apple", "", "אן אפל", "תפוח", "An apple"]]},
+    {"t": {"he": "I'm looking for… — המשפט הכי שימושי", "en": "I'm looking for… — the most useful phrase"}, "b": {"he": "I'm looking for + מקום/דבר = \"אני מחפש…\". עובד בכל מצב: ברחוב, בחנות, בתחנה.", "en": "I'm looking for + place/thing works everywhere: street, shop, station."}, "ex": [["I'm looking for the station", "", "איים לוקינג פור דה סטיישן", "אני מחפש את התחנה", "I'm looking for the station"]]}
+  ],
   alpha: [
     ["A a","A","אֵיי / אַ","ay"],
     ["B b","B","ב","bee"],

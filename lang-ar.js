@@ -3,8 +3,25 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('ar', {
-  ver: '1.5.2',
+  ver: '1.6.0',
   curSym: "$",
+  /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
+  country: {"he": "מדינות דוברות ערבית", "en": "Arabic-speaking countries", "ru": "Арабоязычные страны", "es": "Países de habla árabe", "ar": "الدول الناطقة بالعربية"},
+  emergency: [
+    ["🇦🇪", {"he": "איחוד האמירויות — משטרה / אמבולנס", "en": "UAE — police / ambulance", "ru": "ОАЭ — полиция / скорая", "es": "EAU — policía / ambulancia", "ar": "الإمارات — الشرطة / الإسعاف"}, "999", "998"],
+    ["🇪🇬", {"he": "מצרים — משטרה / אמבולנס", "en": "Egypt — police / ambulance", "ru": "Египет — полиция / скорая", "es": "Egipto — policía / ambulancia", "ar": "مصر — الشرطة / الإسعاف"}, "122", "123"],
+    ["🇯🇴", {"he": "ירדן — חירום", "en": "Jordan — emergency", "ru": "Иордания — экстренная служба", "es": "Jordania — emergencias", "ar": "الأردن — الطوارئ"}, "911"],
+    ["🇲🇦", {"he": "מרוקו — משטרה / אמבולנס", "en": "Morocco — police / ambulance", "ru": "Марокко — полиция / скорая", "es": "Marruecos — policía / ambulancia", "ar": "المغرب — الشرطة / الإسعاف"}, "19", "15"]
+  ],
+  /* grammar & culture tips: t=title, b=body ({he,en}), ex=[native, roman, heb, meaning he, meaning en] */
+  tips: [
+    {"t": {"he": "ספרותית מול מדוברת", "en": "Standard vs. spoken Arabic"}, "b": {"he": "האפליקציה מלמדת ערבית ספרותית פשוטה (فصحى) — מבינים אותה בכל מקום, מהטלוויזיה ומהשלטים. ברחוב כל מדינה מדברת בניב משלה (מצרי, לבנטיני, מפרצי), אבל אם תדבר לאט ובפשטות — יבינו אותך. מקומיים ישמחו ללמד אותך את הגרסה שלהם.", "en": "The app teaches simple Modern Standard Arabic — understood everywhere, from TV and signs. On the street each country has its dialect, but speak slowly and simply and you'll be understood."}, "ex": [["ماذا؟ / شو؟", "madha / shu", "מאד׳א / שו", "מה? (ספרותית / לבנטינית)", "What? (standard / Levantine)"]]},
+    {"t": {"he": "שורשים — בדיוק כמו בעברית", "en": "Roots — just like Hebrew"}, "b": {"he": "לדובר עברית יש יתרון ענק: ערבית בנויה על שורשים של 3 אותיות, כמו עברית, והרבה שורשים דומים. כ-ת-ב → كتب (לכתוב), كتاب (ספר), مكتب (משרד). ש-ל-ם → سلام (שלום).", "en": "A huge advantage for Hebrew speakers: Arabic is built on 3-letter roots, many similar to Hebrew. k-t-b → كتب (write), كتاب (book), مكتب (office)."}, "ex": [["كتاب", "kitab", "כתאב", "ספר", "Book"], ["سلام", "salam", "סלאם", "שלום", "Peace / hello"]]},
+    {"t": {"he": "אין \"הוא/יש\" בהווה", "en": "No \"is/am\" in the present"}, "b": {"he": "כמו בעברית: \"אני עייף\" בלי פועל. أنا تعبان = אני עייף, هذا جميل = זה יפה.", "en": "Like Hebrew: \"I tired\" — no verb. أنا تعبان = I'm tired, هذا جميل = this is beautiful."}, "ex": [["أنا من إسرائيل", "ana min isra'il", "אנא מן אסראאיל", "אני מישראל", "I'm from Israel"], ["هذا جميل", "hatha jamil", "האד׳א ג׳מיל", "זה יפה", "This is beautiful"]]},
+    {"t": {"he": "ה\"א\" הידיעה: ال", "en": "\"The\": ال"}, "b": {"he": "ال (אל) מחובר לתחילת המילה. לפני חלק מהאותיות (ת, ד, ר, ז, ס, ש, צ, ט, נ...) הל׳ נבלעת והאות מוכפלת: الشمس נשמע \"א-שמס\" ולא \"אל-שמס\".", "en": "ال (al) attaches to the word. Before \"sun letters\" (t, d, r, z, s, sh, n…) the l is swallowed: الشمس sounds \"ash-shams\"."}, "ex": [["الحساب", "al-hisab", "אל-חסאב", "החשבון", "The bill"], ["الشمس", "ash-shams", "א-שמס", "השמש", "The sun"]]},
+    {"t": {"he": "פנייה לגבר ולאישה", "en": "Talking to a man vs. a woman"}, "b": {"he": "כמו בעברית, הפנייה משתנה: من فضلك לגבר (מן פדלַכּ), من فضلكِ לאישה (מן פדלִכּ). האפליקציה משתמשת בפנייה לגבר — כשפונים לאישה משנים את הסוף ל-\"כִּ\".", "en": "Like Hebrew, \"you\" changes: من فضلك to a man (fadlak), to a woman (fadlik). The app uses the male form — change the ending for a woman."}, "ex": [["شكرا لكِ", "shukran laki", "שוכרן לַכִּי", "תודה לך (לאישה)", "Thank you (to a woman)"]]},
+    {"t": {"he": "ברכות שחשוב להכיר", "en": "Greetings worth knowing"}, "b": {"he": "السلام عليكم (א-סלאם עליכום) היא הברכה הכי נפוצה, ועונים وعليكم السلام (ועליכום א-סלאם). إن شاء الله (אנשאללה) = אם ירצה השם — תשמע את זה על כל תוכנית לעתיד.", "en": "السلام عليكم is the most common greeting; reply وعليكم السلام. إن شاء الله = God willing — you'll hear it about any plan."}, "ex": [["السلام عليكم", "as-salamu alaykum", "א-סלאמו עליכום", "שלום עליכם", "Peace be upon you"], ["وعليكم السلام", "wa-alaykum as-salam", "ועליכום א-סלאם", "ועליכם השלום", "And upon you peace"]]}
+  ],
   alpha: [
     ["ا","ألف","א","alif"],
     ["ب","باء","ב","ba"],

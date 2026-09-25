@@ -276,3 +276,31 @@ summary{cursor:pointer;color:var(--acc);font-weight:600}
 .card.qa p{margin:4px 0}
 body.bs-open #appnest-assistant-btn{display:none!important}
 @media print{#appnest-assistant-btn{display:none!important}}
+/* v1.6 — chat, kit, tips, goals & badges */
+.composer{position:sticky;bottom:0;display:flex;gap:8px;align-items:flex-end;background:var(--bg);padding:10px 0 calc(8px + env(safe-area-inset-bottom));border-top:1px solid var(--bd);margin-top:10px;z-index:4}
+.composer textarea{flex:1;background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:10px 12px;min-height:48px;max-height:120px;resize:none;font-size:1.05rem}
+.composer .cta{width:auto;margin:0;min-width:74px}
+#cMic.on{background:var(--acc);color:var(--on)}
+.bub .better{margin-top:6px;padding-top:6px;border-top:1px dashed var(--bd);display:flex;flex-direction:column;gap:2px}
+.bub .better small{color:var(--ok);font-weight:700}
+.bub.typing span{font-size:1.6rem;letter-spacing:4px;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.3}}
+.suggs{display:flex;flex-direction:column;gap:6px;margin:6px 0}
+.sugg{border:1px dashed var(--acc);background:transparent;border-radius:14px;padding:8px 12px;text-align:start;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.sugg small{color:var(--mu)}
+.trow.em{cursor:default;flex-wrap:wrap}
+.trow.em .btn{min-height:44px;padding:6px 12px}
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.qk{border:1px solid var(--bd);background:var(--sf);border-radius:14px;padding:10px;min-height:70px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:2px;text-align:center}
+.qk small{color:var(--mu);font-size:.78rem}
+.kitcard .itx b{font-size:.9rem;color:var(--acc)}
+details.tip summary{font-size:1.05rem;padding:4px 0}
+details.tip p{line-height:1.7}
+.goal .hint{margin:6px 0 0}
+.wk{color:var(--mu);font-weight:700;margin-inline-end:8px}
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(98px,1fr));gap:8px}
+.badge{border:1px solid var(--bd);border-radius:14px;padding:10px 6px;text-align:center;display:flex;flex-direction:column;gap:2px;opacity:.5}
+.badge.on{opacity:1;border-color:var(--acc);background:color-mix(in srgb,var(--acc) 10%,transparent)}
+.badge span{font-size:1.6rem}
+.badge b{font-size:.8rem}
+.badge small{font-size:.66rem;color:var(--mu);line-height:1.25}
