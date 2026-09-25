@@ -5,7 +5,7 @@
 'use strict';
 window.__MODS = window.__MODS || {};
 const LANG = {};                                  /* UI dictionaries (filled by ui-xx.js) */
-const ALPHA = {}, VOWELS = {}, TONES = {}, TWISTER = {}, WD = {}, GENDER_F = {}, CUR_SYM = {}, LANG_NOTE = {}, TIPS = {}, EMERG = {}, COUNTRY = {}, VOWEL_NOTE = {}, SPEAK_HEB = {};
+const ALPHA = {}, VOWELS = {}, TONES = {}, TWISTER = {}, WD = {}, GENDER_F = {}, CUR_SYM = {}, LANG_NOTE = {}, TIPS = {}, EMERG = {}, COUNTRY = {}, VOWEL_NOTE = {}, SPEAK_HEB = {}, VOWEL_TITLE = {}, TONE_NOTE = {}, TWISTER_NOTE = {};
 const LOADED = {};                                /* lang code → version of the loaded pack */
 
 /* Target languages. To add one: add a line here + create lang-xx.js (copy an existing pack) + add it to sw.js. */
@@ -22,7 +22,10 @@ const LANGS = {
   ro: { flag: "🇷🇴", tts: "ro-RO", dir: "ltr", native: "Română", name: {"he": "רומנית", "en": "Romanian", "ru": "Румынский", "es": "Rumano", "ar": "الرومانية"} },
   yi: { flag: "🕎", tts: "he-IL", dir: "rtl", native: "ייִדיש", name: {"he": "יידיש", "en": "Yiddish", "ru": "Идиш", "es": "Ídish", "ar": "اليديشية"} },
   de: { flag: "🇩🇪", tts: "de-DE", dir: "ltr", native: "Deutsch", name: {"he": "גרמנית", "en": "German", "ru": "Немецкий", "es": "Alemán", "ar": "الألمانية"} },
-  el: { flag: "🇬🇷", tts: "el-GR", dir: "ltr", native: "Ελληνικά", name: {"he": "יוונית", "en": "Greek", "ru": "Греческий", "es": "Griego", "ar": "اليونانية"} }
+  el: { flag: "🇬🇷", tts: "el-GR", dir: "ltr", native: "Ελληνικά", name: {"he": "יוונית", "en": "Greek", "ru": "Греческий", "es": "Griego", "ar": "اليونانية"} },
+  ja: { flag: "🇯🇵", tts: "ja-JP", dir: "ltr", native: "日本語", name: {"he": "יפנית", "en": "Japanese", "ru": "Японский", "es": "Japonés", "ar": "اليابانية"} },
+  zh: { flag: "🇨🇳", tts: "zh-CN", dir: "ltr", native: "中文", name: {"he": "סינית", "en": "Mandarin Chinese", "ru": "Китайский", "es": "Chino mandarín", "ar": "الصينية"} },
+  hi: { flag: "🇮🇳", tts: "hi-IN", dir: "ltr", native: "हिन्दी", name: {"he": "הינדי", "en": "Hindi", "ru": "Хинди", "es": "Hindi", "ar": "الهندية"} }
 };
 /* Short letters-screen notes (keys in ui-xx.js). New languages can instead pass note:{he,en,...} in their pack. */
 const ALPHA_NOTE = {"en":"noteEn","es":"noteEs","ru":"noteRu","ar":"noteAr","th":"noteTh"};
@@ -525,7 +528,10 @@ const LINGO = {
     if (pack.twister) TWISTER[code] = pack.twister;
     if (pack.note) LANG_NOTE[code] = pack.note;
     if (pack.vowelNote) VOWEL_NOTE[code] = pack.vowelNote;
-    if (pack.speakHeb) SPEAK_HEB[code] = true;      /* no voice for this language: read the Hebrew-letter pronunciation with the Hebrew voice */
+    if (pack.speakHeb) SPEAK_HEB[code] = true;
+    if (pack.vowelsTitle) VOWEL_TITLE[code] = pack.vowelsTitle;   /* e.g. "Katakana", "Finals" instead of "Vowels" */
+    if (pack.toneNote) TONE_NOTE[code] = pack.toneNote;
+    if (pack.twisterNote) TWISTER_NOTE[code] = pack.twisterNote;      /* no voice for this language: read the Hebrew-letter pronunciation with the Hebrew voice */
     CUR_SYM[code] = pack.curSym || '';
     TIPS[code] = pack.tips || [];
     EMERG[code] = pack.emergency || [];
@@ -540,4 +546,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.10.0';
+window.__MODS.content = '1.11.0';

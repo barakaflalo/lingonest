@@ -304,3 +304,8 @@ details.tip p{line-height:1.7}
 .badge span{font-size:1.6rem}
 .badge b{font-size:.8rem}
 .badge small{font-size:.66rem;color:var(--mu);line-height:1.25}
+
+/* v1.11 — CJK & Devanagari */
+.tgt[lang=ja-JP],.wchip[lang=ja-JP]{font-family:'Noto Sans JP','Hiragino Sans','Yu Gothic','Meiryo',sans-serif}
+.tgt[lang=zh-CN],.wchip[lang=zh-CN]{font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif}
+.tgt[lang=hi-IN],.wchip[lang=hi-IN]{font-family:'Noto Sans Devanagari','Nirmala UI','Mangal',sans-serif}

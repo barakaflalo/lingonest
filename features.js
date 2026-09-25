@@ -68,7 +68,7 @@ const SCENARIOS = [
   ['social', '☕', 'You are a friendly local of similar age at a café, making small talk with a tourist.'],
   ['free', '💬', 'You are a friendly local who is happy to chat about anything the traveler wants.']
 ];
-const COUNTRY_CTX = { de: 'Germany', el: 'Greece (modern Greek)', yi: 'a Yiddish-speaking community (for example in New York, Antwerp or Bnei Brak). Use standard YIVO Yiddish spelling in Hebrew letters; in "heb" write a simplified Hebrew-letter spelling without Yiddish diacritics (it is read aloud by a Hebrew voice)', it: 'Italy', pt: 'Brazil (speak Brazilian Portuguese)', ro: 'Romania', fr: 'France or another French-speaking place', ary: 'Morocco. Speak Moroccan Darija as locals really talk (NOT Modern Standard Arabic), written in Arabic script; French loanwords are natural', th: 'Thailand', es: 'Spain or Latin America', ru: 'Russia', ar: 'an Arabic-speaking country (use simple Modern Standard Arabic that everyone understands)', en: 'an English-speaking country' };
+const COUNTRY_CTX = { ja: 'Japan (use polite desu/masu Japanese)', zh: 'mainland China (Mandarin, simplified characters, pinyin with tone marks in "roman")', hi: 'India (Hindi in Devanagari; common English loanwords are natural)', de: 'Germany', el: 'Greece (modern Greek)', yi: 'a Yiddish-speaking community (for example in New York, Antwerp or Bnei Brak). Use standard YIVO Yiddish spelling in Hebrew letters; in "heb" write a simplified Hebrew-letter spelling without Yiddish diacritics (it is read aloud by a Hebrew voice)', it: 'Italy', pt: 'Brazil (speak Brazilian Portuguese)', ro: 'Romania', fr: 'France or another French-speaking place', ary: 'Morocco. Speak Moroccan Darija as locals really talk (NOT Modern Standard Arabic), written in Arabic script; French loanwords are natural', th: 'Thailand', es: 'Spain or Latin America', ru: 'Russia', ar: 'an Arabic-speaking country (use simple Modern Standard Arabic that everyone understands)', en: 'an English-speaking country' };
 const CHAT = { scen: null, lvl: 'easy', msgs: [], busy: false, sugg: [], showTr: true, summary: null, rec: null };
 
 function chatPrompt(userMsg) {
@@ -271,5 +271,5 @@ document.addEventListener('pointerdown', e => {
   ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => row.addEventListener(ev, cancel));
 });
 
-window.__MODS.features = '1.10.0';
+window.__MODS.features = '1.11.0';
 boot();

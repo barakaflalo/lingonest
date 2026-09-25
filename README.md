@@ -1,7 +1,7 @@
 # LingoNest — מבנה האפליקציה ומדריך הרחבה
 
 **LingoNest** · ללמוד לדבר, בכל מקום · AppNest · Barak Aflalo
-גרסה נוכחית: **1.10.0**
+גרסה נוכחית: **1.11.0**
 
 ---
 
@@ -21,7 +21,7 @@
 | `features.js` | שיחה עם בינה, ערכת טיול, טיפים ודקדוק, יעד שבועי ותגים. **קורא ל-`boot()` בסוף** — המודול האחרון של האפליקציה | תמיד, אחרי `app.js` |
 | `appnest-assistant.js` | **מנוע עוזר AppNest המשותף — זהה בייט-בבייט בכל האפליקציות. לא עורכים אותו כאן.** משנים רק את `assistant-map.js` | תמיד, אחרון |
 | `ui-he.js` `ui-ru.js` `ui-es.js` `ui-ar.js` | טקסטי ממשק לכל שפת ממשק | רק שפת הממשק שנבחרה |
-| `lang-th.js` `lang-ar.js` `lang-ru.js` `lang-es.js` `lang-en.js` `lang-fr.js` `lang-ary.js` `lang-it.js` `lang-pt.js` `lang-ro.js` `lang-yi.js` `lang-de.js` `lang-el.js` | **חבילת שפה**: אלפבית, תנועות, טונים, כל התרגומים, מספרים ומטבע, צורות זכר/נקבה, טיפי דקדוק, מספרי חירום | שפת הלימוד מיד, השאר ברקע |
+| `lang-th.js` `lang-ar.js` `lang-ru.js` `lang-es.js` `lang-en.js` `lang-fr.js` `lang-ary.js` `lang-it.js` `lang-pt.js` `lang-ro.js` `lang-yi.js` `lang-de.js` `lang-el.js` `lang-ja.js` `lang-zh.js` `lang-hi.js` | **חבילת שפה**: אלפבית, תנועות, טונים, כל התרגומים, מספרים ומטבע, צורות זכר/נקבה, טיפי דקדוק, מספרי חירום | שפת הלימוד מיד, השאר ברקע |
 | `sw.js` | עבודה אופליין. שומר את כל הקבצים במכשיר | — |
 | `manifest.json`, `icon-*.png`, `privacy_policy.html`, `.nojekyll` | PWA ו-GitHub Pages | — |
 
@@ -72,6 +72,7 @@
 תיקון שהוחל נשמר במכשיר (`st.fix`) וגובר על קובץ השפה. את הדוח מעתיקים ושולחים, ואז מכניסים את התיקונים לקבצי `lang-xx.js` בגרסה הבאה.
 
 ## היסטוריה
+- **1.11.0** — יפנית (lang-ja.js), סינית (lang-zh.js), הינדי (lang-hi.js). חבילה יכולה לתת כותרת משלה למקטע התנועות (`vowelsTitle` — קטקאנה / סיומות), הסבר טונים (`toneNote`, `twisterNote`), ושפות בלי רווחים (`NOSPACE`) מחולקות למילים ב-Intl.Segmenter. 16 שפות.
 - **1.10.0** — גרמנית (lang-de.js) ויוונית (lang-el.js). 13 שפות.
 - **1.9.0** — יידיש (lang-yi.js): 407 פריטים + 22 ביטויים ייחודיים (קטגוריה `yid` שקיימת רק ביידיש — `ONLY_LANG`). אין קול יידיש, ולכן `speakHeb` מקריא את עמודת ההגייה בקול העברי (`LANGS.yi.tts = he-IL`).
 - **1.8.0** — איטלקית (lang-it.js), פורטוגזית ברזילאית (lang-pt.js), רומנית (lang-ro.js). 10 שפות.

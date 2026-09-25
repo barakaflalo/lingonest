@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.10.0' };
+const APP = { name: 'LingoNest', ver: '1.11.0' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -455,6 +455,11 @@ SCREENS.home = () => {
 };
 
 /* ===== LETTERS ===== */
+/* a pack may give UI text as {he,en,...} objects instead of ui keys */
+const trO = o => typeof o === 'string' ? T(o) : ((o && (o[st.ui] || o.en || o.he)) || '');
+const vowelsTitle = lang => VOWEL_TITLE[lang] ? trO(VOWEL_TITLE[lang]) : T('vowels');
+/* languages written without spaces between words */
+const NOSPACE = { th: 1, ja: 1, zh: 1 };
 function langNote(lang) {
   if (ALPHA_NOTE[lang]) return T(ALPHA_NOTE[lang]);
   const n = LANG_NOTE[lang]; return n ? (n[st.ui] || n.en || '') : T('noteGeneric');
@@ -467,12 +472,12 @@ SCREENS.letters = () => {
   };
   const tiles = items(lang).filter(i => i.cat === 'letters').map(tile).join('');
   const vw = items(lang).filter(i => i.cat === 'vowels');
-  const vowelsHtml = vw.length ? '<h3>' + esc(T('vowels')) + '</h3><p class="note">' + esc(VOWEL_NOTE[lang] ? (VOWEL_NOTE[lang][st.ui] || VOWEL_NOTE[lang].en) : T(lang === 'th' ? 'vowelNoteTh' : 'vowelNoteAr')) + '</p>' +
-    '<button class="cta slim" data-act="startScope" data-scope="cat:vowels">🎯 ' + esc(T('practiceVowels')) + '</button><div class="letters">' + vw.map(tile).join('') + '</div>' : '';
+  const vowelsHtml = vw.length ? '<h3>' + esc(vowelsTitle(lang)) + '</h3><p class="note">' + esc(VOWEL_NOTE[lang] ? (VOWEL_NOTE[lang][st.ui] || VOWEL_NOTE[lang].en) : T(lang === 'th' ? 'vowelNoteTh' : 'vowelNoteAr')) + '</p>' +
+    '<button class="cta slim" data-act="startScope" data-scope="cat:vowels">🎯 ' + esc(VOWEL_TITLE[lang] ? T('practice') + ': ' + vowelsTitle(lang) : T('practiceVowels')) + '</button><div class="letters">' + vw.map(tile).join('') + '</div>' : '';
   const TN = TONES[lang], TW = TWISTER[lang];
-  const tonesHtml = TN ? '<h3>' + esc(T('tones')) + '</h3><p class="note">' + esc(T('toneNote')) + '</p><div class="items">' +
-    TN.map((t, n) => '<div class="irow"><div class="itx"><span class="tgt lg" lang="' + LANGS[lang].tts + '">' + esc(t[0]) + '</span><span class="pr">' + esc(T(t[2])) + ' · ' + esc(t[1]) + '</span><span class="mn">' + esc(T(t[3])) + '</span></div><div class="iac"><button class="ic" data-act="sayRaw" data-t="' + esc(t[0]) + '">🔊</button><button class="ic" data-act="sayRaw" data-slow="1" data-t="' + esc(t[0]) + '">🐢</button></div></div>').join('') +
-    (TW ? '<div class="irow"><div class="itx"><span class="tgt md" lang="' + LANGS[lang].tts + '">' + esc(TW) + '</span><span class="mn">' + esc(T('twister')) + '</span></div><div class="iac"><button class="ic" data-act="sayRaw" data-t="' + esc(TW) + '">🔊</button><button class="ic" data-act="sayRaw" data-slow="1" data-t="' + esc(TW) + '">🐢</button></div></div>' : '') + '</div>' : '';
+  const tonesHtml = TN ? '<h3>' + esc(T('tones')) + '</h3><p class="note">' + esc(TONE_NOTE[lang] ? trO(TONE_NOTE[lang]) : T('toneNote')) + '</p><div class="items">' +
+    TN.map((t, n) => '<div class="irow"><div class="itx"><span class="tgt lg" lang="' + LANGS[lang].tts + '">' + esc(t[0]) + '</span><span class="pr">' + esc(trO(t[2])) + ' · ' + esc(t[1]) + '</span><span class="mn">' + esc(trO(t[3])) + '</span></div><div class="iac"><button class="ic" data-act="sayRaw" data-t="' + esc(t[0]) + '">🔊</button><button class="ic" data-act="sayRaw" data-slow="1" data-t="' + esc(t[0]) + '">🐢</button></div></div>').join('') +
+    (TW ? '<div class="irow"><div class="itx"><span class="tgt md" lang="' + LANGS[lang].tts + '">' + esc(TW) + '</span><span class="mn">' + esc(TWISTER_NOTE[lang] ? trO(TWISTER_NOTE[lang]) : T('twister')) + '</span></div><div class="iac"><button class="ic" data-act="sayRaw" data-t="' + esc(TW) + '">🔊</button><button class="ic" data-act="sayRaw" data-slow="1" data-t="' + esc(TW) + '">🐢</button></div></div>' : '') + '</div>' : '';
   return header(T('letters') + ' · ' + LN(lang)) + `
   <p class="note">${esc(langNote(lang))}</p>
   <button class="cta slim" data-act="startScope" data-scope="cat:letters">🎯 ${esc(T('practiceLetters'))}</button>
@@ -631,7 +636,7 @@ SCREENS.practice = () => {
     opt('due', '⏰', T('prDue'), due) + opt('L', '🔤', T('letters'), all.filter(i => i.type === 'L').length) +
     opt('W', '💬', T('words'), all.filter(i => i.type === 'W').length) + opt('P', '🗣️', T('phrases'), all.filter(i => i.type === 'P').length) +
     opt('fav', '★', T('prFav'), favs.length) + opt('weak', '🩹', T('prWeak'), weak) + opt('listen', '🎧', T('prListen'), null) +
-    (SR ? opt('say', '🎤', T('prSay'), null) : '') + (VOWELS[lang] ? opt('cat:vowels', '🔡', T('vowels'), VOWELS[lang].length) : '') +
+    (SR ? opt('say', '🎤', T('prSay'), null) : '') + (VOWELS[lang] ? opt('cat:vowels', '🔡', vowelsTitle(lang), VOWELS[lang].length) : '') +
     opt('build', '🧩', T('prBuild'), all.filter(i => i.type === 'P' && canBuild(i, lang)).length) +
     opt('dict', '⌨️', T('prDict'), all.filter(i => dictTarget(i)).length) +
     '<button class="trow" data-act="nav" data-to="cards" data-arg="mix"><span class="ti">🃏</span><span class="tt"><b>' + esc(T('prCards')) + '</b><small>' + esc(T('cardsSub')) + '</small></span></button>' +
@@ -642,12 +647,18 @@ SCREENS.practice = () => {
 function sentTokens(it, lang) {
   const t = it.text.replace(/\.\.\./g, '…');
   let a;
-  if (lang === 'th') {
+  if (NOSPACE[lang]) {
     if (!(window.Intl && Intl.Segmenter)) return null;
-    a = [...new Intl.Segmenter('th', { granularity: 'word' }).segment(t)].map(x => x.segment).filter(x => x.trim());
+    a = [...new Intl.Segmenter(lang, { granularity: 'word' }).segment(t)].map(x => x.segment).filter(x => x.trim());
   } else a = t.split(/\s+/).filter(Boolean);
   const out = [];
-  a.forEach(x => { if (/^[\p{P}\s]+$/u.test(x) && out.length) out[out.length - 1] += x; else out.push(x); });
+  a.forEach(x => {
+    const glue = /^[\p{P}\s]+$/u.test(x) ||
+      (lang === 'ja' && (/^[\u3040-\u309F][\p{P}]*$/u.test(x) || (/^さい/.test(x) && out.length && /くだ$/.test(out[out.length - 1]))));   /* Japanese: short hiragana endings/particles stay with the word before */
+    if (glue && out.length && !/^[おご]$/.test(out[out.length - 1])) out[out.length - 1] += x;
+    else if (out.length && /^[おご]$/.test(out[out.length - 1])) out[out.length - 1] += x;   /* honorific お/ご prefix joins the next word */
+    else out.push(x);
+  });
   return out;
 }
 function canBuild(it, lang) { if (it.type !== 'P' || it.text.includes('...')) return false; const t = sentTokens(it, lang); return !!t && t.length >= 3 && t.length <= 9; }
@@ -699,6 +710,9 @@ const QA_STYLE = {
   ary: 'This is Moroccan Darija (not Modern Standard Arabic) — judge it as spoken Moroccan Arabic. Darija has no fixed spelling: accept common Moroccan spellings. The Latin column deliberately uses the Moroccan chat alphabet (3 = ع, 7 = ح, 9 = ق). French loanwords common in Morocco are correct.',
   de: 'German: the Hebrew-letter pronunciation is an approximation (umlauts ä/ö/ü have no Hebrew equivalent); German numbers are one word and hyphenated in the Hebrew column on purpose. The Latin column is empty on purpose.',
   el: 'Greek: the Latin column is a simple phonetic transliteration (not ancient-style); Hebrew-letter pronunciation is an approximation (δ/θ/γ have no exact Hebrew equivalent). Modern Greek only.',
+  ja: 'Japanese: polite desu/masu style on purpose; the Latin column is Hepburn romanization with long-vowel macrons; the Hebrew column is an approximation (the final u in desu/masu is barely pronounced, written דס/מס on purpose).',
+  zh: 'Mandarin Chinese in SIMPLIFIED characters; the Latin column is pinyin with tone marks; the Hebrew column is an approximation without tones. 两 before 百/千/万 is intentional.',
+  hi: 'Hindi in Devanagari; the Latin column is a simple popular romanization (not IAST); the Hebrew column is an approximation (aspiration and retroflex sounds are not marked). Phrases are deliberately gender-neutral where possible; male speaker forms elsewhere. Common English loanwords (टॉयलेट, होटल, टिकट) are natural Hindi usage.',
   yi: 'This is standard YIVO Yiddish: Hebrew-origin words keep traditional Hebrew spelling (שבת, מזל, חבֿר) with Ashkenazi pronunciation; the Latin column is YIVO romanization; the Hebrew-letter column is a simplified spelling for Israeli readers (no Yiddish diacritics) that is also read aloud by a Hebrew voice. Hasidic pronunciation variants are fine, do not flag them.',
   it: 'Italian: Hebrew-letter pronunciation is an approximation; compound numbers are written as one word in Italian and hyphenated in the Hebrew column on purpose. The Latin column is empty on purpose.',
   pt: 'This is BRAZILIAN Portuguese (not European) — judge it by Brazilian usage and pronunciation (você, ônibus, te/de → צ׳י/דז׳י, initial r → ה). The Latin column is empty on purpose.',
@@ -883,7 +897,7 @@ const LESSON = {
     if (k === 'A2T') setTimeout(() => speak(ttsText(it), lang), 250);
   },
   paintBuild(step) {
-    const it = step.it, lang = this.lang, sep = lang === 'th' ? '' : ' ';
+    const it = step.it, lang = this.lang, sep = NOSPACE[lang] ? '' : ' ';
     const chip = (i, act, pos) => '<button class="wchip" data-act="' + act + '" data-n="' + pos + '" lang="' + LANGS[lang].tts + '">' + esc(step.toks[i]) + '</button>';
     $('#lesson').innerHTML = '<div class="card"><p class="qh">' + esc(T('qBUILD')) + '</p><p class="ask">' + esc(meaning(it)) + '</p>' +
       '<div class="bans" dir="' + LANGS[lang].dir + '">' + (step.sel.length ? step.sel.map((i, pos) => chip(i, 'bUndo', pos)).join('') : '<span class="tiny">' + esc(T('bTap')) + '</span>') + '</div>' +
@@ -1544,4 +1558,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.10.0';
+window.__MODS.app = '1.11.0';
