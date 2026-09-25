@@ -3,7 +3,7 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('en', {
-  ver: '1.5.0',
+  ver: '1.5.1',
   curSym: "$",
   alpha: [
     ["A a","A","אֵיי / אַ","ay"],

@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.5.0' };
+const APP = { name: 'LingoNest', ver: '1.5.1' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -297,6 +297,7 @@ async function callModel(p, model, key, prompt) {
   const j = await httpJSON(url, { method: 'POST', headers: h, body: JSON.stringify(body) });
   return (j.choices && j.choices[0] && j.choices[0].message.content) || '';
 }
+const aiBusy = e => [429, 500, 502, 503, 504].includes(e.status) || /overload|high demand|unavailable|rate limit|resource.?exhausted/i.test(e.message || '');
 async function aiJSON(prompt) {
   const p = st.ai.provider;
   const key = await getKey(p);
@@ -313,6 +314,7 @@ async function aiJSON(prompt) {
     } catch (e) {
       last = e;
       if (e.status === 404 || (e.status === 400 && /model/i.test(e.message))) continue;
+      if (aiBusy(e)) continue;          /* overloaded / rate-limited → next model in the chain (e.g. flash-lite is often free) */
       throw e;
     }
   }
@@ -679,18 +681,24 @@ function cardGrade(ok) {
 }
 
 /* ===== CONTENT QUALITY CHECK (Pro, uses the user's AI key) ===== */
-const QA = { run: 0, busy: false, done: 0, total: 0, issues: [], lang: '', msg: '' };
+const QA = { run: 0, busy: false, done: 0, total: 0, next: 0, issues: [], lang: '', msg: '', finished: false };
+(() => { const saved = S.get('ln_qa', null); if (saved) Object.assign(QA, saved, { busy: false, msg: '' }); })();
+function qaSave() { S.set('ln_qa', { lang: QA.lang, done: QA.done, total: QA.total, next: QA.next, issues: QA.issues, finished: QA.finished }); }
 function qaBatches(lang) {
   const ids = CONCEPTS.map(c => c[0]).filter(id => WD[lang] && WD[lang][id]);
-  const out = []; for (let i = 0; i < ids.length; i += 35) out.push(ids.slice(i, i + 35)); return out;
+  const out = []; for (let i = 0; i < ids.length; i += 30) out.push(ids.slice(i, i + 30)); return out;
 }
-async function qaRun() {
+const QA_WAITS = [15, 30, 60, 90, 120];                 /* seconds — free Gemini tier is often busy for a minute or two */
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+async function qaRun(resume) {
   const lang = st.lang, run = ++QA.run, batches = qaBatches(lang), cmap = {};
   CONCEPTS.forEach(c => { cmap[c[0]] = c; });
-  Object.assign(QA, { busy: true, done: 0, total: batches.reduce((a, b) => a + b.length, 0), issues: [], lang, msg: '' });
-  render();
-  for (const b of batches) {
+  if (!resume || QA.lang !== lang) Object.assign(QA, { done: 0, next: 0, issues: [], finished: false });
+  Object.assign(QA, { lang, busy: true, msg: '', total: batches.reduce((a, b) => a + b.length, 0) });
+  qaSave(); render();
+  for (let bi = QA.next; bi < batches.length; bi++) {
     if (run !== QA.run) return;
+    const b = batches[bi];
     const lines = b.map(id => { const t = WD[lang][id]; return id + ' | ' + cmap[id][3] + ' | ' + t[0] + ' | ' + t[1] + ' | ' + t[2]; }).join('\n');
     const prompt = 'You are a native ' + LANGS[lang].name.en + ' speaker and an experienced teacher, reviewing a travel phrasebook for Hebrew speakers. ' +
       'Each line: id | Hebrew meaning | ' + LANGS[lang].name.en + ' text | Latin transliteration | pronunciation written in Hebrew letters. ' +
@@ -698,19 +706,25 @@ async function qaRun() {
       'Ignore small stylistic choices. The traveler is male, so male speaker forms are intentional' + (lang === 'th' ? ' (ครับ, ผม); lines where a local vendor or driver speaks may use ค่ะ on purpose' : '') + '. ' +
       'Return ONLY JSON: {"issues":[{"id":"...","problem":"short explanation in Hebrew","text":"corrected native text, or empty if fine","roman":"corrected transliteration, or empty","heb":"corrected Hebrew-letter pronunciation, or empty"}]}. If everything is fine return {"issues":[]}.\n\n' + lines;
     let tries = 0, res = null;
-    while (!res && run === QA.run) {
+    while (!res) {
+      if (run !== QA.run) return;
       try { res = await aiJSON(prompt); }
       catch (e) {
-        if ((e.status === 429 || e.status === 503) && tries < 3) { tries++; QA.msg = T('qaWait', { s: 20 }); qaPaint(); await new Promise(r => setTimeout(r, 20000)); QA.msg = ''; continue; }
-        QA.busy = false; QA.msg = T('aiErr') + ': ' + e.message; qaPaint(); return;
+        const busy = aiBusy(e);
+        if (busy && tries < QA_WAITS.length) {
+          const wait = QA_WAITS[tries++];
+          for (let sec = wait; sec > 0; sec--) { if (run !== QA.run) return; QA.msg = T('qaWait2', { s: sec, n: tries, m: QA_WAITS.length }); qaPaint(); await sleep(1000); }
+          QA.msg = ''; continue;
+        }
+        QA.busy = false; QA.msg = busy ? T('qaBusyErr') : T('aiErr') + ': ' + e.message; qaSave(); qaPaint(); return;
       }
     }
     if (run !== QA.run) return;
-    (res.issues || []).forEach(x => { if (x && b.includes(x.id) && (x.text || x.roman || x.heb)) QA.issues.push({ id: x.id, problem: String(x.problem || ''), text: String(x.text || ''), roman: String(x.roman || ''), heb: String(x.heb || '') }); });
-    QA.done += b.length; qaPaint();
-    await new Promise(r => setTimeout(r, 2500));
+    (res.issues || []).forEach(x => { if (x && b.includes(x.id) && (x.text || x.roman || x.heb) && !QA.issues.some(y => y.id === x.id)) QA.issues.push({ id: x.id, problem: String(x.problem || ''), text: String(x.text || ''), roman: String(x.roman || ''), heb: String(x.heb || '') }); });
+    QA.done += b.length; QA.next = bi + 1; qaSave(); qaPaint();
+    await sleep(2500);
   }
-  QA.busy = false; QA.msg = T('qaDone'); qaPaint();
+  QA.busy = false; QA.finished = true; QA.msg = T('qaDone'); qaSave(); qaPaint();
 }
 function qaIssueHTML(x, n) {
   const lang = QA.lang, t = WD[lang][x.id], c = CONCEPTS.find(k => k[0] === x.id), dir = LANGS[lang].dir, tl = LANGS[lang].tts;
@@ -723,7 +737,7 @@ function qaIssueHTML(x, n) {
 function qaBodyHTML() {
   const fixes = Object.keys(st.fix[st.lang] || {}).length;
   let h = '';
-  if (QA.lang === st.lang && (QA.busy || QA.done)) {
+  if (QA.lang === st.lang && (QA.busy || QA.done || QA.msg)) {
     h += '<p>' + esc(T('qaProgress', { d: QA.done, t: QA.total })) + '</p>' + bar(QA.done, QA.total);
     if (QA.msg) h += '<p class="hint">' + esc(QA.msg) + '</p>';
     if (!QA.busy) h += '<p><b>' + esc(QA.issues.length ? T('qaFound', { n: QA.issues.length }) : T('qaNone')) + '</b></p>';
@@ -734,7 +748,12 @@ function qaBodyHTML() {
   return h;
 }
 function qaPaint() { const b = $('#qaBody'); if (b && NAV.cur === 'qa') { b.innerHTML = qaBodyHTML(); const s = $('#qaStart'); if (s) s.outerHTML = qaStartBtn(); } }
-const qaStartBtn = () => QA.busy && QA.lang === st.lang ? '<button class="cta slim" id="qaStart" data-act="qaStop">⏹ ' + esc(T('qaStop')) + '</button>' : '<button class="cta slim" id="qaStart" data-act="qaStart">🔍 ' + esc(T('qaStart', { l: LN(st.lang) })) + (aiReady() ? '' : ' <span class="tag">PRO</span>') + '</button>';
+const qaStartBtn = () => {
+  if (QA.busy && QA.lang === st.lang) return '<div id="qaStart"><button class="cta slim" data-act="qaStop">⏹ ' + esc(T('qaStop')) + '</button></div>';
+  const canResume = QA.lang === st.lang && QA.next > 0 && !QA.finished;
+  return '<div id="qaStart">' + (canResume ? '<button class="cta slim" data-act="qaResume">▶ ' + esc(T('qaResume', { d: QA.done, t: QA.total })) + '</button><button class="btn" data-act="qaStart">↺ ' + esc(T('qaRestart')) + '</button>'
+    : '<button class="cta slim" data-act="qaStart">🔍 ' + esc(T('qaStart', { l: LN(st.lang) })) + (aiReady() ? '' : ' <span class="tag">PRO</span>') + '</button>') + '</div>';
+};
 SCREENS.qa = () => header(T('qaTitle') + ' · ' + LN(st.lang)) + '<p class="note">' + esc(T('qaIntro')) + '</p>' + qaStartBtn() + '<p class="tiny">' + esc(T('aiPrivacy')) + '</p><div id="qaBody">' + qaBodyHTML() + '</div>';
 function qaReportText(list, lang) {
   return 'LingoNest ' + APP.ver + ' · ' + LANGS[lang].name.en + '\n' + list.map(x => { const t = WD[lang][x.id] || ['', '', '']; return x.id + ': ' + t[0] + ' | ' + t[1] + ' | ' + t[2] + '  →  ' + (x.text || t[0]) + ' | ' + (x.roman || t[1]) + ' | ' + (x.heb || t[2]) + (x.problem ? '  (' + x.problem + ')' : ''); }).join('\n');
@@ -1262,10 +1281,11 @@ const ACT = {
   cardFlip: () => { if (CARDS._swiped && Date.now() - CARDS._swiped < 400) return; CARDS.flip = !CARDS.flip; render(); if (!CARDS.flip) { const it = CARDS.deck[CARDS.i]; if (it) speak(ttsText(it), st.lang); } },
   cardGrade: d => cardGrade(d.ok === '1'),
   cardsNew: () => { cardsStart(); render(); },
-  qaStart: () => { if (!aiReady()) { toast(T('needAi'), 'warn', 4000); go('settings', 'ai'); return; } qaRun(); },
-  qaStop: () => { QA.run++; QA.busy = false; QA.msg = ''; render(); },
-  qaApply: d => { const x = QA.issues[+d.n]; if (!x) return; const f = st.fix[QA.lang] = st.fix[QA.lang] || {}; f[x.id] = { text: x.text, roman: x.roman, heb: x.heb, why: x.problem }; QA.issues.splice(+d.n, 1); _itemsCache = {}; save(); qaPaint(); toast(T('qaApplied')); },
-  qaIgnore: d => { QA.issues.splice(+d.n, 1); qaPaint(); },
+  qaStart: () => { if (!aiReady()) { toast(T('needAi'), 'warn', 4000); go('settings', 'ai'); return; } qaRun(false); },
+  qaResume: () => { if (!aiReady()) { toast(T('needAi'), 'warn', 4000); go('settings', 'ai'); return; } qaRun(true); },
+  qaStop: () => { QA.run++; QA.busy = false; QA.msg = ''; qaSave(); render(); },
+  qaApply: d => { const x = QA.issues[+d.n]; if (!x) return; const f = st.fix[QA.lang] = st.fix[QA.lang] || {}; f[x.id] = { text: x.text, roman: x.roman, heb: x.heb, why: x.problem }; QA.issues.splice(+d.n, 1); _itemsCache = {}; save(); qaSave(); qaPaint(); toast(T('qaApplied')); },
+  qaIgnore: d => { QA.issues.splice(+d.n, 1); qaSave(); qaPaint(); },
   qaCopy: () => copyText(qaReportText(QA.issues, QA.lang)),
   qaCopyFixes: () => { const f = st.fix[st.lang] || {}; copyText(qaReportText(Object.keys(f).map(id => Object.assign({ id, problem: f[id].why }, f[id])), st.lang)); },
   qaReset: () => confirmBox(T('qaReset') + '?', T('qaReset'), () => { delete st.fix[st.lang]; _itemsCache = {}; save(); render(); }, true),
@@ -1344,7 +1364,7 @@ const ACT = {
   copyDiag: () => { const t = diagText(); (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast(T('copied')), () => toast(T('copyFail'), 'warn')); },
   resetAll: () => confirmBox(T('reset1'), T('continueBtn'), () => confirmBox(T('reset2'), T('resetAll'), async () => {
     try { await IDB.clear(); } catch (e) {}
-    ['ln_state', 'ln_errs'].forEach(k => S.del(k));
+    ['ln_state', 'ln_errs', 'ln_qa'].forEach(k => S.del(k));
     try { const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); } catch (e) {}
     location.reload();
   }, true), true),
@@ -1482,7 +1502,11 @@ async function boot() {
   render();
   if (st.ai.provider !== 'local' && st.ai.has[st.ai.provider]) getKey(st.ai.provider).catch(() => {});   /* decrypt once so the assistant can use it */
   const firstRun = !st.onb;
-  if (st.seenVer !== APP.ver) { const had = !!st.seenVer || Object.keys(st.log).length > 0; st.seenVer = APP.ver; save(); if (!firstRun && had) setTimeout(whatsNew, 400); }
+  if (st.seenVer !== APP.ver) {
+    const had = !!st.seenVer || Object.keys(st.log).length > 0, mm = v => String(v).split('.').slice(0, 2).join('.');
+    const feature = mm(st.seenVer) !== mm(APP.ver); st.seenVer = APP.ver; save();
+    if (!firstRun && had && feature) setTimeout(whatsNew, 400);
+  }
   if (firstRun) setTimeout(() => guide(0), 300);
   else if (st.backupAt && Date.now() - st.backupAt > 30 * 864e5 && Object.keys(st.log).length > 5) setTimeout(() => toast(T('backupNudge'), '', 5000), 1500);
   else if (!st.backupAt && Date.now() - st.firstUse > 14 * 864e5) setTimeout(() => toast(T('backupNudge'), '', 5000), 1500);
@@ -1491,4 +1515,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 boot();
-window.__MODS.app = '1.5.0';
+window.__MODS.app = '1.5.1';

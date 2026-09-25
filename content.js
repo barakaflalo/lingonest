@@ -502,4 +502,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.5.0';
+window.__MODS.content = '1.5.1';

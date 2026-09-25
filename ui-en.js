@@ -386,6 +386,10 @@ LANG.en = {
   "qaWait": "The provider asked to slow down — waiting {s} seconds…",
   "qaDone": "Check finished.",
   "asstSec": "Smart assistant",
-  "asstHint": "The 🪄 assistant button in the corner: ask anything about the language, get explanations, travel phrases, or open a practice. It uses the same AI connection you set above."
+  "asstHint": "The 🪄 assistant button in the corner: ask anything about the language, get explanations, travel phrases, or open a practice. It uses the same AI connection you set above.",
+  "qaWait2": "The AI servers are busy — waiting {s} seconds, then continuing automatically (try {n} of {m})",
+  "qaBusyErr": "The AI servers are very busy right now (common on the free Gemini tier). Nothing was lost — progress is saved. Tap \"Continue\" in a few minutes.",
+  "qaResume": "Continue from {d} of {t}",
+  "qaRestart": "Start over"
 };
-window.__MODS['ui-en'] = '1.5.0';
+window.__MODS['ui-en'] = '1.5.1';

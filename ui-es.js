@@ -386,6 +386,10 @@ LANG.es = {
   "qaWait": "El proveedor pide ir más despacio — esperando {s} segundos…",
   "qaDone": "Revisión terminada.",
   "asstSec": "Asistente inteligente",
-  "asstHint": "El botón 🪄 en la esquina: pregunta lo que quieras del idioma, pide explicaciones, frases de viaje o abre una práctica. Usa la misma conexión de IA."
+  "asstHint": "El botón 🪄 en la esquina: pregunta lo que quieras del idioma, pide explicaciones, frases de viaje o abre una práctica. Usa la misma conexión de IA.",
+  "qaWait2": "Los servidores de IA están ocupados — esperando {s} segundos y seguimos solos (intento {n} de {m})",
+  "qaBusyErr": "Los servidores de IA están muy ocupados ahora (frecuente en Gemini gratis). No se perdió nada: el progreso está guardado. Pulsa \"Continuar\" en unos minutos.",
+  "qaResume": "Continuar desde {d} de {t}",
+  "qaRestart": "Empezar de nuevo"
 };
-window.__MODS['ui-es'] = '1.5.0';
+window.__MODS['ui-es'] = '1.5.1';
