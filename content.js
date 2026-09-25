@@ -16,7 +16,10 @@ const LANGS = {
   ar: { flag: "🇸🇦", tts: "ar-SA", dir: "rtl", native: "العربية", name: {"he":"ערבית","en":"Arabic","ru":"Арабский","es":"Árabe","ar":"العربية"} },
   th: { flag: "🇹🇭", tts: "th-TH", dir: "ltr", native: "ภาษาไทย", name: {"he":"תאילנדית","en":"Thai","ru":"Тайский","es":"Tailandés","ar":"التايلاندية"} },
   fr: { flag: "🇫🇷", tts: "fr-FR", dir: "ltr", native: "Français", name: {"he": "צרפתית", "en": "French", "ru": "Французский", "es": "Francés", "ar": "الفرنسية"} },
-  ary: { flag: "🇲🇦", tts: "ar-MA", dir: "rtl", native: "الدارجة", name: {"he": "מרוקאית", "en": "Moroccan Arabic (Darija)", "ru": "Марокканский арабский", "es": "Árabe marroquí", "ar": "الدارجة المغربية"} }
+  ary: { flag: "🇲🇦", tts: "ar-MA", dir: "rtl", native: "الدارجة", name: {"he": "מרוקאית", "en": "Moroccan Arabic (Darija)", "ru": "Марокканский арабский", "es": "Árabe marroquí", "ar": "الدارجة المغربية"} },
+  it: { flag: "🇮🇹", tts: "it-IT", dir: "ltr", native: "Italiano", name: {"he": "איטלקית", "en": "Italian", "ru": "Итальянский", "es": "Italiano", "ar": "الإيطالية"} },
+  pt: { flag: "🇧🇷", tts: "pt-BR", dir: "ltr", native: "Português", name: {"he": "פורטוגזית", "en": "Portuguese (Brazil)", "ru": "Португальский", "es": "Portugués", "ar": "البرتغالية"} },
+  ro: { flag: "🇷🇴", tts: "ro-RO", dir: "ltr", native: "Română", name: {"he": "רומנית", "en": "Romanian", "ru": "Румынский", "es": "Rumano", "ar": "الرومانية"} }
 };
 /* Short letters-screen notes (keys in ui-xx.js). New languages can instead pass note:{he,en,...} in their pack. */
 const ALPHA_NOTE = {"en":"noteEn","es":"noteEs","ru":"noteRu","ar":"noteAr","th":"noteTh"};
@@ -508,4 +511,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.7.0';
+window.__MODS.content = '1.8.0';

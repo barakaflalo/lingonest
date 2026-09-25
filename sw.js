@@ -1,9 +1,9 @@
 /* ===== LingoNest — sw.js : offline cache. VERSION is stamped at build; every release gets a new cache. =====
    App files: network-first with no-cache revalidation (a fresh upload always wins online), cache fallback offline.
    Other origins (AI providers, Google Fonts): pass-through, never cached. */
-const VERSION = 'lingonest-1.7.0';
-const V = '?v=1.7.0';
-const FILES = ["app.js","appnest-assistant.js","assistant-map.js","content.js","features.js","icon-192.png","icon-512.png","lang-ar.js","lang-ary.js","lang-en.js","lang-es.js","lang-fr.js","lang-ru.js","lang-th.js","manifest.json","numbers.js","privacy_policy.html","style.css","ui-ar.js","ui-en.js","ui-es.js","ui-he.js","ui-ru.js"];
+const VERSION = 'lingonest-1.8.0';
+const V = '?v=1.8.0';
+const FILES = ["app.js","appnest-assistant.js","assistant-map.js","content.js","features.js","icon-192.png","icon-512.png","lang-ar.js","lang-ary.js","lang-en.js","lang-es.js","lang-fr.js","lang-it.js","lang-pt.js","lang-ro.js","lang-ru.js","lang-th.js","manifest.json","numbers.js","privacy_policy.html","style.css","ui-ar.js","ui-en.js","ui-es.js","ui-he.js","ui-ru.js"];
 const PRECACHE = ['./', './index.html'].concat(FILES.map(f => './' + f + (/\.(js|css)$/.test(f) ? V : '')));
 
 self.addEventListener('install', e => {

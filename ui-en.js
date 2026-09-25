@@ -295,10 +295,10 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "🇫🇷 French: 407 words and phrases, alphabet and sound combinations (ou, an, on…), dialogues, numbers (including the French 70/80/90), tips and emergency numbers.",
-  "wn2": "🇲🇦 Moroccan Arabic (Darija): the Arabic actually spoken on Moroccan streets — 407 words and phrases, prices in dirham, tips (including the \"ryal\" trap) and emergency numbers.",
-  "wn3": "For Darija, read-aloud uses a general Arabic voice unless your device has a Moroccan one (Edge on Windows does).",
-  "wn4": "AI chat, travel kit and quality check work in both new languages.",
+  "wn1": "🇮🇹 Italian: 407 words and phrases, alphabet and combinations (ch, gn, gli, sc…), numbers and prices in euro, tips (including coffee culture) and emergency numbers.",
+  "wn2": "🇧🇷 Brazilian Portuguese: 407 words and phrases, nasal sounds (ão, em), prices in reais, and obrigado/obrigada by speaker gender.",
+  "wn3": "🇷🇴 Romanian: 407 words and phrases, all 31 letters (Ă, Â, Î, Ș, Ț), prices in lei with the \"de\" rule after 20, tips and emergency number 112.",
+  "wn4": "Now 10 languages — each loads only when needed.",
   "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
@@ -485,4 +485,4 @@ LANG.en = {
   "b_kit": "Ready to go",
   "bd_kit": "Created a travel-kit card"
 };
-window.__MODS['ui-en'] = '1.7.0';
+window.__MODS['ui-en'] = '1.8.0';

@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.7.0' };
+const APP = { name: 'LingoNest', ver: '1.8.0' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -694,6 +694,9 @@ function qaSave() { S.set('ln_qa', { ver: APP.ver, lang: QA.lang, done: QA.done,
 const QA_STYLE = {
   _: 'Hebrew-letter pronunciation is deliberately simple: no niqqud (a segol is used only for the open e sound), aspiration is NOT marked, stress and tone are not marked. Equivalent Hebrew spellings (ו/וו, ט/ת, כ/ק) are fine. Do NOT report these conventions.',
   ary: 'This is Moroccan Darija (not Modern Standard Arabic) — judge it as spoken Moroccan Arabic. Darija has no fixed spelling: accept common Moroccan spellings. The Latin column deliberately uses the Moroccan chat alphabet (3 = ع, 7 = ح, 9 = ق). French loanwords common in Morocco are correct.',
+  it: 'Italian: Hebrew-letter pronunciation is an approximation; compound numbers are written as one word in Italian and hyphenated in the Hebrew column on purpose. The Latin column is empty on purpose.',
+  pt: 'This is BRAZILIAN Portuguese (not European) — judge it by Brazilian usage and pronunciation (você, ônibus, te/de → צ׳י/דז׳י, initial r → ה). The Latin column is empty on purpose.',
+  ro: 'Romanian: Hebrew-letter pronunciation is an approximation (ă, â/î have no Hebrew equivalent). The Latin column is empty on purpose.',
   fr: 'French: the Hebrew-letter pronunciation is an approximation — nasal vowels are written with ן, the French u as ו, liaison is shown where it matters. The Latin column is empty on purpose (French is already Latin script).',
   th: 'Thai conventions used on purpose: ก→ג, ข/ค→ק, ต→ט, ท/ถ→ט, ป→פ, พ/ผ→פ, จ→ג׳, ช→צ׳, final ล/ร→ן (e.g. แอปเปิ้ล = אֶפ-פֶן), the vowel ึ/ื → ו. Tones are not written.'
 };
@@ -1534,4 +1537,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.7.0';
+window.__MODS.app = '1.8.0';
