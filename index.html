@@ -258,6 +258,12 @@ summary{cursor:pointer;color:var(--acc);font-weight:600}
   #print td{border:1px solid #999;padding:6px 8px;vertical-align:top}
   #print td.tgt{font-size:1.2rem}
 }
+/* v1.1 */
+.search-btn{display:flex;align-items:center;gap:10px;width:100%;min-height:52px;border:1px solid var(--bd);border-radius:14px;background:var(--sf);color:var(--mu);padding:0 16px;cursor:pointer;font-size:1rem;margin-bottom:10px;text-align:start}
+.search-btn:hover{border-color:var(--acc)}
+.search-btn span{flex:1}
+.news{padding-inline-start:20px;margin:6px 0 14px}
+.news li{margin:6px 0}
 
 </style>
 </head>
@@ -267,7 +273,7 @@ summary{cursor:pointer;color:var(--acc);font-weight:600}
 <div id="toasts"></div>
 <div id="print"></div>
 <script>
-/* LingoNest v1.0.0 · © AppNest 2026 · Barak Aflalo */
+/* LingoNest v1.1.0 · © AppNest 2026 · Barak Aflalo */
 /* ===== LingoNest — data.js : content (languages, alphabets, words, phrases) =====
    Adding a language later = add an entry to LANGS + ALPHA + WD. Nothing else changes. */
 
@@ -792,6 +798,494 @@ for (const l in WD_RAW) {
   });
 }
 
+/* ===== LingoNest — data2.js : v1.1 content expansion =====
+   Levels: 1 letters+vowels · 2 survival · 3 travel vocab · 4 travel phrases · 5 everyday words · 6 conversation · 7 my words */
+
+/* Vowels / vowel marks (only languages whose letters don't already carry them) — same row shape as ALPHA */
+const VOWELS = {
+  th: [
+    ['อะ','อะ','אַ קצר','a (short)'],['อา','อา','אָא ארוך','aa (long)'],['อิ','อิ','אִ קצר','i (short)'],['อี','อี','אִיי ארוך','ii (long)'],
+    ['อึ','อึ','אְ (u בלי לעגל שפתיים)','ue (short)'],['อือ','อือ','אְאְ ארוך','uue (long)'],['อุ','อุ','אֻ קצר','u (short)'],['อู','อู','אוּ ארוך','uu (long)'],
+    ['เอะ','เอะ','אֶ קצר','e (short)'],['เอ','เอ','אֵיי ארוך','ee (long)'],['แอะ','แอะ','אֶ פתוחה קצרה','ae (short)'],['แอ','แอ','אֶה פתוחה ארוכה','aae (long)'],
+    ['โอะ','โอะ','אוֹ קצר','o (short)'],['โอ','โอ','אוֹ ארוך','oo (long)'],['เอาะ','เอาะ','אוֹ פתוח קצר','aw (short)'],['ออ','ออ','אוֹ פתוח ארוך','aw (long)'],
+    ['เอีย','เอีย','אִיָה','ia'],['เอือ','เอือ','אְאָה','uea'],['อัว','อัว','אוּאָה','ua'],['ไอ','ไอ','אַי','ai'],
+    ['ใอ','ใอ','אַי (צורה נדירה)','ai (rare form)'],['เอา','เอา','אַאוּ','ao'],['อำ','อำ','אַם','am']
+  ],
+  ar: [
+    ['بَ','بَ','בַּ — פתחה (a)','fatha (a)'],['بِ','بِ','בִּ — כסרה (i)','kasra (i)'],['بُ','بُ','בֻּ — דמה (u)','damma (u)'],
+    ['بْ','بْ','בְ — סוכון (בלי תנועה)','sukun (no vowel)'],['بّ','بّ','שדה — הכפלת האות','shadda (double)'],['بًا','بًا','בַּן — תנוין','tanwin (-an)'],
+    ['با','با','בָּא — אַ ארוכה','long aa'],['بي','بي','בִּי — אִי ארוכה','long ii'],['بو','بو','בּוּ — אוּ ארוכה','long uu']
+  ]
+};
+
+/* Thai tones — one syllable, five meanings (shown on the letters screen) */
+const THAI_TONES = [
+  ['ไมล์','mai (mid)','tone_mid','m_mile'],['ใหม่','mài (low)','tone_low','m_new'],['ไม่','mâi (falling)','tone_fall','m_not'],
+  ['ไม้','mái (high)','tone_high','m_wood'],['ไหม','mǎi (rising)','tone_rise','m_q']
+];
+const THAI_TWISTER = 'ไม้ใหม่ไม่ไหม้ไหม';
+
+CONCEPTS.push(
+  ['egg','food',3,'ביצה','Egg'],['fruit','food',3,'פירות','Fruit'],['veg','food',3,'ירקות','Vegetables'],['meat','food',3,'בשר','Meat'],
+  ['milk','food',3,'חלב','Milk'],['spicy','food',3,'חריף','Spicy'],['restaurant','food',3,'מסעדה','Restaurant'],['ice','food',3,'קרח','Ice'],
+  ['room','hotel',3,'חדר','Room'],['key','hotel',3,'מפתח','Key'],['bed','hotel',3,'מיטה','Bed'],['shower','hotel',3,'מקלחת','Shower'],
+  ['towel','hotel',3,'מגבת','Towel'],['passport','hotel',3,'דרכון','Passport'],
+  ['n0','num2',5,'0 · אפס','0 · Zero'],['n20','num2',5,'20 · עשרים','20 · Twenty'],['n50','num2',5,'50 · חמישים','50 · Fifty'],
+  ['n100','num2',5,'100 · מאה','100 · One hundred'],['n1000','num2',5,'1000 · אלף','1000 · One thousand'],
+  ['mon','days',5,'יום שני','Monday'],['tue','days',5,'יום שלישי','Tuesday'],['wed','days',5,'יום רביעי','Wednesday'],['thu','days',5,'יום חמישי','Thursday'],
+  ['fri','days',5,'יום שישי','Friday'],['sat','days',5,'שבת','Saturday'],['sun','days',5,'יום ראשון','Sunday'],
+  ['red','colors',5,'אדום','Red'],['blue','colors',5,'כחול','Blue'],['green','colors',5,'ירוק','Green'],['yellow','colors',5,'צהוב','Yellow'],
+  ['black','colors',5,'שחור','Black'],['white','colors',5,'לבן','White'],
+  ['man','people',5,'גבר','Man'],['woman','people',5,'אישה','Woman'],['child','people',5,'ילד','Child'],['family','people',5,'משפחה','Family'],
+  ['i','people',5,'אני','I'],['you','people',5,'אתה / את','You'],
+  ['head','body',5,'ראש','Head'],['stomach','body',5,'בטן','Stomach'],['hand','body',5,'יד','Hand'],['pain','body',5,'כאב','Pain'],
+  ['medicine','body',5,'תרופה','Medicine'],['sick','body',5,'חולה','Sick'],
+  ['big','adj',5,'גדול','Big'],['small','adj',5,'קטן','Small'],['hot','adj',5,'חם','Hot'],['cold','adj',5,'קר','Cold'],
+  ['bad','adj',5,'רע','Bad'],['beautiful','adj',5,'יפה','Beautiful'],
+  ['eat','verbs',5,'לאכול','To eat'],['drink','verbs',5,'לשתות','To drink'],['go','verbs',5,'ללכת / לנסוע','To go'],['buy','verbs',5,'לקנות','To buy'],
+  ['speak','verbs',5,'לדבר','To speak'],['sleep','verbs',5,'לישון','To sleep'],['understand','verbs',5,'להבין','To understand'],
+  ['c_table','conv',6,'שולחן לשניים בבקשה','A table for two, please'],['c_menu','conv',6,'אפשר תפריט?','Can I see the menu?'],
+  ['c_noice','conv',6,'בלי קרח בבקשה','No ice, please'],['c_nomeat','conv',6,'אני לא אוכל בשר','I don\'t eat meat'],
+  ['c_allergy','conv',6,'יש לי אלרגיה לאגוזים','I\'m allergic to nuts'],['c_delicious','conv',6,'טעים מאוד!','Very delicious!'],
+  ['c_reserv','conv',6,'יש לי הזמנה','I have a reservation'],['c_wifi','conv',6,'מה הסיסמה של הוויי-פיי?','What\'s the Wi-Fi password?'],
+  ['c_checkout','conv',6,'מתי צריך לפנות את החדר?','What time is checkout?'],['c_howget','conv',6,'איך מגיעים לשם?','How do I get there?'],
+  ['c_stophere','conv',6,'עצור כאן בבקשה','Stop here, please'],['c_far','conv',6,'זה רחוק?','Is it far?'],
+  ['c_card','conv',6,'אפשר לשלם בכרטיס?','Can I pay by card?'],['c_looking','conv',6,'רק מסתכל, תודה','Just looking, thanks'],
+  ['c_yourname','conv',6,'איך קוראים לך?','What\'s your name?'],['c_wherefrom','conv',6,'מאיפה אתה?','Where are you from?'],
+  ['c_seeyou','conv',6,'נתראה אחר כך','See you later'],['c_cheers','conv',6,'לחיים!','Cheers!'],
+  ['c_lost','conv',6,'הלכתי לאיבוד','I\'m lost'],['c_passport','conv',6,'איבדתי את הדרכון','I lost my passport'],
+  ['c_hurts','conv',6,'כואב לי כאן','It hurts here'],['c_time','conv',6,'מה השעה?','What time is it?'],
+  ['c_again','conv',6,'תגיד שוב בבקשה','Please say that again'],['c_write','conv',6,'אתה יכול לכתוב את זה?','Can you write it down?']
+);
+
+const WD_RAW2 = {
+en: `egg|Egg||אג
+fruit|Fruit||פרוּט
+veg|Vegetables||וג׳טבלס
+meat|Meat||מיט
+milk|Milk||מילק
+spicy|Spicy||ספייסי
+restaurant|Restaurant||רסטורנט
+ice|Ice||אייס
+room|Room||רוּם
+key|Key||קי
+bed|Bed||בד
+shower|Shower||שאוור
+towel|Towel||טאוול
+passport|Passport||פספורט
+n0|Zero||זירו
+n20|Twenty||טוונטי
+n50|Fifty||פיפטי
+n100|One hundred||וואן הנדרד
+n1000|One thousand||וואן ת׳אוזנד
+mon|Monday||מאנדיי
+tue|Tuesday||טיוזדיי
+wed|Wednesday||ונזדיי
+thu|Thursday||ת׳רזדיי
+fri|Friday||פריידיי
+sat|Saturday||סטרדיי
+sun|Sunday||סאנדיי
+red|Red||רד
+blue|Blue||בלוּ
+green|Green||גרין
+yellow|Yellow||ילו
+black|Black||בלק
+white|White||וואיט
+man|Man||מן
+woman|Woman||וומן
+child|Child||צ׳איילד
+family|Family||פמילי
+i|I||איי
+you|You||יו
+head|Head||הד
+stomach|Stomach||סטומק
+hand|Hand||הנד
+pain|Pain||פיין
+medicine|Medicine||מדסין
+sick|Sick||סיק
+big|Big||ביג
+small|Small||סמול
+hot|Hot||הוט
+cold|Cold||קולד
+bad|Bad||בד
+beautiful|Beautiful||ביוטיפול
+eat|To eat||טו איט
+drink|To drink||טו דרינק
+go|To go||טו גואו
+buy|To buy||טו באי
+speak|To speak||טו ספיק
+sleep|To sleep||טו סליפ
+understand|To understand||טו אנדרסטנד
+c_table|A table for two, please||א טייבל פור טו, פליז
+c_menu|Can I see the menu?||קן איי סי דה מניו
+c_noice|No ice, please||נואו אייס, פליז
+c_nomeat|I don't eat meat||איי דונט איט מיט
+c_allergy|I'm allergic to nuts||איים אלרג׳יק טו נאטס
+c_delicious|Very delicious!||ורי דלישס
+c_reserv|I have a reservation||איי הב א רזרוויישן
+c_wifi|What's the Wi-Fi password?||וואטס דה וואי-פאי פאסוורד
+c_checkout|What time is checkout?||וואט טיים איז צ׳ק-אאוט
+c_howget|How do I get there?||האו דו איי גט דר
+c_stophere|Stop here, please||סטופ היר, פליז
+c_far|Is it far?||איז איט פאר
+c_card|Can I pay by card?||קן איי פיי באי קארד
+c_looking|Just looking, thanks||ג׳אסט לוקינג, תנקס
+c_yourname|What's your name?||וואטס יור ניים
+c_wherefrom|Where are you from?||וור אר יו פרום
+c_seeyou|See you later||סי יו לייטר
+c_cheers|Cheers!||צ׳ירס
+c_lost|I'm lost||איים לוסט
+c_passport|I lost my passport||איי לוסט מאי פספורט
+c_hurts|It hurts here||איט הרטס היר
+c_time|What time is it?||וואט טיים איז איט
+c_again|Please say that again||פליז סיי דט אגיין
+c_write|Can you write it down?||קן יו רייט איט דאון`,
+
+es: `egg|Huevo||ואבו
+fruit|Fruta||פרוטה
+veg|Verduras||ברדוראס
+meat|Carne||קרנה
+milk|Leche||לצ׳ה
+spicy|Picante||פיקאנטה
+restaurant|Restaurante||רסטאורנטה
+ice|Hielo||יילו
+room|Habitación||אביטסיון
+key|Llave||יאבה
+bed|Cama||קאמה
+shower|Ducha||דוצ׳ה
+towel|Toalla||טואיה
+passport|Pasaporte||פסאפורטה
+n0|Cero||סרו
+n20|Veinte||ביינטה
+n50|Cincuenta||סינקואנטה
+n100|Cien||סיין
+n1000|Mil||מיל
+mon|Lunes||לונס
+tue|Martes||מרטס
+wed|Miércoles||מיירקולס
+thu|Jueves||חואבס
+fri|Viernes||ביירנס
+sat|Sábado||סבאדו
+sun|Domingo||דומינגו
+red|Rojo||רוחו
+blue|Azul||אסול
+green|Verde||ברדה
+yellow|Amarillo||אמריו
+black|Negro||נגרו
+white|Blanco||בלנקו
+man|Hombre||אומברה
+woman|Mujer||מוחר
+child|Niño||ניניו
+family|Familia||פמיליה
+i|Yo||יו
+you|Tú||טו
+head|Cabeza||קבסה
+stomach|Estómago||אסטומגו
+hand|Mano||מאנו
+pain|Dolor||דולור
+medicine|Medicina||מדיסינה
+sick|Enfermo||אנפרמו
+big|Grande||גרנדה
+small|Pequeño||פקניו
+hot|Caliente||קליינטה
+cold|Frío||פריאו
+bad|Malo||מאלו
+beautiful|Bonito||בוניטו
+eat|Comer||קומר
+drink|Beber||בבר
+go|Ir||איר
+buy|Comprar||קומפרר
+speak|Hablar||אבלר
+sleep|Dormir||דורמיר
+understand|Entender||אנטנדר
+c_table|Una mesa para dos, por favor||אונה מסה פרה דוס, פור פבור
+c_menu|¿Me trae la carta?||מה טראה לה קרטה
+c_noice|Sin hielo, por favor||סין יילו, פור פבור
+c_nomeat|No como carne||נו קומו קרנה
+c_allergy|Soy alérgico a los frutos secos||סוי אלרחיקו א לוס פרוטוס סקוס
+c_delicious|¡Muy rico!||מוי ריקו
+c_reserv|Tengo una reserva||טנגו אונה רסרבה
+c_wifi|¿Cuál es la contraseña del wifi?||קואל אס לה קונטרסניה דל ויפי
+c_checkout|¿A qué hora es la salida?||א קה אורה אס לה סלידה
+c_howget|¿Cómo llego allí?||קומו יגו איי
+c_stophere|Pare aquí, por favor||פארה אקי, פור פבור
+c_far|¿Está lejos?||אסטה לחוס
+c_card|¿Puedo pagar con tarjeta?||פואדו פגר קון טרחטה
+c_looking|Solo estoy mirando, gracias||סולו אסטוי מירנדו, גרסיאס
+c_yourname|¿Cómo te llamas?||קומו טה יאמס
+c_wherefrom|¿De dónde eres?||דה דונדה ארס
+c_seeyou|Hasta luego||אסטה לואגו
+c_cheers|¡Salud!||סלוד
+c_lost|Estoy perdido||אסטוי פרדידו
+c_passport|Perdí mi pasaporte||פרדי מי פסאפורטה
+c_hurts|Me duele aquí||מה דואלה אקי
+c_time|¿Qué hora es?||קה אורה אס
+c_again|¿Puede repetir, por favor?||פואדה רפטיר, פור פבור
+c_write|¿Me lo puede escribir?||מה לו פואדה אסקריביר`,
+
+ru: `egg|Яйцо|yaytso|יייצו
+fruit|Фрукты|frukty|פרוקטי
+veg|Овощи|ovoshchi|אוואשי
+meat|Мясо|myaso|מיאסה
+milk|Молоко|moloko|מלאקו
+spicy|Острый|ostry|אוסטרי
+restaurant|Ресторан|restoran|ריסטאראן
+ice|Лёд|lyod|ליוט
+room|Номер|nomer|נומיר
+key|Ключ|klyuch|קליוץ׳
+bed|Кровать|krovat|קראבאט
+shower|Душ|dush|דוש
+towel|Полотенце|polotentse|פאלאטיינצה
+passport|Паспорт|pasport|פאספארט
+n0|Ноль|nol|נול
+n20|Двадцать|dvadtsat|דבאצאט
+n50|Пятьдесят|pyatdesyat|פידיסיאט
+n100|Сто|sto|סטו
+n1000|Тысяча|tysyacha|טיסיצ׳ה
+mon|Понедельник|ponedelnik|פאנידיעלניק
+tue|Вторник|vtornik|פטורניק
+wed|Среда|sreda|סרידה
+thu|Четверг|chetverg|צ׳יטביערק
+fri|Пятница|pyatnitsa|פיאטניצה
+sat|Суббота|subbota|סובוטה
+sun|Воскресенье|voskresenye|ווסקריסיעניה
+red|Красный|krasny|קראסני
+blue|Синий|siniy|סיני
+green|Зелёный|zelyony|זיליוני
+yellow|Жёлтый|zholty|ז׳ולטי
+black|Чёрный|chorny|צ׳ורני
+white|Белый|bely|בילי
+man|Мужчина|muzhchina|מושינה
+woman|Женщина|zhenshchina|ז׳נשינה
+child|Ребёнок|rebyonok|ריביונק
+family|Семья|semya|סימיא
+i|Я|ya|יא
+you|Вы|vy|וי
+head|Голова|golova|גלאבה
+stomach|Живот|zhivot|ז׳יבוט
+hand|Рука|ruka|רוקה
+pain|Боль|bol|בול
+medicine|Лекарство|lekarstvo|ליקארסטבה
+sick|Больной|bolnoy|בלנוי
+big|Большой|bolshoy|בלשוי
+small|Маленький|malenkiy|מאלינקי
+hot|Горячий|goryachiy|גאריאצ׳י
+cold|Холодный|kholodny|חאלודני
+bad|Плохой|plokhoy|פלאחוי
+beautiful|Красивый|krasivy|קראסיבי
+eat|Есть|yest|ייסט
+drink|Пить|pit|פיט
+go|Идти|idti|איטי
+buy|Купить|kupit|קופיט
+speak|Говорить|govorit|גבאריט
+sleep|Спать|spat|ספאט
+understand|Понимать|ponimat|פנימאט
+c_table|Столик на двоих, пожалуйста|stolik na dvoikh, pozhaluysta|סטוליק נה דבאיח, פאז׳לוסטה
+c_menu|Можно меню?|mozhno menyu|מוז׳נה מיניו
+c_noice|Без льда, пожалуйста|bez lda, pozhaluysta|ביז לדה, פאז׳לוסטה
+c_nomeat|Я не ем мясо|ya ne yem myaso|יא ני יים מיאסה
+c_allergy|У меня аллергия на орехи|u menya allergiya na orekhi|או מיניא אלרגיה נה אריחי
+c_delicious|Очень вкусно!|ochen vkusno|אוצ׳ן פקוסנה
+c_reserv|У меня бронь|u menya bron|או מיניא ברון
+c_wifi|Какой пароль от вай-фая?|kakoy parol ot vay-faya|קאקוי פארול אט וואי-פאיה
+c_checkout|Во сколько выезд?|vo skolko vyezd|וא סקולקה ויעזד
+c_howget|Как туда добраться?|kak tuda dobratsya|קאק טודה דאבראטסה
+c_stophere|Остановите здесь, пожалуйста|ostanovite zdes, pozhaluysta|אסטאנאביטיה זדיעס, פאז׳לוסטה
+c_far|Это далеко?|eto daleko|אטה דאליקו
+c_card|Можно оплатить картой?|mozhno oplatit kartoy|מוז׳נה אפלאטיט קארטוי
+c_looking|Я просто смотрю, спасибо|ya prosto smotryu, spasibo|יא פרוסטה סמאטריו, ספסיבה
+c_yourname|Как вас зовут?|kak vas zovut|קאק ואס זבוט
+c_wherefrom|Откуда вы?|otkuda vy|אטקודה וי
+c_seeyou|До встречи|do vstrechi|דו פסטריצ׳י
+c_cheers|За здоровье!|za zdorovye|זה זדארוביה
+c_lost|Я потерялся|ya poteryalsya|יא פטיריאלסיה
+c_passport|Я потерял паспорт|ya poteryal pasport|יא פטיריאל פאספארט
+c_hurts|Здесь болит|zdes bolit|זדיעס בליט
+c_time|Который час?|kotory chas|קאטורי צ׳אס
+c_again|Повторите, пожалуйста|povtorite, pozhaluysta|פאפטאריטיה, פאז׳לוסטה
+c_write|Можете написать?|mozhete napisat|מוז׳טיה נפיסאט`,
+
+ar: `egg|بيضة|bayda|בידה
+fruit|فواكه|fawakih|פואכה
+veg|خضروات|khudrawat|ח׳ודראוואת
+meat|لحم|lahm|לחם
+milk|حليب|halib|חליב
+spicy|حار|harr|חאר
+restaurant|مطعم|mat'am|מטעם
+ice|ثلج|thalj|תלג׳
+room|غرفة|ghurfa|ע׳ורפה
+key|مفتاح|miftah|מפתאח
+bed|سرير|sarir|סריר
+shower|دش|dush|דוש
+towel|منشفة|minshafa|מנשפה
+passport|جواز سفر|jawaz safar|ג׳ואז ספר
+n0|صفر|sifr|צפר
+n20|عشرون|'ishrun|עשרון
+n50|خمسون|khamsun|ח׳מסון
+n100|مئة|mi'a|מיאה
+n1000|ألف|alf|אלף
+mon|الاثنين|al-ithnayn|אל-אתנין
+tue|الثلاثاء|ath-thulatha'|א-תלאתא
+wed|الأربعاء|al-arbi'a'|אל-ארבעא
+thu|الخميس|al-khamis|אל-ח׳מיס
+fri|الجمعة|al-jum'a|אל-ג׳ומעה
+sat|السبت|as-sabt|א-סבת
+sun|الأحد|al-ahad|אל-אחד
+red|أحمر|ahmar|אחמר
+blue|أزرق|azraq|אזרק
+green|أخضر|akhdar|אח׳דר
+yellow|أصفر|asfar|אצפר
+black|أسود|aswad|אסווד
+white|أبيض|abyad|אביד
+man|رجل|rajul|רג׳ול
+woman|امرأة|imra'a|אמראה
+child|طفل|tifl|טפל
+family|عائلة|'a'ila|עאאלה
+i|أنا|ana|אנא
+you|أنت|anta|אנת
+head|رأس|ra's|ראס
+stomach|بطن|batn|בטן
+hand|يد|yad|יד
+pain|ألم|alam|אלם
+medicine|دواء|dawa'|דוואא
+sick|مريض|marid|מריד
+big|كبير|kabir|כביר
+small|صغير|saghir|צע׳יר
+hot|ساخن|sakhin|סאח׳ן
+cold|بارد|barid|בארד
+bad|سيئ|sayyi'|סיא
+beautiful|جميل|jamil|ג׳מיל
+eat|يأكل|ya'kul|יאכל
+drink|يشرب|yashrab|ישרב
+go|يذهب|yadhhab|יד׳הב
+buy|يشتري|yashtari|ישתרי
+speak|يتكلم|yatakallam|יתכלם
+sleep|ينام|yanam|ינאם
+understand|يفهم|yafham|יפהם
+c_table|طاولة لشخصين من فضلك|tawila li-shakhsayn min fadlak|טאולה לשח׳צין מן פדלכ
+c_menu|القائمة من فضلك|al-qa'ima min fadlak|אל-קאאמה מן פדלכ
+c_noice|بدون ثلج من فضلك|bidun thalj min fadlak|בדון תלג׳ מן פדלכ
+c_nomeat|أنا لا آكل اللحم|ana la akul al-lahm|אנא לא אכל אל-לחם
+c_allergy|عندي حساسية من المكسرات|'indi hasasiyya min al-mukassarat|ענדי חסאסיה מן אל-מוכסראת
+c_delicious|لذيذ جدا!|ladhidh jiddan|לד׳יד׳ ג׳דן
+c_reserv|عندي حجز|'indi hajz|ענדי חג׳ז
+c_wifi|ما كلمة سر الواي فاي؟|ma kalimat sirr al-wai fai|מא כלמת סר אל-וואי פאי
+c_checkout|متى موعد المغادرة؟|mata maw'id al-mughadara|מתא מועד אל-מע׳אדרה
+c_howget|كيف أصل إلى هناك؟|kayfa asil ila hunak|כיף אצל אלא הונאכ
+c_stophere|توقف هنا من فضلك|tawaqqaf huna min fadlak|תוקף הונא מן פדלכ
+c_far|هل هو بعيد؟|hal huwa ba'id|הל הווא בעיד
+c_card|هل يمكنني الدفع بالبطاقة؟|hal yumkinuni ad-daf' bil-bitaqa|הל יומכנני א-דפע באל-בטאקה
+c_looking|أتفرج فقط، شكرا|atafarraj faqat, shukran|אתפרג׳ פקט, שוכרן
+c_yourname|ما اسمك؟|ma ismuk|מא אסמכ
+c_wherefrom|من أين أنت؟|min ayna anta|מן אין אנת
+c_seeyou|أراك لاحقا|araka lahiqan|אראכ לאחקן
+c_cheers|في صحتك!|fi sihhatak|פי צחתכ
+c_lost|أنا ضائع|ana da'i'|אנא דאאע
+c_passport|فقدت جواز سفري|faqadtu jawaz safari|פקדת ג׳ואז ספרי
+c_hurts|يؤلمني هنا|yu'limuni huna|יולמני הונא
+c_time|كم الساعة؟|kam as-sa'a|כם א-סאעה
+c_again|أعد من فضلك|a'id min fadlak|אעד מן פדלכ
+c_write|هل يمكنك أن تكتبه؟|hal yumkinuka an taktubahu|הל יומכנכ אן תכתבה`,
+
+th: `egg|ไข่|khai|קאי
+fruit|ผลไม้|phonlamai|פונלאמאי
+veg|ผัก|phak|פאק
+meat|เนื้อ|nuea|נואה
+milk|นม|nom|נום
+spicy|เผ็ด|phet|פט
+restaurant|ร้านอาหาร|ran a-han|ראן אהאן
+ice|น้ำแข็ง|nam khaeng|נאם קאנג
+room|ห้อง|hong|הונג
+key|กุญแจ|kunjae|גונג׳ה
+bed|เตียง|tiang|טיאנג
+shower|ฝักบัว|fak bua|פאק בואה
+towel|ผ้าเช็ดตัว|pha chet tua|פא צ׳ט טואה
+passport|พาสปอร์ต|phatsapot|פאססאפוט
+n0|ศูนย์|sun|סון
+n20|ยี่สิบ|yi sip|יי-סיפ
+n50|ห้าสิบ|ha sip|הא-סיפ
+n100|หนึ่งร้อย|nueng roi|נאנג רוי
+n1000|หนึ่งพัน|nueng phan|נאנג פאן
+mon|วันจันทร์|wan chan|וואן ג׳אן
+tue|วันอังคาร|wan angkhan|וואן אנגקאן
+wed|วันพุธ|wan phut|וואן פוט
+thu|วันพฤหัสบดี|wan pharuehat|וואן פרוהאט
+fri|วันศุกร์|wan suk|וואן סוק
+sat|วันเสาร์|wan sao|וואן סאו
+sun|วันอาทิตย์|wan athit|וואן אטיט
+red|สีแดง|si daeng|סי דאנג
+blue|สีฟ้า|si fa|סי פא
+green|สีเขียว|si khiao|סי קיאו
+yellow|สีเหลือง|si lueang|סי לואנג
+black|สีดำ|si dam|סי דאם
+white|สีขาว|si khao|סי קאו
+man|ผู้ชาย|phu chai|פו צ׳אי
+woman|ผู้หญิง|phu ying|פו יינג
+child|เด็ก|dek|דק
+family|ครอบครัว|khrop khrua|קרופ קרואה
+i|ผม|phom|פום
+you|คุณ|khun|קון
+head|หัว|hua|הואה
+stomach|ท้อง|thong|טונג
+hand|มือ|mue|מו
+pain|เจ็บ|chep|ג׳פ
+medicine|ยา|ya|יא
+sick|ป่วย|puai|פואי
+big|ใหญ่|yai|יאי
+small|เล็ก|lek|לק
+hot|ร้อน|ron|רון
+cold|หนาว|nao|נאו
+bad|ไม่ดี|mai di|מאי די
+beautiful|สวย|suai|סואי
+eat|กิน|kin|גין
+drink|ดื่ม|duem|דום
+go|ไป|pai|פאי
+buy|ซื้อ|sue|סו
+speak|พูด|phut|פוט
+sleep|นอน|non|נון
+understand|เข้าใจ|khao jai|קאו-ג׳אי
+c_table|โต๊ะสำหรับสองคนครับ|to samrap song khon khrap|טו סאמראפ סונג קון קראפ
+c_menu|ขอเมนูหน่อยครับ|kho menu noi khrap|קו מנו נוי קראפ
+c_noice|ไม่ใส่น้ำแข็งครับ|mai sai nam khaeng khrap|מאי סאי נאם קאנג קראפ
+c_nomeat|ผมไม่กินเนื้อสัตว์ครับ|phom mai kin nuea sat khrap|פום מאי גין נואה סאט קראפ
+c_allergy|ผมแพ้ถั่วครับ|phom phae thua khrap|פום פה טואה קראפ
+c_delicious|อร่อยมาก!|aroi mak|ארוי מאק
+c_reserv|ผมจองไว้แล้วครับ|phom chong wai laeo khrap|פום ג׳ונג ואי לאו קראפ
+c_wifi|รหัสไวไฟคืออะไรครับ|rahat wai fai khue arai khrap|ראהאט ואי-פאי קו אראי קראפ
+c_checkout|เช็คเอาท์กี่โมงครับ|chek ao ki mong khrap|צ׳ק-אאו גי מונג קראפ
+c_howget|ไปที่นั่นยังไงครับ|pai thi nan yang ngai khrap|פאי טי-נאן יאנג-נגאי קראפ
+c_stophere|จอดตรงนี้ครับ|chot trong ni khrap|ג׳וט טרונג-ני קראפ
+c_far|ไกลไหมครับ|klai mai khrap|גלאי מאי קראפ
+c_card|จ่ายด้วยบัตรได้ไหมครับ|chai duai bat dai mai khrap|ג׳אי דואי באט דאי מאי קראפ
+c_looking|ดูเฉยๆ ครับ ขอบคุณครับ|du choei choei khrap, khop khun khrap|דו צ׳ואי-צ׳ואי קראפ, קופ קון קראפ
+c_yourname|คุณชื่ออะไรครับ|khun chue arai khrap|קון צ׳ו אראי קראפ
+c_wherefrom|คุณมาจากไหนครับ|khun ma chak nai khrap|קון מא ג׳אק נאי קראפ
+c_seeyou|แล้วเจอกันครับ|laeo choe kan khrap|לאו ג׳ה גאן קראפ
+c_cheers|ชนแก้ว!|chon kaeo|צ׳ון גאו
+c_lost|ผมหลงทางครับ|phom long thang khrap|פום לונג טאנג קראפ
+c_passport|ผมทำพาสปอร์ตหายครับ|phom tham phatsapot hai khrap|פום טאם פאססאפוט האי קראפ
+c_hurts|เจ็บตรงนี้ครับ|chep trong ni khrap|ג׳פ טרונג-ני קראפ
+c_time|กี่โมงแล้วครับ|ki mong laeo khrap|גי מונג לאו קראפ
+c_again|พูดอีกครั้งได้ไหมครับ|phut ik khrang dai mai khrap|פוט איק קראנג דאי מאי קראפ
+c_write|เขียนให้หน่อยได้ไหมครับ|khian hai noi dai mai khrap|קיאן האי נוי דאי מאי קראפ`
+};
+
+for (const l in WD_RAW2) {
+  WD[l] = WD[l] || {};
+  WD_RAW2[l].split('\n').forEach(line => {
+    const p = line.split('|');
+    if (p.length >= 4) WD[l][p[0].trim()] = [p[1].trim(), p[2].trim(), p[3].trim()];
+  });
+}
+
+/* Speaker-gender forms (applied when "I speak as: female"). Order matters: longer forms first. */
+const GENDER_F = {
+  th: [[/ครับ/g,'ค่ะ'],[/ผม/g,'ดิฉัน'],[/\bkhrap\b/g,'kha'],[/\bphom\b/g,'dichan'],[/קראפ/g,'קא'],[/פום/g,'דיצ׳אן']],
+  es: [[/perdido/g,'perdida'],[/alérgico/g,'alérgica'],[/פרדידו/g,'פרדידה'],[/אלרחיקו/g,'אלרחיקה']],
+  ru: [[/потерялся/g,'потерялась'],[/poteryalsya/g,'poteryalas'],[/פטיריאלסיה/g,'פטיריאלאס'],[/потерял /g,'потеряла '],[/poteryal /g,'poteryala '],[/פטיריאל /g,'פטיריאלה ']],
+  ar: [[/آسف/g,'آسفة'],[/\basif\b/g,'asifa'],[/^אסף$/g,'אספה'],[/ضائع/g,'ضائعة'],[/da'i'/g,"da'i'a"],[/דאאע/g,'דאאעה']]
+};
+
 /* ===== LingoNest — i18n.js : UI text in 5 languages (he, en, ru, es, ar). Missing key → English. ===== */
 const LANG = {
 he: {
@@ -1216,9 +1710,107 @@ ar: {
 }
 };
 
+/* ===== LingoNest — i18n2.js : v1.1 strings (merged into LANG) ===== */
+Object.assign(LANG.he, {
+  lvl5: 'מילים יומיומיות', lvl6: 'שיחה ומצבים', lvl7: 'המילים שלי',
+  cat_hotel: 'מלון ולינה', cat_num2: 'מספרים גדולים', cat_days: 'ימי השבוע', cat_colors: 'צבעים', cat_people: 'אנשים ומשפחה',
+  cat_body: 'גוף ובריאות', cat_adj: 'תארים', cat_verbs: 'פעלים', cat_conv: 'שיחה ומצבים', cat_vowels: 'תנועות',
+  searchBtn: 'איך אומרים ב{l}…?', searchTitle: 'איך אומרים', searchLabel: 'חפש מילה או משפט (בעברית או בשפה)', searchPh: 'לדוגמה: מים, מלון, כמה',
+  searchHint: 'התחל להקליד — התוצאות יופיעו מיד, גם בלי אינטרנט.', searchNone: 'לא מצאתי במאגר את "{q}".', searchTranslate: 'תרגם עם בינה',
+  vowels: 'תנועות', practiceVowels: 'תרגול תנועות',
+  vowelNoteTh: 'בתאית התנועה נכתבת סביב העיצור — לפניו, אחריו, מעליו או מתחתיו. כאן היא מוצגת על האות אוֹ (อ) שאין לה צליל. תנועה קצרה וארוכה משנות את המשמעות.',
+  vowelNoteAr: 'בערבית, כמו בעברית, התנועות הקצרות הן סימנים קטנים מעל ומתחת לאות, ובטקסט רגיל לרוב לא כותבים אותן. התנועות הארוכות נכתבות באותיות ا و ي.',
+  tones: 'טונים', toneNote: 'בתאית יש 5 טונים, והטון משנה את המשמעות. שמע את ההבדל: אותה הברה "מאי" — חמש מילים שונות.',
+  tone_mid: 'טון אמצעי', tone_low: 'טון נמוך', tone_fall: 'טון יורד', tone_high: 'טון גבוה', tone_rise: 'טון עולה',
+  m_mile: 'מייל (מרחק)', m_new: 'חדש', m_not: 'לא', m_wood: 'עץ', m_q: 'מילת שאלה (…?)',
+  twister: 'משפט לשון: "האם העץ החדש לא נשרף?" — כל המילים נשמעות "מאי"',
+  prSay: 'תרגול דיבור', qSAY: 'אמור בקול:', skipIt: 'דלג', sayMore: 'עוד לא — נסה שוב בחזרה הבאה', noSpeech: 'לא שמעתי כלום. לחץ על 🎤 ודבר קרוב לטלפון.',
+  genderHint: 'משנה את צורת הדובר במשפטים ובתרגום: בתאית ครับ (קראפ) ↔ ค่ะ (קא), וגם צורות זכר/נקבה ברוסית, בספרדית ובערבית.',
+  newIn: 'מה חדש בגרסה {v}', wn1: 'יותר מ-80 מילים ומשפטים חדשים בכל שפה: מלון, ימים, צבעים, גוף ובריאות, פעלים ומשפטי שיחה.',
+  wn2: 'תאית: 23 תנועות וכרטיס טונים עם דוגמאות קוליות. ערבית: סימני התנועות.', wn3: 'חיפוש מהיר "איך אומרים…?" — עובד גם בלי אינטרנט.',
+  wn4: 'תרגול דיבור: האפליקציה מקשיבה ובודקת את ההגייה שלך.', wn5: 'רמות חדשות: 5 מילים יומיומיות, 6 שיחה ומצבים, 7 המילים שלי.'
+});
+Object.assign(LANG.en, {
+  lvl5: 'Everyday words', lvl6: 'Conversation', lvl7: 'My words',
+  cat_hotel: 'Hotel & stay', cat_num2: 'Big numbers', cat_days: 'Days of the week', cat_colors: 'Colors', cat_people: 'People & family',
+  cat_body: 'Body & health', cat_adj: 'Adjectives', cat_verbs: 'Verbs', cat_conv: 'Conversation', cat_vowels: 'Vowels',
+  searchBtn: 'How do you say it in {l}…?', searchTitle: 'How do you say', searchLabel: 'Search a word or phrase (in any language)', searchPh: 'For example: water, hotel, how much',
+  searchHint: 'Start typing — results appear instantly, even offline.', searchNone: '"{q}" isn\'t in the word list.', searchTranslate: 'Translate with AI',
+  vowels: 'Vowels', practiceVowels: 'Practice vowels',
+  vowelNoteTh: 'Thai vowels are written around the consonant — before, after, above or below it. Here they sit on the silent letter อ. Short and long vowels change the meaning.',
+  vowelNoteAr: 'In Arabic, short vowels are small marks above and below the letter and are usually left out of normal text. Long vowels are written with ا و ي.',
+  tones: 'Tones', toneNote: 'Thai has 5 tones, and tone changes meaning. Hear the difference: one syllable "mai", five different words.',
+  tone_mid: 'Mid tone', tone_low: 'Low tone', tone_fall: 'Falling tone', tone_high: 'High tone', tone_rise: 'Rising tone',
+  m_mile: 'mile', m_new: 'new', m_not: 'not', m_wood: 'wood', m_q: 'question word (…?)',
+  twister: 'Tongue twister: "Doesn\'t new wood burn?" — every word sounds like "mai"',
+  prSay: 'Speaking practice', qSAY: 'Say it out loud:', skipIt: 'Skip', sayMore: 'Not yet — it will come back in review', noSpeech: 'I didn\'t hear anything. Tap 🎤 and speak close to the phone.',
+  genderHint: 'Changes the speaker\'s forms in phrases and translations: Thai ครับ (khrap) ↔ ค่ะ (kha), plus masculine/feminine forms in Russian, Spanish and Arabic.',
+  newIn: 'What\'s new in {v}', wn1: 'Over 80 new words and phrases in every language: hotel, days, colors, body & health, verbs and conversation.',
+  wn2: 'Thai: 23 vowels and a tones card with audio. Arabic: vowel marks.', wn3: 'Quick search "How do you say…?" — works offline.',
+  wn4: 'Speaking practice: the app listens and checks your pronunciation.', wn5: 'New levels: 5 everyday words, 6 conversation, 7 my words.'
+});
+Object.assign(LANG.ru, {
+  lvl5: 'Повседневные слова', lvl6: 'Разговор', lvl7: 'Мои слова',
+  cat_hotel: 'Отель и жильё', cat_num2: 'Большие числа', cat_days: 'Дни недели', cat_colors: 'Цвета', cat_people: 'Люди и семья',
+  cat_body: 'Тело и здоровье', cat_adj: 'Прилагательные', cat_verbs: 'Глаголы', cat_conv: 'Разговор', cat_vowels: 'Гласные',
+  searchBtn: 'Как сказать на языке: {l}…?', searchTitle: 'Как сказать', searchLabel: 'Найти слово или фразу (на любом языке)', searchPh: 'Например: вода, отель, сколько',
+  searchHint: 'Начните печатать — результаты появятся сразу, даже без интернета.', searchNone: '«{q}» нет в словаре.', searchTranslate: 'Перевести с ИИ',
+  vowels: 'Гласные', practiceVowels: 'Тренировать гласные',
+  vowelNoteTh: 'Тайские гласные пишутся вокруг согласной — перед ней, после, сверху или снизу. Здесь они показаны на немой букве อ. Краткие и долгие гласные меняют смысл.',
+  vowelNoteAr: 'В арабском краткие гласные — это значки над и под буквой, в обычном тексте их обычно не пишут. Долгие гласные пишутся буквами ا و ي.',
+  tones: 'Тоны', toneNote: 'В тайском 5 тонов, и тон меняет смысл. Послушайте: один слог «май» — пять разных слов.',
+  tone_mid: 'Средний тон', tone_low: 'Низкий тон', tone_fall: 'Нисходящий тон', tone_high: 'Высокий тон', tone_rise: 'Восходящий тон',
+  m_mile: 'миля', m_new: 'новый', m_not: 'не', m_wood: 'дерево', m_q: 'вопросительная частица (…?)',
+  twister: 'Скороговорка: «Разве новое дерево не горит?» — все слова звучат как «май»',
+  prSay: 'Тренировка речи', qSAY: 'Скажите вслух:', skipIt: 'Пропустить', sayMore: 'Пока нет — вернётся в повторе', noSpeech: 'Ничего не слышно. Нажмите 🎤 и говорите ближе к телефону.',
+  genderHint: 'Меняет формы говорящего во фразах и переводах: в тайском ครับ (кхрап) ↔ ค่ะ (кха), а также мужские/женские формы в русском, испанском и арабском.',
+  newIn: 'Что нового в {v}', wn1: 'Более 80 новых слов и фраз в каждом языке: отель, дни, цвета, тело и здоровье, глаголы и разговор.',
+  wn2: 'Тайский: 23 гласные и карточка тонов со звуком. Арабский: огласовки.', wn3: 'Быстрый поиск «Как сказать…?» — работает без интернета.',
+  wn4: 'Тренировка речи: приложение слушает и проверяет произношение.', wn5: 'Новые уровни: 5 повседневные слова, 6 разговор, 7 мои слова.'
+});
+Object.assign(LANG.es, {
+  lvl5: 'Palabras cotidianas', lvl6: 'Conversación', lvl7: 'Mis palabras',
+  cat_hotel: 'Hotel y alojamiento', cat_num2: 'Números grandes', cat_days: 'Días de la semana', cat_colors: 'Colores', cat_people: 'Personas y familia',
+  cat_body: 'Cuerpo y salud', cat_adj: 'Adjetivos', cat_verbs: 'Verbos', cat_conv: 'Conversación', cat_vowels: 'Vocales',
+  searchBtn: '¿Cómo se dice en {l}…?', searchTitle: 'Cómo se dice', searchLabel: 'Busca una palabra o frase (en cualquier idioma)', searchPh: 'Por ejemplo: agua, hotel, cuánto',
+  searchHint: 'Empieza a escribir: los resultados salen al instante, incluso sin conexión.', searchNone: '"{q}" no está en la lista.', searchTranslate: 'Traducir con IA',
+  vowels: 'Vocales', practiceVowels: 'Practicar vocales',
+  vowelNoteTh: 'Las vocales tailandesas se escriben alrededor de la consonante: antes, después, encima o debajo. Aquí aparecen sobre la letra muda อ. Las vocales cortas y largas cambian el significado.',
+  vowelNoteAr: 'En árabe las vocales cortas son pequeñas marcas encima y debajo de la letra y casi nunca se escriben. Las largas se escriben con ا و ي.',
+  tones: 'Tonos', toneNote: 'El tailandés tiene 5 tonos y el tono cambia el significado. Escucha: una sílaba "mai", cinco palabras distintas.',
+  tone_mid: 'Tono medio', tone_low: 'Tono bajo', tone_fall: 'Tono descendente', tone_high: 'Tono alto', tone_rise: 'Tono ascendente',
+  m_mile: 'milla', m_new: 'nuevo', m_not: 'no', m_wood: 'madera', m_q: 'partícula de pregunta (…?)',
+  twister: 'Trabalenguas: "¿La madera nueva no se quema?" — todas las palabras suenan "mai"',
+  prSay: 'Práctica oral', qSAY: 'Dilo en voz alta:', skipIt: 'Saltar', sayMore: 'Aún no, volverá en el repaso', noSpeech: 'No oí nada. Pulsa 🎤 y habla cerca del teléfono.',
+  genderHint: 'Cambia las formas del hablante en frases y traducciones: en tailandés ครับ (khrap) ↔ ค่ะ (kha), y formas masculinas/femeninas en ruso, español y árabe.',
+  newIn: 'Novedades de {v}', wn1: 'Más de 80 palabras y frases nuevas en cada idioma: hotel, días, colores, cuerpo y salud, verbos y conversación.',
+  wn2: 'Tailandés: 23 vocales y tarjeta de tonos con audio. Árabe: signos vocálicos.', wn3: 'Búsqueda rápida "¿Cómo se dice…?", también sin conexión.',
+  wn4: 'Práctica oral: la app escucha y revisa tu pronunciación.', wn5: 'Niveles nuevos: 5 palabras cotidianas, 6 conversación, 7 mis palabras.'
+});
+Object.assign(LANG.ar, {
+  lvl5: 'كلمات يومية', lvl6: 'محادثة ومواقف', lvl7: 'كلماتي',
+  cat_hotel: 'الفندق والإقامة', cat_num2: 'أرقام كبيرة', cat_days: 'أيام الأسبوع', cat_colors: 'الألوان', cat_people: 'الناس والعائلة',
+  cat_body: 'الجسم والصحة', cat_adj: 'الصفات', cat_verbs: 'الأفعال', cat_conv: 'محادثة ومواقف', cat_vowels: 'الحركات',
+  searchBtn: 'كيف تقول بـ{l}…؟', searchTitle: 'كيف تقول', searchLabel: 'ابحث عن كلمة أو جملة (بأي لغة)', searchPh: 'مثلا: ماء، فندق، كم',
+  searchHint: 'ابدأ الكتابة — تظهر النتائج فورا، حتى دون إنترنت.', searchNone: '"{q}" غير موجودة في القائمة.', searchTranslate: 'ترجم بالذكاء الاصطناعي',
+  vowels: 'الحركات', practiceVowels: 'تدريب الحركات',
+  vowelNoteTh: 'تُكتب الحركات التايلاندية حول الحرف الساكن — قبله أو بعده أو فوقه أو تحته. هنا تظهر على الحرف الصامت อ. الحركات القصيرة والطويلة تغيّر المعنى.',
+  vowelNoteAr: 'الحركات القصيرة علامات صغيرة فوق الحرف وتحته، ولا تُكتب غالبا في النصوص العادية. الحركات الطويلة تُكتب بـ ا و ي.',
+  tones: 'النغمات', toneNote: 'في التايلاندية 5 نغمات، والنغمة تغيّر المعنى. استمع: مقطع واحد "ماي" — خمس كلمات مختلفة.',
+  tone_mid: 'نغمة متوسطة', tone_low: 'نغمة منخفضة', tone_fall: 'نغمة هابطة', tone_high: 'نغمة عالية', tone_rise: 'نغمة صاعدة',
+  m_mile: 'ميل', m_new: 'جديد', m_not: 'لا', m_wood: 'خشب', m_q: 'أداة استفهام (…؟)',
+  twister: 'جملة صعبة: "ألا يحترق الخشب الجديد؟" — كل الكلمات تُلفظ "ماي"',
+  prSay: 'تدريب النطق', qSAY: 'قلها بصوت عال:', skipIt: 'تخطٍ', sayMore: 'ليس بعد — ستعود في المراجعة', noSpeech: 'لم أسمع شيئا. اضغط 🎤 وتكلم قرب الهاتف.',
+  genderHint: 'يغيّر صيغة المتكلم في الجمل والترجمة: في التايلاندية ครับ (خراب) ↔ ค่ะ (خا)، وصيغ المذكر/المؤنث في الروسية والإسبانية والعربية.',
+  newIn: 'الجديد في {v}', wn1: 'أكثر من 80 كلمة وجملة جديدة في كل لغة: الفندق، الأيام، الألوان، الجسم والصحة، الأفعال والمحادثة.',
+  wn2: 'التايلاندية: 23 حركة وبطاقة نغمات بالصوت. العربية: الحركات.', wn3: 'بحث سريع "كيف تقول…؟" — يعمل دون إنترنت.',
+  wn4: 'تدريب النطق: يستمع التطبيق ويتحقق من نطقك.', wn5: 'مستويات جديدة: 5 كلمات يومية، 6 محادثة، 7 كلماتي.'
+});
+
 /* ===== LingoNest — app.js : engine, screens, speech, AI (BYOK), storage ===== */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.0.0' };
+const APP = { name: 'LingoNest', ver: '1.1.0' };
+const MAXL = 7; /* levels: 1 letters · 2 survival · 3 travel vocab · 4 travel phrases · 5 everyday · 6 conversation · 7 my words */
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
 function logErr(m, f, l) {
@@ -1251,7 +1843,7 @@ const S = (() => {
 const DEF = {
   v: 1, user: '', ui: 'he', theme: 'gold', mode: 'night', lang: 'th', goal: 10, rate: 0.9, gender: 'm',
   voices: {}, onb: false, prog: {}, log: {}, newLog: {}, streak: { last: '', n: 0 }, phrases: [], custom: {},
-  favs: {}, ai: { provider: 'gemini', model: '', has: {} }, backupAt: 0, firstUse: 0
+  favs: {}, ai: { provider: 'gemini', model: '', has: {} }, backupAt: 0, firstUse: 0, seenVer: ''
 };
 let st = Object.assign({}, DEF, S.get('ln_state', {}));
 st.ai = Object.assign({}, DEF.ai, st.ai || {});
@@ -1287,23 +1879,23 @@ function toast(msg, kind, ms) {
 }
 
 /* ---------- content model ---------- */
-function thaiGender(s) {
-  if (st.gender !== 'f' || !s) return s;
-  return s.replace(/ครับ/g, 'ค่ะ').replace(/ผม/g, 'ดิฉัน').replace(/\bkhrap\b/g, 'kha').replace(/\bphom\b/g, 'dichan')
-          .replace(/קראפ/g, 'קא').replace(/פום/g, 'דיצ׳אן');
+function genderize(lang, s) {
+  if (st.gender !== 'f' || !s || !GENDER_F[lang]) return s;
+  return GENDER_F[lang].reduce((a, [re, to]) => a.replace(re, to), s);
 }
 let _itemsCache = {};
 function items(lang) {
   const key = lang + st.gender + (st.custom[lang] || []).length + JSON.stringify((st.custom[lang] || []).map(c => c.id + c.text));
   if (_itemsCache[lang] && _itemsCache[lang].key === key) return _itemsCache[lang].list;
-  const g = lang === 'th' ? thaiGender : (s => s);
+  const g = s => genderize(lang, s);
   const L = [];
   (ALPHA[lang] || []).forEach((a, i) => L.push({ k: 'L:' + i, type: 'L', lvl: 1, cat: 'letters', text: a[0], tts: a[1], heb: a[2], roman: a[3], he: a[2], en: a[3] }));
+  (VOWELS[lang] || []).forEach((a, i) => L.push({ k: 'V:' + i, type: 'L', lvl: 1, cat: 'vowels', text: a[0], tts: a[1], heb: a[2], roman: a[3], he: a[2], en: a[3] }));
   CONCEPTS.forEach(c => {
     const t = WD[lang] && WD[lang][c[0]]; if (!t) return;
-    L.push({ k: 'W:' + c[0], type: c[1] === 'phr' ? 'P' : 'W', lvl: c[2], cat: c[1], he: c[3], en: c[4], text: g(t[0]), roman: g(t[1]), heb: g(t[2]) });
+    L.push({ k: 'W:' + c[0], type: (c[1] === 'phr' || c[1] === 'conv') ? 'P' : 'W', lvl: c[2], cat: c[1], he: c[3], en: c[4], text: g(t[0]), roman: g(t[1]), heb: g(t[2]) });
   });
-  (st.custom[lang] || []).forEach(c => L.push({ k: 'C:' + c.id, type: 'W', lvl: 5, cat: 'mine', he: c.he, en: c.he, text: c.text, roman: c.roman || '', heb: c.heb || '', cid: c.id }));
+  (st.custom[lang] || []).forEach(c => L.push({ k: 'C:' + c.id, type: 'W', lvl: 7, cat: 'mine', he: c.he, en: c.he, text: c.text, roman: c.roman || '', heb: c.heb || '', cid: c.id }));
   _itemsCache[lang] = { key, list: L };
   return L;
 }
@@ -1328,7 +1920,7 @@ function grade(lang, k, ok) {
 }
 function levelStats(lang) {
   const p = P(lang), all = items(lang), out = {};
-  for (let l = 1; l <= 5; l++) {
+  for (let l = 1; l <= MAXL; l++) {
     const L = all.filter(i => i.lvl === l);
     out[l] = { total: L.length, seen: L.filter(i => p[i.k]).length, mastered: L.filter(i => p[i.k] && p[i.k].b >= 3).length };
   }
@@ -1336,8 +1928,8 @@ function levelStats(lang) {
 }
 function curLevel(lang) {
   const s = levelStats(lang);
-  for (let l = 1; l <= 4; l++) if (s[l].total && s[l].mastered / s[l].total < 0.7) return l;
-  return s[5].total ? 5 : 4;
+  for (let l = 1; l < MAXL; l++) if (s[l].total && s[l].mastered / s[l].total < 0.7) return l;
+  return s[MAXL].total ? MAXL : MAXL - 1;
 }
 function langPct(lang) {
   const all = items(lang), p = P(lang);
@@ -1392,7 +1984,7 @@ function sim(a, b) {
   for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
   return 1 - d[m][n] / Math.max(m, n);
 }
-function sayIt(it, lang, out) {
+function sayIt(it, lang, out, cb) {
   if (!SR) { toast(T('noSR'), 'warn', 5000); return; }
   if (location.protocol === 'file:') { toast(T('fileMic'), 'warn', 6000); return; }
   const r = new SR();
@@ -1402,12 +1994,13 @@ function sayIt(it, lang, out) {
     const alts = [...e.results[0]].map(a => a.transcript);
     const target = norm(it.type === 'L' ? it.tts : it.text);
     const best = Math.max(...alts.map(a => sim(norm(a), target)));
+    if (cb) cb(best >= 0.72, alts[0]);
     if (out) {
       out.innerHTML = best >= 0.72 ? '✅ ' + esc(T('saidGood')) : '🔁 ' + esc(T('saidHeard')) + ' <b dir="auto">' + esc(alts[0]) + '</b>';
       out.className = 'said ' + (best >= 0.72 ? 'ok' : 'no');
     }
   };
-  r.onerror = e => { if (out) out.textContent = ''; toast(T('srErr') + ' (' + e.error + ')', 'err', 4000); };
+  r.onerror = e => { if (out) out.textContent = ''; if (e.error === 'no-speech') toast(T('noSpeech'), 'warn', 3000); else toast(T('srErr') + ' (' + e.error + ')', 'err', 4000); };
   r.onend = () => { if (out && out.textContent === T('listening')) out.textContent = ''; };
   try { r.start(); } catch (e) { toast(T('srErr'), 'err'); }
 }
@@ -1626,6 +2219,7 @@ SCREENS.home = () => {
   </header>
   <p class="hello">${esc(st.user ? T('helloName', { n: st.user }) : T('helloAnon'))}</p>
   <nav class="chips" aria-label="${esc(T('chooseLang'))}">${chips}</nav>
+  <button class="search-btn" data-act="nav" data-to="search">🔍 <span>${esc(T('searchBtn', { l: LN(lang) }))}</span></button>
   <section class="hero" aria-label="${esc(T('wordOfDay'))}">
     <div class="hero-top"><span>${esc(T('wordOfDay'))}</span><span class="streak" title="${esc(T('streak'))}">🔥 ${st.streak.last === today() || st.streak.last === dayKey(-1) ? st.streak.n : 0}</span></div>
     <div class="wod">${tgt(wod, lang, 'xl')}</div>
@@ -1637,9 +2231,9 @@ SCREENS.home = () => {
     <button class="cta" data-act="startAuto">▶ ${esc(T('continue'))}<small>${esc(T('ctaSub', { d: due, n: nl }))}</small></button>
   </section>
   <div class="grid">
-    <button class="tile" data-act="nav" data-to="letters"><span>🔤</span><b>${esc(T('letters'))}</b><small>${(ALPHA[lang] || []).length} ${esc(T('lettersCount'))}</small></button>
+    <button class="tile" data-act="nav" data-to="letters"><span>🔤</span><b>${esc(T('letters'))}</b><small>${(ALPHA[lang] || []).length} ${esc(T('lettersCount'))}${VOWELS[lang] ? ' + ' + esc(T('vowels')) : ''}</small></button>
     <button class="tile" data-act="nav" data-to="topics"><span>💬</span><b>${esc(T('words'))}</b><small>${esc(T('wordsSub'))}</small></button>
-    <button class="tile" data-act="nav" data-to="list" data-arg="phr"><span>🗣️</span><b>${esc(T('phrases'))}</b><small>${esc(T('phrasesSub'))}</small></button>
+    <button class="tile" data-act="nav" data-to="topics" data-arg="P"><span>🗣️</span><b>${esc(T('phrases'))}</b><small>${esc(T('phrasesSub'))}</small></button>
     <button class="tile" data-act="nav" data-to="practice"><span>🎯</span><b>${esc(T('practice'))}</b><small>${esc(T('practiceSub'))}</small></button>
     <button class="tile wide" data-act="nav" data-to="speak"><span>📢</span><b>${esc(T('speakForMe'))}</b><small>${esc(T('speakSub', { l: LN(lang) }))}</small></button>
     <button class="tile wide" data-act="nav" data-to="progress"><span>📈</span><b>${esc(T('progress'))}</b><small>${esc(T('progressSub'))}</small></button>
@@ -1651,43 +2245,43 @@ SCREENS.home = () => {
 /* ===== LETTERS ===== */
 SCREENS.letters = () => {
   const lang = st.lang, p = P(lang);
-  const tiles = items(lang).filter(i => i.type === 'L').map(i => {
+  const tile = i => {
     const r = p[i.k]; const cls = r ? (r.b >= 3 ? 'm' : 's') : '';
-    return '<button class="lt ' + cls + '" data-act="letter" data-k="' + i.k + '"><span class="tgt" lang="' + LANGS[lang].tts + '">' + esc(i.text) + '</span><small>' + esc(st.ui === 'he' ? i.heb.split(' (')[0] : i.roman) + '</small></button>';
-  }).join('');
+    return '<button class="lt ' + cls + '" data-act="letter" data-k="' + i.k + '"><span class="tgt" lang="' + LANGS[lang].tts + '">' + esc(i.text) + '</span><small>' + esc(st.ui === 'he' ? i.heb.split(' (')[0].split(' — ')[0] : i.roman) + '</small></button>';
+  };
+  const tiles = items(lang).filter(i => i.cat === 'letters').map(tile).join('');
+  const vw = items(lang).filter(i => i.cat === 'vowels');
+  const vowelsHtml = vw.length ? '<h3>' + esc(T('vowels')) + '</h3><p class="note">' + esc(T(lang === 'th' ? 'vowelNoteTh' : 'vowelNoteAr')) + '</p>' +
+    '<button class="cta slim" data-act="startScope" data-scope="cat:vowels">🎯 ' + esc(T('practiceVowels')) + '</button><div class="letters">' + vw.map(tile).join('') + '</div>' : '';
+  const tonesHtml = lang === 'th' ? '<h3>' + esc(T('tones')) + '</h3><p class="note">' + esc(T('toneNote')) + '</p><div class="items">' +
+    THAI_TONES.map((t, n) => '<div class="irow"><div class="itx"><span class="tgt lg" lang="th-TH">' + esc(t[0]) + '</span><span class="pr">' + esc(T(t[2])) + ' · ' + esc(t[1]) + '</span><span class="mn">' + esc(T(t[3])) + '</span></div><div class="iac"><button class="ic" data-act="sayRaw" data-t="' + esc(t[0]) + '">🔊</button><button class="ic" data-act="sayRaw" data-slow="1" data-t="' + esc(t[0]) + '">🐢</button></div></div>').join('') +
+    '<div class="irow"><div class="itx"><span class="tgt md" lang="th-TH">' + THAI_TWISTER + '</span><span class="mn">' + esc(T('twister')) + '</span></div><div class="iac"><button class="ic" data-act="sayRaw" data-t="' + THAI_TWISTER + '">🔊</button><button class="ic" data-act="sayRaw" data-slow="1" data-t="' + THAI_TWISTER + '">🐢</button></div></div></div>' : '';
   return header(T('letters') + ' · ' + LN(lang)) + `
   <p class="note">${esc(T(ALPHA_NOTE[lang] || 'noteGeneric'))}</p>
-  <button class="cta slim" data-act="startScope" data-scope="L">🎯 ${esc(T('practiceLetters'))}</button>
+  <button class="cta slim" data-act="startScope" data-scope="cat:letters">🎯 ${esc(T('practiceLetters'))}</button>
   <div class="letters">${tiles}</div>
-  <p class="legend"><i class="s"></i>${esc(T('seen'))} <i class="m"></i>${esc(T('mastered'))}</p>`;
+  <p class="legend"><i class="s"></i>${esc(T('seen'))} <i class="m"></i>${esc(T('mastered'))}</p>
+  ${vowelsHtml}${tonesHtml}`;
 };
 
 /* ===== TOPICS ===== */
-const CAT_ICON = { greet: '👋', num: '🔢', basic: '⭐', food: '🍜', trans: '🚕', shop: '🛍️', emerg: '🚑', time: '🕒', phr: '🗣️', mine: '✏️' };
-SCREENS.topics = () => {
+const CAT_ICON = { greet: '👋', num: '🔢', basic: '⭐', food: '🍜', trans: '🚕', shop: '🛍️', emerg: '🚑', time: '🕒', phr: '🗣️', mine: '✏️',
+  hotel: '🏨', num2: '💯', days: '📅', colors: '🎨', people: '👨‍👩‍👧', body: '🩺', adj: '↔️', verbs: '🏃', conv: '💬' };
+SCREENS.topics = mode => {
   const lang = st.lang, p = P(lang), all = items(lang);
-  const cats = ['greet', 'num', 'basic', 'food', 'trans', 'shop', 'emerg', 'time', 'mine'];
+  const cats = mode === 'P' ? ['phr', 'conv'] : ['greet', 'num', 'basic', 'food', 'trans', 'shop', 'emerg', 'time', 'hotel', 'num2', 'days', 'colors', 'people', 'body', 'adj', 'verbs', 'mine'];
   const rows = cats.map(c => {
     const L = all.filter(i => i.cat === c), m = L.filter(i => p[i.k] && p[i.k].b >= 3).length;
     return '<button class="trow" data-act="nav" data-to="list" data-arg="' + c + '"><span class="ti">' + CAT_ICON[c] + '</span><span class="tt"><b>' + esc(T('cat_' + c)) + '</b><small>' + (c === 'mine' && !L.length ? esc(T('mineEmpty')) : m + '/' + L.length + ' · ' + esc(T('level')) + ' ' + (L[0] ? L[0].lvl : 5)) + '</small>' + (L.length ? bar(m, L.length) : '') + '</span></button>';
   }).join('');
-  return header(T('words') + ' · ' + LN(lang)) + '<div class="list">' + rows + '</div>';
+  return header(T(mode === 'P' ? 'phrases' : 'words') + ' · ' + LN(lang)) + '<div class="list">' + rows + '</div>';
 };
 
 /* ===== ITEM LIST (category) ===== */
 SCREENS.list = cat => {
   const lang = st.lang, p = P(lang), favs = st.favs[lang] || [];
   const L = items(lang).filter(i => i.cat === cat);
-  const rows = L.map(i => {
-    const r = p[i.k];
-    return '<div class="irow' + (r && r.b >= 3 ? ' m' : '') + '"' + (i.cid ? ' data-lp="custom" data-id="' + i.cid + '"' : '') + '>' +
-      '<div class="itx">' + tgt(i, lang, cat === 'phr' ? 'md' : 'lg') + '<span class="pr">' + esc(pron(i)) + (pron2(i) ? ' <em>' + esc(pron2(i)) + '</em>' : '') + '</span><span class="mn">' + esc(meaning(i)) + '</span></div>' +
-      '<div class="iac">' + soundBtns(i.k) +
-      '<button class="ic" data-act="big" data-k="' + i.k + '" aria-label="' + esc(T('showBig')) + '">⛶</button>' +
-      '<button class="ic fav' + (favs.includes(i.k) ? ' on' : '') + '" data-act="fav" data-k="' + i.k + '" aria-label="' + esc(T('fav')) + '" aria-pressed="' + favs.includes(i.k) + '">★</button>' +
-      (i.cid ? '<button class="ic" data-act="editCustom" data-id="' + i.cid + '" aria-label="' + esc(T('edit')) + '">✎</button>' : '') +
-      '</div></div>';
-  }).join('');
+  const rows = L.map(i => rowHTML(i, lang, p, favs)).join('');
   const mineTools = cat === 'mine' ? `<div class="row wrap">
       <button class="btn" data-act="addCustom">➕ ${esc(T('addWord'))}</button>
       <button class="btn gold" data-act="aiWords">✨ ${esc(T('aiWordsBtn'))}${aiReady() ? '' : ' <span class="tag">PRO</span>'}</button></div>` : '';
@@ -1695,6 +2289,40 @@ SCREENS.list = cat => {
     (L.length ? '<button class="cta slim" data-act="startScope" data-scope="cat:' + cat + '">🎯 ' + esc(T('practiceThis')) + '</button>' : '') +
     mineTools + (L.length ? '<div class="items">' + rows + '</div>' : '<p class="empty">' + esc(T('mineEmptyLong')) + '</p>');
 };
+function rowHTML(i, lang, p, favs) {
+    const r = p[i.k];
+    return '<div class="irow' + (r && r.b >= 3 ? ' m' : '') + '"' + (i.cid ? ' data-lp="custom" data-id="' + i.cid + '"' : '') + '>' +
+      '<div class="itx">' + tgt(i, lang, i.type === 'P' ? 'md' : 'lg') + '<span class="pr">' + esc(pron(i)) + (pron2(i) ? ' <em>' + esc(pron2(i)) + '</em>' : '') + '</span><span class="mn">' + esc(meaning(i)) + '</span></div>' +
+      '<div class="iac">' + soundBtns(i.k) +
+      '<button class="ic" data-act="big" data-k="' + i.k + '" aria-label="' + esc(T('showBig')) + '">⛶</button>' +
+      '<button class="ic fav' + (favs.includes(i.k) ? ' on' : '') + '" data-act="fav" data-k="' + i.k + '" aria-label="' + esc(T('fav')) + '" aria-pressed="' + favs.includes(i.k) + '">★</button>' +
+      (i.cid ? '<button class="ic" data-act="editCustom" data-id="' + i.cid + '" aria-label="' + esc(T('edit')) + '">✎</button>' : '') +
+      '</div></div>';
+}
+
+/* ===== SEARCH: how do you say…? ===== */
+let SQ = '';
+function searchResults(q) {
+  const lang = st.lang, nq = norm(q);
+  if (!nq) return [];
+  const score = i => {
+    const f = [i.he, i.en, i.text, i.roman, i.heb].map(norm);
+    if (f.some(x => x === nq)) return 3;
+    if (f.some(x => x.startsWith(nq))) return 2;
+    if (f.some(x => x.includes(nq))) return 1;
+    return 0;
+  };
+  return items(lang).filter(i => i.type !== 'L').map(i => [i, score(i)]).filter(x => x[1]).sort((a, b) => b[1] - a[1]).slice(0, 30).map(x => x[0]);
+}
+function searchListHTML() {
+  const lang = st.lang, res = searchResults(SQ);
+  if (!SQ.trim()) return '<p class="hint">' + esc(T('searchHint')) + '</p>';
+  const miss = '<div class="card"><p>' + esc(T('searchNone', { q: SQ })) + '</p><button class="cta slim" data-act="searchToSpeak">✨ ' + esc(T('searchTranslate')) + (aiReady() ? '' : ' <span class="tag">PRO</span>') + '</button></div>';
+  return res.length ? '<div class="items">' + res.map(i => rowHTML(i, lang, P(lang), st.favs[lang] || [])).join('') + '</div>' + (res.length < 3 ? miss : '') : miss;
+}
+SCREENS.search = () => header(T('searchTitle') + ' · ' + LN(st.lang)) + `
+  <label class="fld"><span>${esc(T('searchLabel'))}</span><input id="sIn" type="search" value="${esc(SQ)}" dir="auto" autocomplete="off" placeholder="${esc(T('searchPh'))}"></label>
+  <div id="sRes">${searchListHTML()}</div>`;
 
 /* ===== PRACTICE MENU ===== */
 SCREENS.practice = () => {
@@ -1706,6 +2334,7 @@ SCREENS.practice = () => {
     opt('due', '⏰', T('prDue'), due) + opt('L', '🔤', T('letters'), all.filter(i => i.type === 'L').length) +
     opt('W', '💬', T('words'), all.filter(i => i.type === 'W').length) + opt('P', '🗣️', T('phrases'), all.filter(i => i.type === 'P').length) +
     opt('fav', '★', T('prFav'), favs.length) + opt('weak', '🩹', T('prWeak'), weak) + opt('listen', '🎧', T('prListen'), null) +
+    (SR ? opt('say', '🎤', T('prSay'), null) : '') + (VOWELS[lang] ? opt('cat:vowels', '🔡', T('vowels'), VOWELS[lang].length) : '') +
     '</div>';
 };
 
@@ -1716,6 +2345,7 @@ const LESSON = {
     const lang = this.lang = st.lang, p = P(lang), all = items(lang), now = Date.now();
     let q = [];
     this.listenOnly = scope === 'listen';
+    this.sayMode = scope === 'say';
     if (scope === 'auto') {
       const cur = curLevel(lang);
       const due = all.filter(i => p[i.k] && p[i.k].d <= now && i.lvl <= cur + 1).sort((a, b) => p[a.k].d - p[b.k].d).slice(0, 15);
@@ -1728,11 +2358,11 @@ const LESSON = {
       if (scope === 'due') pool = all.filter(i => p[i.k] && p[i.k].d <= now);
       else if (scope === 'fav') pool = all.filter(i => (st.favs[lang] || []).includes(i.k));
       else if (scope === 'weak') pool = all.filter(i => p[i.k] && p[i.k].w > 0 && p[i.k].b <= 2);
-      else if (scope === 'listen') pool = all.filter(i => i.type !== 'L' && (p[i.k] || i.lvl <= 2));
+      else if (scope === 'listen' || scope === 'say') pool = all.filter(i => i.type !== 'L' && (p[i.k] || i.lvl <= 2));
       else if (scope.startsWith('cat:')) pool = all.filter(i => i.cat === scope.slice(4));
       else pool = all.filter(i => i.type === scope);
       pool = shuffle(pool).slice(0, 10);
-      q = pool.filter(it => !p[it.k] && scope !== 'listen').map(it => ({ it, intro: true })).concat(pool.map(it => ({ it })));
+      q = pool.filter(it => !p[it.k] && scope !== 'listen' && scope !== 'say').map(it => ({ it, intro: true })).concat(pool.map(it => ({ it, kind: scope === 'say' ? 'SAY' : undefined })));
       this.fresh = pool.filter(it => !p[it.k]).length;
     }
     if (!q.length) { toast(T('nothingNow'), '', 3500); return; }
@@ -1767,6 +2397,14 @@ const LESSON = {
       setTimeout(() => speak(ttsText(it), lang), 250);
       return;
     }
+    if (step.kind === 'SAY') {
+      box.innerHTML = '<div class="card intro"><p class="qh">' + esc(T('qSAY')) + '</p><p class="ask">' + esc(meaning(it)) + '</p>' + tgt(it, lang, it.type === 'P' ? 'lg' : 'xl') +
+        '<p class="pr big">' + esc(pron(it)) + '</p><div class="row c">' + soundBtns(it.k) + '</div>' +
+        '<button class="listen" data-act="saySession" aria-label="' + esc(T('sayIt')) + '">🎤</button><p class="said" id="said" aria-live="polite"></p>' +
+        '<div id="fb" aria-live="polite"><button class="btn" data-act="sayGrade" data-ok="0">' + esc(T('skipIt')) + '</button></div></div>';
+      this.answered = false;
+      return;
+    }
     this.makeQ(step);
     const k = step.kind;
     let prompt = '';
@@ -1798,6 +2436,15 @@ const LESSON = {
     fb.innerHTML = '<div class="fb ' + (good ? 'ok' : 'no') + '"><b>' + esc(good ? T('right') : T('wrongWas')) + '</b> ' + tgt(it, this.lang, 'sm') + ' · <span class="pr">' + esc(pron(it)) + '</span> · ' + esc(it.type === 'L' ? (st.ui === 'he' ? it.heb : it.roman) : meaning(it)) + '</div><button class="cta" data-act="lnext">' + esc(T('next')) + '</button>';
     speak(ttsText(it), this.lang);
     const nb = fb.querySelector('.cta'); if (nb) nb.focus();
+  },
+  sayGrade(ok) {
+    if (this.answered) return;
+    this.answered = true;
+    const it = this.q[this.i].it;
+    grade(this.lang, it.k, ok);
+    ok ? this.ok++ : this.bad++;
+    $('#fb').innerHTML = '<div class="fb ' + (ok ? 'ok' : 'no') + '"><b>' + esc(ok ? T('saidGood') : T('sayMore')) + '</b></div><button class="cta" data-act="lnext">' + esc(T('next')) + '</button>';
+    const nb = $('#fb .cta'); if (nb) nb.focus();
   },
   next() { this.i++; this.paint(); },
   summary() {
@@ -1860,7 +2507,7 @@ SCREENS.progress = () => {
   for (let o = -6; o <= 0; o++) { const k = dayKey(o); const v = st.log[k] || 0; mx = Math.max(mx, v); days.push({ k, v }); }
   const dn = d => new Date(d.k + 'T12:00').toLocaleDateString(st.ui === 'he' ? 'he-IL' : st.ui, { weekday: 'short' });
   const chart = '<div class="chart" role="img" aria-label="' + esc(T('last7')) + '">' + days.map(d => '<div class="col"><i style="height:' + Math.round(100 * d.v / mx) + '%"></i><small>' + esc(dn(d)) + '</small><b>' + d.v + '</b></div>').join('') + '</div>';
-  const lv = [1, 2, 3, 4, 5].filter(l => stats[l].total).map(l => '<div class="lvrow"><span>' + l + ' · ' + esc(T('lvl' + l)) + '</span><span>' + stats[l].mastered + '/' + stats[l].total + '</span>' + bar(stats[l].mastered, stats[l].total) + '</div>').join('');
+  const lv = Array.from({ length: MAXL }, (_, n) => n + 1).filter(l => stats[l].total).map(l => '<div class="lvrow"><span>' + l + ' · ' + esc(T('lvl' + l)) + '</span><span>' + stats[l].mastered + '/' + stats[l].total + '</span>' + bar(stats[l].mastered, stats[l].total) + '</div>').join('');
   const other = Object.keys(LANGS).map(l => '<div class="lvrow"><span>' + LANGS[l].flag + ' ' + esc(LN(l)) + '</span><span>' + langPct(l) + '%</span>' + bar(langPct(l), 100) + '</div>').join('');
   const total = Object.values(st.log).reduce((a, b) => a + b, 0);
   return header(T('progress')) + `
@@ -2146,6 +2793,11 @@ const ACT = {
     speak(it.tts, st.lang);
   },
   sayIt: d => { const it = findItem(st.lang, d.k); if (it) sayIt(it, st.lang, $('#said')); },
+  sayRaw: d => speak(d.t, st.lang, !!d.slow),
+  saySession: () => { const s = LESSON.q[LESSON.i]; if (s && !LESSON.answered) sayIt(s.it, LESSON.lang, $('#said'), ok => { if (ok) LESSON.sayGrade(true); }); },
+  sayGrade: d => LESSON.sayGrade(d.ok === '1'),
+  searchToSpeak: () => { SPK.src = SQ; SPK.direct = false; SPK.res = null; go('speak'); },
+  whatsNew: () => whatsNew(),
   startAuto: () => LESSON.start('auto'),
   startScope: d => LESSON.start(d.scope),
   answer: d => LESSON.answer(+d.n),
@@ -2235,6 +2887,7 @@ document.addEventListener('input', e => {
   if (k === 'rate') { const r = $('#rateV'); if (r) r.textContent = (+e.target.value).toFixed(2); }
   if (k === 'user') { st.user = e.target.value.trim(); save(); }
   if (e.target.id === 'spkIn') SPK.src = e.target.value;
+  if (e.target.id === 'sIn') { SQ = e.target.value; const r = $('#sRes'); if (r) r.innerHTML = searchListHTML(); }
 });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { const b = $('#bigshow'); if (b) { b.remove(); return; } if ($('#modal')) { closeModal(); return; } }
@@ -2259,11 +2912,18 @@ document.addEventListener('pointerdown', e => {
 });
 ['pointerup', 'pointerleave', 'pointercancel', 'scroll'].forEach(ev => document.addEventListener(ev, () => { if (lpT) { clearTimeout(lpT); lpT = null; } }, true));
 
+/* ---------- what's new ---------- */
+function whatsNew() {
+  modal('<h3>✨ ' + esc(T('newIn', { v: APP.ver })) + '</h3><ul class="news">' + ['wn1', 'wn2', 'wn3', 'wn4', 'wn5'].map(k => '<li>' + esc(T(k)) + '</li>').join('') + '</ul><button class="cta slim" data-act="closeModal">' + esc(T('gotIt')) + '</button>');
+}
+
 /* ---------- boot ---------- */
 function boot() {
   applyTheme();
   render();
-  if (!st.onb) setTimeout(() => guide(0), 300);
+  const firstRun = !st.onb;
+  if (st.seenVer !== APP.ver) { const had = !!st.seenVer || Object.keys(st.log).length > 0; st.seenVer = APP.ver; save(); if (!firstRun && had) setTimeout(whatsNew, 400); }
+  if (firstRun) setTimeout(() => guide(0), 300);
   else if (st.backupAt && Date.now() - st.backupAt > 30 * 864e5 && Object.keys(st.log).length > 5) setTimeout(() => toast(T('backupNudge'), '', 5000), 1500);
   else if (!st.backupAt && Date.now() - st.firstUse > 14 * 864e5) setTimeout(() => toast(T('backupNudge'), '', 5000), 1500);
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(e => logErr('sw: ' + e.message, 'sw', 0));
