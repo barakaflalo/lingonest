@@ -1,8 +1,8 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.4.0' };
-const CORE_MODS = ['content', 'numbers', 'ui-en', 'app'];
+const APP = { name: 'LingoNest', ver: '1.5.0' };
+const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
 function logErr(m, f, l) {
@@ -35,10 +35,11 @@ const S = (() => {
 const DEF = {
   v: 1, user: '', ui: 'he', theme: 'gold', mode: 'night', lang: 'th', goal: 10, rate: 0.9, gender: 'm',
   voices: {}, onb: false, prog: {}, log: {}, newLog: {}, streak: { last: '', n: 0 }, phrases: [], custom: {},
-  favs: {}, ai: { provider: 'gemini', model: '', has: {} }, backupAt: 0, firstUse: 0, seenVer: ''
+  favs: {}, ai: { provider: 'gemini', model: '', has: {} }, backupAt: 0, firstUse: 0, seenVer: '', fix: {}
 };
 let st = Object.assign({}, DEF, S.get('ln_state', {}));
 st.ai = Object.assign({}, DEF.ai, st.ai || {});
+st.fix = st.fix || {};
 if (!LANGS[st.lang]) st.lang = 'th';
 if (!st.firstUse) st.firstUse = Date.now();
 function save() { S.set('ln_state', st); }
@@ -78,14 +79,16 @@ function genderize(lang, s) {
 let _itemsCache = {};
 function items(lang) {
   if (!WD[lang]) return [];
-  const key = lang + st.gender + (st.custom[lang] || []).length + JSON.stringify((st.custom[lang] || []).map(c => c.id + c.text));
+  const key = lang + st.gender + JSON.stringify(st.fix[lang] || {}).length + (st.custom[lang] || []).length + JSON.stringify((st.custom[lang] || []).map(c => c.id + c.text));
   if (_itemsCache[lang] && _itemsCache[lang].key === key) return _itemsCache[lang].list;
   const g = s => genderize(lang, s);
   const L = [];
   (ALPHA[lang] || []).forEach((a, i) => L.push({ k: 'L:' + i, type: 'L', lvl: 1, cat: 'letters', text: a[0], tts: a[1], heb: a[2], roman: a[3], he: a[2], en: a[3] }));
   (VOWELS[lang] || []).forEach((a, i) => L.push({ k: 'V:' + i, type: 'L', lvl: 1, cat: 'vowels', text: a[0], tts: a[1], heb: a[2], roman: a[3], he: a[2], en: a[3] }));
   CONCEPTS.forEach(c => {
-    const t = WD[lang] && WD[lang][c[0]]; if (!t) return;
+    const t0 = WD[lang] && WD[lang][c[0]]; if (!t0) return;
+    const fx = st.fix[lang] && st.fix[lang][c[0]];
+    const t = fx ? [fx.text || t0[0], fx.roman || t0[1], fx.heb || t0[2]] : t0;
     L.push({ k: 'W:' + c[0], type: isPhraseCat(c[1]) ? 'P' : 'W', lvl: c[2], cat: c[1], he: c[3], en: c[4], text: g(t[0]), roman: g(t[1]), heb: g(t[2]) });
   });
   (st.custom[lang] || []).forEach(c => L.push({ k: 'C:' + c.id, type: 'W', lvl: MAXL, cat: 'mine', he: c.he, en: c.he, text: c.text, roman: c.roman || '', heb: c.heb || '', cid: c.id }));
@@ -357,6 +360,7 @@ function go(id, arg, noPush) {
   if (!noPush && NAV.cur !== id) NAV.stack.push({ id: NAV.cur, arg: NAV.arg });
   if (id === 'home') NAV.stack = [];
   if (DLG.cur >= 0 || DLG.run) { DLG.run++; DLG.cur = -1; }
+  if (id === 'cards' && !noPush) cardsStart();
   NAV.cur = id; NAV.arg = arg;
   if ('speechSynthesis' in window) speechSynthesis.cancel();
   render();
@@ -618,8 +622,123 @@ SCREENS.practice = () => {
     opt('W', '💬', T('words'), all.filter(i => i.type === 'W').length) + opt('P', '🗣️', T('phrases'), all.filter(i => i.type === 'P').length) +
     opt('fav', '★', T('prFav'), favs.length) + opt('weak', '🩹', T('prWeak'), weak) + opt('listen', '🎧', T('prListen'), null) +
     (SR ? opt('say', '🎤', T('prSay'), null) : '') + (VOWELS[lang] ? opt('cat:vowels', '🔡', T('vowels'), VOWELS[lang].length) : '') +
+    opt('build', '🧩', T('prBuild'), all.filter(i => i.type === 'P' && canBuild(i, lang)).length) +
+    opt('dict', '⌨️', T('prDict'), all.filter(i => dictTarget(i)).length) +
+    '<button class="trow" data-act="nav" data-to="cards" data-arg="mix"><span class="ti">🃏</span><span class="tt"><b>' + esc(T('prCards')) + '</b><small>' + esc(T('cardsSub')) + '</small></span></button>' +
     '</div>';
 };
+
+/* ---------- sentence builder + dictation helpers ---------- */
+function sentTokens(it, lang) {
+  const t = it.text.replace(/\.\.\./g, '…');
+  let a;
+  if (lang === 'th') {
+    if (!(window.Intl && Intl.Segmenter)) return null;
+    a = [...new Intl.Segmenter('th', { granularity: 'word' }).segment(t)].map(x => x.segment).filter(x => x.trim());
+  } else a = t.split(/\s+/).filter(Boolean);
+  const out = [];
+  a.forEach(x => { if (/^[\p{P}\s]+$/u.test(x) && out.length) out[out.length - 1] += x; else out.push(x); });
+  return out;
+}
+function canBuild(it, lang) { if (it.type !== 'P' || it.text.includes('...')) return false; const t = sentTokens(it, lang); return !!t && t.length >= 3 && t.length <= 9; }
+const isLatin = s => /^[\p{Script=Latin}\p{P}\p{N}\s]+$/u.test(s);
+function dictTarget(it) {
+  if (it.type === 'L' || it.text.length > 32 || it.text.includes('...')) return '';
+  if (isLatin(it.text)) return it.text;
+  return it.roman && isLatin(it.roman) ? it.roman : '';
+}
+/* ===== FLASHCARDS ===== */
+const CARDS = { deck: [], i: 0, flip: false, ok: 0, bad: 0, x0: null };
+function cardsDeck() {
+  const lang = st.lang, p = P(lang), all = items(lang).filter(i => i.type !== 'L'), now = Date.now();
+  const due = all.filter(i => p[i.k] && p[i.k].d <= now);
+  const seen = shuffle(all.filter(i => p[i.k] && !due.includes(i)));
+  const fresh = all.filter(i => !p[i.k] && i.lvl <= curLevel(lang) + 1);
+  return due.concat(seen, fresh).slice(0, 20);
+}
+SCREENS.cards = () => {
+  const lang = st.lang, c = CARDS;
+  if (!c.deck.length) return header(T('prCards')) + '<p class="empty">' + esc(T('nothingNow')) + '</p>';
+  if (c.i >= c.deck.length) return header(T('prCards')) + '<div class="card sum"><p class="big-num">' + c.ok + '/' + c.deck.length + '</p><p>' + esc(T('cardsDone', { n: c.deck.length })) + '</p><div class="row c wrap"><button class="cta" data-act="cardsNew">🃏 ' + esc(T('another')) + '</button><button class="btn" data-act="home">⌂ ' + esc(T('home')) + '</button></div></div>';
+  const it = c.deck[c.i];
+  return header(T('prCards') + ' · ' + (c.i + 1) + '/' + c.deck.length) + `
+  <div class="flash${c.flip ? ' flipped' : ''}" id="flash" data-act="cardFlip" role="button" tabindex="0" aria-label="${esc(T('cardFlip'))}">
+    ${tgt(it, lang, it.type === 'P' ? 'lg' : 'xl')}
+    ${c.flip ? '<p class="pr big">' + esc(pron(it)) + '</p><p class="mn big">' + esc(meaning(it)) + '</p>' : '<p class="tiny">' + esc(T('cardFlip')) + '</p>'}
+  </div>
+  <div class="row c">${soundBtns(it.k)}</div>
+  <div class="row c cardbtns"><button class="btn red" data-act="cardGrade" data-ok="0">✗ ${esc(T('notYetKnew'))}</button><button class="btn gold" data-act="cardGrade" data-ok="1">✓ ${esc(T('knew'))}</button></div>
+  <p class="hint c">${esc(T('swipeHint'))}</p>`;
+};
+function cardsStart() { Object.assign(CARDS, { deck: cardsDeck(), i: 0, flip: false, ok: 0, bad: 0 }); }
+function cardGrade(ok) {
+  const it = CARDS.deck[CARDS.i]; if (!it) return;
+  grade(st.lang, it.k, ok); ok ? CARDS.ok++ : CARDS.bad++;
+  CARDS.i++; CARDS.flip = false; render();
+  const n = CARDS.deck[CARDS.i]; if (n) setTimeout(() => speak(ttsText(n), st.lang), 200);
+}
+
+/* ===== CONTENT QUALITY CHECK (Pro, uses the user's AI key) ===== */
+const QA = { run: 0, busy: false, done: 0, total: 0, issues: [], lang: '', msg: '' };
+function qaBatches(lang) {
+  const ids = CONCEPTS.map(c => c[0]).filter(id => WD[lang] && WD[lang][id]);
+  const out = []; for (let i = 0; i < ids.length; i += 35) out.push(ids.slice(i, i + 35)); return out;
+}
+async function qaRun() {
+  const lang = st.lang, run = ++QA.run, batches = qaBatches(lang), cmap = {};
+  CONCEPTS.forEach(c => { cmap[c[0]] = c; });
+  Object.assign(QA, { busy: true, done: 0, total: batches.reduce((a, b) => a + b.length, 0), issues: [], lang, msg: '' });
+  render();
+  for (const b of batches) {
+    if (run !== QA.run) return;
+    const lines = b.map(id => { const t = WD[lang][id]; return id + ' | ' + cmap[id][3] + ' | ' + t[0] + ' | ' + t[1] + ' | ' + t[2]; }).join('\n');
+    const prompt = 'You are a native ' + LANGS[lang].name.en + ' speaker and an experienced teacher, reviewing a travel phrasebook for Hebrew speakers. ' +
+      'Each line: id | Hebrew meaning | ' + LANGS[lang].name.en + ' text | Latin transliteration | pronunciation written in Hebrew letters. ' +
+      'Report ONLY real problems: a wrong or unnatural translation for the Hebrew meaning, spelling mistakes, or a transliteration / Hebrew-letter pronunciation that would clearly lead to a wrong pronunciation. ' +
+      'Ignore small stylistic choices. The traveler is male, so male speaker forms are intentional' + (lang === 'th' ? ' (ครับ, ผม); lines where a local vendor or driver speaks may use ค่ะ on purpose' : '') + '. ' +
+      'Return ONLY JSON: {"issues":[{"id":"...","problem":"short explanation in Hebrew","text":"corrected native text, or empty if fine","roman":"corrected transliteration, or empty","heb":"corrected Hebrew-letter pronunciation, or empty"}]}. If everything is fine return {"issues":[]}.\n\n' + lines;
+    let tries = 0, res = null;
+    while (!res && run === QA.run) {
+      try { res = await aiJSON(prompt); }
+      catch (e) {
+        if ((e.status === 429 || e.status === 503) && tries < 3) { tries++; QA.msg = T('qaWait', { s: 20 }); qaPaint(); await new Promise(r => setTimeout(r, 20000)); QA.msg = ''; continue; }
+        QA.busy = false; QA.msg = T('aiErr') + ': ' + e.message; qaPaint(); return;
+      }
+    }
+    if (run !== QA.run) return;
+    (res.issues || []).forEach(x => { if (x && b.includes(x.id) && (x.text || x.roman || x.heb)) QA.issues.push({ id: x.id, problem: String(x.problem || ''), text: String(x.text || ''), roman: String(x.roman || ''), heb: String(x.heb || '') }); });
+    QA.done += b.length; qaPaint();
+    await new Promise(r => setTimeout(r, 2500));
+  }
+  QA.busy = false; QA.msg = T('qaDone'); qaPaint();
+}
+function qaIssueHTML(x, n) {
+  const lang = QA.lang, t = WD[lang][x.id], c = CONCEPTS.find(k => k[0] === x.id), dir = LANGS[lang].dir, tl = LANGS[lang].tts;
+  const cell = (a, b, cls) => b && b !== a ? '<span class="qa-old ' + (cls || '') + '">' + esc(a) + '</span> → <span class="qa-new ' + (cls || '') + '">' + esc(b) + '</span>' : '<span class="' + (cls || '') + '">' + esc(a) + '</span>';
+  return '<div class="card qa"><p class="mn">' + esc(c ? (st.ui === 'he' ? c[3] : c[4]) : x.id) + ' · <small>' + esc(x.id) + '</small></p>' +
+    '<p class="tgt md" lang="' + tl + '" dir="' + dir + '">' + cell(t[0], x.text) + '</p><p class="pr">' + cell(t[2], x.heb) + '</p><p class="tiny" dir="ltr">' + cell(t[1], x.roman) + '</p>' +
+    '<p class="hint">💬 ' + esc(x.problem) + '</p><div class="row wrap"><button class="btn gold" data-act="qaApply" data-n="' + n + '">✓ ' + esc(T('qaApply')) + '</button><button class="btn" data-act="qaIgnore" data-n="' + n + '">' + esc(T('qaIgnore')) + '</button>' +
+    (x.text ? '<button class="ic" data-act="sayRaw" data-t="' + esc(x.text) + '">🔊</button>' : '') + '</div></div>';
+}
+function qaBodyHTML() {
+  const fixes = Object.keys(st.fix[st.lang] || {}).length;
+  let h = '';
+  if (QA.lang === st.lang && (QA.busy || QA.done)) {
+    h += '<p>' + esc(T('qaProgress', { d: QA.done, t: QA.total })) + '</p>' + bar(QA.done, QA.total);
+    if (QA.msg) h += '<p class="hint">' + esc(QA.msg) + '</p>';
+    if (!QA.busy) h += '<p><b>' + esc(QA.issues.length ? T('qaFound', { n: QA.issues.length }) : T('qaNone')) + '</b></p>';
+    h += QA.issues.map(qaIssueHTML).join('');
+    if (QA.issues.length && !QA.busy) h += '<button class="btn" data-act="qaCopy">📋 ' + esc(T('qaCopy')) + '</button><p class="tiny">' + esc(T('qaCopyHint')) + '</p>';
+  }
+  if (fixes) h += '<div class="card"><p>' + esc(T('qaFixes', { n: fixes })) + '</p><div class="row wrap"><button class="btn" data-act="qaCopyFixes">📋 ' + esc(T('qaCopy')) + '</button><button class="btn red" data-act="qaReset">' + esc(T('qaReset')) + '</button></div></div>';
+  return h;
+}
+function qaPaint() { const b = $('#qaBody'); if (b && NAV.cur === 'qa') { b.innerHTML = qaBodyHTML(); const s = $('#qaStart'); if (s) s.outerHTML = qaStartBtn(); } }
+const qaStartBtn = () => QA.busy && QA.lang === st.lang ? '<button class="cta slim" id="qaStart" data-act="qaStop">⏹ ' + esc(T('qaStop')) + '</button>' : '<button class="cta slim" id="qaStart" data-act="qaStart">🔍 ' + esc(T('qaStart', { l: LN(st.lang) })) + (aiReady() ? '' : ' <span class="tag">PRO</span>') + '</button>';
+SCREENS.qa = () => header(T('qaTitle') + ' · ' + LN(st.lang)) + '<p class="note">' + esc(T('qaIntro')) + '</p>' + qaStartBtn() + '<p class="tiny">' + esc(T('aiPrivacy')) + '</p><div id="qaBody">' + qaBodyHTML() + '</div>';
+function qaReportText(list, lang) {
+  return 'LingoNest ' + APP.ver + ' · ' + LANGS[lang].name.en + '\n' + list.map(x => { const t = WD[lang][x.id] || ['', '', '']; return x.id + ': ' + t[0] + ' | ' + t[1] + ' | ' + t[2] + '  →  ' + (x.text || t[0]) + ' | ' + (x.roman || t[1]) + ' | ' + (x.heb || t[2]) + (x.problem ? '  (' + x.problem + ')' : ''); }).join('\n');
+}
 
 /* ===== LESSON (session engine) ===== */
 const LESSON = {
@@ -642,10 +761,13 @@ const LESSON = {
       else if (scope === 'fav') pool = all.filter(i => (st.favs[lang] || []).includes(i.k));
       else if (scope === 'weak') pool = all.filter(i => p[i.k] && p[i.k].w > 0 && p[i.k].b <= 2);
       else if (scope === 'listen' || scope === 'say') pool = all.filter(i => i.type !== 'L' && (p[i.k] || i.lvl <= 2));
+      else if (scope === 'build') pool = all.filter(i => canBuild(i, lang) && (p[i.k] || i.lvl <= Math.max(curLevel(lang) + 2, 4)));
+      else if (scope === 'dict') pool = all.filter(i => dictTarget(i) && (p[i.k] || i.lvl <= 2));
       else if (scope.startsWith('cat:')) pool = all.filter(i => i.cat === scope.slice(4));
       else pool = all.filter(i => i.type === scope);
       pool = shuffle(pool).slice(0, 10);
-      q = pool.filter(it => !p[it.k] && scope !== 'listen' && scope !== 'say').map(it => ({ it, intro: true })).concat(pool.map(it => ({ it, kind: scope === 'say' ? 'SAY' : undefined })));
+      const forced = { say: 'SAY', build: 'BUILD', dict: 'DICT' }[scope];
+      q = pool.filter(it => !p[it.k] && scope !== 'listen' && (!forced || forced === 'BUILD')).map(it => ({ it, intro: true })).concat(pool.map(it => ({ it, kind: forced })));
       this.fresh = pool.filter(it => !p[it.k]).length;
     }
     if (!q.length) { toast(T('nothingNow'), '', 3500); return; }
@@ -660,8 +782,14 @@ const LESSON = {
     let kind = step.kind;
     if (!kind) {
       kind = this.listenOnly ? 'A2T' : pick(it.type === 'L' ? ['T2S', 'S2T', 'A2T'] : ['T2M', 'M2T', 'A2T', 'T2M']);
-      if (!('speechSynthesis' in window) && kind === 'A2T') kind = 'T2M';
-      step.kind = kind; step.opts = opts;
+      const r = P(lang)[it.k];
+      if (!this.listenOnly && it.type === 'P' && canBuild(it, lang) && Math.random() < 0.35) kind = 'BUILD';
+      else if (!this.listenOnly && it.type === 'W' && r && r.b >= 2 && dictTarget(it) && Math.random() < 0.2) kind = 'DICT';
+      if (!('speechSynthesis' in window) && (kind === 'A2T' || kind === 'DICT')) kind = 'T2M';
+      step.kind = kind;
+    }
+    if (!step.opts) step.opts = opts;
+    if (step.kind === 'BUILD' && !step.toks) { step.toks = sentTokens(it, lang); step.pool = shuffle(step.toks.map((_, i) => i)); if (step.pool.every((v, i) => v === i)) step.pool.reverse(); step.sel = [];
     }
     return step;
   },
@@ -690,6 +818,16 @@ const LESSON = {
     }
     this.makeQ(step);
     const k = step.kind;
+    if (k === 'BUILD') { this.paintBuild(step); return; }
+    if (k === 'DICT') {
+      const lat = !isLatin(it.text);
+      box.innerHTML = '<div class="card"><p class="qh">' + esc(T(lat ? 'qDICTlat' : 'qDICT')) + '</p><div class="prompt"><button class="listen" data-act="say" data-k="' + it.k + '">🔊</button><button class="ic" data-act="say" data-slow="1" data-k="' + it.k + '">🐢</button></div>' +
+        '<label class="fld"><span>' + esc(T('typeHere')) + '</span><input id="dIn" dir="ltr" autocomplete="off" autocapitalize="off" spellcheck="false"></label>' +
+        '<button class="cta slim" data-act="dictCheck">✓ ' + esc(T('check')) + '</button><div id="fb" aria-live="polite"></div></div>';
+      this.answered = false;
+      setTimeout(() => { speak(ttsText(it), lang); const i = $('#dIn'); if (i) i.focus(); }, 250);
+      return;
+    }
     let prompt = '';
     if (k === 'T2M' || k === 'T2S') prompt = tgt(it, lang, it.type === 'P' ? 'lg' : 'xl');
     else if (k === 'M2T') prompt = '<p class="ask">' + esc(meaning(it)) + '</p>';
@@ -702,6 +840,39 @@ const LESSON = {
     box.innerHTML = '<div class="card"><p class="qh">' + esc(T(q)) + '</p><div class="prompt">' + prompt + '</div><div class="opts">' + opts + '</div><div id="fb" aria-live="polite"></div></div>';
     this.answered = false;
     if (k === 'A2T') setTimeout(() => speak(ttsText(it), lang), 250);
+  },
+  paintBuild(step) {
+    const it = step.it, lang = this.lang, sep = lang === 'th' ? '' : ' ';
+    const chip = (i, act, pos) => '<button class="wchip" data-act="' + act + '" data-n="' + pos + '" lang="' + LANGS[lang].tts + '">' + esc(step.toks[i]) + '</button>';
+    $('#lesson').innerHTML = '<div class="card"><p class="qh">' + esc(T('qBUILD')) + '</p><p class="ask">' + esc(meaning(it)) + '</p>' +
+      '<div class="bans" dir="' + LANGS[lang].dir + '">' + (step.sel.length ? step.sel.map((i, pos) => chip(i, 'bUndo', pos)).join('') : '<span class="tiny">' + esc(T('bTap')) + '</span>') + '</div>' +
+      '<div class="bpool" dir="' + LANGS[lang].dir + '">' + step.pool.map((i, pos) => chip(i, 'bPick', pos)).join('') + '</div>' +
+      '<div class="row wrap"><button class="cta slim" data-act="bCheck"' + (step.pool.length ? ' disabled' : '') + '>✓ ' + esc(T('check')) + '</button><button class="btn" data-act="bClear">↺ ' + esc(T('bClear')) + '</button></div><div id="fb" aria-live="polite"></div></div>';
+    this.answered = false;
+    step._sep = sep;
+  },
+  bPick(pos) { const s = this.q[this.i]; if (this.answered) return; s.sel.push(s.pool.splice(pos, 1)[0]); this.paintBuild(s); },
+  bUndo(pos) { const s = this.q[this.i]; if (this.answered) return; s.pool.push(s.sel.splice(pos, 1)[0]); this.paintBuild(s); },
+  bClear() { const s = this.q[this.i]; if (this.answered) return; s.pool = s.pool.concat(s.sel); s.sel = []; this.paintBuild(s); },
+  bCheck() { const s = this.q[this.i]; if (this.answered || s.pool.length) return; const got = s.sel.map(i => s.toks[i]).join(s._sep), want = s.toks.join(s._sep); this.finish(got === want); },
+  dictCheck() {
+    const s = this.q[this.i], v = ($('#dIn') || {}).value || ''; if (this.answered) return;
+    if (!v.trim()) { toast(T('typeFirst'), 'warn'); return; }
+    this.finish(sim(norm(v), norm(dictTarget(s.it))) >= 0.8);
+  },
+  finish(good) {
+    if (this.answered) return;
+    this.answered = true;
+    const step = this.q[this.i], it = step.it;
+    grade(this.lang, it.k, good);
+    good ? this.ok++ : this.bad++;
+    if (!good && !step.retry) this.q.push({ it, retry: true, kind: step.kind });
+    try { navigator.vibrate && navigator.vibrate(good ? 20 : [40, 40, 40]); } catch (e) {}
+    document.querySelectorAll('#lesson .wchip, #lesson [data-act=bCheck], #lesson [data-act=bClear], #lesson [data-act=dictCheck]').forEach(b => { b.disabled = true; });
+    const fb = $('#fb');
+    fb.innerHTML = '<div class="fb ' + (good ? 'ok' : 'no') + '"><b>' + esc(good ? T('right') : T('wrongWas')) + '</b> ' + tgt(it, this.lang, 'sm') + ' · <span class="pr">' + esc(pron(it)) + '</span> · ' + esc(meaning(it)) + '</div><button class="cta" data-act="lnext">' + esc(T('next')) + '</button>';
+    speak(ttsText(it), this.lang);
+    const nb = fb.querySelector('.cta'); if (nb) nb.focus();
   },
   answer(n) {
     if (this.answered) return;
@@ -847,6 +1018,8 @@ SCREENS.settings = sec => {
     <div class="row wrap"><button class="btn" data-act="refreshModels">↻ ${esc(T('refreshModels'))}</button><button class="btn" data-act="testAi">🔌 ${esc(T('testAi'))}</button></div>
     <p class="tiny">🔒 ${esc(T('aiPrivacy'))}</p>
   </section>
+  <section class="card set"><h3>🔍 ${esc(T('qaTitle'))}</h3><p class="hint">${esc(T('qaSub'))}</p><button class="btn" data-act="nav" data-to="qa">▶ ${esc(T('qaOpen'))}</button></section>
+  <section class="card set"><h3>🪄 ${esc(T('asstSec'))}</h3><p class="hint">${esc(T('asstHint'))}</p></section>
   <section class="card set"><h3>💾 ${esc(T('backupSec'))}</h3>
     <div class="row wrap"><button class="btn" data-act="exportJson">⬇️ ${esc(T('exportJson'))}</button>
     <label class="btn">⬆️ ${esc(T('importJson'))}<input type="file" accept=".json,application/json" data-ch="import" hidden></label>
@@ -923,7 +1096,9 @@ function bigShow(text, lang, pr, mn) {
     (pr ? '<p class="pr">' + esc(pr) + '</p>' : '') + (mn ? '<p class="mn">' + esc(mn) + '</p>' : '') +
     '<div class="row c"><button class="ic xl" id="bsSay">🔊</button><button class="ic xl" id="bsSlow">🐢</button></div></div>';
   document.body.appendChild(w);
-  $('#bsX').onclick = () => w.remove();
+  document.body.classList.add('bs-open');
+  const close = () => { w.remove(); document.body.classList.remove('bs-open'); };
+  $('#bsX').onclick = close;
   $('#bsSay').onclick = () => speak(text.replace(/\.\.\./g, ' '), lang);
   $('#bsSlow').onclick = () => speak(text.replace(/\.\.\./g, ' '), lang, true);
   $('#bsX').focus();
@@ -1055,6 +1230,7 @@ function guide(step) {
   if ($('#gDone')) $('#gDone').onclick = done;
 }
 
+function copyText(t) { (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast(T('copied')), () => toast(T('copyFail'), 'warn')); }
 /* ---------- actions (event delegation) ---------- */
 const ACT = {
   back, home: () => go('home'), closeModal,
@@ -1082,6 +1258,17 @@ const ACT = {
   sayGrade: d => LESSON.sayGrade(d.ok === '1'),
   searchToSpeak: () => { SPK.src = SQ; SPK.direct = false; SPK.res = null; go('speak'); },
   whatsNew: () => whatsNew(),
+  bPick: d => LESSON.bPick(+d.n), bUndo: d => LESSON.bUndo(+d.n), bClear: () => LESSON.bClear(), bCheck: () => LESSON.bCheck(), dictCheck: () => LESSON.dictCheck(),
+  cardFlip: () => { if (CARDS._swiped && Date.now() - CARDS._swiped < 400) return; CARDS.flip = !CARDS.flip; render(); if (!CARDS.flip) { const it = CARDS.deck[CARDS.i]; if (it) speak(ttsText(it), st.lang); } },
+  cardGrade: d => cardGrade(d.ok === '1'),
+  cardsNew: () => { cardsStart(); render(); },
+  qaStart: () => { if (!aiReady()) { toast(T('needAi'), 'warn', 4000); go('settings', 'ai'); return; } qaRun(); },
+  qaStop: () => { QA.run++; QA.busy = false; QA.msg = ''; render(); },
+  qaApply: d => { const x = QA.issues[+d.n]; if (!x) return; const f = st.fix[QA.lang] = st.fix[QA.lang] || {}; f[x.id] = { text: x.text, roman: x.roman, heb: x.heb, why: x.problem }; QA.issues.splice(+d.n, 1); _itemsCache = {}; save(); qaPaint(); toast(T('qaApplied')); },
+  qaIgnore: d => { QA.issues.splice(+d.n, 1); qaPaint(); },
+  qaCopy: () => copyText(qaReportText(QA.issues, QA.lang)),
+  qaCopyFixes: () => { const f = st.fix[st.lang] || {}; copyText(qaReportText(Object.keys(f).map(id => Object.assign({ id, problem: f[id].why }, f[id])), st.lang)); },
+  qaReset: () => confirmBox(T('qaReset') + '?', T('qaReset'), () => { delete st.fix[st.lang]; _itemsCache = {}; save(); render(); }, true),
   dlgPlay: d => dlgPlay(d.arg),
   dlgLine: d => { dlgStop(); const x = dlgLines(NAV.arg).find(l => l.n === +d.n); if (x) speak(ttsText(x.it), st.lang, !!d.slow, null, !x.me); },
   dlgRole: d => { dlgStop(); DLG.role = d.v === '1'; DLG.shown = {}; render(); },
@@ -1193,7 +1380,7 @@ document.addEventListener('input', e => {
   if (e.target.id === 'sIn') { SQ = e.target.value; const r = $('#sRes'); if (r) r.innerHTML = searchListHTML(); }
 });
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { const b = $('#bigshow'); if (b) { b.remove(); return; } if ($('#modal')) { closeModal(); return; } }
+  if (e.key === 'Escape') { const b = $('#bigshow'); if (b) { b.remove(); document.body.classList.remove('bs-open'); return; } if ($('#modal')) { closeModal(); return; } }
   if (e.key === 'Tab' && $('#modal')) {
     const f = [...$('#modal').querySelectorAll('button,input,select,textarea,a[href]')].filter(x => !x.disabled && x.offsetParent !== null);
     if (!f.length) return;
@@ -1201,8 +1388,16 @@ document.addEventListener('keydown', e => {
     else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
   }
   if (e.key === 'Enter' && e.target.id === 'qIn') { ACT.priceCheck(); return; }
+  if (e.key === 'Enter' && e.target.id === 'dIn') { LESSON.dictCheck(); return; }
+  if (NAV.cur === 'cards' && !$('#modal') && e.target.tagName !== 'INPUT') { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); ACT.cardFlip(); return; } if (e.key === 'ArrowRight') { cardGrade(!isRTL()); return; } if (e.key === 'ArrowLeft') { cardGrade(isRTL()); return; } }
   if (NAV.cur === 'lesson' && !$('#modal') && /^[1-4]$/.test(e.key)) { const b = document.querySelectorAll('.opt')[+e.key - 1]; if (b && !b.disabled) b.click(); }
 });
+/* flashcard swipe: right = knew, left = not yet (mirrored in RTL) */
+document.addEventListener('pointerdown', e => { if (NAV.cur === 'cards' && e.target.closest('#flash')) CARDS.x0 = e.clientX; }, true);
+document.addEventListener('pointerup', e => {
+  if (CARDS.x0 == null) return; const dx = e.clientX - CARDS.x0; CARDS.x0 = null;
+  if (Math.abs(dx) > 70) { e.preventDefault(); CARDS._swiped = Date.now(); cardGrade(isRTL() ? dx < 0 : dx > 0); }
+}, true);
 /* long press → edit (phrases, custom words) */
 let lpT = null;
 document.addEventListener('pointerdown', e => {
@@ -1285,6 +1480,7 @@ async function boot() {
     try { await ensureLang(alt); st.lang = alt; } catch (e2) { $('#app').innerHTML = '<p class="warn">' + esc(T('loadFail')) + '</p>'; return; }
   }
   render();
+  if (st.ai.provider !== 'local' && st.ai.has[st.ai.provider]) getKey(st.ai.provider).catch(() => {});   /* decrypt once so the assistant can use it */
   const firstRun = !st.onb;
   if (st.seenVer !== APP.ver) { const had = !!st.seenVer || Object.keys(st.log).length > 0; st.seenVer = APP.ver; save(); if (!firstRun && had) setTimeout(whatsNew, 400); }
   if (firstRun) setTimeout(() => guide(0), 300);
@@ -1295,4 +1491,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 boot();
-window.__MODS.app = '1.4.0';
+window.__MODS.app = '1.5.0';

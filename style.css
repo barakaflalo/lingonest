@@ -259,3 +259,20 @@ summary{cursor:pointer;color:var(--acc);font-weight:600}
 /* v1.4 — loader */
 .loading{text-align:center;font-size:2rem;margin-top:30vh;opacity:.6}
 .updbar{position:fixed;top:0;left:0;right:0;z-index:90;border:0;background:var(--acc);color:var(--on);font-weight:800;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;cursor:pointer;font-size:1rem}
+/* v1.5 — sentence builder, flashcards, quality check, assistant */
+.bans,.bpool{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:10px;border-radius:14px;margin:10px 0;align-items:center}
+.bans{border:1.5px dashed var(--acc);background:color-mix(in srgb,var(--acc) 6%,transparent)}
+.bpool{border:1px solid var(--bd)}
+.wchip{border:1px solid var(--acc);background:var(--sf);color:var(--tx);border-radius:12px;padding:8px 12px;min-height:44px;font-family:var(--script);font-size:1.15rem;cursor:pointer}
+.wchip[lang=th-TH]{font-family:'Noto Serif Thai','Noto Sans Thai',Tahoma,serif}
+.wchip[lang=ar-SA]{font-family:'Noto Naskh Arabic',serif}
+.wchip:disabled{opacity:.6}
+.flash{border:1.5px solid var(--acc);border-radius:26px;background:var(--sf);min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:22px;text-align:center;cursor:pointer;user-select:none;touch-action:pan-y;margin-top:6px}
+.flash.flipped{background:color-mix(in srgb,var(--acc) 10%,var(--sf))}
+.cardbtns .btn{flex:1;justify-content:center;min-height:56px;font-size:1.05rem}
+.hint.c{text-align:center}
+.card.qa .qa-old{text-decoration:line-through;opacity:.6}
+.card.qa .qa-new{color:var(--ok);font-weight:700}
+.card.qa p{margin:4px 0}
+body.bs-open #appnest-assistant-btn{display:none!important}
+@media print{#appnest-assistant-btn{display:none!important}}
