@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('tr', {
-  ver: '1.12.0',
+  ver: '1.13.0',
   curSym: "₺",
   country: {"he": "טורקיה וקפריסין הצפונית", "en": "Turkey & Northern Cyprus", "ru": "Турция", "es": "Turquía", "ar": "تركيا"},
   emergency: [

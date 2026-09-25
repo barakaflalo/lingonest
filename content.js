@@ -5,7 +5,7 @@
 'use strict';
 window.__MODS = window.__MODS || {};
 const LANG = {};                                  /* UI dictionaries (filled by ui-xx.js) */
-const ALPHA = {}, VOWELS = {}, TONES = {}, TWISTER = {}, WD = {}, GENDER_F = {}, CUR_SYM = {}, LANG_NOTE = {}, TIPS = {}, EMERG = {}, COUNTRY = {}, VOWEL_NOTE = {}, SPEAK_HEB = {}, VOWEL_TITLE = {}, TONE_NOTE = {}, TWISTER_NOTE = {};
+const ALPHA = {}, VOWELS = {}, TONES = {}, TWISTER = {}, WD = {}, GENDER_F = {}, CUR_SYM = {}, LANG_NOTE = {}, TIPS = {}, EMERG = {}, COUNTRY = {}, VOWEL_NOTE = {}, SPEAK_HEB = {}, VOWEL_TITLE = {}, TONE_NOTE = {}, TWISTER_NOTE = {}, HEB_FALLBACK = {};
 const LOADED = {};                                /* lang code → version of the loaded pack */
 
 /* Target languages. To add one: add a line here + create lang-xx.js (copy an existing pack) + add it to sw.js. */
@@ -27,7 +27,9 @@ const LANGS = {
   zh: { flag: "🇨🇳", tts: "zh-CN", dir: "ltr", native: "中文", name: {"he": "סינית", "en": "Mandarin Chinese", "ru": "Китайский", "es": "Chino mandarín", "ar": "الصينية"} },
   hi: { flag: "🇮🇳", tts: "hi-IN", dir: "ltr", native: "हिन्दी", name: {"he": "הינדי", "en": "Hindi", "ru": "Хинди", "es": "Hindi", "ar": "الهندية"} },
   tr: { flag: "🇹🇷", tts: "tr-TR", dir: "ltr", native: "Türkçe", name: {"he": "טורקית", "en": "Turkish", "ru": "Турецкий", "es": "Turco", "ar": "التركية"} },
-  ko: { flag: "🇰🇷", tts: "ko-KR", dir: "ltr", native: "한국어", name: {"he": "קוריאנית", "en": "Korean", "ru": "Корейский", "es": "Coreano", "ar": "الكورية"} }
+  ko: { flag: "🇰🇷", tts: "ko-KR", dir: "ltr", native: "한국어", name: {"he": "קוריאנית", "en": "Korean", "ru": "Корейский", "es": "Coreano", "ar": "الكورية"} },
+  sw: { flag: "🇹🇿", tts: "sw-TZ", dir: "ltr", native: "Kiswahili", name: {"he": "סווהילית", "en": "Swahili", "ru": "Суахили", "es": "Suajili", "ar": "السواحيلية"} },
+  am: { flag: "🇪🇹", tts: "am-ET", dir: "ltr", native: "አማርኛ", name: {"he": "אמהרית", "en": "Amharic", "ru": "Амхарский", "es": "Amhárico", "ar": "الأمهرية"} }
 };
 /* Short letters-screen notes (keys in ui-xx.js). New languages can instead pass note:{he,en,...} in their pack. */
 const ALPHA_NOTE = {"en":"noteEn","es":"noteEs","ru":"noteRu","ar":"noteAr","th":"noteTh"};
@@ -533,7 +535,8 @@ const LINGO = {
     if (pack.speakHeb) SPEAK_HEB[code] = true;
     if (pack.vowelsTitle) VOWEL_TITLE[code] = pack.vowelsTitle;   /* e.g. "Katakana", "Finals" instead of "Vowels" */
     if (pack.toneNote) TONE_NOTE[code] = pack.toneNote;
-    if (pack.twisterNote) TWISTER_NOTE[code] = pack.twisterNote;      /* no voice for this language: read the Hebrew-letter pronunciation with the Hebrew voice */
+    if (pack.twisterNote) TWISTER_NOTE[code] = pack.twisterNote;
+    if (pack.voiceFallback === 'heb') HEB_FALLBACK[code] = true;   /* few devices have this voice → fall back to the Hebrew voice */      /* no voice for this language: read the Hebrew-letter pronunciation with the Hebrew voice */
     CUR_SYM[code] = pack.curSym || '';
     TIPS[code] = pack.tips || [];
     EMERG[code] = pack.emergency || [];
@@ -548,4 +551,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.12.0';
+window.__MODS.content = '1.13.0';

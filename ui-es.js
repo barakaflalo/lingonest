@@ -295,10 +295,10 @@ LANG.es = {
   "sayMore": "Aún no, volverá en el repaso",
   "noSpeech": "No oí nada. Pulsa 🎤 y habla cerca del teléfono.",
   "newIn": "Novedades de {v}",
-  "wn1": "🇹🇷 Turco: 407 palabras y frases, las 29 letras, precios en liras y consejos.",
-  "wn2": "🇰🇷 Coreano: 407 palabras y frases corteses, hangul, precios en wones y consejos.",
-  "wn3": "Consejos de coreano: 주세요, dos sistemas numéricos y etiqueta.",
-  "wn4": "Ahora 18 idiomas.",
+  "wn1": "🇹🇿 Suajili: 407 palabras y frases, precios en chelines y consejos.",
+  "wn2": "🇪🇹 Amhárico: 407 palabras y frases en ge'ez, precios en birr y consejos.",
+  "wn3": "🔊 Si no hay voz, la app lee la pronunciación con la voz hebrea.",
+  "wn4": "Ahora 20 idiomas.",
   "wn5": "Tu progreso se conservó.",
   "lvl8": "Frases completas",
   "lvl9": "Mis palabras",
@@ -484,6 +484,7 @@ LANG.es = {
   "bd_speaker": "10 respuestas orales correctas",
   "b_kit": "Listo para viajar",
   "bd_kit": "Creaste una tarjeta del kit",
-  "cat_yid": "Expresiones en ídish"
+  "cat_yid": "Expresiones en ídish",
+  "voiceFallback": "No hay voz de {l} en este dispositivo: leo la pronunciación con la voz hebrea (aproximada)."
 };
-window.__MODS['ui-es'] = '1.12.0';
+window.__MODS['ui-es'] = '1.13.0';

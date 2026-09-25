@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('zh', {
-  ver: '1.12.0',
+  ver: '1.13.0',
   curSym: "¥",
   country: {"he": "סין וטייוואן", "en": "China & Taiwan", "ru": "Китай и Тайвань", "es": "China y Taiwán", "ar": "الصين وتايوان"},
   emergency: [

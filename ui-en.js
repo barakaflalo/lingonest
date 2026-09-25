@@ -295,10 +295,10 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "🇹🇷 Turkish: 407 words and phrases, all 29 letters (ç, ş, ğ, ı…), prices in lira and tips (long words from regular pieces, tea and bargaining, familiar Arabic loans).",
-  "wn2": "🇰🇷 Korean: 407 polite (-yo) words and phrases, Hangul — 19 consonants and 17 vowels including how they form syllable blocks — and prices in won (with 만).",
-  "wn3": "Korean tips: juseyo for everything, two number systems, and etiquette (both hands, no tipping).",
-  "wn4": "Now 18 languages in the app.",
+  "wn1": "🇹🇿 Swahili: 407 words and phrases — the language of Tanzania, Kenya and Uganda. Prices in shillings and tips (Mambo/Poa, pole pole, and Swahili time that starts at sunrise!).",
+  "wn2": "🇪🇹 Amharic: 407 words and phrases in Ge'ez script, the 33 base letters and 7 forms, prices in birr and tips (a cousin of Hebrew, Ethiopian time and calendar, the coffee ceremony).",
+  "wn3": "🔊 If your device has no Swahili or Amharic voice, the app reads the pronunciation with the Hebrew voice and tells you so.",
+  "wn4": "Now 20 languages. Next: Hausa, Yoruba and Igbo (Nigeria), then Twi (Ghana) and Luganda (Uganda).",
   "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
@@ -484,6 +484,7 @@ LANG.en = {
   "bd_speaker": "10 correct spoken answers",
   "b_kit": "Ready to go",
   "bd_kit": "Created a travel-kit card",
-  "cat_yid": "Yiddish expressions"
+  "cat_yid": "Yiddish expressions",
+  "voiceFallback": "No {l} voice on this device — reading the pronunciation with the Hebrew voice (approximate)."
 };
-window.__MODS['ui-en'] = '1.12.0';
+window.__MODS['ui-en'] = '1.13.0';

@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.12.0' };
+const APP = { name: 'LingoNest', ver: '1.13.0' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -89,7 +89,7 @@ function items(lang) {
     const t0 = WD[lang] && WD[lang][c[0]]; if (!t0) return;
     const fx = st.fix[lang] && st.fix[lang][c[0]];
     const t = fx ? [fx.text || t0[0], fx.roman || t0[1], fx.heb || t0[2]] : t0;
-    L.push({ k: 'W:' + c[0], type: isPhraseCat(c[1]) ? 'P' : 'W', lvl: c[2], cat: c[1], he: c[3], en: c[4], text: g(t[0]), roman: g(t[1]), heb: g(t[2]), tts: SPEAK_HEB[lang] ? g(t[2]) : undefined });
+    L.push({ k: 'W:' + c[0], type: isPhraseCat(c[1]) ? 'P' : 'W', lvl: c[2], cat: c[1], he: c[3], en: c[4], text: g(t[0]), roman: g(t[1]), heb: g(t[2]), tts: SPEAK_HEB[lang] ? g(t[2]) : undefined, lg: lang });
   });
   (st.custom[lang] || []).forEach(c => L.push({ k: 'C:' + c.id, type: 'W', lvl: MAXL, cat: 'mine', he: c.he, en: c.he, text: c.text, roman: c.roman || '', heb: c.heb || '', cid: c.id }));
   _itemsCache[lang] = { key, list: L };
@@ -98,7 +98,9 @@ function items(lang) {
 const meaning = it => (st.ui === 'he' ? it.he : it.en) || it.he || it.en;
 const pron = it => (st.ui === 'he' ? (it.heb || it.roman) : (it.roman || it.heb)) || '';
 const pron2 = it => (st.ui === 'he' && it.heb && it.roman && it.type !== 'L') ? it.roman : '';
-const ttsText = it => it.tts || it.text.replace(/\.\.\./g, ' ');
+/* no voice on this device for a HEB_FALLBACK language → read the Hebrew-letter pronunciation with the Hebrew voice */
+const hebNow = lang => !!(HEB_FALLBACK[lang] && VOICES.length && !voicesFor(lang).length);
+const ttsText = it => it.tts || (it.lg && hebNow(it.lg) && it.heb) || it.text.replace(/\.\.\./g, ' ');
 
 function P(lang) { st.prog[lang] = st.prog[lang] || {}; return st.prog[lang]; }
 const IV = [0, 5 * 60e3, 864e5, 3 * 864e5, 7 * 864e5, 16 * 864e5, 35 * 864e5];
@@ -158,19 +160,21 @@ function voiceFor(lang) {
          c.find(v => v.lang.replace('_', '-').toLowerCase() === full) || c[0];
 }
 /* languages without a voice (Yiddish) read the Hebrew-letter pronunciation with the Hebrew voice */
-const sayStr = (lang, text, heb) => (SPEAK_HEB[lang] && heb) ? heb : text;
+const sayStr = (lang, text, heb) => ((SPEAK_HEB[lang] || hebNow(lang)) && heb) ? heb : text;
 function speak(text, lang, slow, onend, altVoice) {
   if (!('speechSynthesis' in window)) { toast(T('noTTS'), 'err', 4000); if (onend) onend(); return; }
   if (!text) return;
   if (SPEAK_HEB[lang]) text = String(text).replace(/[\u0591-\u05C7]/g, '').replace(/[־]/g, ' ');
+  const viaHeb = hebNow(lang);
+  if (viaHeb && !warnedVoice['h_' + lang]) { warnedVoice['h_' + lang] = 1; toast(T('voiceFallback', { l: LN(lang) }), '', 6000); }
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = LANGS[lang].tts;
-  let v = voiceFor(lang);
+  u.lang = viaHeb ? 'he-IL' : LANGS[lang].tts;
+  let v = viaHeb ? (VOICES.find(x => /^he|^iw/i.test(x.lang)) || null) : voiceFor(lang);
   if (altVoice && v) { const others = voicesFor(lang).filter(x => x.name !== v.name); if (others.length) v = others[0]; else u.pitch = 1.25; }
   if (onend) { u.onend = onend; u.onerror = onend; }
   if (v) u.voice = v;
-  else if (!warnedVoice[lang]) { warnedVoice[lang] = 1; toast(T('noVoice', { l: LN(lang) }), 'warn', 6000); }
+  else if (!viaHeb && !warnedVoice[lang]) { warnedVoice[lang] = 1; toast(T('noVoice', { l: LN(lang) }), 'warn', 6000); }
   u.rate = slow ? Math.max(0.35, st.rate * 0.6) : st.rate;
   setTimeout(() => speechSynthesis.speak(u), 30);
 }
@@ -713,6 +717,8 @@ const QA_STYLE = {
   tr: 'Turkish: the Hebrew-letter pronunciation is an approximation (ı, ö, ü, ğ have no Hebrew equivalent). The Latin column is empty on purpose.',
   ko: 'Korean: polite -yo / -nida style on purpose; the Latin column is Revised Romanization (sound changes between syllables are only partly shown); the Hebrew column is an approximation (Korean ㄱ/ㄷ/ㅂ are between k/g, t/d, p/b).',
   ja: 'Japanese: polite desu/masu style on purpose; the Latin column is Hepburn romanization with long-vowel macrons; the Hebrew column is an approximation (the final u in desu/masu is barely pronounced, written דס/מס on purpose).',
+  sw: 'Standard Swahili (Kiswahili sanifu) as used in Tanzania and Kenya; the Latin column is empty on purpose; Hebrew-letter pronunciation is an approximation. Swahili time (saa moja = 7 am) is intentional in dialogues.',
+  am: 'Amharic in Ge\'ez script; the Latin column is a simple romanization (\' marks ejectives); the Hebrew column is an approximation. Polite forms (እባክዎ, ነዎት) are intentional. Ethiopian clock time in dialogues (1 o\'clock = 7 am) is intentional.',
   zh: 'Mandarin Chinese in SIMPLIFIED characters; the Latin column is pinyin with tone marks; the Hebrew column is an approximation without tones. 两 before 百/千/万 is intentional.',
   hi: 'Hindi in Devanagari; the Latin column is a simple popular romanization (not IAST); the Hebrew column is an approximation (aspiration and retroflex sounds are not marked). Phrases are deliberately gender-neutral where possible; male speaker forms elsewhere. Common English loanwords (टॉयलेट, होटल, टिकट) are natural Hindi usage.',
   yi: 'This is standard YIVO Yiddish: Hebrew-origin words keep traditional Hebrew spelling (שבת, מזל, חבֿר) with Ashkenazi pronunciation; the Latin column is YIVO romanization; the Hebrew-letter column is a simplified spelling for Israeli readers (no Yiddish diacritics) that is also read aloud by a Hebrew voice. Hasidic pronunciation variants are fine, do not flag them.',
@@ -1560,4 +1566,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.12.0';
+window.__MODS.app = '1.13.0';
