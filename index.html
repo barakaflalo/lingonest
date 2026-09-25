@@ -273,7 +273,7 @@ summary{cursor:pointer;color:var(--acc);font-weight:600}
 <div id="toasts"></div>
 <div id="print"></div>
 <script>
-/* LingoNest v1.1.0 · © AppNest 2026 · Barak Aflalo */
+/* LingoNest v1.2.0 · © AppNest 2026 · Barak Aflalo */
 /* ===== LingoNest — data.js : content (languages, alphabets, words, phrases) =====
    Adding a language later = add an entry to LANGS + ALPHA + WD. Nothing else changes. */
 
@@ -1286,6 +1286,951 @@ const GENDER_F = {
   ar: [[/آسف/g,'آسفة'],[/\basif\b/g,'asifa'],[/^אסף$/g,'אספה'],[/ضائع/g,'ضائعة'],[/da'i'/g,"da'i'a"],[/דאאע/g,'דאאעה']]
 };
 
+/* ===== LingoNest — data3.js : v1.2 content expansion =====
+   Levels: 1 letters · 2 survival · 3 travel vocab · 4 travel phrases · 5 everyday · 6 conversation · 7 world of words · 8 full sentences · 9 my words */
+
+/* merge "big numbers" into the single Numbers category */
+CONCEPTS.forEach(c => { if (c[1] === 'num2') c[1] = 'num'; });
+
+CONCEPTS.push(
+  ['n11','num',5,'11 · אחת עשרה','11 · Eleven'],['n12','num',5,'12 · שתים עשרה','12 · Twelve'],['n13','num',5,'13 · שלוש עשרה','13 · Thirteen'],
+  ['n14','num',5,'14 · ארבע עשרה','14 · Fourteen'],['n15','num',5,'15 · חמש עשרה','15 · Fifteen'],['n16','num',5,'16 · שש עשרה','16 · Sixteen'],
+  ['n17','num',5,'17 · שבע עשרה','17 · Seventeen'],['n18','num',5,'18 · שמונה עשרה','18 · Eighteen'],['n19','num',5,'19 · תשע עשרה','19 · Nineteen'],
+  ['n30','num',5,'30 · שלושים','30 · Thirty'],['n40','num',5,'40 · ארבעים','40 · Forty'],['n60','num',5,'60 · שישים','60 · Sixty'],
+  ['n70','num',5,'70 · שבעים','70 · Seventy'],['n80','num',5,'80 · שמונים','80 · Eighty'],['n90','num',5,'90 · תשעים','90 · Ninety'],
+  ['n200','num',5,'200 · מאתיים','200 · Two hundred'],['n500','num',5,'500 · חמש מאות','500 · Five hundred'],['n10000','num',5,'10,000 · עשרת אלפים','10,000 · Ten thousand'],
+  ['t_morning','time',5,'בוקר','Morning'],['t_evening','time',5,'ערב','Evening'],['t_night','time',5,'לילה','Night'],['t_week','time',5,'שבוע','Week'],
+  ['t_month','time',5,'חודש','Month'],['t_year','time',5,'שנה','Year'],['t_hour','time',5,'שעה','Hour'],['t_minute','time',5,'דקה','Minute'],
+  ['dog','animals',7,'כלב','Dog'],['cat','animals',7,'חתול','Cat'],['bird','animals',7,'ציפור','Bird'],['horse','animals',7,'סוס','Horse'],
+  ['cow','animals',7,'פרה','Cow'],['pig','animals',7,'חזיר','Pig'],['elephant','animals',7,'פיל','Elephant'],['monkey','animals',7,'קוף','Monkey'],
+  ['snake','animals',7,'נחש','Snake'],['mosquito','animals',7,'יתוש','Mosquito'],['lion','animals',7,'אריה','Lion'],['duck','animals',7,'ברווז','Duck'],
+  ['apple','fruits',7,'תפוח','Apple'],['banana','fruits',7,'בננה','Banana'],['orange','fruits',7,'תפוז','Orange'],['mango','fruits',7,'מנגו','Mango'],
+  ['pineapple','fruits',7,'אננס','Pineapple'],['watermelon','fruits',7,'אבטיח','Watermelon'],['coconut','fruits',7,'קוקוס','Coconut'],['grapes','fruits',7,'ענבים','Grapes'],
+  ['lemon','fruits',7,'לימון','Lemon'],['strawberry','fruits',7,'תות','Strawberry'],['papaya','fruits',7,'פפאיה','Papaya'],
+  ['tomato','veggies',7,'עגבנייה','Tomato'],['potato','veggies',7,'תפוח אדמה','Potato'],['onion','veggies',7,'בצל','Onion'],['garlic','veggies',7,'שום','Garlic'],
+  ['cucumber','veggies',7,'מלפפון','Cucumber'],['carrot','veggies',7,'גזר','Carrot'],['chili','veggies',7,'פלפל חריף','Chili pepper'],['corn','veggies',7,'תירס','Corn'],
+  ['mushroom','veggies',7,'פטרייה','Mushroom'],['lettuce','veggies',7,'חסה','Lettuce'],['eggplant','veggies',7,'חציל','Eggplant'],
+  ['soup','dishes',7,'מרק','Soup'],['salad','dishes',7,'סלט','Salad'],['noodles','dishes',7,'אטריות','Noodles'],['cheese','dishes',7,'גבינה','Cheese'],
+  ['butter','dishes',7,'חמאה','Butter'],['salt','dishes',7,'מלח','Salt'],['sugar','dishes',7,'סוכר','Sugar'],['cake','dishes',7,'עוגה','Cake'],
+  ['icecream','dishes',7,'גלידה','Ice cream'],['juice','dishes',7,'מיץ','Juice'],['wine','dishes',7,'יין','Wine'],['breakfast','dishes',7,'ארוחת בוקר','Breakfast'],
+  ['lunch','dishes',7,'ארוחת צהריים','Lunch'],['dinner','dishes',7,'ארוחת ערב','Dinner'],['fork','dishes',7,'מזלג','Fork'],['spoon','dishes',7,'כף','Spoon'],
+  ['knife','dishes',7,'סכין','Knife'],['glass','dishes',7,'כוס','Glass'],['plate','dishes',7,'צלחת','Plate'],
+  ['bank','places',7,'בנק','Bank'],['atm','places',7,'כספומט','ATM'],['beach','places',7,'חוף ים','Beach'],['museum','places',7,'מוזיאון','Museum'],
+  ['temple','places',7,'מקדש','Temple'],['street','places',7,'רחוב','Street'],['city','places',7,'עיר','City'],['shop','places',7,'חנות','Shop'],
+  ['supermarket','places',7,'סופרמרקט','Supermarket'],['park','places',7,'פארק','Park'],['station','places',7,'תחנה','Station'],['embassy','places',7,'שגרירות','Embassy'],
+  ['phone','things',7,'טלפון','Phone'],['charger','things',7,'מטען','Charger'],['bag','things',7,'תיק','Bag'],['shoes','things',7,'נעליים','Shoes'],
+  ['clothes','things',7,'בגדים','Clothes'],['hat','things',7,'כובע','Hat'],['glasses','things',7,'משקפיים','Glasses'],['map','things',7,'מפה','Map'],
+  ['sunscreen','things',7,'קרם הגנה','Sunscreen'],['umbrella','things',7,'מטרייה','Umbrella'],
+  ['come','verbs',7,'לבוא','To come'],['want','verbs',7,'לרצות','To want'],['need','verbs',7,'להצטרך','To need'],['know','verbs',7,'לדעת','To know'],
+  ['see','verbs',7,'לראות','To see'],['hear','verbs',7,'לשמוע','To hear'],['give','verbs',7,'לתת','To give'],['take','verbs',7,'לקחת','To take'],
+  ['pay','verbs',7,'לשלם','To pay'],['wait','verbs',7,'לחכות','To wait'],['walk','verbs',7,'ללכת ברגל','To walk'],['read','verbs',7,'לקרוא','To read'],
+  ['write','verbs',7,'לכתוב','To write'],['love','verbs',7,'לאהוב','To love'],['work','verbs',7,'לעבוד','To work'],['swim','verbs',7,'לשחות','To swim'],
+  ['new','adj',7,'חדש','New'],['old','adj',7,'ישן','Old'],['fast','adj',7,'מהיר','Fast'],['slow','adj',7,'איטי','Slow'],
+  ['near','adj',7,'קרוב','Near'],['far_a','adj',7,'רחוק','Far'],['clean','adj',7,'נקי','Clean'],['dirty','adj',7,'מלוכלך','Dirty'],
+  ['tired','adj',7,'עייף','Tired'],['hungry','adj',7,'רעב','Hungry'],['thirsty','adj',7,'צמא','Thirsty'],['happy','adj',7,'שמח','Happy'],
+  ['sad','adj',7,'עצוב','Sad'],['easy','adj',7,'קל','Easy'],['difficult','adj',7,'קשה','Difficult'],['many','adj',7,'הרבה','Many / a lot'],
+  ['sf_order','s_food',8,'אני רוצה להזמין','I\'d like to order'],['sf_recommend','s_food',8,'מה אתה ממליץ?','What do you recommend?'],
+  ['sf_bottle','s_food',8,'בקבוק מים בבקשה','A bottle of water, please'],['sf_isspicy','s_food',8,'זה חריף?','Is this spicy?'],
+  ['sf_onemore','s_food',8,'עוד אחד בבקשה','One more, please'],['sf_nosugar','s_food',8,'בלי סוכר בבקשה','Without sugar, please'],
+  ['sf_takeaway','s_food',8,'אפשר לקחת את זה איתי?','Can I take this to go?'],
+  ['ss_smaller','s_shop',8,'יש מידה יותר קטנה?','Do you have a smaller size?'],['ss_try','s_shop',8,'אפשר למדוד?','Can I try it on?'],
+  ['ss_two','s_shop',8,'אני אקח שניים','I\'ll take two'],['ss_change','s_shop',8,'יש לך עודף?','Do you have change?'],
+  ['ss_last','s_shop',8,'מה המחיר הסופי?','What\'s the final price?'],['ss_bag','s_shop',8,'אפשר שקית?','Can I have a bag?'],
+  ['sm_busstop','s_move',8,'איפה תחנת האוטובוס?','Where is the bus stop?'],['sm_trainleave','s_move',8,'מתי הרכבת יוצאת?','When does the train leave?'],
+  ['sm_oneticket','s_move',8,'כרטיס אחד בבקשה','One ticket, please'],['sm_howlong','s_move',8,'כמה זמן זה לוקח?','How long does it take?'],
+  ['sm_meter','s_move',8,'תפעיל מונה בבקשה','Please use the meter'],['sm_slowdrive','s_move',8,'סע לאט בבקשה','Please drive slowly'],
+  ['sm_airport','s_move',8,'אני רוצה לנסוע לשדה התעופה','I want to go to the airport'],
+  ['sh_leavebag','s_hotel',8,'אפשר להשאיר פה את התיק?','Can I leave my bag here?'],['sh_ac','s_hotel',8,'המזגן לא עובד','The air conditioner doesn\'t work'],
+  ['sh_breakfast','s_hotel',8,'ארוחת בוקר כלולה?','Is breakfast included?'],['sh_towel','s_hotel',8,'אני צריך עוד מגבת','I need another towel'],
+  ['sh_taxi','s_hotel',8,'אתה יכול להזמין לי מונית?','Can you call me a taxi?'],['sh_late','s_hotel',8,'אפשר לפנות את החדר מאוחר יותר?','Can I check out later?'],
+  ['so_learning','s_social',8,'אני לומד את השפה','I\'m learning the language'],['so_thankshelp','s_social',8,'תודה רבה על העזרה','Thank you very much for your help'],
+  ['so_photo','s_social',8,'אתה יכול לצלם אותנו?','Can you take a photo of us?'],['so_like','s_social',8,'אני אוהב את המקום הזה','I like this place'],
+  ['so_vacation','s_social',8,'אני כאן בחופשה','I\'m here on vacation'],['so_howsay','s_social',8,'איך אומרים את זה?','How do you say this?'],
+  ['so_noproblem','s_social',8,'אין בעיה','No problem'],['so_beautiful','s_social',8,'זה מאוד יפה!','It\'s very beautiful!'],
+  ['sp_unwell','s_help',8,'אני לא מרגיש טוב','I don\'t feel well'],['sp_nearhosp','s_help',8,'איפה בית החולים הקרוב?','Where is the nearest hospital?'],
+  ['sp_fever','s_help',8,'יש לי חום','I have a fever'],['sp_helpme','s_help',8,'עזור לי בבקשה','Please help me'],
+  ['sp_stolen','s_help',8,'גנבו לי את התיק','My bag was stolen'],['sp_embassy','s_help',8,'אני צריך את שגרירות ישראל','I need the Israeli embassy']
+);
+
+const WD_RAW3 = {};
+WD_RAW3.en = `n11|Eleven||אילבן
+n12|Twelve||טוולב
+n13|Thirteen||ת׳רטין
+n14|Fourteen||פורטין
+n15|Fifteen||פיפטין
+n16|Sixteen||סיקסטין
+n17|Seventeen||סבנטין
+n18|Eighteen||אייטין
+n19|Nineteen||ניינטין
+n30|Thirty||ת׳רטי
+n40|Forty||פורטי
+n60|Sixty||סיקסטי
+n70|Seventy||סבנטי
+n80|Eighty||אייטי
+n90|Ninety||ניינטי
+n200|Two hundred||טו הנדרד
+n500|Five hundred||פייב הנדרד
+n10000|Ten thousand||טן ת׳אוזנד
+t_morning|Morning||מורנינג
+t_evening|Evening||איבנינג
+t_night|Night||נייט
+t_week|Week||וויק
+t_month|Month||מאנת׳
+t_year|Year||יר
+t_hour|Hour||אאואר
+t_minute|Minute||מיניט
+dog|Dog||דוג
+cat|Cat||קט
+bird|Bird||בירד
+horse|Horse||הורס
+cow|Cow||קאו
+pig|Pig||פיג
+elephant|Elephant||אלפנט
+monkey|Monkey||מאנקי
+snake|Snake||סנייק
+mosquito|Mosquito||מוסקיטו
+lion|Lion||לאיון
+duck|Duck||דאק
+apple|Apple||אפל
+banana|Banana||בננה
+orange|Orange||אורנג׳
+mango|Mango||מנגו
+pineapple|Pineapple||פיינאפל
+watermelon|Watermelon||ווטרמלון
+coconut|Coconut||קוקונאט
+grapes|Grapes||גרייפס
+lemon|Lemon||למון
+strawberry|Strawberry||סטרוברי
+papaya|Papaya||פפאיה
+tomato|Tomato||טומייטו
+potato|Potato||פוטייטו
+onion|Onion||אניון
+garlic|Garlic||גארליק
+cucumber|Cucumber||קיוקמבר
+carrot|Carrot||קרוט
+chili|Chili pepper||צ׳ילי פפר
+corn|Corn||קורן
+mushroom|Mushroom||מאשרום
+lettuce|Lettuce||לטוס
+eggplant|Eggplant||אגפלנט
+soup|Soup||סופ
+salad|Salad||סלד
+noodles|Noodles||נודלס
+cheese|Cheese||צ׳יז
+butter|Butter||באטר
+salt|Salt||סולט
+sugar|Sugar||שוגר
+cake|Cake||קייק
+icecream|Ice cream||אייס קרים
+juice|Juice||ג׳וס
+wine|Wine||וויין
+breakfast|Breakfast||ברקפסט
+lunch|Lunch||לאנץ׳
+dinner|Dinner||דינר
+fork|Fork||פורק
+spoon|Spoon||ספון
+knife|Knife||נייף
+glass|Glass||גלאס
+plate|Plate||פלייט
+bank|Bank||בנק
+atm|ATM||איי-טי-אם
+beach|Beach||ביץ׳
+museum|Museum||מיוזיאם
+temple|Temple||טמפל
+street|Street||סטריט
+city|City||סיטי
+shop|Shop||שופ
+supermarket|Supermarket||סופרמרקט
+park|Park||פארק
+station|Station||סטיישן
+embassy|Embassy||אמבסי
+phone|Phone||פון
+charger|Charger||צ׳ארג׳ר
+bag|Bag||בג
+shoes|Shoes||שוז
+clothes|Clothes||קלות׳ז
+hat|Hat||הט
+glasses|Glasses||גלאסז
+map|Map||מפ
+sunscreen|Sunscreen||סאנסקרין
+umbrella|Umbrella||אמברלה
+come|To come||טו קאם
+want|To want||טו וואנט
+need|To need||טו ניד
+know|To know||טו נואו
+see|To see||טו סי
+hear|To hear||טו היר
+give|To give||טו גיב
+take|To take||טו טייק
+pay|To pay||טו פיי
+wait|To wait||טו וייט
+walk|To walk||טו ווק
+read|To read||טו ריד
+write|To write||טו רייט
+love|To love||טו לאב
+work|To work||טו וורק
+swim|To swim||טו סווים
+new|New||ניו
+old|Old||אולד
+fast|Fast||פאסט
+slow|Slow||סלואו
+near|Near||ניר
+far_a|Far||פאר
+clean|Clean||קלין
+dirty|Dirty||דרטי
+tired|Tired||טאיירד
+hungry|Hungry||האנגרי
+thirsty|Thirsty||ת׳רסטי
+happy|Happy||הפי
+sad|Sad||סד
+easy|Easy||איזי
+difficult|Difficult||דיפיקלט
+many|A lot||א לוט
+sf_order|I'd like to order||איד לייק טו אורדר
+sf_recommend|What do you recommend?||וואט דו יו רקומנד
+sf_bottle|A bottle of water, please||א בוטל אוב ווטר, פליז
+sf_isspicy|Is this spicy?||איז דיס ספייסי
+sf_onemore|One more, please||וואן מור, פליז
+sf_nosugar|Without sugar, please||וית׳אאוט שוגר, פליז
+sf_takeaway|Can I take this to go?||קן איי טייק דיס טו גואו
+ss_smaller|Do you have a smaller size?||דו יו הב א סמולר סייז
+ss_try|Can I try it on?||קן איי טראי איט און
+ss_two|I'll take two||איל טייק טו
+ss_change|Do you have change?||דו יו הב צ׳יינג׳
+ss_last|What's the final price?||וואטס דה פיינל פרייס
+ss_bag|Can I have a bag?||קן איי הב א בג
+sm_busstop|Where is the bus stop?||וור איז דה באס סטופ
+sm_trainleave|When does the train leave?||ון דאז דה טריין ליב
+sm_oneticket|One ticket, please||וואן טיקט, פליז
+sm_howlong|How long does it take?||האו לונג דאז איט טייק
+sm_meter|Please use the meter||פליז יוז דה מיטר
+sm_slowdrive|Please drive slowly||פליז דראיב סלואולי
+sm_airport|I want to go to the airport||איי וואנט טו גואו טו דה ארפורט
+sh_leavebag|Can I leave my bag here?||קן איי ליב מאי בג היר
+sh_ac|The air conditioner doesn't work||דה אר קונדישנר דאזנט וורק
+sh_breakfast|Is breakfast included?||איז ברקפסט אינקלודד
+sh_towel|I need another towel||איי ניד אנאדר טאוול
+sh_taxi|Can you call me a taxi?||קן יו קול מי א טקסי
+sh_late|Can I check out later?||קן איי צ׳ק אאוט לייטר
+so_learning|I'm learning the language||איים לרנינג דה לנגווג׳
+so_thankshelp|Thank you very much for your help||תנק יו ורי מאץ׳ פור יור הלפ
+so_photo|Can you take a photo of us?||קן יו טייק א פוטו אוב אס
+so_like|I like this place||איי לייק דיס פלייס
+so_vacation|I'm here on vacation||איים היר און וייקיישן
+so_howsay|How do you say this?||האו דו יו סיי דיס
+so_noproblem|No problem||נואו פרובלם
+so_beautiful|It's very beautiful!||איטס ורי ביוטיפול
+sp_unwell|I don't feel well||איי דונט פיל וול
+sp_nearhosp|Where is the nearest hospital?||וור איז דה נירסט הוספיטל
+sp_fever|I have a fever||איי הב א פיבר
+sp_helpme|Please help me||פליז הלפ מי
+sp_stolen|My bag was stolen||מאי בג ווז סטולן
+sp_embassy|I need the Israeli embassy||איי ניד דה איזראלי אמבסי`;
+
+WD_RAW3.es = `n11|Once||אונסה
+n12|Doce||דוסה
+n13|Trece||טרסה
+n14|Catorce||קטורסה
+n15|Quince||קינסה
+n16|Dieciséis||דייסיסייס
+n17|Diecisiete||דייסיסייטה
+n18|Dieciocho||דייסיאוצ׳ו
+n19|Diecinueve||דייסינואבה
+n30|Treinta||טריינטה
+n40|Cuarenta||קוארנטה
+n60|Sesenta||ססנטה
+n70|Setenta||סטנטה
+n80|Ochenta||אוצ׳נטה
+n90|Noventa||נובנטה
+n200|Doscientos||דוססיינטוס
+n500|Quinientos||קינייינטוס
+n10000|Diez mil||דייס מיל
+t_morning|La mañana||לה מניאנה
+t_evening|La tarde||לה טרדה
+t_night|La noche||לה נוצ׳ה
+t_week|La semana||לה סמאנה
+t_month|El mes||אל מס
+t_year|El año||אל אניו
+t_hour|La hora||לה אורה
+t_minute|El minuto||אל מינוטו
+dog|Perro||פרו
+cat|Gato||גאטו
+bird|Pájaro||פחרו
+horse|Caballo||קבאיו
+cow|Vaca||באקה
+pig|Cerdo||סרדו
+elephant|Elefante||אלפאנטה
+monkey|Mono||מונו
+snake|Serpiente||סרפיינטה
+mosquito|Mosquito||מוסקיטו
+lion|León||לאון
+duck|Pato||פאטו
+apple|Manzana||מנסאנה
+banana|Plátano||פלאטנו
+orange|Naranja||נרנחה
+mango|Mango||מנגו
+pineapple|Piña||פיניה
+watermelon|Sandía||סנדיאה
+coconut|Coco||קוקו
+grapes|Uvas||אובס
+lemon|Limón||לימון
+strawberry|Fresa||פרסה
+papaya|Papaya||פפאיה
+tomato|Tomate||טומאטה
+potato|Patata||פטאטה
+onion|Cebolla||סבויה
+garlic|Ajo||אחו
+cucumber|Pepino||פפינו
+carrot|Zanahoria||סנאוריה
+chili|Chile||צ׳ילה
+corn|Maíz||מאיס
+mushroom|Champiñón||צ׳מפיניון
+lettuce|Lechuga||לצ׳וגה
+eggplant|Berenjena||ברנחנה
+soup|Sopa||סופה
+salad|Ensalada||אנסלאדה
+noodles|Fideos||פידאוס
+cheese|Queso||קסו
+butter|Mantequilla||מנטקייה
+salt|Sal||סאל
+sugar|Azúcar||אסוקר
+cake|Pastel||פסטל
+icecream|Helado||אלאדו
+juice|Zumo||סומו
+wine|Vino||בינו
+breakfast|Desayuno||דסאיונו
+lunch|Almuerzo||אלמוארסו
+dinner|Cena||סנה
+fork|Tenedor||טנדור
+spoon|Cuchara||קוצ׳רה
+knife|Cuchillo||קוצ׳יו
+glass|Vaso||באסו
+plate|Plato||פלאטו
+bank|Banco||בנקו
+atm|Cajero automático||קחרו אאוטומטיקו
+beach|Playa||פלאיה
+museum|Museo||מוסאו
+temple|Templo||טמפלו
+street|Calle||קאיה
+city|Ciudad||סיודאד
+shop|Tienda||טיינדה
+supermarket|Supermercado||סופרמרקאדו
+park|Parque||פרקה
+station|Estación||אסטסיון
+embassy|Embajada||אמבחאדה
+phone|Teléfono||טלפונו
+charger|Cargador||קרגדור
+bag|Bolso||בולסו
+shoes|Zapatos||סאפטוס
+clothes|Ropa||רופה
+hat|Sombrero||סומברו
+glasses|Gafas||גאפס
+map|Mapa||מאפה
+sunscreen|Protector solar||פרוטקטור סולאר
+umbrella|Paraguas||פרגואס
+come|Venir||בניר
+want|Querer||קרר
+need|Necesitar||נססיטר
+know|Saber||סבר
+see|Ver||בר
+hear|Oír||אויר
+give|Dar||דאר
+take|Tomar||טומר
+pay|Pagar||פגר
+wait|Esperar||אספרר
+walk|Caminar||קמינר
+read|Leer||לאר
+write|Escribir||אסקריביר
+love|Amar||אמר
+work|Trabajar||טרבחר
+swim|Nadar||נדר
+new|Nuevo||נואבו
+old|Viejo||בייחו
+fast|Rápido||רפידו
+slow|Lento||לנטו
+near|Cerca||סרקה
+far_a|Lejos||לחוס
+clean|Limpio||לימפיו
+dirty|Sucio||סוסיו
+tired|Cansado||קנסאדו
+hungry|Hambriento||אמבריינטו
+thirsty|Sediento||סדיינטו
+happy|Feliz||פליס
+sad|Triste||טריסטה
+easy|Fácil||פסיל
+difficult|Difícil||דיפיסיל
+many|Mucho||מוצ׳ו
+sf_order|Quiero pedir||קיירו פדיר
+sf_recommend|¿Qué me recomienda?||קה מה רקומיינדה
+sf_bottle|Una botella de agua, por favor||אונה בוטיה דה אגואה, פור פבור
+sf_isspicy|¿Esto pica?||אסטו פיקה
+sf_onemore|Otro, por favor||אוטרו, פור פבור
+sf_nosugar|Sin azúcar, por favor||סין אסוקר, פור פבור
+sf_takeaway|¿Me lo pone para llevar?||מה לו פונה פרה יבר
+ss_smaller|¿Tiene una talla más pequeña?||טיינה אונה טאיה מאס פקניה
+ss_try|¿Me lo puedo probar?||מה לו פואדו פרובר
+ss_two|Me llevo dos||מה יבו דוס
+ss_change|¿Tiene cambio?||טיינה קמביו
+ss_last|¿Cuál es el precio final?||קואל אס אל פרסיו פינאל
+ss_bag|¿Me da una bolsa?||מה דה אונה בולסה
+sm_busstop|¿Dónde está la parada de autobús?||דונדה אסטה לה פרדה דה אאוטובוס
+sm_trainleave|¿A qué hora sale el tren?||א קה אורה סאלה אל טרן
+sm_oneticket|Un billete, por favor||און בייטה, פור פבור
+sm_howlong|¿Cuánto tiempo se tarda?||קואנטו טיימפו סה טרדה
+sm_meter|Ponga el taxímetro, por favor||פונגה אל טקסימטרו, פור פבור
+sm_slowdrive|Conduzca más despacio, por favor||קונדוסקה מאס דספסיו, פור פבור
+sm_airport|Quiero ir al aeropuerto||קיירו איר אל אארופוארטו
+sh_leavebag|¿Puedo dejar mi maleta aquí?||פואדו דחר מי מלטה אקי
+sh_ac|El aire acondicionado no funciona||אל איירה אקונדיסיונאדו נו פונסיונה
+sh_breakfast|¿El desayuno está incluido?||אל דסאיונו אסטה אינקלואידו
+sh_towel|Necesito otra toalla||נססיטו אוטרה טואיה
+sh_taxi|¿Me puede llamar un taxi?||מה פואדה יאמר און טקסי
+sh_late|¿Puedo salir más tarde?||פואדו סליר מאס טרדה
+so_learning|Estoy aprendiendo el idioma||אסטוי אפרנדיינדו אל אידיומה
+so_thankshelp|Muchas gracias por su ayuda||מוצ׳ס גרסיאס פור סו איודה
+so_photo|¿Nos puede sacar una foto?||נוס פואדה סקר אונה פוטו
+so_like|Me gusta este lugar||מה גוסטה אסטה לוגר
+so_vacation|Estoy aquí de vacaciones||אסטוי אקי דה בקסיונס
+so_howsay|¿Cómo se dice esto?||קומו סה דיסה אסטו
+so_noproblem|No hay problema||נו אי פרובלמה
+so_beautiful|¡Es muy bonito!||אס מוי בוניטו
+sp_unwell|No me siento bien||נו מה סיינטו ביין
+sp_nearhosp|¿Dónde está el hospital más cercano?||דונדה אסטה אל אוספיטל מאס סרקאנו
+sp_fever|Tengo fiebre||טנגו פייברה
+sp_helpme|Ayúdeme, por favor||איודמה, פור פבור
+sp_stolen|Me robaron el bolso||מה רובארון אל בולסו
+sp_embassy|Necesito la embajada de Israel||נססיטו לה אמבחאדה דה איסראל`;
+
+WD_RAW3.ru = `n11|Одиннадцать|odinnadtsat|אדינאצאט
+n12|Двенадцать|dvenadtsat|דביניאצאט
+n13|Тринадцать|trinadtsat|טרינאצאט
+n14|Четырнадцать|chetyrnadtsat|צ׳יטירנאצאט
+n15|Пятнадцать|pyatnadtsat|פיטנאצאט
+n16|Шестнадцать|shestnadtsat|שיסנאצאט
+n17|Семнадцать|semnadtsat|סימנאצאט
+n18|Восемнадцать|vosemnadtsat|ווסימנאצאט
+n19|Девятнадцать|devyatnadtsat|דיביטנאצאט
+n30|Тридцать|tridtsat|טריצאט
+n40|Сорок|sorok|סורק
+n60|Шестьдесят|shestdesyat|שיזדיסיאט
+n70|Семьдесят|semdesyat|סיימדיסיט
+n80|Восемьдесят|vosemdesyat|ווסימדיסיט
+n90|Девяносто|devyanosto|דיוויאנוסטה
+n200|Двести|dvesti|דביעסטי
+n500|Пятьсот|pyatsot|פיצוט
+n10000|Десять тысяч|desyat tysyach|דייסיט טיסיץ׳
+t_morning|Утро|utro|אוטרה
+t_evening|Вечер|vecher|ויעצ׳יר
+t_night|Ночь|noch|נוץ׳
+t_week|Неделя|nedelya|נידיעליה
+t_month|Месяц|mesyats|מייסיץ
+t_year|Год|god|גוט
+t_hour|Час|chas|צ׳אס
+t_minute|Минута|minuta|מינוטה
+dog|Собака|sobaka|סבאקה
+cat|Кошка|koshka|קושקה
+bird|Птица|ptitsa|פטיצה
+horse|Лошадь|loshad|לושאט
+cow|Корова|korova|קארובה
+pig|Свинья|svinya|סביניא
+elephant|Слон|slon|סלון
+monkey|Обезьяна|obezyana|אביזיאנה
+snake|Змея|zmeya|זמייא
+mosquito|Комар|komar|קאמאר
+lion|Лев|lev|ליעף
+duck|Утка|utka|אוטקה
+apple|Яблоко|yabloko|יאבלקה
+banana|Банан|banan|באנאן
+orange|Апельсин|apelsin|אפילסין
+mango|Манго|mango|מאנגה
+pineapple|Ананас|ananas|אנאנאס
+watermelon|Арбуз|arbuz|ארבוס
+coconut|Кокос|kokos|קוקס
+grapes|Виноград|vinograd|ויניגראט
+lemon|Лимон|limon|לימון
+strawberry|Клубника|klubnika|קלובניקה
+papaya|Папайя|papaya|פפאיה
+tomato|Помидор|pomidor|פאמידור
+potato|Картошка|kartoshka|קארטושקה
+onion|Лук|luk|לוק
+garlic|Чеснок|chesnok|צ׳יסנוק
+cucumber|Огурец|ogurets|אגוריעץ
+carrot|Морковь|morkov|מארקוף
+chili|Острый перец|ostry perets|אוסטרי פייריץ
+corn|Кукуруза|kukuruza|קוקורוזה
+mushroom|Гриб|grib|גריפ
+lettuce|Листовой салат|listovoy salat|ליסטאבוי סאלאט
+eggplant|Баклажан|baklazhan|באקלאז׳אן
+soup|Суп|sup|סופ
+salad|Салат|salat|סאלאט
+noodles|Лапша|lapsha|לאפשה
+cheese|Сыр|syr|סיר
+butter|Масло|maslo|מאסלה
+salt|Соль|sol|סול
+sugar|Сахар|sakhar|סאחאר
+cake|Торт|tort|טורט
+icecream|Мороженое|morozhenoye|מארוז׳ינאיה
+juice|Сок|sok|סוק
+wine|Вино|vino|וינו
+breakfast|Завтрак|zavtrak|זאפטראק
+lunch|Обед|obed|אביעט
+dinner|Ужин|uzhin|אוז׳ין
+fork|Вилка|vilka|וילקה
+spoon|Ложка|lozhka|לושקה
+knife|Нож|nozh|נוש
+glass|Стакан|stakan|סטאקאן
+plate|Тарелка|tarelka|טאריעלקה
+bank|Банк|bank|באנק
+atm|Банкомат|bankomat|באנקאמאט
+beach|Пляж|plyazh|פליאש
+museum|Музей|muzey|מוזיי
+temple|Храм|khram|חראם
+street|Улица|ulitsa|אוליצה
+city|Город|gorod|גורט
+shop|Магазин|magazin|מאגאזין
+supermarket|Супермаркет|supermarket|סופירמארקיט
+park|Парк|park|פארק
+station|Вокзал|vokzal|ואקזאל
+embassy|Посольство|posolstvo|פאסולסטבה
+phone|Телефон|telefon|טיליפון
+charger|Зарядка|zaryadka|זאריאטקה
+bag|Сумка|sumka|סומקה
+shoes|Обувь|obuv|אובוף
+clothes|Одежда|odezhda|אדיעז׳דה
+hat|Шляпа|shlyapa|שליאפה
+glasses|Очки|ochki|אצ׳קי
+map|Карта|karta|קארטה
+sunscreen|Солнцезащитный крем|solntsezashchitny krem|סונצזאשיטני קריעם
+umbrella|Зонт|zont|זונט
+come|Приходить|prikhodit|פריחאדיט
+want|Хотеть|khotet|חאטייט
+need|Нуждаться|nuzhdatsya|נוז׳דאצה
+know|Знать|znat|זנאט
+see|Видеть|videt|וידיט
+hear|Слышать|slyshat|סלישאט
+give|Давать|davat|דאבאט
+take|Брать|brat|בראט
+pay|Платить|platit|פלאטיט
+wait|Ждать|zhdat|ז׳דאט
+walk|Ходить пешком|khodit peshkom|חאדיט פישקום
+read|Читать|chitat|צ׳יטאט
+write|Писать|pisat|פיסאט
+love|Любить|lyubit|ליוביט
+work|Работать|rabotat|ראבוטאט
+swim|Плавать|plavat|פלאבאט
+new|Новый|novy|נובי
+old|Старый|stary|סטארי
+fast|Быстрый|bystry|ביסטרי
+slow|Медленный|medlenny|מיעדליני
+near|Близко|blizko|בליסקה
+far_a|Далеко|daleko|דאליקו
+clean|Чистый|chisty|צ׳יסטי
+dirty|Грязный|gryazny|גריאזני
+tired|Усталый|ustaly|אוסטאלי
+hungry|Голодный|golodny|גאלודני
+thirsty|Хочу пить|khochu pit|חאצ׳ו פיט
+happy|Счастливый|schastlivy|שיסליבי
+sad|Грустный|grustny|גרוסני
+easy|Лёгкий|lyogkiy|ליוחקי
+difficult|Трудный|trudny|טרודני
+many|Много|mnogo|מנוגה
+sf_order|Я хочу заказать|ya khochu zakazat|יא חאצ׳ו זאקאזאט
+sf_recommend|Что вы посоветуете?|chto vy posovetuyete|שטו וי פאסאביעטויטיה
+sf_bottle|Бутылку воды, пожалуйста|butylku vody, pozhaluysta|בוטילקו ואדי, פאז׳לוסטה
+sf_isspicy|Это острое?|eto ostroye|אטה אוסטראיה
+sf_onemore|Ещё один, пожалуйста|yeshchyo odin, pozhaluysta|יישו אדין, פאז׳לוסטה
+sf_nosugar|Без сахара, пожалуйста|bez sakhara, pozhaluysta|ביס סאחארה, פאז׳לוסטה
+sf_takeaway|Можно с собой?|mozhno s soboy|מוז׳נה ססאבוי
+ss_smaller|Есть размер поменьше?|yest razmer pomenshe|ייסט ראזמיער פאמיינשה
+ss_try|Можно примерить?|mozhno primerit|מוז׳נה פרימיעריט
+ss_two|Я возьму два|ya vozmu dva|יא ואזמו דבה
+ss_change|У вас есть сдача?|u vas yest sdacha|או ואס ייסט זדאצ׳ה
+ss_last|Какая окончательная цена?|kakaya okonchatelnaya tsena|קאקאיה אקאנצ׳אטילנאיה צינה
+ss_bag|Можно пакет?|mozhno paket|מוז׳נה פאקייט
+sm_busstop|Где автобусная остановка?|gde avtobusnaya ostanovka|גדיה אפטובוסנאיה אסטאנופקה
+sm_trainleave|Когда отправляется поезд?|kogda otpravlyayetsya poyezd|קאגדה אטפראבליאיצה פויעזד
+sm_oneticket|Один билет, пожалуйста|odin bilet, pozhaluysta|אדין בילייט, פאז׳לוסטה
+sm_howlong|Сколько времени это займёт?|skolko vremeni eto zaymyot|סקולקה וריימיני אטה זאימיוט
+sm_meter|Включите счётчик, пожалуйста|vklyuchite schyotchik, pozhaluysta|פקליוצ׳יטיה שיוצ׳יק, פאז׳לוסטה
+sm_slowdrive|Езжайте медленнее, пожалуйста|yezzhayte medlenneye, pozhaluysta|ייז׳איטיה מיעדליניה, פאז׳לוסטה
+sm_airport|Мне нужно в аэропорт|mne nuzhno v aeroport|מניה נוז׳נה וו אירופורט
+sh_leavebag|Можно оставить здесь сумку?|mozhno ostavit zdes sumku|מוז׳נה אסטאביט זדיעס סומקו
+sh_ac|Кондиционер не работает|konditsioner ne rabotayet|קאנדיציאנייר ני ראבוטאייט
+sh_breakfast|Завтрак включён?|zavtrak vklyuchyon|זאפטראק פקליוצ׳ון
+sh_towel|Мне нужно ещё одно полотенце|mne nuzhno yeshchyo odno polotentse|מניה נוז׳נה יישו אדנו פאלאטיינצה
+sh_taxi|Вызовите мне такси, пожалуйста|vyzovite mne taksi, pozhaluysta|ויזאביטיה מניה טאקסי, פאז׳לוסטה
+sh_late|Можно выехать позже?|mozhno vyyekhat pozzhe|מוז׳נה וייחאט פוז׳ה
+so_learning|Я учу язык|ya uchu yazyk|יא אוצ׳ו יזיק
+so_thankshelp|Большое спасибо за помощь|bolshoye spasibo za pomoshch|באלשויה ספסיבה זה פומאש
+so_photo|Можете нас сфотографировать?|mozhete nas sfotografirovat|מוז׳טיה נאס ספאטאגראפירובאט
+so_like|Мне нравится это место|mne nravitsya eto mesto|מניה נראביצה אטה מייסטה
+so_vacation|Я здесь в отпуске|ya zdes v otpuske|יא זדיעס וו אוטפוסקה
+so_howsay|Как это сказать?|kak eto skazat|קאק אטה סקאזאט
+so_noproblem|Без проблем|bez problem|ביס פראבליעם
+so_beautiful|Очень красиво!|ochen krasivo|אוצ׳ן קראסיבה
+sp_unwell|Мне плохо|mne plokho|מניה פלוחה
+sp_nearhosp|Где ближайшая больница?|gde blizhayshaya bolnitsa|גדיה בליז׳איישאיה בולניצה
+sp_fever|У меня температура|u menya temperatura|או מיניא טימפיראטורה
+sp_helpme|Помогите мне, пожалуйста|pomogite mne, pozhaluysta|פאמאגיטיה מניה, פאז׳לוסטה
+sp_stolen|У меня украли сумку|u menya ukrali sumku|או מיניא אוקראלי סומקו
+sp_embassy|Мне нужно посольство Израиля|mne nuzhno posolstvo Izrailya|מניה נוז׳נה פאסולסטבה איזראילה`;
+
+WD_RAW3.ar = `n11|أحد عشر|ahada 'ashar|אחד עשר
+n12|اثنا عشر|ithna 'ashar|אתנא עשר
+n13|ثلاثة عشر|thalathata 'ashar|תלאתת עשר
+n14|أربعة عشر|arba'ata 'ashar|ארבעת עשר
+n15|خمسة عشر|khamsata 'ashar|ח׳מסת עשר
+n16|ستة عشر|sittata 'ashar|סתת עשר
+n17|سبعة عشر|sab'ata 'ashar|סבעת עשר
+n18|ثمانية عشر|thamaniyata 'ashar|תמאנית עשר
+n19|تسعة عشر|tis'ata 'ashar|תסעת עשר
+n30|ثلاثون|thalathun|תלאתון
+n40|أربعون|arba'un|ארבעון
+n60|ستون|sittun|סתון
+n70|سبعون|sab'un|סבעון
+n80|ثمانون|thamanun|תמאנון
+n90|تسعون|tis'un|תסעון
+n200|مئتان|mi'atan|מיאתאן
+n500|خمسمئة|khamsumi'a|ח׳מסמיאה
+n10000|عشرة آلاف|'asharat alaf|עשרת אלאף
+t_morning|صباح|sabah|צבאח
+t_evening|مساء|masa'|מסאא
+t_night|ليل|layl|ליל
+t_week|أسبوع|usbu'|אוסבוע
+t_month|شهر|shahr|שהר
+t_year|سنة|sana|סנה
+t_hour|ساعة|sa'a|סאעה
+t_minute|دقيقة|daqiqa|דקיקה
+dog|كلب|kalb|כלב
+cat|قطة|qitta|קטה
+bird|طائر|ta'ir|טאאר
+horse|حصان|hisan|חצאן
+cow|بقرة|baqara|בקרה
+pig|خنزير|khinzir|ח׳נזיר
+elephant|فيل|fil|פיל
+monkey|قرد|qird|קרד
+snake|ثعبان|thu'ban|תועבאן
+mosquito|بعوضة|ba'uda|בעוצ׳ה
+lion|أسد|asad|אסד
+duck|بطة|batta|בטה
+apple|تفاحة|tuffaha|תפאחה
+banana|موز|mawz|מוז
+orange|برتقال|burtuqal|בורתקאל
+mango|مانجو|manju|מאנג׳ו
+pineapple|أناناس|ananas|אנאנאס
+watermelon|بطيخ|battikh|בטיח׳
+coconut|جوز الهند|jawz al-hind|ג׳וז אל-הנד
+grapes|عنب|'inab|ענב
+lemon|ليمون|laymun|לימון
+strawberry|فراولة|farawla|פראולה
+papaya|بابايا|babaya|באבאיא
+tomato|طماطم|tamatim|טמאטם
+potato|بطاطس|batatis|בטאטס
+onion|بصل|basal|בצל
+garlic|ثوم|thum|תום
+cucumber|خيار|khiyar|ח׳יאר
+carrot|جزر|jazar|ג׳זר
+chili|فلفل حار|filfil harr|פלפל חאר
+corn|ذرة|dhura|ד׳ורה
+mushroom|فطر|futr|פוטר
+lettuce|خس|khass|ח׳ס
+eggplant|باذنجان|badhinjan|באד׳נג׳אן
+soup|حساء|hasa'|חסאא
+salad|سلطة|salata|סלטה
+noodles|معكرونة|ma'karuna|מעכרונה
+cheese|جبن|jubn|ג׳ובן
+butter|زبدة|zubda|זובדה
+salt|ملح|milh|מלח
+sugar|سكر|sukkar|סוכר
+cake|كعكة|ka'ka|כעכה
+icecream|آيس كريم|ays krim|איס כרים
+juice|عصير|'asir|עציר
+wine|نبيذ|nabidh|נביד׳
+breakfast|فطور|futur|פטור
+lunch|غداء|ghada'|ע׳דאא
+dinner|عشاء|'asha'|עשאא
+fork|شوكة|shawka|שוכה
+spoon|ملعقة|mil'aqa|מלעקה
+knife|سكين|sikkin|סכין
+glass|كوب|kub|כוב
+plate|صحن|sahn|צחן
+bank|بنك|bank|בנכ
+atm|صراف آلي|sarraf ali|צראף אלי
+beach|شاطئ|shati'|שאטא
+museum|متحف|mathaf|מתחף
+temple|معبد|ma'bad|מעבד
+street|شارع|shari'|שארע
+city|مدينة|madina|מדינה
+shop|محل|mahall|מחל
+supermarket|سوبرماركت|subermarket|סוברמרכט
+park|حديقة|hadiqa|חדיקה
+station|محطة|mahatta|מחטה
+embassy|سفارة|sifara|ספארה
+phone|هاتف|hatif|האתף
+charger|شاحن|shahin|שאחן
+bag|حقيبة|haqiba|חקיבה
+shoes|حذاء|hidha'|חד׳אא
+clothes|ملابس|malabis|מלאבס
+hat|قبعة|qubba'a|קובעה
+glasses|نظارة|nadhdhara|נט׳ארה
+map|خريطة|kharita|ח׳ריטה
+sunscreen|واقي الشمس|waqi ash-shams|ואקי א-שמס
+umbrella|مظلة|midhalla|מט׳לה
+come|يأتي|ya'ti|יאתי
+want|يريد|yurid|יוריד
+need|يحتاج|yahtaj|יחתאג׳
+know|يعرف|ya'rif|יערף
+see|يرى|yara|ירא
+hear|يسمع|yasma'|יסמע
+give|يعطي|yu'ti|יועטי
+take|يأخذ|ya'khudh|יאח׳ד׳
+pay|يدفع|yadfa'|ידפע
+wait|ينتظر|yantadhir|ינתט׳ר
+walk|يمشي|yamshi|ימשי
+read|يقرأ|yaqra'|יקרא
+write|يكتب|yaktub|יכתב
+love|يحب|yuhibb|יוחב
+work|يعمل|ya'mal|יעמל
+swim|يسبح|yasbah|יסבח
+new|جديد|jadid|ג׳דיד
+old|قديم|qadim|קדים
+fast|سريع|sari'|סריע
+slow|بطيء|bati'|בטיא
+near|قريب|qarib|קריב
+far_a|بعيد|ba'id|בעיד
+clean|نظيف|nadhif|נט׳יף
+dirty|وسخ|wasikh|וסח׳
+tired|تعبان|ta'ban|תעבאן
+hungry|جوعان|ju'an|ג׳ועאן
+thirsty|عطشان|'atshan|עטשאן
+happy|سعيد|sa'id|סעיד
+sad|حزين|hazin|חזין
+easy|سهل|sahl|סהל
+difficult|صعب|sa'b|צעב
+many|كثير|kathir|כתיר
+sf_order|أريد أن أطلب|urid an atlub|אוריד אן אטלב
+sf_recommend|ماذا تنصحني؟|madha tansahuni|מאד׳א תנצחני
+sf_bottle|زجاجة ماء من فضلك|zujajat maa min fadlak|זוג׳אג׳ת מאא מן פדלכ
+sf_isspicy|هل هذا حار؟|hal hatha harr|הל האד׳א חאר
+sf_onemore|واحد آخر من فضلك|wahid akhar min fadlak|ואחד אח׳ר מן פדלכ
+sf_nosugar|بدون سكر من فضلك|bidun sukkar min fadlak|בדון סוכר מן פדלכ
+sf_takeaway|هل يمكن أن آخذه معي؟|hal yumkin an akhudhahu ma'i|הל יומכן אן אח׳ד׳ה מעי
+ss_smaller|هل عندك مقاس أصغر؟|hal 'indak maqas asghar|הל ענדכ מקאס אצע׳ר
+ss_try|هل يمكنني أن أجربه؟|hal yumkinuni an ujarribahu|הל יומכנני אן אג׳רבה
+ss_two|سآخذ اثنين|sa-akhudh ithnayn|סאח׳ד׳ אתנין
+ss_change|هل عندك فكة؟|hal 'indak fakka|הל ענדכ פכה
+ss_last|ما هو السعر النهائي؟|ma huwa as-si'r an-niha'i|מא הווא א-סער א-נהאאי
+ss_bag|هل يمكن كيس من فضلك؟|hal yumkin kis min fadlak|הל יומכן כיס מן פדלכ
+sm_busstop|أين موقف الحافلات؟|ayna mawqif al-hafilat|אין מוקף אל-חאפלאת
+sm_trainleave|متى يغادر القطار؟|mata yughadir al-qitar|מתא יוע׳אדר אל-קטאר
+sm_oneticket|تذكرة واحدة من فضلك|tadhkira wahida min fadlak|תד׳כרה ואחדה מן פדלכ
+sm_howlong|كم من الوقت يستغرق؟|kam min al-waqt yastaghriq|כם מן אל-וקת יסתע׳רק
+sm_meter|شغل العداد من فضلك|shaghghil al-'addad min fadlak|שע׳ל אל-עדאד מן פדלכ
+sm_slowdrive|سق ببطء من فضلك|suq bi-but' min fadlak|סוק בבוטא מן פדלכ
+sm_airport|أريد أن أذهب إلى المطار|urid an adhhab ila al-matar|אוריד אן אד׳הב אלא אל-מטאר
+sh_leavebag|هل يمكنني ترك حقيبتي هنا؟|hal yumkinuni tark haqibati huna|הל יומכנני תרכ חקיבתי הונא
+sh_ac|المكيف لا يعمل|al-mukayyif la ya'mal|אל-מוכיף לא יעמל
+sh_breakfast|هل الفطور مشمول؟|hal al-futur mashmul|הל אל-פטור משמול
+sh_towel|أحتاج منشفة أخرى|ahtaj minshafa ukhra|אחתאג׳ מנשפה אוח׳רא
+sh_taxi|هل يمكنك أن تطلب لي تاكسي؟|hal yumkinuka an tatlub li taksi|הל יומכנכ אן תטלב לי טאכסי
+sh_late|هل يمكنني المغادرة متأخرا؟|hal yumkinuni al-mughadara muta'akhkhiran|הל יומכנני אל-מוע׳אדרה מתאח׳רן
+so_learning|أنا أتعلم اللغة|ana ata'allam al-lugha|אנא אתעלם אל-לוע׳ה
+so_thankshelp|شكرا جزيلا على مساعدتك|shukran jazilan 'ala musa'adatik|שוכרן ג׳זילן עלא מסאעדתכ
+so_photo|هل يمكنك أن تصورنا؟|hal yumkinuka an tusawwirana|הל יומכנכ אן תצורנא
+so_like|أحب هذا المكان|uhibb hatha al-makan|אוחב האד׳א אל-מכאן
+so_vacation|أنا هنا في إجازة|ana huna fi ijaza|אנא הונא פי אג׳אזה
+so_howsay|كيف تقول هذا؟|kayfa taqul hatha|כיף תקול האד׳א
+so_noproblem|لا مشكلة|la mushkila|לא משכלה
+so_beautiful|هذا جميل جدا!|hatha jamil jiddan|האד׳א ג׳מיל ג׳דן
+sp_unwell|لا أشعر أنني بخير|la ash'ur annani bikhayr|לא אשער אננני בח׳יר
+sp_nearhosp|أين أقرب مستشفى؟|ayna aqrab mustashfa|אין אקרב מוסתשפא
+sp_fever|عندي حمى|'indi humma|ענדי חומא
+sp_helpme|ساعدني من فضلك|sa'idni min fadlak|סאעדני מן פדלכ
+sp_stolen|سُرقت حقيبتي|suriqat haqibati|סורקת חקיבתי
+sp_embassy|أحتاج السفارة الإسرائيلية|ahtaj as-sifara al-isra'iliyya|אחתאג׳ א-ספארה אל-אסראאיליה`;
+
+WD_RAW3.th = `n11|สิบเอ็ด|sip et|סיפ-אט
+n12|สิบสอง|sip song|סיפ-סונג
+n13|สิบสาม|sip sam|סיפ-סאם
+n14|สิบสี่|sip si|סיפ-סי
+n15|สิบห้า|sip ha|סיפ-הא
+n16|สิบหก|sip hok|סיפ-הוק
+n17|สิบเจ็ด|sip chet|סיפ-ג׳ט
+n18|สิบแปด|sip paet|סיפ-פאט
+n19|สิบเก้า|sip kao|סיפ-גאו
+n30|สามสิบ|sam sip|סאם-סיפ
+n40|สี่สิบ|si sip|סי-סיפ
+n60|หกสิบ|hok sip|הוק-סיפ
+n70|เจ็ดสิบ|chet sip|ג׳ט-סיפ
+n80|แปดสิบ|paet sip|פאט-סיפ
+n90|เก้าสิบ|kao sip|גאו-סיפ
+n200|สองร้อย|song roi|סונג רוי
+n500|ห้าร้อย|ha roi|הא רוי
+n10000|หนึ่งหมื่น|nueng muen|נאנג מון
+t_morning|ตอนเช้า|ton chao|טון צ׳או
+t_evening|ตอนเย็น|ton yen|טון יין
+t_night|กลางคืน|klang khuen|גלאנג קון
+t_week|สัปดาห์|sapda|סאפדא
+t_month|เดือน|duean|דואן
+t_year|ปี|pi|פי
+t_hour|ชั่วโมง|chua mong|צ׳ואה-מונג
+t_minute|นาที|nathi|נאטי
+dog|หมา|ma|מא
+cat|แมว|maeo|מאו
+bird|นก|nok|נוק
+horse|ม้า|ma|מא
+cow|วัว|wua|וואה
+pig|หมู|mu|מו
+elephant|ช้าง|chang|צ׳אנג
+monkey|ลิง|ling|לינג
+snake|งู|ngu|נגו
+mosquito|ยุง|yung|יונג
+lion|สิงโต|singto|סינג-טו
+duck|เป็ด|pet|פט
+apple|แอปเปิ้ล|appoen|אפ-פן
+banana|กล้วย|kluai|גלואי
+orange|ส้ม|som|סום
+mango|มะม่วง|mamuang|מה-מואנג
+pineapple|สับปะรด|sapparot|סאפ-פה-רוט
+watermelon|แตงโม|taeng mo|טנג-מו
+coconut|มะพร้าว|maphrao|מה-פראו
+grapes|องุ่น|a-ngun|אה-נגון
+lemon|มะนาว|manao|מה-נאו
+strawberry|สตรอเบอร์รี่|satroboeri|סטרוברי
+papaya|มะละกอ|malako|מה-לה-גו
+tomato|มะเขือเทศ|makhuea thet|מה-קואה-טט
+potato|มันฝรั่ง|man farang|מאן-פרנג
+onion|หัวหอม|hua hom|הואה-הום
+garlic|กระเทียม|krathiam|גרה-טיאם
+cucumber|แตงกวา|taeng kwa|טנג-גווא
+carrot|แครอท|khaerot|קה-רוט
+chili|พริก|phrik|פריק
+corn|ข้าวโพด|khao phot|קאו-פוט
+mushroom|เห็ด|het|הט
+lettuce|ผักกาดหอม|phak kat hom|פאק-גאט-הום
+eggplant|มะเขือ|makhuea|מה-קואה
+soup|ซุป|sup|סופ
+salad|สลัด|salat|סלאט
+noodles|ก๋วยเตี๋ยว|kuai tiao|גואי-טיאו
+cheese|ชีส|chit|צ׳יס
+butter|เนย|noei|נוי
+salt|เกลือ|kluea|גלואה
+sugar|น้ำตาล|namtan|נאם-טאן
+cake|เค้ก|khek|קק
+icecream|ไอศกรีม|aisakrim|איי-סה-קרים
+juice|น้ำผลไม้|nam phonlamai|נאם פונלאמאי
+wine|ไวน์|wai|ואי
+breakfast|อาหารเช้า|a-han chao|אהאן צ׳או
+lunch|อาหารกลางวัน|a-han klang wan|אהאן גלאנג-וואן
+dinner|อาหารเย็น|a-han yen|אהאן יין
+fork|ส้อม|som|סום
+spoon|ช้อน|chon|צ׳ון
+knife|มีด|mit|מיט
+glass|แก้ว|kaeo|גאו
+plate|จาน|chan|ג׳אן
+bank|ธนาคาร|thanakhan|טה-נא-קאן
+atm|ตู้เอทีเอ็ม|tu ATM|טו אי-טי-אם
+beach|ชายหาด|chai hat|צ׳אי-האט
+museum|พิพิธภัณฑ์|phiphitthaphan|פי-פיט-טה-פאן
+temple|วัด|wat|וואט
+street|ถนน|thanon|טה-נון
+city|เมือง|mueang|מואנג
+shop|ร้าน|ran|ראן
+supermarket|ซูเปอร์มาร์เก็ต|supermarket|סופר-מרקט
+park|สวนสาธารณะ|suan satharana|סואן סא-טא-רה-נה
+station|สถานี|sathani|סה-טא-ני
+embassy|สถานทูต|sathan thut|סה-טאן-טוט
+phone|โทรศัพท์|thorasap|טו-רה-סאפ
+charger|ที่ชาร์จ|thi chat|טי-צ׳ארט
+bag|กระเป๋า|krapao|גרה-פאו
+shoes|รองเท้า|rong thao|רונג-טאו
+clothes|เสื้อผ้า|suea pha|סואה-פא
+hat|หมวก|muak|מואק
+glasses|แว่นตา|waen ta|ואן-טא
+map|แผนที่|phaen thi|פאן-טי
+sunscreen|ครีมกันแดด|khrim kan daet|קרים גאן-דאט
+umbrella|ร่ม|rom|רום
+come|มา|ma|מא
+want|อยาก|yak|יאק
+need|ต้องการ|tongkan|טונג-גאן
+know|รู้|ru|רו
+see|เห็น|hen|הן
+hear|ได้ยิน|dai yin|דאי-יין
+give|ให้|hai|האי
+take|เอา|ao|או
+pay|จ่าย|chai|ג׳אי
+wait|รอ|ro|רו
+walk|เดิน|doen|דון
+read|อ่าน|an|אן
+write|เขียน|khian|קיאן
+love|รัก|rak|ראק
+work|ทำงาน|tham ngan|טאם-נגאן
+swim|ว่ายน้ำ|wai nam|ואי-נאם
+new|ใหม่|mai|מאי
+old|เก่า|kao|גאו
+fast|เร็ว|reo|ריאו
+slow|ช้า|cha|צ׳א
+near|ใกล้|klai|גלאי
+far_a|ไกล|klai|גלאי
+clean|สะอาด|sa-at|סה-אאט
+dirty|สกปรก|sokkaprok|סוק-גה-פרוק
+tired|เหนื่อย|nueai|נואי
+hungry|หิว|hiu|היו
+thirsty|หิวน้ำ|hiu nam|היו נאם
+happy|มีความสุข|mi khwam suk|מי קוואם סוק
+sad|เศร้า|sao|סאו
+easy|ง่าย|ngai|נגאי
+difficult|ยาก|yak|יאק
+many|เยอะ|yoe|יה
+sf_order|ขอสั่งอาหารครับ|kho sang a-han khrap|קו סאנג אהאן קראפ
+sf_recommend|มีอะไรแนะนำไหมครับ|mi arai nae nam mai khrap|מי אראי נה-נאם מאי קראפ
+sf_bottle|ขอน้ำเปล่าขวดหนึ่งครับ|kho nam plao khuat nueng khrap|קו נאם פלאו קואט נאנג קראפ
+sf_isspicy|อันนี้เผ็ดไหมครับ|an ni phet mai khrap|אן-ני פט מאי קראפ
+sf_onemore|ขออีกอันครับ|kho ik an khrap|קו איק אן קראפ
+sf_nosugar|ไม่ใส่น้ำตาลครับ|mai sai namtan khrap|מאי סאי נאם-טאן קראפ
+sf_takeaway|ใส่ถุงกลับบ้านครับ|sai thung klap ban khrap|סאי טונג גלאפ באן קראפ
+ss_smaller|มีไซส์เล็กกว่านี้ไหมครับ|mi sai lek kwa ni mai khrap|מי סאי לק גווא ני מאי קראפ
+ss_try|ลองได้ไหมครับ|long dai mai khrap|לונג דאי מאי קראפ
+ss_two|เอาสองอันครับ|ao song an khrap|או סונג אן קראפ
+ss_change|มีเงินทอนไหมครับ|mi ngoen thon mai khrap|מי נגן טון מאי קראפ
+ss_last|ราคาสุดท้ายเท่าไหร่ครับ|ra-kha sut thai thao rai khrap|ראקא סוט-טאי טאו-ראי קראפ
+ss_bag|ขอถุงหน่อยครับ|kho thung noi khrap|קו טונג נוי קראפ
+sm_busstop|ป้ายรถเมล์อยู่ที่ไหนครับ|pai rot me yu thi nai khrap|פאי רוט-מה יו טי-נאי קראפ
+sm_trainleave|รถไฟออกกี่โมงครับ|rot fai ok ki mong khrap|רוט-פאי אוק גי מונג קראפ
+sm_oneticket|ขอตั๋วหนึ่งใบครับ|kho tua nueng bai khrap|קו טואה נאנג באי קראפ
+sm_howlong|ใช้เวลานานไหมครับ|chai wela nan mai khrap|צ׳אי ולא נאן מאי קראפ
+sm_meter|เปิดมิเตอร์ด้วยครับ|poet mitoe duai khrap|פוט מיטר דואי קראפ
+sm_slowdrive|ขับช้าๆ หน่อยครับ|khap cha cha noi khrap|קאפ צ׳א-צ׳א נוי קראפ
+sm_airport|ไปสนามบินครับ|pai sanam bin khrap|פאי סנאם-בין קראפ
+sh_leavebag|ฝากกระเป๋าไว้ที่นี่ได้ไหมครับ|fak krapao wai thi ni dai mai khrap|פאק גרה-פאו ואי טי-ני דאי מאי קראפ
+sh_ac|แอร์เสียครับ|ae sia khrap|אה סיא קראפ
+sh_breakfast|รวมอาหารเช้าไหมครับ|ruam a-han chao mai khrap|רואם אהאן צ׳או מאי קראפ
+sh_towel|ขอผ้าเช็ดตัวอีกผืนครับ|kho pha chet tua ik phuen khrap|קו פא צ׳ט טואה איק פון קראפ
+sh_taxi|ช่วยเรียกแท็กซี่ให้หน่อยได้ไหมครับ|chuai riak thaeksi hai noi dai mai khrap|צ׳ואי ריאק טקסי האי נוי דאי מאי קראפ
+sh_late|เช็คเอาท์ช้าหน่อยได้ไหมครับ|chek ao cha noi dai mai khrap|צ׳ק-אאו צ׳א נוי דאי מאי קראפ
+so_learning|ผมกำลังเรียนภาษาไทยครับ|phom kamlang rian phasa thai khrap|פום גאם-לאנג ריאן פאסא טאי קראפ
+so_thankshelp|ขอบคุณมากที่ช่วยครับ|khop khun mak thi chuai khrap|קופ קון מאק טי צ׳ואי קראפ
+so_photo|ช่วยถ่ายรูปให้หน่อยได้ไหมครับ|chuai thai rup hai noi dai mai khrap|צ׳ואי טאי רופ האי נוי דאי מאי קראפ
+so_like|ผมชอบที่นี่ครับ|phom chop thi ni khrap|פום צ׳ופ טי-ני קראפ
+so_vacation|ผมมาเที่ยวครับ|phom ma thiao khrap|פום מא טיאו קראפ
+so_howsay|อันนี้ภาษาไทยเรียกว่าอะไรครับ|an ni phasa thai riak wa arai khrap|אן-ני פאסא טאי ריאק ווא אראי קראפ
+so_noproblem|ไม่เป็นไรครับ|mai pen rai khrap|מאי פן ראי קראפ
+so_beautiful|สวยมากครับ!|suai mak khrap|סואי מאק קראפ
+sp_unwell|ผมไม่สบายครับ|phom mai sabai khrap|פום מאי סבאי קראפ
+sp_nearhosp|โรงพยาบาลที่ใกล้ที่สุดอยู่ที่ไหนครับ|rong phayaban thi klai thi sut yu thi nai khrap|רונג-פיאבאן טי גלאי טי-סוט יו טי-נאי קראפ
+sp_fever|ผมมีไข้ครับ|phom mi khai khrap|פום מי קאי קראפ
+sp_helpme|ช่วยผมด้วยครับ|chuai phom duai khrap|צ׳ואי פום דואי קראפ
+sp_stolen|กระเป๋าผมถูกขโมยครับ|krapao phom thuk khamoi khrap|גרה-פאו פום טוק קה-מוי קראפ
+sp_embassy|ผมต้องการไปสถานทูตอิสราเอลครับ|phom tongkan pai sathan thut Israel khrap|פום טונג-גאן פאי סה-טאן-טוט איסראל קראפ`;
+
+for (const l in WD_RAW3) {
+  WD[l] = WD[l] || {};
+  WD_RAW3[l].split('\n').forEach(line => {
+    const p = line.split('|');
+    if (p.length >= 4) WD[l][p[0].trim()] = [p[1].trim(), p[2].trim(), p[3].trim()];
+  });
+}
+
 /* ===== LingoNest — i18n.js : UI text in 5 languages (he, en, ru, es, ar). Missing key → English. ===== */
 const LANG = {
 he: {
@@ -1807,10 +2752,57 @@ Object.assign(LANG.ar, {
   wn4: 'تدريب النطق: يستمع التطبيق ويتحقق من نطقك.', wn5: 'مستويات جديدة: 5 كلمات يومية، 6 محادثة، 7 كلماتي.'
 });
 
+/* ===== LingoNest — i18n3.js : v1.2 strings (merged into LANG) ===== */
+Object.assign(LANG.he, {
+  lvl7: 'עולם המילים', lvl8: 'משפטים שלמים', lvl9: 'המילים שלי', cat_num: 'מספרים',
+  cat_animals: 'חיות', cat_fruits: 'פירות', cat_veggies: 'ירקות', cat_dishes: 'מאכלים ושולחן', cat_places: 'מקומות בעיר', cat_things: 'חפצים לטיול',
+  cat_s_food: 'במסעדה', cat_s_shop: 'בקניות', cat_s_move: 'בדרכים', cat_s_hotel: 'במלון', cat_s_social: 'היכרות ושיחה', cat_s_help: 'עזרה ובריאות',
+  countWords: '{n} מילים ב-{c} נושאים', countPhrases: '{n} משפטים ב-{c} מצבים',
+  wn1: 'יותר מפי 2 תוכן: 336 מילים ומשפטים בכל שפה.', wn2: 'נושאים חדשים: חיות, פירות, ירקות, מאכלים ושולחן, מקומות בעיר, חפצים לטיול, ועוד פעלים ותארים.',
+  wn3: '40 משפטים שלמים לפי מצבים: במסעדה, בקניות, בדרכים, במלון, היכרות ושיחה, עזרה ובריאות.', wn4: 'כל המספרים בנושא אחד: 0–20, עשרות, מאות ואלפים.',
+  wn5: 'רמות חדשות: 7 עולם המילים, 8 משפטים שלמים, 9 המילים שלי.'
+});
+Object.assign(LANG.en, {
+  lvl7: 'World of words', lvl8: 'Full sentences', lvl9: 'My words', cat_num: 'Numbers',
+  cat_animals: 'Animals', cat_fruits: 'Fruits', cat_veggies: 'Vegetables', cat_dishes: 'Food & table', cat_places: 'Places in town', cat_things: 'Travel items',
+  cat_s_food: 'At the restaurant', cat_s_shop: 'Shopping', cat_s_move: 'Getting around', cat_s_hotel: 'At the hotel', cat_s_social: 'Meeting people', cat_s_help: 'Help & health',
+  countWords: '{n} words in {c} topics', countPhrases: '{n} phrases in {c} situations',
+  wn1: 'More than twice the content: 336 words and phrases per language.', wn2: 'New topics: animals, fruits, vegetables, food & table, places in town, travel items, plus more verbs and adjectives.',
+  wn3: '40 full sentences by situation: restaurant, shopping, getting around, hotel, meeting people, help & health.', wn4: 'All numbers in one topic: 0–20, tens, hundreds and thousands.',
+  wn5: 'New levels: 7 world of words, 8 full sentences, 9 my words.'
+});
+Object.assign(LANG.ru, {
+  lvl7: 'Мир слов', lvl8: 'Целые предложения', lvl9: 'Мои слова', cat_num: 'Числа',
+  cat_animals: 'Животные', cat_fruits: 'Фрукты', cat_veggies: 'Овощи', cat_dishes: 'Еда и посуда', cat_places: 'Места в городе', cat_things: 'Вещи в дорогу',
+  cat_s_food: 'В ресторане', cat_s_shop: 'Покупки', cat_s_move: 'В дороге', cat_s_hotel: 'В отеле', cat_s_social: 'Знакомство и разговор', cat_s_help: 'Помощь и здоровье',
+  countWords: '{n} слов в {c} темах', countPhrases: '{n} фраз в {c} ситуациях',
+  wn1: 'Вдвое больше материала: 336 слов и фраз в каждом языке.', wn2: 'Новые темы: животные, фрукты, овощи, еда и посуда, места в городе, вещи в дорогу, больше глаголов и прилагательных.',
+  wn3: '40 целых предложений по ситуациям: ресторан, покупки, дорога, отель, знакомство, помощь и здоровье.', wn4: 'Все числа в одной теме: 0–20, десятки, сотни и тысячи.',
+  wn5: 'Новые уровни: 7 мир слов, 8 целые предложения, 9 мои слова.'
+});
+Object.assign(LANG.es, {
+  lvl7: 'Mundo de palabras', lvl8: 'Frases completas', lvl9: 'Mis palabras', cat_num: 'Números',
+  cat_animals: 'Animales', cat_fruits: 'Frutas', cat_veggies: 'Verduras', cat_dishes: 'Comida y mesa', cat_places: 'Lugares de la ciudad', cat_things: 'Cosas de viaje',
+  cat_s_food: 'En el restaurante', cat_s_shop: 'De compras', cat_s_move: 'Moverse', cat_s_hotel: 'En el hotel', cat_s_social: 'Conocer gente', cat_s_help: 'Ayuda y salud',
+  countWords: '{n} palabras en {c} temas', countPhrases: '{n} frases en {c} situaciones',
+  wn1: 'Más del doble de contenido: 336 palabras y frases por idioma.', wn2: 'Temas nuevos: animales, frutas, verduras, comida y mesa, lugares, cosas de viaje, y más verbos y adjetivos.',
+  wn3: '40 frases completas por situación: restaurante, compras, moverse, hotel, conocer gente, ayuda y salud.', wn4: 'Todos los números en un tema: 0–20, decenas, cientos y miles.',
+  wn5: 'Niveles nuevos: 7 mundo de palabras, 8 frases completas, 9 mis palabras.'
+});
+Object.assign(LANG.ar, {
+  lvl7: 'عالم الكلمات', lvl8: 'جمل كاملة', lvl9: 'كلماتي', cat_num: 'الأرقام',
+  cat_animals: 'الحيوانات', cat_fruits: 'الفواكه', cat_veggies: 'الخضروات', cat_dishes: 'الطعام والمائدة', cat_places: 'أماكن في المدينة', cat_things: 'أغراض السفر',
+  cat_s_food: 'في المطعم', cat_s_shop: 'التسوّق', cat_s_move: 'التنقّل', cat_s_hotel: 'في الفندق', cat_s_social: 'التعارف والحديث', cat_s_help: 'المساعدة والصحة',
+  countWords: '{n} كلمة في {c} موضوعا', countPhrases: '{n} جملة في {c} مواقف',
+  wn1: 'أكثر من ضعف المحتوى: 336 كلمة وجملة في كل لغة.', wn2: 'مواضيع جديدة: الحيوانات، الفواكه، الخضروات، الطعام والمائدة، أماكن المدينة، أغراض السفر، والمزيد من الأفعال والصفات.',
+  wn3: '40 جملة كاملة حسب الموقف: المطعم، التسوّق، التنقّل، الفندق، التعارف، المساعدة والصحة.', wn4: 'كل الأرقام في موضوع واحد: 0–20 والعشرات والمئات والآلاف.',
+  wn5: 'مستويات جديدة: 7 عالم الكلمات، 8 جمل كاملة، 9 كلماتي.'
+});
+
 /* ===== LingoNest — app.js : engine, screens, speech, AI (BYOK), storage ===== */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.1.0' };
-const MAXL = 7; /* levels: 1 letters · 2 survival · 3 travel vocab · 4 travel phrases · 5 everyday · 6 conversation · 7 my words */
+const APP = { name: 'LingoNest', ver: '1.2.0' };
+const MAXL = 9; /* levels: 1 letters · 2 survival · 3 travel vocab · 4 travel phrases · 5 everyday · 6 conversation · 7 world of words · 8 full sentences · 9 my words */
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
 function logErr(m, f, l) {
@@ -1893,9 +2885,9 @@ function items(lang) {
   (VOWELS[lang] || []).forEach((a, i) => L.push({ k: 'V:' + i, type: 'L', lvl: 1, cat: 'vowels', text: a[0], tts: a[1], heb: a[2], roman: a[3], he: a[2], en: a[3] }));
   CONCEPTS.forEach(c => {
     const t = WD[lang] && WD[lang][c[0]]; if (!t) return;
-    L.push({ k: 'W:' + c[0], type: (c[1] === 'phr' || c[1] === 'conv') ? 'P' : 'W', lvl: c[2], cat: c[1], he: c[3], en: c[4], text: g(t[0]), roman: g(t[1]), heb: g(t[2]) });
+    L.push({ k: 'W:' + c[0], type: (c[1] === 'phr' || c[1] === 'conv' || c[1].startsWith('s_')) ? 'P' : 'W', lvl: c[2], cat: c[1], he: c[3], en: c[4], text: g(t[0]), roman: g(t[1]), heb: g(t[2]) });
   });
-  (st.custom[lang] || []).forEach(c => L.push({ k: 'C:' + c.id, type: 'W', lvl: 7, cat: 'mine', he: c.he, en: c.he, text: c.text, roman: c.roman || '', heb: c.heb || '', cid: c.id }));
+  (st.custom[lang] || []).forEach(c => L.push({ k: 'C:' + c.id, type: 'W', lvl: MAXL, cat: 'mine', he: c.he, en: c.he, text: c.text, roman: c.roman || '', heb: c.heb || '', cid: c.id }));
   _itemsCache[lang] = { key, list: L };
   return L;
 }
@@ -2232,8 +3224,8 @@ SCREENS.home = () => {
   </section>
   <div class="grid">
     <button class="tile" data-act="nav" data-to="letters"><span>🔤</span><b>${esc(T('letters'))}</b><small>${(ALPHA[lang] || []).length} ${esc(T('lettersCount'))}${VOWELS[lang] ? ' + ' + esc(T('vowels')) : ''}</small></button>
-    <button class="tile" data-act="nav" data-to="topics"><span>💬</span><b>${esc(T('words'))}</b><small>${esc(T('wordsSub'))}</small></button>
-    <button class="tile" data-act="nav" data-to="topics" data-arg="P"><span>🗣️</span><b>${esc(T('phrases'))}</b><small>${esc(T('phrasesSub'))}</small></button>
+    <button class="tile" data-act="nav" data-to="topics"><span>💬</span><b>${esc(T('words'))}</b><small>${esc(T('countWords', { n: items(lang).filter(i => i.type === 'W').length, c: WORD_CATS.length - 1 }))}</small></button>
+    <button class="tile" data-act="nav" data-to="topics" data-arg="P"><span>🗣️</span><b>${esc(T('phrases'))}</b><small>${esc(T('countPhrases', { n: items(lang).filter(i => i.type === 'P').length, c: PHRASE_CATS.length }))}</small></button>
     <button class="tile" data-act="nav" data-to="practice"><span>🎯</span><b>${esc(T('practice'))}</b><small>${esc(T('practiceSub'))}</small></button>
     <button class="tile wide" data-act="nav" data-to="speak"><span>📢</span><b>${esc(T('speakForMe'))}</b><small>${esc(T('speakSub', { l: LN(lang) }))}</small></button>
     <button class="tile wide" data-act="nav" data-to="progress"><span>📈</span><b>${esc(T('progress'))}</b><small>${esc(T('progressSub'))}</small></button>
@@ -2266,21 +3258,27 @@ SCREENS.letters = () => {
 
 /* ===== TOPICS ===== */
 const CAT_ICON = { greet: '👋', num: '🔢', basic: '⭐', food: '🍜', trans: '🚕', shop: '🛍️', emerg: '🚑', time: '🕒', phr: '🗣️', mine: '✏️',
-  hotel: '🏨', num2: '💯', days: '📅', colors: '🎨', people: '👨‍👩‍👧', body: '🩺', adj: '↔️', verbs: '🏃', conv: '💬' };
+  hotel: '🏨', days: '📅', colors: '🎨', people: '👨‍👩‍👧', body: '🩺', adj: '↔️', verbs: '🏃', conv: '💬',
+  animals: '🐘', fruits: '🍍', veggies: '🥕', dishes: '🍲', places: '🏛️', things: '🎒',
+  s_food: '🍽️', s_shop: '🛒', s_move: '🚌', s_hotel: '🛎️', s_social: '🤝', s_help: '🆘' };
+const WORD_CATS = ['greet', 'num', 'basic', 'food', 'fruits', 'veggies', 'dishes', 'trans', 'places', 'shop', 'things', 'hotel', 'time', 'days', 'colors', 'people', 'body', 'animals', 'adj', 'verbs', 'emerg', 'mine'];
+const PHRASE_CATS = ['phr', 'conv', 's_food', 's_shop', 's_move', 's_hotel', 's_social', 's_help'];
 SCREENS.topics = mode => {
   const lang = st.lang, p = P(lang), all = items(lang);
-  const cats = mode === 'P' ? ['phr', 'conv'] : ['greet', 'num', 'basic', 'food', 'trans', 'shop', 'emerg', 'time', 'hotel', 'num2', 'days', 'colors', 'people', 'body', 'adj', 'verbs', 'mine'];
+  const cats = mode === 'P' ? PHRASE_CATS : WORD_CATS;
   const rows = cats.map(c => {
     const L = all.filter(i => i.cat === c), m = L.filter(i => p[i.k] && p[i.k].b >= 3).length;
-    return '<button class="trow" data-act="nav" data-to="list" data-arg="' + c + '"><span class="ti">' + CAT_ICON[c] + '</span><span class="tt"><b>' + esc(T('cat_' + c)) + '</b><small>' + (c === 'mine' && !L.length ? esc(T('mineEmpty')) : m + '/' + L.length + ' · ' + esc(T('level')) + ' ' + (L[0] ? L[0].lvl : 5)) + '</small>' + (L.length ? bar(m, L.length) : '') + '</span></button>';
+    return '<button class="trow" data-act="nav" data-to="list" data-arg="' + c + '"><span class="ti">' + CAT_ICON[c] + '</span><span class="tt"><b>' + esc(T('cat_' + c)) + '</b><small>' + (c === 'mine' && !L.length ? esc(T('mineEmpty')) : m + '/' + L.length + ' · ' + esc(T('level')) + ' ' + lvRange(L)) + '</small>' + (L.length ? bar(m, L.length) : '') + '</span></button>';
   }).join('');
   return header(T(mode === 'P' ? 'phrases' : 'words') + ' · ' + LN(lang)) + '<div class="list">' + rows + '</div>';
 };
 
+function lvRange(L) { if (!L.length) return MAXL; const a = Math.min(...L.map(i => i.lvl)), b = Math.max(...L.map(i => i.lvl)); return a === b ? a : a + '–' + b; }
 /* ===== ITEM LIST (category) ===== */
 SCREENS.list = cat => {
   const lang = st.lang, p = P(lang), favs = st.favs[lang] || [];
-  const L = items(lang).filter(i => i.cat === cat);
+  let L = items(lang).filter(i => i.cat === cat);
+  if (cat === 'num') L = L.slice().sort((a, b) => parseInt(a.k.slice(3)) - parseInt(b.k.slice(3)));
   const rows = L.map(i => rowHTML(i, lang, p, favs)).join('');
   const mineTools = cat === 'mine' ? `<div class="row wrap">
       <button class="btn" data-act="addCustom">➕ ${esc(T('addWord'))}</button>
