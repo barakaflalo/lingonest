@@ -295,10 +295,10 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "🕎 Yiddish: 407 words and phrases plus 22 expressions found in no other language — nakhes, takhles, biz hundert un tsvantsik…",
-  "wn2": "Standard YIVO spelling in Hebrew letters, Latin romanization, and a simple Israeli-style pronunciation line.",
-  "wn3": "🔊 No device has a Yiddish voice — read-aloud uses the Hebrew voice on the pronunciation line. It is approximate, not a native accent.",
-  "wn4": "Yiddish alphabet (אַ, אָ, ײַ, פֿ…), tips (Hebrew-origin words, standard vs. Hasidic pronunciation) and numbers.",
+  "wn1": "🇩🇪 German: 407 words and phrases, alphabet with ä/ö/ü/ß and combinations (ei, ie, sch…), prices in euro, tips (Sie vs du, der/die/das, Austria & Switzerland) and emergency numbers.",
+  "wn2": "🇬🇷 Greek: 407 words and phrases, the 24 Greek letters and sound pairs (ου, μπ, ντ…), prices in euro, tips (ναι means yes!) and emergency numbers.",
+  "wn3": "Greek also shows a Latin transliteration next to every word.",
+  "wn4": "Now 13 languages in the app.",
   "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
@@ -486,4 +486,4 @@ LANG.en = {
   "bd_kit": "Created a travel-kit card",
   "cat_yid": "Yiddish expressions"
 };
-window.__MODS['ui-en'] = '1.9.0';
+window.__MODS['ui-en'] = '1.10.0';

@@ -295,10 +295,10 @@ LANG.es = {
   "sayMore": "Aún no, volverá en el repaso",
   "noSpeech": "No oí nada. Pulsa 🎤 y habla cerca del teléfono.",
   "newIn": "Novedades de {v}",
-  "wn1": "🕎 Ídish: 407 palabras y frases y 22 expresiones únicas — najes, tajles, biz hundert un tsvantsik…",
-  "wn2": "Ortografía estándar YIVO, romanización latina y una línea de pronunciación sencilla.",
-  "wn3": "🔊 No existe voz de ídish: la lectura usa la voz hebrea y es aproximada.",
-  "wn4": "Alfabeto ídish, consejos y números.",
+  "wn1": "🇩🇪 Alemán: 407 palabras y frases, alfabeto con ä/ö/ü/ß, precios en euros, consejos y emergencias.",
+  "wn2": "🇬🇷 Griego: 407 palabras y frases, las 24 letras y combinaciones, precios en euros, consejos y emergencias.",
+  "wn3": "El griego muestra también una transliteración latina.",
+  "wn4": "Ahora 13 idiomas.",
   "wn5": "Tu progreso se conservó.",
   "lvl8": "Frases completas",
   "lvl9": "Mis palabras",
@@ -486,4 +486,4 @@ LANG.es = {
   "bd_kit": "Creaste una tarjeta del kit",
   "cat_yid": "Expresiones en ídish"
 };
-window.__MODS['ui-es'] = '1.9.0';
+window.__MODS['ui-es'] = '1.10.0';

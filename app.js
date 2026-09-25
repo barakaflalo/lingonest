@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.9.0' };
+const APP = { name: 'LingoNest', ver: '1.10.0' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -697,6 +697,8 @@ function qaSave() { S.set('ln_qa', { ver: APP.ver, lang: QA.lang, done: QA.done,
 const QA_STYLE = {
   _: 'Hebrew-letter pronunciation is deliberately simple: no niqqud (a segol is used only for the open e sound), aspiration is NOT marked, stress and tone are not marked. Equivalent Hebrew spellings (ו/וו, ט/ת, כ/ק) are fine. Do NOT report these conventions.',
   ary: 'This is Moroccan Darija (not Modern Standard Arabic) — judge it as spoken Moroccan Arabic. Darija has no fixed spelling: accept common Moroccan spellings. The Latin column deliberately uses the Moroccan chat alphabet (3 = ع, 7 = ح, 9 = ق). French loanwords common in Morocco are correct.',
+  de: 'German: the Hebrew-letter pronunciation is an approximation (umlauts ä/ö/ü have no Hebrew equivalent); German numbers are one word and hyphenated in the Hebrew column on purpose. The Latin column is empty on purpose.',
+  el: 'Greek: the Latin column is a simple phonetic transliteration (not ancient-style); Hebrew-letter pronunciation is an approximation (δ/θ/γ have no exact Hebrew equivalent). Modern Greek only.',
   yi: 'This is standard YIVO Yiddish: Hebrew-origin words keep traditional Hebrew spelling (שבת, מזל, חבֿר) with Ashkenazi pronunciation; the Latin column is YIVO romanization; the Hebrew-letter column is a simplified spelling for Israeli readers (no Yiddish diacritics) that is also read aloud by a Hebrew voice. Hasidic pronunciation variants are fine, do not flag them.',
   it: 'Italian: Hebrew-letter pronunciation is an approximation; compound numbers are written as one word in Italian and hyphenated in the Hebrew column on purpose. The Latin column is empty on purpose.',
   pt: 'This is BRAZILIAN Portuguese (not European) — judge it by Brazilian usage and pronunciation (você, ônibus, te/de → צ׳י/דז׳י, initial r → ה). The Latin column is empty on purpose.',
@@ -1542,4 +1544,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.9.0';
+window.__MODS.app = '1.10.0';

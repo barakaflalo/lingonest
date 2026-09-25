@@ -20,7 +20,9 @@ const LANGS = {
   it: { flag: "🇮🇹", tts: "it-IT", dir: "ltr", native: "Italiano", name: {"he": "איטלקית", "en": "Italian", "ru": "Итальянский", "es": "Italiano", "ar": "الإيطالية"} },
   pt: { flag: "🇧🇷", tts: "pt-BR", dir: "ltr", native: "Português", name: {"he": "פורטוגזית", "en": "Portuguese (Brazil)", "ru": "Португальский", "es": "Portugués", "ar": "البرتغالية"} },
   ro: { flag: "🇷🇴", tts: "ro-RO", dir: "ltr", native: "Română", name: {"he": "רומנית", "en": "Romanian", "ru": "Румынский", "es": "Rumano", "ar": "الرومانية"} },
-  yi: { flag: "🕎", tts: "he-IL", dir: "rtl", native: "ייִדיש", name: {"he": "יידיש", "en": "Yiddish", "ru": "Идиш", "es": "Ídish", "ar": "اليديشية"} }
+  yi: { flag: "🕎", tts: "he-IL", dir: "rtl", native: "ייִדיש", name: {"he": "יידיש", "en": "Yiddish", "ru": "Идиш", "es": "Ídish", "ar": "اليديشية"} },
+  de: { flag: "🇩🇪", tts: "de-DE", dir: "ltr", native: "Deutsch", name: {"he": "גרמנית", "en": "German", "ru": "Немецкий", "es": "Alemán", "ar": "الألمانية"} },
+  el: { flag: "🇬🇷", tts: "el-GR", dir: "ltr", native: "Ελληνικά", name: {"he": "יוונית", "en": "Greek", "ru": "Греческий", "es": "Griego", "ar": "اليونانية"} }
 };
 /* Short letters-screen notes (keys in ui-xx.js). New languages can instead pass note:{he,en,...} in their pack. */
 const ALPHA_NOTE = {"en":"noteEn","es":"noteEs","ru":"noteRu","ar":"noteAr","th":"noteTh"};
@@ -538,4 +540,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.9.0';
+window.__MODS.content = '1.10.0';
