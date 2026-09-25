@@ -1,5 +1,5 @@
 /* LingoNest service worker — bump VERSION on every upload so phones pick up the new build. */
-const VERSION = 'lingonest-v1.2.0';
+const VERSION = 'lingonest-v1.3.0';
 const SHELL = ['./', './index.html', './manifest.json', './privacy_policy.html', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {

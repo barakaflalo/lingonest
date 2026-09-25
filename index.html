@@ -264,6 +264,18 @@ summary{cursor:pointer;color:var(--acc);font-weight:600}
 .search-btn span{flex:1}
 .news{padding-inline-start:20px;margin:6px 0 14px}
 .news li{margin:6px 0}
+/* v1.3 — dialogues & prices */
+.chat{display:flex;flex-direction:column;gap:10px;margin:12px 0}
+.bub{max-width:88%;border:1px solid var(--bd);border-radius:18px;padding:10px 14px;background:var(--sf);display:flex;flex-direction:column;gap:2px;transition:box-shadow .2s}
+.bub.them{align-self:flex-start;border-start-start-radius:6px}
+.bub.me{align-self:flex-end;border-start-end-radius:6px;background:color-mix(in srgb,var(--acc) 12%,var(--sf));border-color:var(--acc)}
+.bub.playing{box-shadow:0 0 0 3px var(--acc)}
+.bub .who{color:var(--mu);font-size:.75rem;font-weight:700}
+.bub .pr{font-size:.95rem}
+.bub .mn{font-size:.88rem}
+.bac{display:flex;gap:4px;margin-top:4px}
+.bac .ic{min-width:38px;height:38px;font-size:.95rem}
+.bignum{font-size:2.6rem;font-weight:800;color:var(--acc);margin:0;direction:ltr}
 
 </style>
 </head>
@@ -273,7 +285,7 @@ summary{cursor:pointer;color:var(--acc);font-weight:600}
 <div id="toasts"></div>
 <div id="print"></div>
 <script>
-/* LingoNest v1.2.0 · © AppNest 2026 · Barak Aflalo */
+/* LingoNest v1.3.0 · © AppNest 2026 · Barak Aflalo */
 /* ===== LingoNest — data.js : content (languages, alphabets, words, phrases) =====
    Adding a language later = add an entry to LANGS + ALPHA + WD. Nothing else changes. */
 
@@ -2231,6 +2243,582 @@ for (const l in WD_RAW3) {
   });
 }
 
+/* ===== LingoNest — data4.js : v1.3 — dialogues + weather, jobs, feelings, directions ===== */
+
+/* Dialogues: [id, icon, lines] — line = 'M:<concept>' (you) or 'T:<concept>' (the local) */
+const DIALOGS = [
+  ['taxi', '🚕', ['T:dt1','M:dt2','T:dt3','M:dt4','T:dt5','M:dt6','T:dt7','M:dt8']],
+  ['market', '🛍️', ['M:dm1','T:dm2','M:dm3','T:dm4','M:dm5','T:dm6']],
+  ['rest', '🍜', ['T:dr1','M:dr2','T:dr3','M:dr4','T:dr5','M:dr6','M:dr7']],
+  ['hotel', '🏨', ['M:dh1','T:dh2','M:dh3','T:dh4','T:dh5','M:dh6','T:dh7']],
+  ['dir', '🧭', ['M:dd1','T:dd2','M:dd3','T:dd4','M:dd5']]
+];
+
+CONCEPTS.push(
+  ['dt1','dlg_taxi',8,'לאן?','Where to?'],['dt2','dlg_taxi',8,'למלון הזה, בבקשה','To this hotel, please'],['dt3','dlg_taxi',8,'בסדר, תעלה','OK, get in'],
+  ['dt4','dlg_taxi',8,'כמה זה עולה?','How much is it?'],['dt5','dlg_taxi',8,'מאתיים','Two hundred'],['dt6','dlg_taxi',8,'תפעיל מונה בבקשה','Please use the meter'],
+  ['dt7','dlg_taxi',8,'אין בעיה','No problem'],['dt8','dlg_taxi',8,'עצור כאן, תודה','Stop here, thank you'],
+  ['dm1','dlg_market',8,'כמה זה עולה?','How much is this?'],['dm2','dlg_market',8,'שלוש מאות','Three hundred'],['dm3','dlg_market',8,'יקר מדי! מאתיים?','Too expensive! Two hundred?'],
+  ['dm4','dlg_market',8,'מאתיים חמישים, מחיר אחרון','Two hundred fifty, final price'],['dm5','dlg_market',8,'בסדר, אני אקח','OK, I\'ll take it'],['dm6','dlg_market',8,'תודה רבה!','Thank you very much!'],
+  ['dr1','dlg_rest',8,'כמה אנשים?','How many people?'],['dr2','dlg_rest',8,'שניים בבקשה','Two, please'],['dr3','dlg_rest',8,'מה תרצה להזמין?','What would you like to order?'],
+  ['dr4','dlg_rest',8,'אורז מטוגן עם עוף, בלי חריף','Fried rice with chicken, not spicy'],['dr5','dlg_rest',8,'ומה לשתות?','And to drink?'],
+  ['dr6','dlg_rest',8,'מים בבקשה','Water, please'],['dr7','dlg_rest',8,'את החשבון בבקשה','The bill, please'],
+  ['dh1','dlg_hotel',8,'שלום, יש לי הזמנה','Hello, I have a reservation'],['dh2','dlg_hotel',8,'על איזה שם?','Under what name?'],['dh3','dlg_hotel',8,'על השם ...','The name is ...'],
+  ['dh4','dlg_hotel',8,'את הדרכון בבקשה','Your passport, please'],['dh5','dlg_hotel',8,'החדר שלך 305','Your room is 305'],
+  ['dh6','dlg_hotel',8,'באיזו שעה ארוחת הבוקר?','What time is breakfast?'],['dh7','dlg_hotel',8,'משבע עד עשר','From seven to ten'],
+  ['dd1','dlg_dir',8,'סליחה, איפה התחנה?','Excuse me, where is the station?'],['dd2','dlg_dir',8,'ישר ואז שמאלה','Straight, then left'],
+  ['dd3','dlg_dir',8,'זה רחוק מכאן?','Is it far from here?'],['dd4','dlg_dir',8,'לא, חמש דקות ברגל','No, five minutes on foot'],['dd5','dlg_dir',8,'תודה רבה!','Thanks a lot!'],
+  ['w_weather','weather',7,'מזג אוויר','Weather'],['w_sun','weather',7,'שמש','Sun'],['w_rain','weather',7,'גשם','Rain'],['w_wind','weather',7,'רוח','Wind'],
+  ['w_cloud','weather',7,'ענן','Cloud'],['w_snow','weather',7,'שלג','Snow'],['w_storm','weather',7,'סערה','Storm'],['w_humid','weather',7,'לח','Humid'],
+  ['j_teacher','jobs',7,'מורה','Teacher'],['j_driver','jobs',7,'נהג','Driver'],['j_waiter','jobs',7,'מלצר','Waiter'],['j_cook','jobs',7,'טבח','Cook'],
+  ['j_student','jobs',7,'סטודנט','Student'],['j_engineer','jobs',7,'מהנדס','Engineer'],['j_nurse','jobs',7,'אחות','Nurse'],['j_seller','jobs',7,'מוכר','Seller'],
+  ['j_guide','jobs',7,'מדריך טיולים','Tour guide'],['j_pharmacist','jobs',7,'רוקח','Pharmacist'],
+  ['e_angry','feel',7,'כועס','Angry'],['e_scared','feel',7,'מפחד','Scared'],['e_bored','feel',7,'משועמם','Bored'],['e_worried','feel',7,'דואג','Worried'],
+  ['e_surprised','feel',7,'מופתע','Surprised'],['e_calm','feel',7,'רגוע','Calm'],['e_excited','feel',7,'נרגש','Excited'],['e_love','feel',7,'מאוהב','In love'],
+  ['dir_north','dirs',7,'צפון','North'],['dir_south','dirs',7,'דרום','South'],['dir_east','dirs',7,'מזרח','East'],['dir_west','dirs',7,'מערב','West'],
+  ['dir_corner','dirs',7,'פינה','Corner'],['dir_light','dirs',7,'רמזור','Traffic light'],['dir_behind','dirs',7,'מאחורי','Behind'],['dir_front','dirs',7,'מלפנים','In front'],
+  ['dir_next','dirs',7,'ליד','Next to'],['dir_back','dirs',7,'אחורה','Back'],['dir_up','dirs',7,'למעלה','Up'],['dir_down','dirs',7,'למטה','Down']
+);
+
+const WD_RAW4 = {};
+WD_RAW4.en = `dt1|Where to?||וור טו
+dt2|To this hotel, please.||טו דיס הוטל, פליז
+dt3|OK, get in.||אוקיי, גט אין
+dt4|How much is it?||האו מאץ׳ איז איט
+dt5|Two hundred.||טו הנדרד
+dt6|Please turn on the meter.||פליז טרן און דה מיטר
+dt7|No problem.||נואו פרובלם
+dt8|Stop here, thank you.||סטופ היר, תנק יו
+dm1|How much is this?||האו מאץ׳ איז דיס
+dm2|Three hundred.||ת׳רי הנדרד
+dm3|Too expensive! Two hundred?||טו אקספנסיב! טו הנדרד
+dm4|Two hundred fifty, final price.||טו הנדרד פיפטי, פיינל פרייס
+dm5|OK, I'll take it.||אוקיי, איל טייק איט
+dm6|Thank you very much!||תנק יו ורי מאץ׳
+dr1|How many people?||האו מני פיפל
+dr2|Two, please.||טו, פליז
+dr3|What would you like to order?||וואט וד יו לייק טו אורדר
+dr4|Fried rice with chicken, not spicy.||פראייד רייס וית׳ צ׳יקן, נוט ספייסי
+dr5|And to drink?||אנד טו דרינק
+dr6|Just water, please.||ג׳אסט ווטר, פליז
+dr7|Could I have the bill, please?||קוד איי הב דה ביל, פליז
+dh1|Hello, I have a reservation.||הלו, איי הב א רזרוויישן
+dh2|Under what name?||אנדר וואט ניים
+dh3|The name is ...||דה ניים איז
+dh4|Your passport, please.||יור פספורט, פליז
+dh5|Your room is three-oh-five.||יור רום איז ת׳רי-או-פייב
+dh6|What time is breakfast?||וואט טיים איז ברקפסט
+dh7|From seven to ten.||פרום סבן טו טן
+dd1|Excuse me, where is the station?||אקסקיוז מי, וור איז דה סטיישן
+dd2|Go straight, then turn left.||גואו סטרייט, דן טרן לפט
+dd3|Is it far from here?||איז איט פאר פרום היר
+dd4|No, five minutes on foot.||נואו, פייב מיניטס און פוט
+dd5|Thanks a lot!||תנקס א לוט
+w_weather|Weather||ודר
+w_sun|Sun||סאן
+w_rain|Rain||ריין
+w_wind|Wind||ווינד
+w_cloud|Cloud||קלאוד
+w_snow|Snow||סנואו
+w_storm|Storm||סטורם
+w_humid|Humid||היומיד
+j_teacher|Teacher||טיצ׳ר
+j_driver|Driver||דראייבר
+j_waiter|Waiter||וייטר
+j_cook|Cook||קוק
+j_student|Student||סטודנט
+j_engineer|Engineer||אנג׳יניר
+j_nurse|Nurse||נרס
+j_seller|Seller||סלר
+j_guide|Tour guide||טור גאייד
+j_pharmacist|Pharmacist||פרמסיסט
+e_angry|Angry||אנגרי
+e_scared|Scared||סקרד
+e_bored|Bored||בורד
+e_worried|Worried||ווריד
+e_surprised|Surprised||סרפרייזד
+e_calm|Calm||קאלם
+e_excited|Excited||אקסייטד
+e_love|In love||אין לאב
+dir_north|North||נורת׳
+dir_south|South||סאות׳
+dir_east|East||איסט
+dir_west|West||וסט
+dir_corner|Corner||קורנר
+dir_light|Traffic light||טרפיק לייט
+dir_behind|Behind||ביהיינד
+dir_front|In front||אין פרונט
+dir_next|Next to||נקסט טו
+dir_back|Back||בק
+dir_up|Up||אפ
+dir_down|Down||דאון`;
+
+WD_RAW4.es = `dt1|¿A dónde?||א דונדה
+dt2|A este hotel, por favor.||א אסטה אוטל, פור פבור
+dt3|Vale, suba.||באלה, סובה
+dt4|¿Cuánto es?||קואנטו אס
+dt5|Doscientos.||דוססיינטוס
+dt6|Ponga el taxímetro, por favor.||פונגה אל טקסימטרו, פור פבור
+dt7|Sin problema.||סין פרובלמה
+dt8|Pare aquí, gracias.||פארה אקי, גרסיאס
+dm1|¿Cuánto cuesta esto?||קואנטו קואסטה אסטו
+dm2|Trescientos.||טרססיינטוס
+dm3|¡Muy caro! ¿Doscientos?||מוי קארו! דוססיינטוס
+dm4|Doscientos cincuenta, último precio.||דוססיינטוס סינקואנטה, אולטימו פרסיו
+dm5|Vale, me lo llevo.||באלה, מה לו יבו
+dm6|¡Muchas gracias!||מוצ׳ס גרסיאס
+dr1|¿Cuántas personas?||קואנטס פרסונס
+dr2|Dos, por favor.||דוס, פור פבור
+dr3|¿Qué desea pedir?||קה דסאה פדיר
+dr4|Arroz frito con pollo, sin picante.||ארוס פריטו קון פויו, סין פיקאנטה
+dr5|¿Y para beber?||אי פרה בבר
+dr6|Solo agua, por favor.||סולו אגואה, פור פבור
+dr7|¿Me trae la cuenta, por favor?||מה טראה לה קואנטה, פור פבור
+dh1|Hola, tengo una reserva.||אולה, טנגו אונה רסרבה
+dh2|¿A nombre de quién?||א נומברה דה קיין
+dh3|A nombre de ...||א נומברה דה
+dh4|Su pasaporte, por favor.||סו פסאפורטה, פור פבור
+dh5|Su habitación es la trescientos cinco.||סו אביטסיון אס לה טרססיינטוס סינקו
+dh6|¿A qué hora es el desayuno?||א קה אורה אס אל דסאיונו
+dh7|De siete a diez.||דה סייטה א דייס
+dd1|Perdone, ¿dónde está la estación?||פרדונה, דונדה אסטה לה אסטסיון
+dd2|Todo recto y luego a la izquierda.||טודו רקטו אי לואגו א לה איסקיירדה
+dd3|¿Está lejos de aquí?||אסטה לחוס דה אקי
+dd4|No, cinco minutos a pie.||נו, סינקו מינוטוס א פייה
+dd5|¡Mil gracias!||מיל גרסיאס
+w_weather|El tiempo||אל טיימפו
+w_sun|Sol||סול
+w_rain|Lluvia||יוביה
+w_wind|Viento||ביינטו
+w_cloud|Nube||נובה
+w_snow|Nieve||נייבה
+w_storm|Tormenta||טורמנטה
+w_humid|Húmedo||אומדו
+j_teacher|Profesor||פרופסור
+j_driver|Conductor||קונדוקטור
+j_waiter|Camarero||קמררו
+j_cook|Cocinero||קוסינרו
+j_student|Estudiante||אסטודיאנטה
+j_engineer|Ingeniero||אינחניירו
+j_nurse|Enfermera||אנפרמרה
+j_seller|Vendedor||בנדדור
+j_guide|Guía turístico||גיאה טוריסטיקו
+j_pharmacist|Farmacéutico||פרמסאוטיקו
+e_angry|Enfadado||אנפדאדו
+e_scared|Asustado||אסוסטאדו
+e_bored|Aburrido||אבורידו
+e_worried|Preocupado||פראוקופאדו
+e_surprised|Sorprendido||סורפרנדידו
+e_calm|Tranquilo||טרנקילו
+e_excited|Emocionado||אמוסיונאדו
+e_love|Enamorado||אנמוראדו
+dir_north|Norte||נורטה
+dir_south|Sur||סור
+dir_east|Este||אסטה
+dir_west|Oeste||אואסטה
+dir_corner|Esquina||אסקינה
+dir_light|Semáforo||סמפורו
+dir_behind|Detrás||דטראס
+dir_front|Delante||דלאנטה
+dir_next|Al lado de||אל לאדו דה
+dir_back|Atrás||אטראס
+dir_up|Arriba||אריבה
+dir_down|Abajo||אבאחו`;
+
+WD_RAW4.ru = `dt1|Куда едем?|kuda yedem|קודה יידים
+dt2|В эту гостиницу, пожалуйста.|v etu gostinitsu, pozhaluysta|וו אטו גסטיניצו, פאז׳לוסטה
+dt3|Хорошо, садитесь.|khorosho, saditess|חרשו, סאדיטיס
+dt4|Сколько с меня?|skolko s menya|סקולקה סמיניא
+dt5|Двести.|dvesti|דביעסטי
+dt6|Включите, пожалуйста, счётчик.|vklyuchite, pozhaluysta, schyotchik|פקליוצ׳יטיה, פאז׳לוסטה, שיוצ׳יק
+dt7|Без проблем.|bez problem|ביס פראבליעם
+dt8|Остановите здесь, спасибо.|ostanovite zdes, spasibo|אסטאנאביטיה זדיעס, ספסיבה
+dm1|Сколько это стоит?|skolko eto stoit|סקולקה אטה סטויט
+dm2|Триста.|trista|טריסטה
+dm3|Слишком дорого! Двести?|slishkom dorogo! dvesti|סלישקם דורגה! דביעסטי
+dm4|Двести пятьдесят, последняя цена.|dvesti pyatdesyat, poslednyaya tsena|דביעסטי פידיסיאט, פאסליעדניאיה צינה
+dm5|Хорошо, беру.|khorosho, beru|חרשו, בירו
+dm6|Большое спасибо!|bolshoye spasibo|באלשויה ספסיבה
+dr1|Сколько вас?|skolko vas|סקולקה ואס
+dr2|Двое.|dvoye|דבויה
+dr3|Что будете заказывать?|chto budete zakazyvat|שטו בודיטיה זאקאזיוואט
+dr4|Жареный рис с курицей, не острый.|zhareny ris s kuritsey, ne ostry|ז׳ארני ריס סקוריצי, ני אוסטרי
+dr5|А что будете пить?|a chto budete pit|א שטו בודיטיה פיט
+dr6|Просто воду, пожалуйста.|prosto vodu, pozhaluysta|פרוסטה וודו, פאז׳לוסטה
+dr7|Принесите счёт, пожалуйста.|prinesite schyot, pozhaluysta|פריניסיטיה שיוט, פאז׳לוסטה
+dh1|Здравствуйте, у меня бронь.|zdravstvuyte, u menya bron|זדרסטבויטה, או מיניא ברון
+dh2|На какое имя?|na kakoye imya|נה קאקויה אימיא
+dh3|На имя ...|na imya|נה אימיא
+dh4|Ваш паспорт, пожалуйста.|vash pasport, pozhaluysta|ואש פאספארט, פאז׳לוסטה
+dh5|Ваш номер триста пять.|vash nomer trista pyat|ואש נומיר טריסטה פיאט
+dh6|Во сколько завтрак?|vo skolko zavtrak|וא סקולקה זאפטראק
+dh7|С семи до десяти.|s semi do desyati|ססימי דו דיסיטי
+dd1|Извините, где вокзал?|izvinite, gde vokzal|איזביניטה, גדיה ואקזאל
+dd2|Прямо, потом налево.|pryamo, potom nalevo|פריאמה, פאטום נליעבה
+dd3|Это далеко отсюда?|eto daleko otsyuda|אטה דאליקו אטסיודה
+dd4|Нет, пять минут пешком.|net, pyat minut peshkom|ניעט, פיאט מינוט פישקום
+dd5|Спасибо большое!|spasibo bolshoye|ספסיבה באלשויה
+w_weather|Погода|pogoda|פאגודה
+w_sun|Солнце|solntse|סונצה
+w_rain|Дождь|dozhd|דושט
+w_wind|Ветер|veter|ויעטיר
+w_cloud|Облако|oblako|אובלאקה
+w_snow|Снег|sneg|סניעק
+w_storm|Гроза|groza|גראזה
+w_humid|Влажно|vlazhno|ולאז׳נה
+j_teacher|Учитель|uchitel|אוצ׳יטיל
+j_driver|Водитель|voditel|ואדיטיל
+j_waiter|Официант|ofitsiant|אפיציאנט
+j_cook|Повар|povar|פובאר
+j_student|Студент|student|סטודיינט
+j_engineer|Инженер|inzhener|אינז׳ינייר
+j_nurse|Медсестра|medsestra|מידסיסטרה
+j_seller|Продавец|prodavets|פראדאביעץ
+j_guide|Гид|gid|גיט
+j_pharmacist|Фармацевт|farmatsevt|פארמאציעפט
+e_angry|Злой|zloy|זלוי
+e_scared|Испуганный|ispugannyy|איספוגאני
+e_bored|Скучно|skuchno|סקושנה
+e_worried|Обеспокоенный|obespokoyenny|אביספאקויני
+e_surprised|Удивлённый|udivlyonny|אודיבליוני
+e_calm|Спокойный|spokoyny|ספאקויני
+e_excited|Взволнованный|vzvolnovanny|וזוואלנובאני
+e_love|Влюблённый|vlyublyonny|ולובליוני
+dir_north|Север|sever|סייביר
+dir_south|Юг|yug|יוק
+dir_east|Восток|vostok|ואסטוק
+dir_west|Запад|zapad|זאפאט
+dir_corner|Угол|ugol|אוגאל
+dir_light|Светофор|svetofor|סביטאפור
+dir_behind|Сзади|szadi|זאדי
+dir_front|Впереди|vperedi|פפיריידי
+dir_next|Рядом|ryadom|ריאדום
+dir_back|Назад|nazad|נאזאט
+dir_up|Наверх|naverkh|נאבייערח
+dir_down|Вниз|vniz|וניס`;
+
+WD_RAW4.ar = `dt1|إلى أين؟|ila ayna|אלא אין
+dt2|إلى هذا الفندق من فضلك.|ila hatha al-funduq min fadlak|אלא האד׳א אל-פונדק מן פדלכ
+dt3|حسنا، تفضل.|hasanan, tafaddal|חסנן, תפדל
+dt4|كم الأجرة؟|kam al-ujra|כם אל-אוג׳רה
+dt5|مئتان.|mi'atan|מיאתאן
+dt6|شغل العداد لو سمحت.|shaghghil al-'addad law samaht|שע׳ל אל-עדאד לו סמחת
+dt7|لا مشكلة أبدا.|la mushkila abadan|לא משכלה אבדן
+dt8|توقف هنا، شكرا.|tawaqqaf huna, shukran|תוקף הונא, שוכרן
+dm1|كم سعر هذا؟|kam si'r hatha|כם סער האד׳א
+dm2|ثلاثمئة.|thalathumi'a|תלאתמיאה
+dm3|غالي جدا! مئتان؟|ghali jiddan! mi'atan|ע׳אלי ג׳דן! מיאתאן
+dm4|مئتان وخمسون، آخر سعر.|mi'atan wa-khamsun, akhir si'r|מיאתאן וח׳מסון, אח׳ר סער
+dm5|حسنا، سآخذه.|hasanan, sa-akhudhuhu|חסנן, סאח׳ד׳ה
+dm6|شكرا جزيلا!|shukran jazilan|שוכרן ג׳זילן
+dr1|كم شخصا؟|kam shakhsan|כם שח׳צן
+dr2|شخصان.|shakhsan|שח׳צאן
+dr3|ماذا تريد أن تطلب؟|madha turid an tatlub|מאד׳א תוריד אן תטלב
+dr4|أرز مقلي بالدجاج، بدون حار.|aruzz maqli bid-dajaj, bidun harr|ארז מקלי באדג׳אג׳, בדון חאר
+dr5|وماذا تشرب؟|wa-madha tashrab|ומאד׳א תשרב
+dr6|ماء فقط من فضلك.|maa faqat min fadlak|מאא פקט מן פדלכ
+dr7|الحساب لو سمحت.|al-hisab law samaht|אל-חסאב לו סמחת
+dh1|مرحبا، عندي حجز.|marhaba, 'indi hajz|מרחבא, ענדי חג׳ז
+dh2|باسم من؟|bi-ism man|באסם מן
+dh3|باسم ...|bi-ism|באסם
+dh4|جواز سفرك من فضلك.|jawaz safarak min fadlak|ג׳ואז ספרכ מן פדלכ
+dh5|غرفتك رقم ثلاثمئة وخمسة.|ghurfatuk raqm thalathumi'a wa-khamsa|ע׳ורפתכ רקם תלאתמיאה וח׳מסה
+dh6|متى الفطور؟|mata al-futur|מתא אל-פטור
+dh7|من السابعة إلى العاشرة.|min as-sabi'a ila al-'ashira|מן א-סאבעה אלא אל-עאשרה
+dd1|عفوا، أين المحطة؟|'afwan, ayna al-mahatta|עפון, אין אל-מחטה
+dd2|على طول ثم يسارا.|'ala tul thumma yasaran|עלא טול תומה יסארן
+dd3|هل هو بعيد من هنا؟|hal huwa ba'id min huna|הל הווא בעיד מן הונא
+dd4|لا، خمس دقائق مشيا.|la, khams daqa'iq mashyan|לא, ח׳מס דקאאק משין
+dd5|شكرا كثيرا!|shukran kathiran|שוכרן כתירן
+w_weather|الطقس|at-taqs|א-טקס
+w_sun|شمس|shams|שמס
+w_rain|مطر|matar|מטר
+w_wind|ريح|rih|ריח
+w_cloud|غيمة|ghayma|ע׳ימה
+w_snow|ثلوج|thuluj|תלוג׳
+w_storm|عاصفة|'asifa|עאצפה
+w_humid|رطب|ratb|רטב
+j_teacher|معلم|mu'allim|מועלם
+j_driver|سائق|sa'iq|סאאק
+j_waiter|نادل|nadil|נאדל
+j_cook|طباخ|tabbakh|טבאח׳
+j_student|طالب|talib|טאלב
+j_engineer|مهندس|muhandis|מוהנדס
+j_nurse|ممرضة|mumarrida|מומרצ׳ה
+j_seller|بائع|ba'i'|באאע
+j_guide|مرشد سياحي|murshid siyahi|מורשד סיאחי
+j_pharmacist|صيدلي|saydali|צידלי
+e_angry|غاضب|ghadib|ע׳אצ׳ב
+e_scared|خائف|kha'if|ח׳אאף
+e_bored|ملول|malul|מלול
+e_worried|قلق|qaliq|קלק
+e_surprised|مندهش|mundahish|מונדהש
+e_calm|هادئ|hadi'|האדא
+e_excited|متحمس|mutahammis|מותחמס
+e_love|عاشق|'ashiq|עאשק
+dir_north|شمال|shamal|שמאל
+dir_south|جنوب|janub|ג׳נוב
+dir_east|شرق|sharq|שרק
+dir_west|غرب|gharb|ע׳רב
+dir_corner|زاوية|zawiya|זאויה
+dir_light|إشارة المرور|isharat al-murur|אשארת אל-מורור
+dir_behind|خلف|khalf|ח׳לף
+dir_front|أمام|amam|אמאם
+dir_next|بجانب|bi-janib|בג׳אנב
+dir_back|إلى الوراء|ila al-wara'|אלא אל-וראא
+dir_up|فوق|fawq|פוק
+dir_down|تحت|taht|תחת`;
+
+WD_RAW4.th = `dt1|ไปไหนคะ|pai nai kha|פאי נאי קא
+dt2|ไปโรงแรมนี้ครับ|pai rong raem ni khrap|פאי רונג-רם ני קראפ
+dt3|ได้ค่ะ ขึ้นมาเลยค่ะ|dai kha, khuen ma loei kha|דאי קא, קון מא לוי קא
+dt4|เท่าไหร่ครับ|thao rai khrap|טאו-ראי קראפ
+dt5|สองร้อยค่ะ|song roi kha|סונג רוי קא
+dt6|เปิดมิเตอร์หน่อยครับ|poet mitoe noi khrap|פוט מיטר נוי קראפ
+dt7|ได้เลยค่ะ|dai loei kha|דאי לוי קא
+dt8|จอดตรงนี้ครับ ขอบคุณครับ|chot trong ni khrap, khop khun khrap|ג׳וט טרונג-ני קראפ, קופ קון קראפ
+dm1|อันนี้เท่าไหร่ครับ|an ni thao rai khrap|אן-ני טאו-ראי קראפ
+dm2|สามร้อยค่ะ|sam roi kha|סאם רוי קא
+dm3|แพงไปครับ สองร้อยได้ไหมครับ|phaeng pai khrap, song roi dai mai khrap|פנג פאי קראפ, סונג רוי דאי מאי קראפ
+dm4|สองร้อยห้าสิบค่ะ ราคาสุดท้ายค่ะ|song roi ha sip kha, ra-kha sut thai kha|סונג רוי הא-סיפ קא, ראקא סוט-טאי קא
+dm5|โอเค เอาครับ|okay, ao khrap|אוקיי, או קראפ
+dm6|ขอบคุณมากค่ะ|khop khun mak kha|קופ קון מאק קא
+dr1|กี่ท่านคะ|ki than kha|גי טאן קא
+dr2|สองคนครับ|song khon khrap|סונג קון קראפ
+dr3|จะสั่งอะไรคะ|cha sang arai kha|ג׳ה סאנג אראי קא
+dr4|ข้าวผัดไก่ ไม่เผ็ดครับ|khao phat kai, mai phet khrap|קאו פאט גאי, מאי פט קראפ
+dr5|ดื่มอะไรคะ|duem arai kha|דום אראי קא
+dr6|น้ำเปล่าครับ|nam plao khrap|נאם פלאו קראפ
+dr7|เก็บเงินด้วยครับ|kep ngoen duai khrap|גפ נגן דואי קראפ
+dh1|สวัสดีครับ ผมจองห้องไว้ครับ|sawatdee khrap, phom chong hong wai khrap|סוואדי קראפ, פום ג׳ונג הונג ואי קראפ
+dh2|ชื่ออะไรคะ|chue arai kha|צ׳ו אראי קא
+dh3|ชื่อ ... ครับ|chue ... khrap|צ׳ו ... קראפ
+dh4|ขอพาสปอร์ตด้วยค่ะ|kho phatsapot duai kha|קו פאססאפוט דואי קא
+dh5|ห้องสามศูนย์ห้าค่ะ|hong sam sun ha kha|הונג סאם סון הא קא
+dh6|อาหารเช้ากี่โมงครับ|a-han chao ki mong khrap|אהאן צ׳או גי מונג קראפ
+dh7|เจ็ดโมงถึงสิบโมงค่ะ|chet mong thueng sip mong kha|ג׳ט מונג טונג סיפ מונג קא
+dd1|ขอโทษครับ สถานีอยู่ที่ไหนครับ|kho thot khrap, sathani yu thi nai khrap|קו-טוט קראפ, סה-טא-ני יו טי-נאי קראפ
+dd2|ตรงไปแล้วเลี้ยวซ้ายค่ะ|trong pai laeo liao sai kha|טרונג-פאי לאו ליאו סאי קא
+dd3|ไกลจากที่นี่ไหมครับ|klai chak thi ni mai khrap|גלאי ג׳אק טי-ני מאי קראפ
+dd4|ไม่ไกลค่ะ เดินห้านาทีค่ะ|mai klai kha, doen ha nathi kha|מאי גלאי קא, דון הא נאטי קא
+dd5|ขอบคุณมากครับ|khop khun mak khrap|קופ קון מאק קראפ
+w_weather|อากาศ|akat|אה-גאט
+w_sun|พระอาทิตย์|phra athit|פרה-אה-טיט
+w_rain|ฝน|fon|פון
+w_wind|ลม|lom|לום
+w_cloud|เมฆ|mek|מק
+w_snow|หิมะ|hima|הי-מה
+w_storm|พายุ|phayu|פא-יו
+w_humid|ชื้น|chuen|צ׳ון
+j_teacher|ครู|khru|קרו
+j_driver|คนขับรถ|khon khap rot|קון קאפ רוט
+j_waiter|พนักงานเสิร์ฟ|phanakngan soep|פה-נאק-נגאן סרף
+j_cook|พ่อครัว|pho khrua|פו קרואה
+j_student|นักศึกษา|nak sueksa|נאק סוק-סא
+j_engineer|วิศวกร|witsawakon|ויט-סה-וה-גון
+j_nurse|พยาบาล|phayaban|פה-יא-באן
+j_seller|คนขาย|khon khai|קון קאי
+j_guide|ไกด์|kai|גאי
+j_pharmacist|เภสัชกร|phesatchakon|פה-סאט-צ׳ה-גון
+e_angry|โกรธ|krot|גרוט
+e_scared|กลัว|klua|גלואה
+e_bored|เบื่อ|buea|בואה
+e_worried|กังวล|kangwon|גאנג-וון
+e_surprised|ประหลาดใจ|pralat chai|פרה-לאט ג׳אי
+e_calm|ใจเย็น|chai yen|ג׳אי יין
+e_excited|ตื่นเต้น|tuen ten|טון-טן
+e_love|ตกหลุมรัก|tok lum rak|טוק לום ראק
+dir_north|เหนือ|nuea|נואה
+dir_south|ใต้|tai|טאי
+dir_east|ตะวันออก|tawan ok|טה-וואן-אוק
+dir_west|ตะวันตก|tawan tok|טה-וואן-טוק
+dir_corner|หัวมุม|hua mum|הואה-מום
+dir_light|ไฟแดง|fai daeng|פאי-דאנג
+dir_behind|ข้างหลัง|khang lang|קאנג-לאנג
+dir_front|ข้างหน้า|khang na|קאנג-נא
+dir_next|ข้างๆ|khang khang|קאנג-קאנג
+dir_back|ถอยหลัง|thoi lang|טוי-לאנג
+dir_up|ข้างบน|khang bon|קאנג-בון
+dir_down|ข้างล่าง|khang lang|קאנג-לאנג`;
+
+for (const l in WD_RAW4) {
+  WD[l] = WD[l] || {};
+  WD_RAW4[l].split('\n').forEach(line => {
+    const p = line.split('|');
+    if (p.length >= 4) WD[l][p[0].trim()] = [p[1].trim(), p[2].trim(), p[3].trim()];
+  });
+}
+
+/* ===== LingoNest — numwords.js : numbers & prices → words (0–999,999) =====
+   Each language returns tokens [text, roman, hebrew]; joinTok() glues them. */
+const NW = {};
+const tk = (t, r, h) => [t, r == null ? t : r, h];
+
+/* ---- English ---- */
+NW.en = (() => {
+  const ones = [['zero','זירו'],['one','וואן'],['two','טו'],['three','ת׳רי'],['four','פור'],['five','פייב'],['six','סיקס'],['seven','סבן'],['eight','אייט'],['nine','ניין'],
+    ['ten','טן'],['eleven','אילבן'],['twelve','טוולב'],['thirteen','ת׳רטין'],['fourteen','פורטין'],['fifteen','פיפטין'],['sixteen','סיקסטין'],['seventeen','סבנטין'],['eighteen','אייטין'],['nineteen','ניינטין']];
+  const tens = [null,null,['twenty','טוונטי'],['thirty','ת׳רטי'],['forty','פורטי'],['fifty','פיפטי'],['sixty','סיקסטי'],['seventy','סבנטי'],['eighty','אייטי'],['ninety','ניינטי']];
+  const w = x => tk(x[0], x[0], x[1]);
+  function under1000(n, out) {
+    if (n >= 100) { out.push(w(ones[Math.floor(n / 100)]), tk('hundred', 'hundred', 'הנדרד')); n %= 100; }
+    if (n >= 20) { const t = tens[Math.floor(n / 10)], o = n % 10; out.push(o ? tk(t[0] + '-' + ones[o][0], t[0] + '-' + ones[o][0], t[1] + '-' + ones[o][1]) : w(t)); }
+    else if (n > 0) out.push(w(ones[n]));
+  }
+  return n => {
+    const out = [];
+    if (n === 0) return [w(ones[0])];
+    if (n >= 1000) { under1000(Math.floor(n / 1000), out); out.push(tk('thousand', 'thousand', 'ת׳אוזנד')); }
+    under1000(n % 1000, out);
+    return out;
+  };
+})();
+NW.enCur = n => n === 1 ? tk('dollar', 'dollar', 'דולר') : tk('dollars', 'dollars', 'דולרז');
+
+/* ---- Spanish ---- */
+NW.es = (() => {
+  const H = { uno:'אונו', un:'און', dos:'דוס', tres:'טרס', cuatro:'קואטרו', cinco:'סינקו', seis:'סייס', siete:'סייטה', ocho:'אוצ׳ו', nueve:'נואבה', diez:'דייס', once:'אונסה', doce:'דוסה', trece:'טרסה', catorce:'קטורסה', quince:'קינסה', 'dieciséis':'דייסיסייס', diecisiete:'דייסיסייטה', dieciocho:'דייסיאוצ׳ו', diecinueve:'דייסינואבה',
+    veinte:'ביינטה', veintiuno:'ביינטיאונו', 'veintiún':'ביינטיאון', 'veintidós':'ביינטידוס', 'veintitrés':'ביינטיטרס', veinticuatro:'ביינטיקואטרו', veinticinco:'ביינטיסינקו', 'veintiséis':'ביינטיסייס', veintisiete:'ביינטיסייטה', veintiocho:'ביינטיאוצ׳ו', veintinueve:'ביינטינואבה',
+    treinta:'טריינטה', cuarenta:'קוארנטה', cincuenta:'סינקואנטה', sesenta:'ססנטה', setenta:'סטנטה', ochenta:'אוצ׳נטה', noventa:'נובנטה', y:'אי', cien:'סיין', ciento:'סיינטו',
+    doscientos:'דוססיינטוס', trescientos:'טרססיינטוס', cuatrocientos:'קואטרוסיינטוס', quinientos:'קינייינטוס', seiscientos:'סייססיינטוס', setecientos:'סטסיינטוס', ochocientos:'אוצ׳וסיינטוס', novecientos:'נובסיינטוס', mil:'מיל', cero:'סרו' };
+  const o = ['', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve',
+    'veinte', 'veintiuno', 'veintidós', 'veintitrés', 'veinticuatro', 'veinticinco', 'veintiséis', 'veintisiete', 'veintiocho', 'veintinueve'];
+  const t = [, , , 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
+  const h = [, 'ciento', 'doscientos', 'trescientos', 'cuatrocientos', 'quinientos', 'seiscientos', 'setecientos', 'ochocientos', 'novecientos'];
+  const w = x => tk(x, x, H[x]);
+  function under1000(n, out, apocope) {
+    if (n === 100) { out.push(w('cien')); return; }
+    if (n >= 100) { out.push(w(h[Math.floor(n / 100)])); n %= 100; }
+    if (n === 0) return;
+    let words = n < 30 ? [o[n]] : (n % 10 ? [t[Math.floor(n / 10)], 'y', o[n % 10]] : [t[Math.floor(n / 10)]]);
+    if (apocope) { const L = words.length - 1; if (words[L] === 'uno') words[L] = 'un'; if (words[L] === 'veintiuno') words[L] = 'veintiún'; }
+    words.forEach(x => out.push(w(x)));
+  }
+  return (n, beforeNoun) => {
+    if (n === 0) return [w('cero')];
+    const out = [], th = Math.floor(n / 1000), r = n % 1000;
+    if (th === 1) out.push(w('mil'));
+    else if (th > 1) { under1000(th, out, true); out.push(w('mil')); }
+    under1000(r, out, beforeNoun);
+    return out;
+  };
+})();
+NW.esCur = n => n === 1 ? tk('euro', 'euro', 'אאורו') : tk('euros', 'euros', 'אאורוס');
+
+/* ---- Russian ---- */
+NW.ru = (() => {
+  const R = { 'ноль':['nol','נול'], 'один':['odin','אדין'], 'одна':['odna','אדנה'], 'два':['dva','דבה'], 'две':['dve','דביה'], 'три':['tri','טרי'], 'четыре':['chetyre','צ׳יטירה'], 'пять':['pyat','פיאט'], 'шесть':['shest','שסט'], 'семь':['sem','סיים'], 'восемь':['vosem','ווסים'], 'девять':['devyat','דייביט'],
+    'десять':['desyat','דייסיט'], 'одиннадцать':['odinnadtsat','אדינאצאט'], 'двенадцать':['dvenadtsat','דביניאצאט'], 'тринадцать':['trinadtsat','טרינאצאט'], 'четырнадцать':['chetyrnadtsat','צ׳יטירנאצאט'], 'пятнадцать':['pyatnadtsat','פיטנאצאט'], 'шестнадцать':['shestnadtsat','שיסנאצאט'], 'семнадцать':['semnadtsat','סימנאצאט'], 'восемнадцать':['vosemnadtsat','ווסימנאצאט'], 'девятнадцать':['devyatnadtsat','דיביטנאצאט'],
+    'двадцать':['dvadtsat','דבאצאט'], 'тридцать':['tridtsat','טריצאט'], 'сорок':['sorok','סורק'], 'пятьдесят':['pyatdesyat','פידיסיאט'], 'шестьдесят':['shestdesyat','שיזדיסיאט'], 'семьдесят':['semdesyat','סיימדיסיט'], 'восемьдесят':['vosemdesyat','ווסימדיסיט'], 'девяносто':['devyanosto','דיוויאנוסטה'],
+    'сто':['sto','סטו'], 'двести':['dvesti','דביעסטי'], 'триста':['trista','טריסטה'], 'четыреста':['chetyresta','צ׳יטיריסטה'], 'пятьсот':['pyatsot','פיצוט'], 'шестьсот':['shestsot','שיססוט'], 'семьсот':['semsot','סימסוט'], 'восемьсот':['vosemsot','ווסימסוט'], 'девятьсот':['devyatsot','דיביצוט'],
+    'тысяча':['tysyacha','טיסיצ׳ה'], 'тысячи':['tysyachi','טיסיצ׳י'], 'тысяч':['tysyach','טיסיץ׳'], 'рубль':['rubl','רובל'], 'рубля':['rublya','רובליה'], 'рублей':['rubley','רובליי'] };
+  const o = ['', 'один', 'два', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять', 'десять', 'одиннадцать', 'двенадцать', 'тринадцать', 'четырнадцать', 'пятнадцать', 'шестнадцать', 'семнадцать', 'восемнадцать', 'девятнадцать'];
+  const t = [, , 'двадцать', 'тридцать', 'сорок', 'пятьдесят', 'шестьдесят', 'семьдесят', 'восемьдесят', 'девяносто'];
+  const h = [, 'сто', 'двести', 'триста', 'четыреста', 'пятьсот', 'шестьсот', 'семьсот', 'восемьсот', 'девятьсот'];
+  const w = x => tk(x, R[x][0], R[x][1]);
+  const form = (n, a, b, c) => { const m10 = n % 10, m100 = n % 100; if (m10 === 1 && m100 !== 11) return a; if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return b; return c; };
+  function under1000(n, out, fem) {
+    if (n >= 100) { out.push(w(h[Math.floor(n / 100)])); n %= 100; }
+    if (n >= 20) { out.push(w(t[Math.floor(n / 10)])); n %= 10; }
+    if (n > 0) { let x = o[n]; if (fem && x === 'один') x = 'одна'; if (fem && x === 'два') x = 'две'; out.push(w(x)); }
+  }
+  const f = n => {
+    if (n === 0) return [w('ноль')];
+    const out = [], th = Math.floor(n / 1000);
+    if (th === 1) out.push(w('тысяча'));
+    else if (th) { under1000(th, out, true); out.push(w(form(th, 'тысяча', 'тысячи', 'тысяч'))); }
+    under1000(n % 1000, out, false);
+    return out;
+  };
+  f.cur = n => w(form(n, 'рубль', 'рубля', 'рублей'));
+  return f;
+})();
+NW.ruCur = n => NW.ru.cur(n);
+
+/* ---- Arabic (Modern Standard, simplified agreement) ---- */
+NW.ar = (() => {
+  const A = { 'صفر':['sifr','צפר'], 'واحد':['wahid','ואחד'], 'اثنان':['ithnan','אתנאן'], 'ثلاثة':['thalatha','תלאתה'], 'أربعة':["arba'a",'ארבעה'], 'خمسة':['khamsa','ח׳מסה'], 'ستة':['sitta','סתה'], 'سبعة':["sab'a",'סבעה'], 'ثمانية':['thamaniya','תמאניה'], 'تسعة':["tis'a",'תסעה'], 'عشرة':["'ashara",'עשרה'],
+    'أحد':['ahada','אחד'], 'اثنا':['ithna','אתנא'], 'عشر':["'ashar",'עשר'], 'عشرون':["'ishrun",'עשרון'], 'ثلاثون':['thalathun','תלאתון'], 'أربعون':["arba'un",'ארבעון'], 'خمسون':['khamsun','ח׳מסון'], 'ستون':['sittun','סתון'], 'سبعون':["sab'un",'סבעון'], 'ثمانون':['thamanun','תמאנון'], 'تسعون':["tis'un",'תסעון'],
+    'مئة':["mi'a",'מיאה'], 'مئتان':["mi'atan",'מיאתאן'], 'ثلاثمئة':["thalathumi'a",'תלאתמיאה'], 'أربعمئة':["arba'umi'a",'ארבעמיאה'], 'خمسمئة':["khamsumi'a",'ח׳מסמיאה'], 'ستمئة':["sittumi'a",'סתמיאה'], 'سبعمئة':["sab'umi'a",'סבעמיאה'], 'ثمانمئة':["thamanumi'a",'תמאנמיאה'], 'تسعمئة':["tis'umi'a",'תסעמיאה'],
+    'ألف':['alf','אלף'], 'ألفان':['alfan','אלפאן'], 'آلاف':['alaf','אלאף'], 'دولار':['dular','דולאר'],
+    'دولاران':['dularan','דולאראן'], 'دولارات':['dularat','דולאראת'], 'دولارا':['dularan','דולארן'] };
+  const w = x => tk(x, A[x][0], A[x][1]);
+  const o = ['', 'واحد', 'اثنان', 'ثلاثة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'ثمانية', 'تسعة', 'عشرة'];
+  const t = [, , 'عشرون', 'ثلاثون', 'أربعون', 'خمسون', 'ستون', 'سبعون', 'ثمانون', 'تسعون'];
+  const h = [, 'مئة', 'مئتان', 'ثلاثمئة', 'أربعمئة', 'خمسمئة', 'ستمئة', 'سبعمئة', 'ثمانمئة', 'تسعمئة'];
+  const AND = tk('و', 'wa-', 'ו');
+  function under100(n, out) {
+    if (n <= 10) { if (n) out.push(w(o[n])); return; }
+    if (n === 11) { out.push(w('أحد'), w('عشر')); return; }
+    if (n === 12) { out.push(w('اثنا'), w('عشر')); return; }
+    if (n < 20) { out.push(w(o[n - 10]), w('عشر')); return; }
+    const u = n % 10;
+    if (u) out.push(w(o[u]), AND);
+    out.push(w(t[Math.floor(n / 10)]));
+  }
+  function under1000(n, out) {
+    const hh = Math.floor(n / 100), r = n % 100;
+    if (hh) out.push(w(h[hh]));
+    if (hh && r) out.push(AND);
+    under100(r, out);
+  }
+  const f = n => {
+    if (n === 0) return [w('صفر')];
+    const out = [], th = Math.floor(n / 1000), r = n % 1000;
+    if (th === 1) out.push(w('ألف'));
+    else if (th === 2) out.push(w('ألفان'));
+    else if (th >= 3 && th <= 10) { under100(th, out); out.push(w('آلاف')); }
+    else if (th > 10) { under1000(th, out); out.push(w('ألف')); }
+    if (th && r) out.push(AND);
+    under1000(r, out);
+    return out;
+  };
+  /* noun agreement: 1 → دولار واحد · 2 → دولاران · 3–10 → دولارات · 11–99 → دولارا · otherwise دولار */
+  f.price = n => {
+    if (n === 1) return [w('دولار'), w('واحد')];
+    if (n === 2) return [w('دولاران')];
+    const m = n % 100;
+    return f(n).concat([w(m >= 3 && m <= 10 ? 'دولارات' : (m >= 11 ? 'دولارا' : 'دولار'))]);
+  };
+  return f;
+})();
+NW.arCur = () => tk('دولار', 'dular', 'דולאר');
+
+/* ---- Thai ---- */
+NW.th = (() => {
+  const D = [['ศูนย์','sun','סון'],['หนึ่ง','nueng','נאנג'],['สอง','song','סונג'],['สาม','sam','סאם'],['สี่','si','סי'],['ห้า','ha','הא'],['หก','hok','הוק'],['เจ็ด','chet','ג׳ט'],['แปด','paet','פאט'],['เก้า','kao','גאו']];
+  const U = [['แสน','saen','סאן'],['หมื่น','muen','מון'],['พัน','phan','פאן'],['ร้อย','roi','רוי'],['สิบ','sip','סיפ']];
+  return n => {
+    if (n === 0) return [tk(...D[0])];
+    const s = String(n).padStart(6, '0'), out = [];
+    for (let i = 0; i < 6; i++) {
+      const d = +s[i]; if (!d) continue;
+      if (i === 4) { if (d === 2) out.push(tk('ยี่', 'yi', 'יי')); else if (d !== 1) out.push(tk(...D[d])); out.push(tk(...U[4])); }
+      else if (i === 5) { if (d === 1 && n > 9) out.push(tk('เอ็ด', 'et', 'אט')); else out.push(tk(...D[d])); }
+      else { out.push(tk(...D[d]), tk(...U[i])); }
+    }
+    return out;
+  };
+})();
+NW.thCur = () => tk('บาท', 'baht', 'באט');
+
+const CUR_SYM = { en: '$', es: '€', ru: '₽', ar: '$', th: '฿' };
+function numWords(lang, n, withCur) {
+  if (!NW[lang]) return null;
+  let toks;
+  if (lang === 'ar' && withCur) toks = NW.ar.price(n);
+  else { toks = lang === 'es' ? NW.es(n, withCur) : NW[lang](n); if (withCur) toks = toks.concat([NW[lang + 'Cur'](n)]); }
+  const sepT = lang === 'th' ? '' : ' ';
+  let text = '', roman = '', heb = '';
+  toks.forEach((t, i) => {
+    const glue = i > 0 && toks[i - 1][0] !== 'و';
+    text += (glue ? (lang === 'th' && i === toks.length - 1 && withCur ? ' ' : sepT) : '') + t[0];
+    roman += (i > 0 && toks[i - 1][1] !== 'wa-' ? ' ' : '') + t[1];
+    heb += (i > 0 && toks[i - 1][2] !== 'ו' ? ' ' : '') + t[2];
+  });
+  return { text, roman, heb };
+}
+
 /* ===== LingoNest — i18n.js : UI text in 5 languages (he, en, ru, es, ar). Missing key → English. ===== */
 const LANG = {
 he: {
@@ -2799,9 +3387,81 @@ Object.assign(LANG.ar, {
   wn5: 'مستويات جديدة: 7 عالم الكلمات، 8 جمل كاملة، 9 كلماتي.'
 });
 
+/* ===== LingoNest — i18n4.js : v1.3 strings (merged into LANG) ===== */
+Object.assign(LANG.he, {
+  cat_weather: 'מזג אוויר', cat_jobs: 'מקצועות', cat_feel: 'רגשות', cat_dirs: 'כיוונים והתמצאות',
+  dialogs: 'דיאלוגים', dialogsSub: '{n} שיחות מהחיים', dialogsIntro: 'שיחות קצרות כמו בטיול אמיתי. שמע את כל השיחה, או עבור ל"תפקיד שלי" ונסה לענות בעצמך.',
+  dlg_taxi: 'במונית', dlg_market: 'מיקוח בשוק', dlg_rest: 'במסעדה', dlg_hotel: 'צ׳ק-אין במלון', dlg_dir: 'לשאול את הדרך',
+  dlgLines: '{n} שורות', you: 'אתה', local: 'המקומי', reveal: 'הצג', stop: 'עצור', playAll: 'השמע את כל השיחה',
+  readMode: 'קריאה', roleMode: 'התפקיד שלי', roleHint: 'השורות שלך מוסתרות. קרא מה צריך להגיד, נסה לומר בקול, ורק אז הצג את התשובה.', practiceDlg: 'תרגל את משפטי השיחה',
+  prices: 'מחירים ומספרים', pricesSub: 'הקלד מספר ושמע אותו', pricesIntro: 'הקלד כל מספר או מחיר (עד 999,999) — תראה איך כותבים ואומרים אותו, ותשמע אותו בקול. מושלם לשוק ולמונית.',
+  typeNumber: 'הקלד מספר', withCur: 'עם מטבע ({c})', numOnly: 'מספר בלבד', check: 'בדוק',
+  arNumNote: 'בערבית ספרותית המספרים והמטבע משנים צורה לפי הכמות. בדיאלקט המדובר זה נשמע קצת אחרת, אבל יבינו אותך.',
+  guessPrice: 'נחש את המחיר', guessHint: 'משחק שמיעה: האפליקציה אומרת מחיר בשפה, ואתה מקליד את המספר. כמו בשוק אמיתי.', guessQ: 'איזה מחיר שמעת?',
+  wn1: '🎭 דיאלוגים: 5 שיחות מהחיים — מונית, מיקוח בשוק, מסעדה, צ׳ק-אין במלון ולשאול את הדרך. עם השמעה רציפה ומצב "התפקיד שלי".',
+  wn2: '💰 מחירים ומספרים: כל מספר עד 999,999 בכתב, בהגייה ובקול, כולל מטבע.', wn3: '🎧 משחק "נחש את המחיר" — אימון שמיעה למספרים.',
+  wn4: 'נושאים חדשים: מזג אוויר, מקצועות, רגשות, כיוונים והתמצאות.', wn5: 'עכשיו 407 מילים ומשפטים בכל שפה.'
+});
+Object.assign(LANG.en, {
+  cat_weather: 'Weather', cat_jobs: 'Jobs', cat_feel: 'Feelings', cat_dirs: 'Directions',
+  dialogs: 'Dialogues', dialogsSub: '{n} real-life conversations', dialogsIntro: 'Short conversations like on a real trip. Play the whole thing, or switch to "My role" and answer yourself.',
+  dlg_taxi: 'In a taxi', dlg_market: 'Bargaining at the market', dlg_rest: 'At a restaurant', dlg_hotel: 'Hotel check-in', dlg_dir: 'Asking the way',
+  dlgLines: '{n} lines', you: 'You', local: 'Local', reveal: 'Show', stop: 'Stop', playAll: 'Play the whole conversation',
+  readMode: 'Read', roleMode: 'My role', roleHint: 'Your lines are hidden. Read what you need to say, try it out loud, then reveal the answer.', practiceDlg: 'Practice these lines',
+  prices: 'Prices & numbers', pricesSub: 'Type a number and hear it', pricesIntro: 'Type any number or price (up to 999,999) to see how it\'s written and said, and hear it aloud. Perfect for markets and taxis.',
+  typeNumber: 'Type a number', withCur: 'With currency ({c})', numOnly: 'Number only', check: 'Check',
+  arNumNote: 'In standard Arabic, numbers and the currency change form with the amount. Spoken dialects sound a bit different, but you\'ll be understood.',
+  guessPrice: 'Guess the price', guessHint: 'Listening game: the app says a price in the language and you type the number, like at a real market.', guessQ: 'Which price did you hear?',
+  wn1: '🎭 Dialogues: 5 real-life conversations — taxi, market bargaining, restaurant, hotel check-in and asking the way. With play-all and "My role" mode.',
+  wn2: '💰 Prices & numbers: any number up to 999,999 written, pronounced and spoken, with currency.', wn3: '🎧 "Guess the price" — listening practice for numbers.',
+  wn4: 'New topics: weather, jobs, feelings, directions.', wn5: 'Now 407 words and phrases per language.'
+});
+Object.assign(LANG.ru, {
+  cat_weather: 'Погода', cat_jobs: 'Профессии', cat_feel: 'Чувства', cat_dirs: 'Направления',
+  dialogs: 'Диалоги', dialogsSub: '{n} жизненных разговоров', dialogsIntro: 'Короткие разговоры, как в настоящей поездке. Прослушайте целиком или включите «Моя роль» и отвечайте сами.',
+  dlg_taxi: 'В такси', dlg_market: 'Торг на рынке', dlg_rest: 'В ресторане', dlg_hotel: 'Заселение в отель', dlg_dir: 'Спросить дорогу',
+  dlgLines: '{n} реплик', you: 'Вы', local: 'Местный', reveal: 'Показать', stop: 'Стоп', playAll: 'Прослушать весь разговор',
+  readMode: 'Чтение', roleMode: 'Моя роль', roleHint: 'Ваши реплики скрыты. Прочитайте, что нужно сказать, скажите вслух и только потом откройте ответ.', practiceDlg: 'Тренировать реплики',
+  prices: 'Цены и числа', pricesSub: 'Введите число и услышьте его', pricesIntro: 'Введите любое число или цену (до 999 999): увидите, как это пишется и произносится, и услышите вслух. Идеально для рынка и такси.',
+  typeNumber: 'Введите число', withCur: 'С валютой ({c})', numOnly: 'Только число', check: 'Проверить',
+  arNumNote: 'В литературном арабском числа и валюта меняют форму в зависимости от количества. В разговорных диалектах звучит немного иначе, но вас поймут.',
+  guessPrice: 'Угадай цену', guessHint: 'Игра на слух: приложение называет цену на языке, а вы вводите число — как на настоящем рынке.', guessQ: 'Какую цену вы услышали?',
+  wn1: '🎭 Диалоги: 5 жизненных разговоров — такси, торг на рынке, ресторан, отель и как спросить дорогу. С воспроизведением целиком и режимом «Моя роль».',
+  wn2: '💰 Цены и числа: любое число до 999 999 — написание, произношение и звук, с валютой.', wn3: '🎧 «Угадай цену» — тренировка слуха на числа.',
+  wn4: 'Новые темы: погода, профессии, чувства, направления.', wn5: 'Теперь 407 слов и фраз в каждом языке.'
+});
+Object.assign(LANG.es, {
+  cat_weather: 'El tiempo', cat_jobs: 'Profesiones', cat_feel: 'Sentimientos', cat_dirs: 'Direcciones',
+  dialogs: 'Diálogos', dialogsSub: '{n} conversaciones reales', dialogsIntro: 'Conversaciones cortas como en un viaje real. Escúchala entera o cambia a "Mi papel" y responde tú.',
+  dlg_taxi: 'En el taxi', dlg_market: 'Regatear en el mercado', dlg_rest: 'En el restaurante', dlg_hotel: 'Check-in en el hotel', dlg_dir: 'Preguntar el camino',
+  dlgLines: '{n} frases', you: 'Tú', local: 'Local', reveal: 'Mostrar', stop: 'Parar', playAll: 'Escuchar toda la conversación',
+  readMode: 'Lectura', roleMode: 'Mi papel', roleHint: 'Tus frases están ocultas. Lee lo que debes decir, dilo en voz alta y luego muestra la respuesta.', practiceDlg: 'Practicar estas frases',
+  prices: 'Precios y números', pricesSub: 'Escribe un número y escúchalo', pricesIntro: 'Escribe cualquier número o precio (hasta 999.999) para ver cómo se escribe y se dice, y escucharlo. Ideal para mercados y taxis.',
+  typeNumber: 'Escribe un número', withCur: 'Con moneda ({c})', numOnly: 'Solo número', check: 'Comprobar',
+  arNumNote: 'En árabe estándar los números y la moneda cambian de forma según la cantidad. En los dialectos suena algo distinto, pero te entenderán.',
+  guessPrice: 'Adivina el precio', guessHint: 'Juego de escucha: la app dice un precio en el idioma y tú escribes el número, como en un mercado de verdad.', guessQ: '¿Qué precio oíste?',
+  wn1: '🎭 Diálogos: 5 conversaciones reales — taxi, regateo, restaurante, hotel y preguntar el camino. Con reproducción completa y modo "Mi papel".',
+  wn2: '💰 Precios y números: cualquier número hasta 999.999 escrito, pronunciado y en voz alta, con moneda.', wn3: '🎧 "Adivina el precio": práctica de escucha de números.',
+  wn4: 'Temas nuevos: el tiempo, profesiones, sentimientos, direcciones.', wn5: 'Ahora 407 palabras y frases por idioma.'
+});
+Object.assign(LANG.ar, {
+  cat_weather: 'الطقس', cat_jobs: 'المهن', cat_feel: 'المشاعر', cat_dirs: 'الاتجاهات',
+  dialogs: 'حوارات', dialogsSub: '{n} محادثات من الواقع', dialogsIntro: 'محادثات قصيرة كما في رحلة حقيقية. استمع إليها كاملة، أو انتقل إلى "دوري" وأجب بنفسك.',
+  dlg_taxi: 'في التاكسي', dlg_market: 'المساومة في السوق', dlg_rest: 'في المطعم', dlg_hotel: 'تسجيل الدخول في الفندق', dlg_dir: 'السؤال عن الطريق',
+  dlgLines: '{n} جمل', you: 'أنت', local: 'المحلي', reveal: 'أظهر', stop: 'إيقاف', playAll: 'استمع إلى المحادثة كاملة',
+  readMode: 'قراءة', roleMode: 'دوري', roleHint: 'جملك مخفية. اقرأ ما عليك قوله، جرّب قوله بصوت عال، ثم أظهر الإجابة.', practiceDlg: 'تدرّب على هذه الجمل',
+  prices: 'الأسعار والأرقام', pricesSub: 'اكتب رقما واسمعه', pricesIntro: 'اكتب أي رقم أو سعر (حتى 999,999) لترى كيف يُكتب ويُقال، واسمعه بصوت عال. مثالي للسوق والتاكسي.',
+  typeNumber: 'اكتب رقما', withCur: 'مع العملة ({c})', numOnly: 'الرقم فقط', check: 'تحقّق',
+  arNumNote: 'في الفصحى تتغير صيغة الأرقام والعملة حسب العدد. في اللهجات تُلفظ بشكل مختلف قليلا، لكنهم سيفهمونك.',
+  guessPrice: 'خمّن السعر', guessHint: 'لعبة استماع: يقول التطبيق سعرا باللغة وتكتب أنت الرقم، كما في سوق حقيقي.', guessQ: 'أي سعر سمعت؟',
+  wn1: '🎭 حوارات: 5 محادثات من الواقع — التاكسي، المساومة، المطعم، الفندق والسؤال عن الطريق. مع التشغيل الكامل ووضع "دوري".',
+  wn2: '💰 الأسعار والأرقام: أي رقم حتى 999,999 كتابة ونطقا وصوتا، مع العملة.', wn3: '🎧 "خمّن السعر" — تدريب الاستماع للأرقام.',
+  wn4: 'مواضيع جديدة: الطقس، المهن، المشاعر، الاتجاهات.', wn5: 'الآن 407 كلمة وجملة في كل لغة.'
+});
+
 /* ===== LingoNest — app.js : engine, screens, speech, AI (BYOK), storage ===== */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.2.0' };
+const APP = { name: 'LingoNest', ver: '1.3.0' };
 const MAXL = 9; /* levels: 1 letters · 2 survival · 3 travel vocab · 4 travel phrases · 5 everyday · 6 conversation · 7 world of words · 8 full sentences · 9 my words */
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -2885,7 +3545,7 @@ function items(lang) {
   (VOWELS[lang] || []).forEach((a, i) => L.push({ k: 'V:' + i, type: 'L', lvl: 1, cat: 'vowels', text: a[0], tts: a[1], heb: a[2], roman: a[3], he: a[2], en: a[3] }));
   CONCEPTS.forEach(c => {
     const t = WD[lang] && WD[lang][c[0]]; if (!t) return;
-    L.push({ k: 'W:' + c[0], type: (c[1] === 'phr' || c[1] === 'conv' || c[1].startsWith('s_')) ? 'P' : 'W', lvl: c[2], cat: c[1], he: c[3], en: c[4], text: g(t[0]), roman: g(t[1]), heb: g(t[2]) });
+    L.push({ k: 'W:' + c[0], type: (c[1] === 'phr' || c[1] === 'conv' || c[1].startsWith('s_') || c[1].startsWith('dlg_')) ? 'P' : 'W', lvl: c[2], cat: c[1], he: c[3], en: c[4], text: g(t[0]), roman: g(t[1]), heb: g(t[2]) });
   });
   (st.custom[lang] || []).forEach(c => L.push({ k: 'C:' + c.id, type: 'W', lvl: MAXL, cat: 'mine', he: c.he, en: c.he, text: c.text, roman: c.roman || '', heb: c.heb || '', cid: c.id }));
   _itemsCache[lang] = { key, list: L };
@@ -2952,13 +3612,15 @@ function voiceFor(lang) {
   return c.find(v => /google|natural|online/i.test(v.name) && v.lang.replace('_', '-').toLowerCase() === full) ||
          c.find(v => v.lang.replace('_', '-').toLowerCase() === full) || c[0];
 }
-function speak(text, lang, slow) {
-  if (!('speechSynthesis' in window)) { toast(T('noTTS'), 'err', 4000); return; }
+function speak(text, lang, slow, onend, altVoice) {
+  if (!('speechSynthesis' in window)) { toast(T('noTTS'), 'err', 4000); if (onend) onend(); return; }
   if (!text) return;
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.lang = LANGS[lang].tts;
-  const v = voiceFor(lang);
+  let v = voiceFor(lang);
+  if (altVoice && v) { const others = voicesFor(lang).filter(x => x.name !== v.name); if (others.length) v = others[0]; else u.pitch = 1.25; }
+  if (onend) { u.onend = onend; u.onerror = onend; }
   if (v) u.voice = v;
   else if (!warnedVoice[lang]) { warnedVoice[lang] = 1; toast(T('noVoice', { l: LN(lang) }), 'warn', 6000); }
   u.rate = slow ? Math.max(0.35, st.rate * 0.6) : st.rate;
@@ -3153,6 +3815,7 @@ const NAV = { cur: 'home', arg: null, stack: [] };
 function go(id, arg, noPush) {
   if (!noPush && NAV.cur !== id) NAV.stack.push({ id: NAV.cur, arg: NAV.arg });
   if (id === 'home') NAV.stack = [];
+  if (DLG.cur >= 0 || DLG.run) { DLG.run++; DLG.cur = -1; }
   NAV.cur = id; NAV.arg = arg;
   if ('speechSynthesis' in window) speechSynthesis.cancel();
   render();
@@ -3227,6 +3890,8 @@ SCREENS.home = () => {
     <button class="tile" data-act="nav" data-to="topics"><span>💬</span><b>${esc(T('words'))}</b><small>${esc(T('countWords', { n: items(lang).filter(i => i.type === 'W').length, c: WORD_CATS.length - 1 }))}</small></button>
     <button class="tile" data-act="nav" data-to="topics" data-arg="P"><span>🗣️</span><b>${esc(T('phrases'))}</b><small>${esc(T('countPhrases', { n: items(lang).filter(i => i.type === 'P').length, c: PHRASE_CATS.length }))}</small></button>
     <button class="tile" data-act="nav" data-to="practice"><span>🎯</span><b>${esc(T('practice'))}</b><small>${esc(T('practiceSub'))}</small></button>
+    <button class="tile" data-act="nav" data-to="dialogs"><span>🎭</span><b>${esc(T('dialogs'))}</b><small>${esc(T('dialogsSub', { n: DIALOGS.length }))}</small></button>
+    <button class="tile" data-act="nav" data-to="price"><span>💰</span><b>${esc(T('prices'))}</b><small>${esc(T('pricesSub'))}</small></button>
     <button class="tile wide" data-act="nav" data-to="speak"><span>📢</span><b>${esc(T('speakForMe'))}</b><small>${esc(T('speakSub', { l: LN(lang) }))}</small></button>
     <button class="tile wide" data-act="nav" data-to="progress"><span>📈</span><b>${esc(T('progress'))}</b><small>${esc(T('progressSub'))}</small></button>
   </div>
@@ -3260,8 +3925,8 @@ SCREENS.letters = () => {
 const CAT_ICON = { greet: '👋', num: '🔢', basic: '⭐', food: '🍜', trans: '🚕', shop: '🛍️', emerg: '🚑', time: '🕒', phr: '🗣️', mine: '✏️',
   hotel: '🏨', days: '📅', colors: '🎨', people: '👨‍👩‍👧', body: '🩺', adj: '↔️', verbs: '🏃', conv: '💬',
   animals: '🐘', fruits: '🍍', veggies: '🥕', dishes: '🍲', places: '🏛️', things: '🎒',
-  s_food: '🍽️', s_shop: '🛒', s_move: '🚌', s_hotel: '🛎️', s_social: '🤝', s_help: '🆘' };
-const WORD_CATS = ['greet', 'num', 'basic', 'food', 'fruits', 'veggies', 'dishes', 'trans', 'places', 'shop', 'things', 'hotel', 'time', 'days', 'colors', 'people', 'body', 'animals', 'adj', 'verbs', 'emerg', 'mine'];
+  s_food: '🍽️', s_shop: '🛒', s_move: '🚌', s_hotel: '🛎️', s_social: '🤝', s_help: '🆘', weather: '🌦️', jobs: '👷', feel: '😊', dirs: '🧭' };
+const WORD_CATS = ['greet', 'num', 'basic', 'food', 'fruits', 'veggies', 'dishes', 'trans', 'dirs', 'places', 'shop', 'things', 'hotel', 'time', 'weather', 'days', 'colors', 'people', 'jobs', 'body', 'feel', 'animals', 'adj', 'verbs', 'emerg', 'mine'];
 const PHRASE_CATS = ['phr', 'conv', 's_food', 's_shop', 's_move', 's_hotel', 's_social', 's_help'];
 SCREENS.topics = mode => {
   const lang = st.lang, p = P(lang), all = items(lang);
@@ -3321,6 +3986,86 @@ function searchListHTML() {
 SCREENS.search = () => header(T('searchTitle') + ' · ' + LN(st.lang)) + `
   <label class="fld"><span>${esc(T('searchLabel'))}</span><input id="sIn" type="search" value="${esc(SQ)}" dir="auto" autocomplete="off" placeholder="${esc(T('searchPh'))}"></label>
   <div id="sRes">${searchListHTML()}</div>`;
+
+/* ===== DIALOGUES ===== */
+const DLG = { role: false, shown: {}, run: 0, cur: -1 };
+function dlgLines(id) {
+  const d = DIALOGS.find(x => x[0] === id); if (!d) return [];
+  return d[2].map((x, n) => ({ n, me: x[0] === 'M', it: findItem(st.lang, 'W:' + x.slice(2)) })).filter(x => x.it);
+}
+SCREENS.dialogs = () => header(T('dialogs') + ' · ' + LN(st.lang)) + '<p class="note">' + esc(T('dialogsIntro')) + '</p><div class="list">' +
+  DIALOGS.map(d => { const L = dlgLines(d[0]), p = P(st.lang), m = L.filter(x => p[x.it.k] && p[x.it.k].b >= 3).length;
+    return '<button class="trow" data-act="nav" data-to="dialog" data-arg="' + d[0] + '"><span class="ti">' + d[1] + '</span><span class="tt"><b>' + esc(T('dlg_' + d[0])) + '</b><small>' + esc(T('dlgLines', { n: L.length })) + ' · ' + m + '/' + L.length + '</small>' + bar(m, L.length) + '</span></button>'; }).join('') + '</div>';
+SCREENS.dialog = id => {
+  const lang = st.lang, L = dlgLines(id), d = DIALOGS.find(x => x[0] === id);
+  const line = x => {
+    const hide = DLG.role && x.me && !DLG.shown[x.n];
+    return '<div class="bub ' + (x.me ? 'me' : 'them') + (DLG.cur === x.n ? ' playing' : '') + '" id="dl' + x.n + '"><small class="who">' + esc(x.me ? T('you') : T('local')) + '</small>' +
+      (hide ? '<p class="mn big">' + esc(meaning(x.it)) + '</p><button class="btn" data-act="dlgReveal" data-n="' + x.n + '">👁️ ' + esc(T('reveal')) + '</button>' +
+        (SR ? ' <button class="btn" data-act="dlgSay" data-n="' + x.n + '">🎤 ' + esc(T('sayIt')) + '</button><p class="said" id="said' + x.n + '"></p>' : '')
+      : tgt(x.it, lang, 'md') + '<span class="pr">' + esc(pron(x.it)) + '</span><span class="mn">' + esc(meaning(x.it)) + '</span>') +
+      '<div class="bac"><button class="ic" data-act="dlgLine" data-n="' + x.n + '" aria-label="' + esc(T('listen')) + '">🔊</button><button class="ic" data-act="dlgLine" data-slow="1" data-n="' + x.n + '" aria-label="' + esc(T('slow')) + '">🐢</button></div></div>';
+  };
+  return header((d ? d[1] + ' ' : '') + T('dlg_' + id)) + `
+  <div class="row wrap"><button class="cta slim" data-act="dlgPlay" data-arg="${id}">${DLG.cur >= 0 ? '⏹ ' + esc(T('stop')) : '▶ ' + esc(T('playAll'))}</button></div>
+  <div class="seg"><button class="${DLG.role ? '' : 'on'}" data-act="dlgRole" data-v="0">📖 ${esc(T('readMode'))}</button><button class="${DLG.role ? 'on' : ''}" data-act="dlgRole" data-v="1">🎭 ${esc(T('roleMode'))}</button></div>
+  ${DLG.role ? '<p class="hint">' + esc(T('roleHint')) + '</p>' : ''}
+  <div class="chat">${L.map(line).join('')}</div>
+  <button class="btn" data-act="startScope" data-scope="cat:dlg_${id}">🎯 ${esc(T('practiceDlg'))}</button>`;
+};
+function dlgStop() { DLG.run++; DLG.cur = -1; if ('speechSynthesis' in window) speechSynthesis.cancel(); }
+function dlgPlay(id) {
+  if (DLG.cur >= 0) { dlgStop(); render(); return; }
+  const L = dlgLines(id), run = ++DLG.run;
+  const step = i => {
+    if (run !== DLG.run) return;
+    if (i >= L.length || NAV.cur !== 'dialog') { DLG.cur = -1; if (NAV.cur === 'dialog') render(); return; }
+    DLG.cur = L[i].n;
+    document.querySelectorAll('.bub').forEach(b => b.classList.toggle('playing', b.id === 'dl' + L[i].n));
+    const cta = document.querySelector('[data-act=dlgPlay]'); if (cta) cta.textContent = '⏹ ' + T('stop');
+    const el = document.getElementById('dl' + L[i].n); if (el && el.scrollIntoView) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    let done = false; const next = () => { if (done) return; done = true; setTimeout(() => step(i + 1), 450); };
+    speak(ttsText(L[i].it), st.lang, false, next, !L[i].me);
+    setTimeout(next, 2500 + 160 * ttsText(L[i].it).length);
+  };
+  step(0);
+}
+
+/* ===== PRICES & NUMBERS ===== */
+const PRICE = { n: 350, cur: true, q: null, ok: 0, tot: 0 };
+function priceHTML() {
+  const lang = st.lang, r = numWords(lang, PRICE.n, PRICE.cur);
+  if (!r) return '';
+  return '<div class="card result"><p class="bignum">' + (PRICE.cur ? CUR_SYM[lang] + ' ' : '') + PRICE.n.toLocaleString('en-US') + '</p>' +
+    '<span class="tgt lg" lang="' + LANGS[lang].tts + '" dir="' + LANGS[lang].dir + '">' + esc(r.text) + '</span>' +
+    '<p class="pr big">' + esc(st.ui === 'he' ? r.heb : r.roman) + '</p>' + (st.ui === 'he' && lang !== 'en' && lang !== 'es' ? '<p class="tiny">' + esc(r.roman) + '</p>' : '') +
+    '<div class="row c"><button class="ic" data-act="priceSay">🔊</button><button class="ic" data-act="priceSay" data-slow="1">🐢</button><button class="ic" data-act="priceBig">⛶</button></div></div>';
+}
+function priceQuizHTML() {
+  const q = PRICE.q;
+  if (!q) return '<button class="cta slim" data-act="priceQuiz">🎧 ' + esc(T('guessPrice')) + '</button><p class="hint">' + esc(T('guessHint')) + '</p>';
+  return '<div class="card"><p class="qh">' + esc(T('guessQ')) + (PRICE.tot ? ' · ' + PRICE.ok + '/' + PRICE.tot : '') + '</p><div class="row c"><button class="listen" data-act="priceQSay">🔊</button><button class="ic" data-act="priceQSay" data-slow="1">🐢</button></div>' +
+    (q.done ? '<div class="fb ' + (q.good ? 'ok' : 'no') + '"><b>' + esc(q.good ? T('right') : T('wrongWas')) + '</b> ' + q.n.toLocaleString('en-US') + ' · <span class="tgt sm" lang="' + LANGS[st.lang].tts + '">' + esc(numWords(st.lang, q.n, true).text) + '</span></div><button class="cta slim" data-act="priceQuiz">' + esc(T('next')) + '</button>'
+      : '<label class="fld"><span>' + esc(T('typeNumber')) + '</span><input id="qIn" type="number" inputmode="numeric" min="0" max="999999" dir="ltr"></label><button class="cta slim" data-act="priceCheck">✓ ' + esc(T('check')) + '</button>') + '</div>';
+}
+SCREENS.price = () => {
+  const lang = st.lang;
+  return header(T('prices') + ' · ' + LN(lang)) + `
+  <p class="note">${esc(T('pricesIntro'))}</p>
+  <label class="fld"><span>${esc(T('typeNumber'))}</span><input id="pIn" type="number" inputmode="numeric" min="0" max="999999" value="${PRICE.n}" dir="ltr"></label>
+  <div class="chips wrap">${[5, 20, 50, 100, 250, 500, 1000, 2500, 15000].map(n => '<button class="chip" data-act="priceSet" data-n="' + n + '">' + n.toLocaleString('en-US') + '</button>').join('')}</div>
+  <div class="seg"><button class="${PRICE.cur ? 'on' : ''}" data-act="priceCur" data-v="1">💰 ${esc(T('withCur', { c: CUR_SYM[lang] }))}</button><button class="${PRICE.cur ? '' : 'on'}" data-act="priceCur" data-v="0">🔢 ${esc(T('numOnly'))}</button></div>
+  <div id="pRes">${priceHTML()}</div>
+  ${lang === 'ar' ? '<p class="tiny">' + esc(T('arNumNote')) + '</p>' : ''}
+  <h3>🎧 ${esc(T('guessPrice'))}</h3><div id="pQuiz">${priceQuizHTML()}</div>`;
+};
+function randPrice() {
+  const r = Math.random();
+  if (r < 0.35) return 5 * (2 + Math.floor(Math.random() * 19));
+  if (r < 0.75) return 10 * (10 + Math.floor(Math.random() * 90));
+  if (r < 0.95) return 50 * (20 + Math.floor(Math.random() * 180));
+  return 500 * (20 + Math.floor(Math.random() * 60));
+}
 
 /* ===== PRACTICE MENU ===== */
 SCREENS.practice = () => {
@@ -3796,6 +4541,24 @@ const ACT = {
   sayGrade: d => LESSON.sayGrade(d.ok === '1'),
   searchToSpeak: () => { SPK.src = SQ; SPK.direct = false; SPK.res = null; go('speak'); },
   whatsNew: () => whatsNew(),
+  dlgPlay: d => dlgPlay(d.arg),
+  dlgLine: d => { dlgStop(); const x = dlgLines(NAV.arg).find(l => l.n === +d.n); if (x) speak(ttsText(x.it), st.lang, !!d.slow, null, !x.me); },
+  dlgRole: d => { dlgStop(); DLG.role = d.v === '1'; DLG.shown = {}; render(); },
+  dlgReveal: d => { DLG.shown[d.n] = 1; render(); const x = dlgLines(NAV.arg).find(l => l.n === +d.n); if (x) speak(ttsText(x.it), st.lang); },
+  dlgSay: d => { const x = dlgLines(NAV.arg).find(l => l.n === +d.n); if (x) sayIt(x.it, st.lang, $('#said' + d.n), ok => { if (ok) { grade(st.lang, x.it.k, true); setTimeout(() => { DLG.shown[d.n] = 1; render(); }, 900); } }); },
+  priceSet: d => { PRICE.n = +d.n; const i = $('#pIn'); if (i) i.value = PRICE.n; $('#pRes').innerHTML = priceHTML(); ACT.priceSay({}); },
+  priceCur: d => { PRICE.cur = d.v === '1'; render(); },
+  priceSay: d => { const r = numWords(st.lang, PRICE.n, PRICE.cur); if (r) speak(r.text, st.lang, !!d.slow); },
+  priceBig: () => { const r = numWords(st.lang, PRICE.n, PRICE.cur); if (r) bigShow(r.text, st.lang, st.ui === 'he' ? r.heb : r.roman, (PRICE.cur ? CUR_SYM[st.lang] + ' ' : '') + PRICE.n.toLocaleString('en-US')); },
+  priceQuiz: () => { PRICE.q = { n: randPrice() }; $('#pQuiz').innerHTML = priceQuizHTML(); ACT.priceQSay({}); const i = $('#qIn'); if (i) i.focus(); },
+  priceQSay: d => { if (PRICE.q) speak(numWords(st.lang, PRICE.q.n, true).text, st.lang, !!d.slow); },
+  priceCheck: () => {
+    const q = PRICE.q, v = parseInt(($('#qIn') || {}).value, 10);
+    if (!q || isNaN(v)) { toast(T('typeNumber'), 'warn'); return; }
+    q.done = true; q.good = v === q.n; PRICE.tot++; if (q.good) PRICE.ok++;
+    try { navigator.vibrate && navigator.vibrate(q.good ? 20 : [40, 40, 40]); } catch (e) {}
+    $('#pQuiz').innerHTML = priceQuizHTML();
+  },
   startAuto: () => LESSON.start('auto'),
   startScope: d => LESSON.start(d.scope),
   answer: d => LESSON.answer(+d.n),
@@ -3885,6 +4648,7 @@ document.addEventListener('input', e => {
   if (k === 'rate') { const r = $('#rateV'); if (r) r.textContent = (+e.target.value).toFixed(2); }
   if (k === 'user') { st.user = e.target.value.trim(); save(); }
   if (e.target.id === 'spkIn') SPK.src = e.target.value;
+  if (e.target.id === 'pIn') { const v = Math.max(0, Math.min(999999, parseInt(e.target.value, 10) || 0)); PRICE.n = v; const r = $('#pRes'); if (r) r.innerHTML = priceHTML(); }
   if (e.target.id === 'sIn') { SQ = e.target.value; const r = $('#sRes'); if (r) r.innerHTML = searchListHTML(); }
 });
 document.addEventListener('keydown', e => {
@@ -3895,6 +4659,7 @@ document.addEventListener('keydown', e => {
     if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
     else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
   }
+  if (e.key === 'Enter' && e.target.id === 'qIn') { ACT.priceCheck(); return; }
   if (NAV.cur === 'lesson' && !$('#modal') && /^[1-4]$/.test(e.key)) { const b = document.querySelectorAll('.opt')[+e.key - 1]; if (b && !b.disabled) b.click(); }
 });
 /* long press → edit (phrases, custom words) */
