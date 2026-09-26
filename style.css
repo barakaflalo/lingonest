@@ -387,3 +387,18 @@ details.help .btn{margin-top:8px}
   #print .sh-head{column-span:all;border-bottom:2px solid #000}
   #print h4{color:#000;margin:8px 0 2px}
 }
+
+/* v1.20 — trip mode */
+.tripcard{width:100%;display:flex;align-items:center;gap:12px;border:1.5px dashed var(--acc);background:color-mix(in srgb,var(--acc) 7%,var(--sf));border-radius:18px;padding:10px 14px;margin:0 0 10px;cursor:pointer;color:var(--tx);text-align:start}
+.tc-ic{font-size:1.8rem}.tc-tx{flex:1;display:flex;flex-direction:column;min-width:0}.tc-tx small{color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.trip-top{display:flex;align-items:center;gap:16px}
+.tt-big{font-size:3rem;font-weight:900;color:var(--acc);min-width:70px;text-align:center;line-height:1}
+.trip-top>div:last-child{flex:1;display:flex;flex-direction:column;gap:4px}.trip-top small{color:var(--mu)}
+details.tr-day summary{display:flex;align-items:center;gap:10px;cursor:pointer;list-style:none}
+details.tr-day summary::-webkit-details-marker{display:none}
+.tr-n{min-width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid var(--bd);font-weight:800}
+.tr-day.ok .tr-n{background:var(--acc);color:var(--on);border-color:var(--acc)}
+.tr-day.now{border:2px solid var(--acc)}
+.tr-d{flex:1}.tr-u{font-size:1.1rem}
+.tr-unit{margin:10px 0 4px}.tr-tasks{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+#tripDate{width:100%;font-size:1.1rem;padding:10px;border-radius:12px;border:1px solid var(--bd);background:var(--sf);color:var(--tx);margin:4px 0}

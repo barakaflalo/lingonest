@@ -592,4 +592,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.19.0';
+window.__MODS.content = '1.20.0';

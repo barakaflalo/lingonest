@@ -279,6 +279,93 @@ SCREENS.sheet = () => {
 };
 
 /* ============================================================
+   4c. TRIP MODE — pick a destination language and a flight date; get a day-by-day plan
+   ============================================================ */
+/* unit = [id, icon, tasks, condition]; task = ['s', scope] lesson · ['d', dialogId] · ['n', screen] */
+const TRIP_UNITS = [
+  ['letters', '🔤', [['s', 'cat:letters']], l => !isLatin(LANGS[l].native)],
+  ['greet', '👋', [['s', 'cat:greet'], ['s', 'cat:basic']]],
+  ['num', '🔢', [['s', 'cat:num'], ['n', 'price']]],
+  ['phr', '💬', [['s', 'cat:phr']]],
+  ['food', '🍽️', [['s', 'cat:food'], ['s', 'cat:s_food'], ['d', 'rest']]],
+  ['trans', '🚕', [['s', 'cat:trans'], ['s', 'cat:s_move'], ['d', 'taxi']]],
+  ['shop', '🛍️', [['s', 'cat:shop'], ['s', 'cat:s_shop'], ['d', 'market'], ['d', 'clothes']]],
+  ['hotel', '🏨', [['s', 'cat:hotel'], ['s', 'cat:s_hotel'], ['d', 'hotel'], ['d', 'sim']]],
+  ['dirs', '🧭', [['s', 'cat:dirs'], ['d', 'dir'], ['d', 'tour']]],
+  ['emerg', '🆘', [['s', 'cat:emerg'], ['s', 'cat:s_help'], ['d', 'pharm']]],
+  ['conv', '🤝', [['s', 'cat:conv'], ['s', 'cat:s_social'], ['n', 'chat']]],
+  ['airport', '✈️', [['s', 'cat:time'], ['d', 'airport']]]
+];
+const TRIP_REVIEW = ['review', '🔁', [['s', 'due'], ['n', 'cards']]];
+const TRIP_FINAL = ['final', '🧳', [['n', 'kit'], ['n', 'sheet']]];
+const TRIP_MAX = 90;
+const TRIP_PRIORITY = ['greet', 'num', 'emerg', 'food', 'trans', 'phr', 'hotel', 'letters', 'shop', 'dirs', 'airport', 'conv'];
+const dayMs = 864e5;
+const ymd = d => { const x = new Date(d); return x.getFullYear() + '-' + String(x.getMonth() + 1).padStart(2, '0') + '-' + String(x.getDate()).padStart(2, '0'); };
+const dayStart = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d).getTime(); };
+const daysBetween = (a, b) => Math.round((dayStart(b) - dayStart(a)) / dayMs);
+function tripPlan(t) {
+  const units = TRIP_UNITS.filter(u => !u[3] || u[3](t.lang));
+  const total = Math.max(1, Math.min(TRIP_MAX, daysBetween(t.start, t.date)));
+  if (total === 1) return [[units.find(u => u[0] === 'greet'), units.find(u => u[0] === 'num'), units.find(u => u[0] === 'emerg'), TRIP_FINAL]];
+  const D = total - 1, plan = [];
+  let list = units;
+  if (D * 3 < units.length) {                      /* short trip: keep the essentials, at most 3 topics a day */
+    const keep = TRIP_PRIORITY.filter(id => units.some(u => u[0] === id)).slice(0, D * 3);
+    list = units.filter(u => keep.includes(u[0]));
+  }
+  const N = list.length;
+  for (let i = 0; i < D; i++) {
+    if (D >= N) { const k = Math.floor(i * N / D); plan.push(i === 0 || k > Math.floor((i - 1) * N / D) ? [list[k]] : [TRIP_REVIEW]); }
+    else plan.push(list.slice(Math.floor(i * N / D), Math.floor((i + 1) * N / D)));
+  }
+  plan.push([TRIP_FINAL]);
+  return plan;
+}
+function taskLabel(k) {
+  if (k[0] === 's') return k[1] === 'due' ? T('prDue') : k[1] === 'cat:letters' ? T('letters') : T('cat_' + k[1].slice(4));
+  if (k[0] === 'd') return '🎭 ' + T('dlg_' + k[1]);
+  return { price: '💰 ' + T('prices'), chat: '🤖 ' + T('chat'), kit: '🧳 ' + T('kit'), sheet: '📄 ' + T('sheetTitle'), cards: '🃏 ' + T('prCards') }[k[1]] || k[1];
+}
+function tripState() {
+  const t = st.trip; if (!t || !LANGS[t.lang]) return null;
+  const plan = tripPlan(t), today = daysBetween(t.start, ymd(Date.now())), left = daysBetween(ymd(Date.now()), t.date);
+  return { t, plan, today: Math.max(0, Math.min(plan.length - 1, today)), left, done: Object.keys(t.done || {}).length };
+}
+function tripDayDate(t, i) { return new Date(dayStart(t.start) + i * dayMs).toLocaleDateString(st.ui === 'he' ? 'he-IL' : st.ui, { weekday: 'short', day: 'numeric', month: 'numeric' }); }
+function tripTasksHTML(day, i) {
+  return day.map(u => '<div class="tr-unit"><b>' + u[1] + ' ' + esc(T('tu_' + u[0])) + '</b><div class="tr-tasks">' +
+    u[2].map((k, j) => '<button class="chip" data-act="tripTask" data-k="' + k[0] + '" data-v="' + esc(k[1]) + '">' + esc(taskLabel(k)) + '</button>').join('') + '</div></div>').join('');
+}
+function tripHomeCard() {
+  const s = tripState(); if (!s) return '';
+  if (s.left <= 0) return '<button class="tripcard" data-act="nav" data-to="trip"><span class="tc-ic">✈️</span><span class="tc-tx"><b>' + esc(T('tripGone', { l: LN(s.t.lang) })) + '</b><small>' + esc(T('tripGoneSub')) + '</small></span></button>';
+  const day = s.plan[s.today], doneToday = s.t.done && s.t.done[s.today];
+  return '<button class="tripcard" data-act="nav" data-to="trip"><span class="tc-ic">✈️</span><span class="tc-tx"><b>' + esc(T('tripLeft', { n: s.left, l: LN(s.t.lang) })) + '</b><small>' +
+    (doneToday ? '✓ ' + esc(T('tripDoneToday')) : esc(T('tripToday')) + ': ' + day.map(u => u[1] + ' ' + T('tu_' + u[0])).join(' · ')) + '</small></span><span class="lc-sw">' + esc(T('tripOpen')) + ' ←</span></button>';
+}
+SCREENS.trip = () => {
+  const s = tripState();
+  if (!s) {
+    const tomorrow = ymd(Date.now() + dayMs), def = st.tripDraft || ymd(Date.now() + 14 * dayMs);
+    return header('✈️ ' + T('tripTitle')) + '<p class="note">' + esc(T('tripIntro')) + '</p>' +
+      '<div class="card set"><h3>🌍 ' + esc(T('tripDest')) + '</h3><div class="row wrap">' + langBadge(st.lang) + '<b>' + esc(LN(st.lang)) + '</b><button class="btn" data-act="nav" data-to="langs">' + esc(T('switchLang')) + '</button></div>' +
+      '<h3>📅 ' + esc(T('tripDate')) + '</h3><input type="date" id="tripDate" min="' + tomorrow + '" value="' + def + '">' +
+      '<p class="tiny">' + esc(T('tripHint')) + '</p><button class="cta" data-act="tripCreate">✨ ' + esc(T('tripCreate')) + '</button></div>';
+  }
+  const { t, plan, today, left, done } = s;
+  if (left <= 0) return header('✈️ ' + T('tripTitle')) + '<div class="card sum"><p class="big-num">✈️</p><h3>' + esc(T('tripGone', { l: LN(t.lang) })) + '</h3><p>' + esc(T('tripGoneSub')) + '</p>' +
+    '<div class="row c wrap"><button class="btn gold" data-act="tripTask" data-k="n" data-v="kit">🧳 ' + esc(T('kit')) + '</button><button class="btn gold" data-act="tripTask" data-k="n" data-v="sheet">📄 ' + esc(T('sheetTitle')) + '</button><button class="btn" data-act="tripEnd">' + esc(T('tripEnd')) + '</button></div></div>';
+  const pct = Math.round(done / plan.length * 100);
+  const list = plan.map((day, i) => '<details class="card tr-day' + (i === today ? ' now' : '') + (t.done && t.done[i] ? ' ok' : '') + '"' + (i === today ? ' open' : '') + '><summary><span class="tr-n">' + (t.done && t.done[i] ? '✓' : i + 1) + '</span><span class="tr-d">' + esc(T('tripDay', { n: i + 1 })) + ' · ' + esc(tripDayDate(t, i)) + (i === today ? ' · <b>' + esc(T('today')) + '</b>' : '') + '</span><span class="tr-u">' + day.map(u => u[1]).join(' ') + '</span></summary>' +
+    tripTasksHTML(day, i) + '<button class="btn' + (t.done && t.done[i] ? '' : ' gold') + '" data-act="tripDone" data-i="' + i + '">' + (t.done && t.done[i] ? '↺ ' + esc(T('tripUndo')) : '✓ ' + esc(T('tripMarkDone'))) + '</button></details>').join('');
+  return header('✈️ ' + T('tripTitle') + ' · ' + LN(t.lang)) +
+    '<div class="card trip-top"><div class="tt-big">' + left + '</div><div><b>' + esc(T('tripDaysLeft')) + '</b><small>' + esc(new Date(dayStart(t.date)).toLocaleDateString(st.ui === 'he' ? 'he-IL' : st.ui, { weekday: 'long', day: 'numeric', month: 'long' })) + '</small>' + bar(done, plan.length) + '<small>' + esc(T('tripProg', { d: done, n: plan.length, p: pct })) + '</small></div></div>' +
+    '<div id="tripList">' + list + '</div>' +
+    '<div class="row c wrap"><button class="btn" data-act="tripEdit">📅 ' + esc(T('tripChange')) + '</button><button class="btn" data-act="tripEnd">🗑️ ' + esc(T('tripEnd')) + '</button></div>';
+};
+
+/* ============================================================
    5. USER GUIDE (help.js is loaded on first open)
    ============================================================ */
 const HLP = { q: '', open: 'start' };
@@ -334,6 +421,22 @@ Object.assign(ACT, {
   setWeekGoal: d => { st.weekGoal = +d.n; save(); render(); checkBadges(); },
   sheetTog: d => { st.sheet = st.sheet || {}; st.sheet[d.s] = st.sheet[d.s] === false; save(); render(); },
   sheetPrint: () => { const p = $('#print'); p.innerHTML = '<div class="sheet print">' + sheetHTML() + '</div>'; flag('sheet'); setTimeout(() => window.print(), 100); },
+  tripCreate: () => {
+    const v = ($('#tripDate') || {}).value;
+    if (!v || daysBetween(ymd(Date.now()), v) < 1) { toast(T('tripBadDate'), 'warn', 4000); return; }
+    st.trip = { lang: st.lang, date: v, start: ymd(Date.now()), done: {} }; delete st.tripDraft; save(); flag('trip'); render();
+    toast('✈️ ' + T('tripMade', { n: tripPlan(st.trip).length }), 'ok', 3500);
+  },
+  tripEdit: () => { if (st.trip) st.tripDraft = st.trip.date; st.trip = null; save(); render(); },
+  tripEnd: () => { if (!confirm(T('tripEndQ'))) return; st.trip = null; save(); render(); },
+  tripDone: d => { const t = st.trip; if (!t) return; t.done = t.done || {}; if (t.done[d.i]) delete t.done[d.i]; else { t.done[d.i] = 1; toast('🎉 ' + T('tripGood'), 'ok', 2000); } save(); render(); },
+  tripTask: async d => {
+    const t = st.trip;
+    if (t && t.lang !== st.lang && !(await switchLang(t.lang))) return;
+    if (d.k === 's') LESSON.start(d.v);
+    else if (d.k === 'd') go('dialog', d.v);
+    else go(d.v);
+  },
   helpGo: d => { const p = String(d.to).split(':'); go(p[0], p[1] || null); }
 });
 /* Enter sends in the chat (Shift+Enter = new line) */
@@ -346,5 +449,5 @@ document.addEventListener('pointerdown', e => {
   ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => row.addEventListener(ev, cancel));
 });
 
-window.__MODS.features = '1.19.0';
+window.__MODS.features = '1.20.0';
 boot();

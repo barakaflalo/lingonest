@@ -36,6 +36,7 @@ window.APPNEST_ASSISTANT_CONFIG = {
     { name: 'הגדרות', screen: 'settings' },
     { name: 'מדריך האפליקציה', screen: 'help' },
     { name: 'דף שליפה לטיול (להדפסה)', screen: 'sheet' },
+    { name: 'מצב טיול — תוכנית עד הטיסה', screen: 'trip' },
     { name: 'אודות', screen: 'about' }
   ],
 
@@ -108,4 +109,4 @@ window.APPNEST_ASSISTANT_CONFIG = {
     'בוא נתרגל — תפתח לי שיעור'
   ]
 };
-window.__MODS['assistant-map'] = '1.19.0';
+window.__MODS['assistant-map'] = '1.20.0';

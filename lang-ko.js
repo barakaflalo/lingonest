@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ko', {
-  ver: '1.19.0',
+  ver: '1.20.0',
   curSym: "₩",
   country: {"he": "קוריאה הדרומית", "en": "South Korea", "ru": "Южная Корея", "es": "Corea del Sur", "ar": "كوريا الجنوبية"},
   emergency: [

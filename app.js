@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.19.0' };
+const APP = { name: 'LingoNest', ver: '1.20.0' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -435,6 +435,7 @@ SCREENS.home = () => {
   <p class="hello">${esc(st.user ? T('helloName', { n: displayName(st.user) }) : T('helloAnon'))}</p>
   <nav class="langnav" aria-label="${esc(T('chooseLang'))}">${chips}</nav>
   <button class="search-btn" data-act="nav" data-to="search">🔍 <span>${esc(T('searchBtn', { l: LN(lang) }))}</span></button>
+  ${typeof tripHomeCard === 'function' ? tripHomeCard() : ''}
   <section class="hero" aria-label="${esc(T('wordOfDay'))}">
     <div class="hero-top"><span>${esc(T('wordOfDay'))}</span><span>${typeof weekCount === 'function' ? '<span class="wk" title="' + esc(T('weekGoal')) + '">🎯 ' + weekCount() + '/' + (st.weekGoal || 100) + '</span> ' : ''}<span class="streak" title="${esc(T('streak'))}">🔥 ${st.streak.last === today() || st.streak.last === dayKey(-1) ? st.streak.n : 0}</span></span></div>
     <div class="wod">${tgt(wod, lang, 'xl')}</div>
@@ -455,6 +456,7 @@ SCREENS.home = () => {
     <button class="tile" data-act="nav" data-to="chat"><span>🤖</span><b>${esc(T('chat'))}</b><small>${esc(T('chatSub'))}</small></button>
     <button class="tile" data-act="nav" data-to="kit"><span>🧳</span><b>${esc(T('kit'))}</b><small>${esc(T('kitSub'))}</small></button>
     <button class="tile" data-act="nav" data-to="tips"><span>💡</span><b>${esc(T('tips'))}</b><small>${esc(T('tipsSub'))}</small></button>
+    <button class="tile" data-act="nav" data-to="trip"><span>✈️</span><b>${esc(T('tripTitle'))}</b><small>${esc(T(st.trip ? 'tripOpen' : 'tripCreate'))}</small></button>
     <button class="tile" data-act="nav" data-to="help"><span>📖</span><b>${esc(T('helpTitle'))}</b><small>${esc(T('helpSub'))}</small></button>
     <button class="tile" data-act="nav" data-to="search"><span>🔍</span><b>${esc(T('searchTitle'))}</b><small>${esc(T('searchSub'))}</small></button>
     <button class="tile wide" data-act="nav" data-to="speak"><span>📢</span><b>${esc(T('speakForMe'))}</b><small>${esc(T('speakSub', { l: LN(lang) }))}</small></button>
@@ -1617,4 +1619,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.19.0';
+window.__MODS.app = '1.20.0';

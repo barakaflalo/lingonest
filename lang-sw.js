@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('sw', {
-  ver: '1.19.0',
+  ver: '1.20.0',
   curSym: "TSh",
   country: {"he": "טנזניה, קניה ואוגנדה", "en": "Tanzania, Kenya & Uganda", "ru": "Танзания, Кения и Уганда", "es": "Tanzania, Kenia y Uganda", "ar": "تنزانيا وكينيا وأوغندا"},
   emergency: [

@@ -136,6 +136,19 @@ const HELP = [
     '• The country\'s emergency numbers — tap to call (verify before travelling!).',
     '• Personal cards: hotel address, allergies, medication, emergency contact. Write in Hebrew and tap "Translate" (✨), or type it yourself. ⛶ shows it big.',
     '• Quick emergency phrases and your ★ favourites.']}],
+['trip', '✈️', 'trip', {he: 'מצב טיול', en: 'Trip mode'}, {
+  he: ['טס בקרוב? בוחרים שפה ותאריך טיסה, והאפליקציה בונה תוכנית יומית עד הנסיעה.',
+    '• כל יום מקבל נושא מהטיול: ברכות, מספרים ומחירים, אוכל ומסעדה, תחבורה, קניות, מלון, כיוונים, חירום, שיחה ושדה תעופה — בשפות עם כתב אחר מתחילים באותיות.',
+    '• בכל יום יש כפתורים שפותחים ישר את השיעור, הדיאלוג או המסך המתאים.',
+    '• יש הרבה ימים? נכנסים ביניהם ימי חזרה. מעט ימים? כמה נושאים ביום.',
+    '• היום האחרון: הכנת ערכת הטיול ודף השליפה.',
+    '• בדף הבית מופיע כרטיס עם הספירה לאחור ומה ללמוד היום. "סיימתי" מסמן יום כגמור.'],
+  en: ['Flying soon? Pick a language and a flight date, and the app builds a daily plan until departure.',
+    '• Each day gets a travel topic: greetings, numbers & prices, food, transport, shopping, hotel, directions, emergencies, conversation and the airport — scripts start with letters.',
+    '• Each day has buttons that open the right lesson, dialogue or screen.',
+    '• Many days? Review days are added. Few days? Several topics per day.',
+    '• The last day: prepare the travel kit and cheat sheet.',
+    '• The home screen shows a countdown card with today\'s topic; "Done" marks the day.']}],
 ['sheet', '📄', 'sheet', {he: 'דף שליפה לטיול', en: 'Trip cheat sheet'}, {
   he: ['דף מרוכז עם המשפטים הכי חשובים — להדפסה, לשמירה כ-PDF בטלפון, או לשליפה מהירה על המסך.',
     '• בוחרים מה ייכנס: הבסיס, מספרים, תחבורה ומלון, אוכל, חירום, המועדפים שלך והמשפטים ששמרת.',
@@ -242,4 +255,4 @@ const HELP = [
   en: ['No account and no AppNest server — everything stays on your device. Text leaves only when you use a ✨ feature, and only to the AI provider you connected. No tracking, no ads.',
     'Full policy: privacy_policy.html (linked on the About screen).']}]
 ];
-window.__MODS.help = '1.19.0';
+window.__MODS.help = '1.20.0';
