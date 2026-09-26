@@ -495,4 +495,4 @@ LANG.ar = {
   "grp_asia": "آسيا",
   "grp_africa": "أفريقيا"
 };
-window.__MODS['ui-ar'] = '1.17.0';
+window.__MODS['ui-ar'] = '1.17.1';

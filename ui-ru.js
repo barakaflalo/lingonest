@@ -495,4 +495,4 @@ LANG.ru = {
   "grp_asia": "Азия",
   "grp_africa": "Африка"
 };
-window.__MODS['ui-ru'] = '1.17.0';
+window.__MODS['ui-ru'] = '1.17.1';

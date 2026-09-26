@@ -495,4 +495,4 @@ LANG.es = {
   "grp_asia": "Asia",
   "grp_africa": "África"
 };
-window.__MODS['ui-es'] = '1.17.0';
+window.__MODS['ui-es'] = '1.17.1';

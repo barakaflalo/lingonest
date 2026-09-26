@@ -345,3 +345,10 @@ details.tip p{line-height:1.7}
 .lgtile b{font-size:.98rem}.lgtile small{color:var(--mu);font-size:.8rem}
 .lggrid.compact .lgtile{padding:10px 6px}.lggrid.compact .lbadge{min-width:36px;height:36px;font-size:.9rem}
 .lgpct{display:flex;align-items:center;gap:6px;width:100%;padding:0 6px}.lgpct .bar{flex:1;height:5px}.lgpct em{font-style:normal;font-size:.75rem;color:var(--acc)}
+
+/* v1.17.1 — no sideways overflow on phones: grid items may shrink, long native names are clipped */
+.lggrid>*{min-width:0}
+.lgtile small,.lc-txt small{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lgtile b{max-width:100%;overflow-wrap:anywhere}
+#app{overflow-x:clip}
+@media (max-width:420px){.lggrid{grid-template-columns:repeat(2,minmax(0,1fr))}.lggrid.compact{grid-template-columns:repeat(3,minmax(0,1fr))}}

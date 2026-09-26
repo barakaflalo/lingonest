@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.17.0' };
+const APP = { name: 'LingoNest', ver: '1.17.1' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -419,7 +419,7 @@ SCREENS.home = () => {
   const pc = langPct(lang) || 0;
   const recent = (st.recentLangs || []).filter(l => l !== lang && LANGS[l]).slice(0, 3);
   const chips = '<button class="langcard" data-act="nav" data-to="langs" aria-label="' + esc(T('chooseLang')) + '">' + langBadge(lang, 'lg') +
-    '<span class="lc-txt"><b>' + esc(LN(lang)) + '</b><small lang="' + LANGS[lang].tts + '">' + esc(LANGS[lang].native) + ' · ' + pc + '%</small>' + bar(pc, 100) + '</span>' +
+    '<span class="lc-txt"><b>' + esc(LN(lang)) + '</b><small><bdi lang="' + LANGS[lang].tts + '" dir="' + LANGS[lang].dir + '">' + esc(LANGS[lang].native) + '</bdi> · ' + pc + '%</small>' + bar(pc, 100) + '</span>' +
     '<span class="lc-sw">' + esc(T('switchLang')) + ' ▾</span></button>' +
     (recent.length ? '<div class="chips wrap recent">' + recent.map(l => '<button class="chip" data-act="setLang" data-l="' + l + '">' + langBadge(l, 'sm') + '<span>' + esc(LN(l)) + '</span></button>').join('') + '</div>' : '');
   return `
@@ -432,7 +432,7 @@ SCREENS.home = () => {
       <button class="ic" data-act="nav" data-to="settings" aria-label="${esc(T('settings'))}">⚙️</button>
     </div>
   </header>
-  <p class="hello">${esc(st.user ? T('helloName', { n: st.user }) : T('helloAnon'))}</p>
+  <p class="hello">${esc(st.user ? T('helloName', { n: displayName(st.user) }) : T('helloAnon'))}</p>
   <nav class="langnav" aria-label="${esc(T('chooseLang'))}">${chips}</nav>
   <button class="search-btn" data-act="nav" data-to="search">🔍 <span>${esc(T('searchBtn', { l: LN(lang) }))}</span></button>
   <section class="hero" aria-label="${esc(T('wordOfDay'))}">
@@ -463,6 +463,8 @@ SCREENS.home = () => {
   <footer class="badge">AppNest · v${APP.ver}</footer>`;
 };
 
+/* a name field autofilled with an e-mail → greet with the part before @ */
+const displayName = u => { const s = String(u || '').trim(); if (!s.includes('@')) return s; const p = s.split('@')[0].replace(/[._\d]+/g, ' ').trim(); return p ? p.charAt(0).toUpperCase() + p.slice(1) : s; };
 /* ===== LANGUAGE PICKER ===== */
 const FLAGS_OK = !/Windows/i.test(navigator.userAgent);          /* Windows shows letters instead of flag emoji */
 function langBadge(l, size) {
@@ -472,7 +474,7 @@ function langBadge(l, size) {
 function langTile(l, act) {
   const pc = langPct(l);
   return '<button class="lgtile' + (l === st.lang ? ' on' : '') + '" data-act="' + (act || 'pickLang') + '" data-l="' + l + '" aria-pressed="' + (l === st.lang) + '">' + langBadge(l) +
-    '<b>' + esc(LN(l)) + '</b><small lang="' + LANGS[l].tts + '">' + esc(LANGS[l].native) + (FLAGS_OK ? ' ' + LANGS[l].flag : '') + '</small>' +
+    '<b>' + esc(LN(l)) + '</b><small><bdi lang="' + LANGS[l].tts + '" dir="' + LANGS[l].dir + '">' + esc(LANGS[l].native) + '</bdi>' + (FLAGS_OK ? ' ' + LANGS[l].flag : '') + '</small>' +
     (pc ? '<span class="lgpct">' + bar(pc, 100) + '<em>' + pc + '%</em></span>' : '') + '</button>';
 }
 const LSRCH = { q: '' };
@@ -1613,4 +1615,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.17.0';
+window.__MODS.app = '1.17.1';

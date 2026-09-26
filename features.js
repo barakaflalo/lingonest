@@ -271,5 +271,5 @@ document.addEventListener('pointerdown', e => {
   ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => row.addEventListener(ev, cancel));
 });
 
-window.__MODS.features = '1.17.0';
+window.__MODS.features = '1.17.1';
 boot();
