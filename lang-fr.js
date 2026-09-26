@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('fr', {
-  ver: '1.17.1',
+  ver: '1.18.0',
   curSym: "€",
   country: {"he": "צרפת ומדינות דוברות צרפתית", "en": "France & French-speaking countries", "ru": "Франция и франкоязычные страны", "es": "Francia y países francófonos", "ar": "فرنسا والدول الناطقة بالفرنسية"},
   emergency: [

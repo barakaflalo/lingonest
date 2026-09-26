@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ha', {
-  ver: '1.17.1',
+  ver: '1.18.0',
   curSym: "₦",
   country: {"he": "ניגריה (צפון), ניז׳ר ומערב אפריקה", "en": "Northern Nigeria, Niger & West Africa", "ru": "Север Нигерии, Нигер", "es": "Norte de Nigeria y Níger", "ar": "شمال نيجيريا والنيجر"},
   emergency: [

@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('tw', {
-  ver: '1.17.1',
+  ver: '1.18.0',
   curSym: "GH₵",
   country: {"he": "גאנה", "en": "Ghana", "ru": "Гана", "es": "Ghana", "ar": "غانا"},
   emergency: [

@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ka', {
-  ver: '1.17.1',
+  ver: '1.18.0',
   curSym: "₾",
   country: {"he": "גאורגיה", "en": "Georgia", "ru": "Грузия", "es": "Georgia", "ar": "جورجيا"},
   emergency: [

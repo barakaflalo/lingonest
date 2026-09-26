@@ -295,10 +295,10 @@ LANG.es = {
   "sayMore": "Aún no, volverá en el repaso",
   "noSpeech": "No oí nada. Pulsa 🎤 y habla cerca del teléfono.",
   "newIn": "Novedades de {v}",
-  "wn1": "🌍 Nuevo selector de idioma: tarjeta en inicio y pantalla con búsqueda y regiones.",
-  "wn2": "Cada idioma tiene una insignia en su propia escritura — funciona también en el ordenador.",
-  "wn3": "Cambio rápido entre tus idiomas recientes.",
-  "wn4": "En el ordenador ahora eliges fácilmente cualquiera de los 28 idiomas.",
+  "wn1": "📖 Guía de uso: explicación detallada de cada función, con búsqueda.",
+  "wn2": "🔒 Política de privacidad actualizada.",
+  "wn3": "La guía está en inicio, Ajustes y \"Acerca de\".",
+  "wn4": "\"Problemas frecuentes\" con soluciones rápidas.",
   "wn5": "Tu progreso se conservó.",
   "lvl8": "Frases completas",
   "lvl9": "Mis palabras",
@@ -493,6 +493,12 @@ LANG.es = {
   "grp_europe": "Europa",
   "grp_mideast": "Oriente Medio y Cáucaso",
   "grp_asia": "Asia",
-  "grp_africa": "África"
+  "grp_africa": "África",
+  "helpTitle": "Guía de uso",
+  "helpSub": "Todas las funciones, paso a paso",
+  "helpIntro": "Explicación de todo lo que tiene LingoNest. Toca un tema para abrirlo y \"Abrir\" para ir a la función.",
+  "helpSearch": "Buscar en la guía…",
+  "helpOpen": "Abrir",
+  "helpNone": "No hay ese tema en la guía"
 };
-window.__MODS['ui-es'] = '1.17.1';
+window.__MODS['ui-es'] = '1.18.0';

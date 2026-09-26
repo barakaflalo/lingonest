@@ -236,6 +236,35 @@ SCREENS.tips = () => {
 };
 
 /* ============================================================
+   5. USER GUIDE (help.js is loaded on first open)
+   ============================================================ */
+const HLP = { q: '', open: 'start' };
+function helpBody(s) {
+  const lines = (s[4][st.ui] || s[4].en || s[4].he), out = []; let ul = [];
+  const flush = () => { if (ul.length) { out.push('<ul>' + ul.join('') + '</ul>'); ul = []; } };
+  lines.forEach(l => { if (l.startsWith('• ')) ul.push('<li>' + esc(l.slice(2)) + '</li>'); else { flush(); out.push('<p>' + esc(l) + '</p>'); } });
+  flush();
+  return out.join('');
+}
+function helpListHTML() {
+  if (typeof HELP === 'undefined') return '<p class="loading">⏳</p>';
+  const q = HLP.q.trim().toLowerCase();
+  const list = HELP.filter(s => !q || (tr(s[3]) + ' ' + (s[4][st.ui] || s[4].en).join(' ') + ' ' + s[4].he.join(' ')).toLowerCase().includes(q));
+  if (!list.length) return '<p class="empty">' + esc(T('helpNone')) + '</p>';
+  return list.map(s => '<details class="card help"' + (q || HLP.open === s[0] ? ' open' : '') + ' data-hid="' + s[0] + '"><summary><span class="hi">' + s[1] + '</span>' + esc(tr(s[3])) + '</summary>' + helpBody(s) +
+    (s[2] ? '<button class="btn gold" data-act="helpGo" data-to="' + s[2] + '">' + esc(T('helpOpen')) + ' ←</button>' : '') + '</details>').join('');
+}
+SCREENS.help = () => {
+  if (typeof HELP === 'undefined') loadScript('help.js').then(() => { if (NAV.cur === 'help') render(); }, () => toast(T('loadFail'), 'err', 5000));
+  return header('📖 ' + T('helpTitle')) + '<p class="note">' + esc(T('helpIntro')) + '</p>' +
+    '<label class="lsearch"><span>🔍</span><input id="hSrch" type="search" autocomplete="off" placeholder="' + esc(T('helpSearch')) + '" value="' + esc(HLP.q) + '"></label>' +
+    '<div id="hList">' + helpListHTML() + '</div>' +
+    '<p class="tiny c">LingoNest ' + APP.ver + ' · AppNest · <a href="privacy_policy.html" target="_blank" rel="noopener">' + esc(T('privacy')) + '</a></p>';
+};
+document.addEventListener('input', e => { if (e.target.id === 'hSrch') { HLP.q = e.target.value; const b = $('#hList'); if (b) b.innerHTML = helpListHTML(); } });
+document.addEventListener('toggle', e => { const d = e.target; if (d.matches && d.matches('details.help') && d.open) HLP.open = d.dataset.hid; }, true);
+
+/* ============================================================
    actions
    ============================================================ */
 Object.assign(ACT, {
@@ -259,7 +288,8 @@ Object.assign(ACT, {
   kitEdit: d => { const c = (st.kit || []).find(x => x.id === d.id); if (c) kitForm(c); },
   kitBig: d => { const c = (st.kit || []).find(x => x.id === d.id); if (c) bigShow(c.text, c.lang, '', c.title); },
   kitSay: d => { const c = (st.kit || []).find(x => x.id === d.id); if (c) speak(c.text, c.lang); },
-  setWeekGoal: d => { st.weekGoal = +d.n; save(); render(); checkBadges(); }
+  setWeekGoal: d => { st.weekGoal = +d.n; save(); render(); checkBadges(); },
+  helpGo: d => { const p = String(d.to).split(':'); go(p[0], p[1] || null); }
 });
 /* Enter sends in the chat (Shift+Enter = new line) */
 document.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && e.target.id === 'cIn') { e.preventDefault(); ACT.chatSend(); } });
@@ -271,5 +301,5 @@ document.addEventListener('pointerdown', e => {
   ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => row.addEventListener(ev, cancel));
 });
 
-window.__MODS.features = '1.17.1';
+window.__MODS.features = '1.18.0';
 boot();

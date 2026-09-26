@@ -7,65 +7,122 @@
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="icon-192.png">
 <style>
-body{margin:0;background:#000;color:#F3EFE6;font-family:'Assistant','Segoe UI',system-ui,Arial,sans-serif;line-height:1.65}
-main{max-width:720px;margin:0 auto;padding:28px 18px 60px}
+body{margin:0;background:#000;color:#F3EFE6;font-family:'Assistant','Segoe UI',system-ui,Arial,sans-serif;line-height:1.7}
+main{max-width:760px;margin:0 auto;padding:28px 18px 60px}
 h1{color:#D4AF37;font-size:1.6rem;margin:0 0 4px}
-h2{color:#D4AF37;font-size:1.1rem;margin:26px 0 6px}
+h2{color:#D4AF37;font-size:1.12rem;margin:28px 0 6px}
 p,li{color:#DDD6C8}
+ul{padding-inline-start:22px}
 .muted{color:#A9A294;font-size:.9rem}
-hr{border:0;height:1px;background:rgba(212,175,55,.35);margin:36px 0}
+hr{border:0;height:1px;background:rgba(212,175,55,.35);margin:40px 0}
 a{color:#D4AF37}
 .en{direction:ltr;text-align:left}
+.box{border:1px solid rgba(212,175,55,.4);border-radius:14px;padding:12px 16px;background:rgba(212,175,55,.06)}
 .back{display:inline-block;border:1.5px solid #D4AF37;color:#D4AF37;border-radius:12px;padding:10px 16px;text-decoration:none;font-weight:700;margin-bottom:18px}
 </style>
 </head>
 <body>
 <main>
 <a class="back" href="index.html">← חזרה לאפליקציה / Back to the app</a>
+
 <section>
 <h1>מדיניות פרטיות — LingoNest</h1>
-<p class="muted">עודכן: ספטמבר 2026 · AppNest · Barak Aflalo</p>
-<h2>הכול נשאר על המכשיר</h2>
-<p>ההתקדמות שלך, המילים והמשפטים ששמרת, השם שבחרת וההגדרות נשמרים רק באחסון של הדפדפן במכשיר שלך. אין חשבון, אין שרת של AppNest, ואיננו אוספים או רואים את המידע הזה.</p>
+<p class="muted">עודכן: ספטמבר 2026 (גרסה 1.18) · AppNest · Barak Aflalo</p>
+
+<div class="box"><p><b>בקצרה:</b> אין חשבון ואין שרת של AppNest. כל מה שלך נשמר רק במכשיר שלך. טקסט יוצא מהמכשיר רק כשאתה משתמש בפיצ׳ר בינה מלאכותית, ורק אל ספק הבינה שאתה בחרת וחיברת עם המפתח שלך.</p></div>
+
+<h2>מה נשמר על המכשיר</h2>
+<p>ההתקדמות בכל השפות, המילים והמשפטים ששמרת, הכרטיסים בערכת הטיול, השם שבחרת, ההגדרות, התגים והיעד השבועי — כולם נשמרים רק באחסון המקומי של הדפדפן במכשיר שלך. AppNest לא אוספת, לא רואה ולא שומרת אותם.</p>
+
+<h2>מפתח הבינה (Pro)</h2>
+<p>אם תחבר ספק בינה (Gemini, Claude, ChatGPT או Ollama מקומי), המפתח שלך נשמר <b>מוצפן</b> (AES-GCM) במכשיר בלבד, ונשלח רק ישירות לספק שבחרת. אפשר למחוק אותו בכל רגע בהגדרות.</p>
+
 <h2>מה יוצא מהמכשיר, ומתי</h2>
+<p>טקסט נשלח לספק הבינה שבחרת <b>רק כשאתה מפעיל</b> אחד מהפיצ׳רים האלה:</p>
 <ul>
-<li><b>חיבור בינה (אופציונלי):</b> אם חיברת מפתח משלך (Gemini, Claude, ChatGPT), הטקסט שביקשת לתרגם או הנושא שביקשת ליצור ממנו מילים נשלח ישירות לספק שבחרת, לפי תנאי הפרטיות שלו. בלי מפתח — לא נשלח דבר. Ollama פועל על המחשב שלך.</li>
-<li><b>מפתח ה-API:</b> מוצפן (AES-GCM) ונשמר מקומית במכשיר. הוא אינו נכלל בקבצי גיבוי ואינו עובר דרך שום שרת של AppNest. ההצפנה מגינה על המפתח כשהוא שמור, אך לא מפני קוד זדוני שרץ בדפדפן עצמו.</li>
-<li><b>Google Translate:</b> רק אם לחצת על הקישור, הטקסט נפתח באתר של Google.</li>
-<li><b>גופנים:</b> האפליקציה טוענת גופנים מ-Google Fonts. לא נשלח שום תוכן שלך.</li>
+<li><b>דבר בשבילי</b> — המשפט שכתבת, לתרגום.</li>
+<li><b>שיחה עם בינה</b> — ההודעות בשיחת התרגול.</li>
+<li><b>העוזר החכם 🪄</b> — השאלה שלך, ומידע בסיסי על מה שאתה לומד כרגע (השפה, הרמה והמילים שעל המסך).</li>
+<li><b>בדיקת איכות תוכן</b> — רשימות המילים של השפה שבחרת לבדוק.</li>
+<li><b>ערכת טיול</b> — הטקסט שביקשת לתרגם לכרטיס (למשל אלרגיות או תרופות). אם אינך רוצה שמידע רפואי יישלח לספק — הקלד את הכרטיס בעצמך בלי ללחוץ "תרגם".</li>
+<li><b>יצירת מילים לפי נושא</b> — הנושא שביקשת.</li>
 </ul>
-<h2>מיקרופון והקראה</h2>
-<p>ההקראה משתמשת בקולות של המכשיר. "נסה להגיד" משתמש בזיהוי הדיבור של הדפדפן, רק כשלחצת על הכפתור ואישרת הרשאה. בחלק מהדפדפנים (למשל Chrome) זיהוי הדיבור מעובד בשרתי יצרן הדפדפן. האפליקציה עצמה לא מקליטה ולא שומרת אודיו.</p>
-<h2>אין מעקב</h2>
-<p>אין אנליטיקה, אין פרסומות, אין עוגיות מעקב.</p>
+<p>המידע עובר ישירות מהמכשיר אל הספק, בכפוף למדיניות הפרטיות שלו (Google, Anthropic, OpenAI). ב-Ollama מקומי שום דבר לא יוצא מהמחשב שלך.</p>
+
+<h2>הקראה וזיהוי דיבור</h2>
+<p>ההקראה משתמשת בקולות שמותקנים במכשיר. תרגול הדיבור משתמש בזיהוי הדיבור של הדפדפן — שימו לב שבחלק מהדפדפנים (למשל Chrome) הקול נשלח לשירות הזיהוי של יצרן הדפדפן כדי להפוך אותו לטקסט. המיקרופון פועל רק כשאתה לוחץ על כפתור הדיבור.</p>
+
+<h2>שירותים חיצוניים נוספים</h2>
+<ul>
+<li><b>גופנים</b> — נטענים מ-Google Fonts בעת פתיחת האפליקציה.</li>
+<li><b>Google Translate</b> — נפתח רק אם לחצת על הקישור אליו ב"דבר בשבילי".</li>
+<li><b>אירוח</b> — האפליקציה מתארחת ב-GitHub Pages, שעשוי לשמור רישומי גישה בסיסיים (כתובת IP) כמו כל אתר.</li>
+</ul>
+
+<h2>אין מעקב ואין פרסומות</h2>
+<p>אין עוגיות מעקב, אין כלי אנליטיקה, אין פרסומות ואין מכירה של מידע.</p>
+
 <h2>השליטה בידיים שלך</h2>
-<p>אפשר לייצא גיבוי, לשחזר, או למחוק הכול מתוך ההגדרות בכל רגע.</p>
+<p>אפשר לייצא גיבוי, לשחזר אותו, למחוק את מפתח הבינה או למחוק הכול בבת אחת — בהגדרות. מחיקת נתוני האתר בדפדפן מוחקת גם את כל המידע.</p>
+
+<h2>ילדים</h2>
+<p>האפליקציה לא אוספת מידע מאף משתמש, כולל ילדים. פיצ׳רי הבינה דורשים מפתח של ספק חיצוני, ומגבלות הגיל שלו חלות עליהם.</p>
+
 <h2>הסרת אחריות</h2>
-<p>התוכן, ההגייה והתרגומים הם עזרי לימוד ועשויים להיות לא מדויקים. במצב חירום אמיתי פנה לגורם מוסמך.</p>
+<p>התרגומים, ההגייה והטיפים נועדו לעזור בטיול ובלימוד, ועלולים לכלול טעויות — במיוחד בשפות שיש עליהן פחות מידע. <b>מספרי החירום לעיון בלבד — יש לוודא אותם לפני הנסיעה.</b> במצב חירום אמיתי פנו לגורמים המקומיים.</p>
+
 <h2>יצירת קשר</h2>
 <p><a href="mailto:appnest55@gmail.com">appnest55@gmail.com</a></p>
 </section>
+
 <hr>
+
 <section class="en" dir="ltr" lang="en">
 <h1>Privacy Policy — LingoNest</h1>
-<p class="muted">Updated: September 2026 · AppNest · Barak Aflalo</p>
-<h2>Everything stays on your device</h2>
-<p>Your progress, saved words and phrases, user name and settings are stored only in your browser's storage on your device. There is no account and no AppNest server; we don't collect or see this data.</p>
+<p class="muted">Updated: September 2026 (version 1.18) · AppNest · Barak Aflalo</p>
+
+<div class="box"><p><b>In short:</b> no account and no AppNest server. Everything of yours stays on your device. Text leaves the device only when you use an AI feature, and only to the AI provider you chose and connected with your own key.</p></div>
+
+<h2>What is stored on the device</h2>
+<p>Your progress in every language, saved words and phrases, travel-kit cards, your chosen name, settings, badges and weekly goal are stored only in your browser's local storage. AppNest does not collect, see or keep them.</p>
+
+<h2>Your AI key (Pro)</h2>
+<p>If you connect an AI provider (Gemini, Claude, ChatGPT or local Ollama), your key is stored <b>encrypted</b> (AES-GCM) on your device only and sent only directly to that provider. You can delete it anytime in Settings.</p>
+
 <h2>What leaves the device, and when</h2>
+<p>Text is sent to your chosen AI provider <b>only when you use</b> one of these features:</p>
 <ul>
-<li><b>AI connection (optional):</b> if you add your own key (Gemini, Claude, ChatGPT), the text you ask to translate or the topic you ask words for is sent directly to that provider, under its privacy terms. With no key, nothing is sent. Ollama runs on your own computer.</li>
-<li><b>API key:</b> encrypted (AES-GCM) and stored locally. It is never included in backups and never passes through any AppNest server. Encryption protects the key at rest, not against malicious code running in the browser itself.</li>
-<li><b>Google Translate:</b> only if you tap the link, your text opens on Google's site.</li>
-<li><b>Fonts:</b> the app loads fonts from Google Fonts. None of your content is sent.</li>
+<li><b>Speak for me</b> — the sentence you typed, for translation.</li>
+<li><b>AI chat</b> — the messages in your practice conversation.</li>
+<li><b>Smart assistant 🪄</b> — your question plus basic context about what you're learning (language, level, the words on screen).</li>
+<li><b>Content quality check</b> — the word lists of the language you chose to check.</li>
+<li><b>Travel kit</b> — text you ask to translate for a card (e.g. allergies or medication). If you don't want medical details sent to a provider, type the card yourself without pressing "Translate".</li>
+<li><b>Generate words by topic</b> — the topic you asked for.</li>
 </ul>
-<h2>Microphone and read-aloud</h2>
-<p>Read-aloud uses your device's voices. "Try saying it" uses the browser's speech recognition only when you tap it and grant permission. Some browsers (e.g. Chrome) process speech recognition on the browser vendor's servers. The app itself never records or stores audio.</p>
-<h2>No tracking</h2>
-<p>No analytics, no ads, no tracking cookies.</p>
+<p>Data goes directly from your device to the provider, subject to its privacy policy (Google, Anthropic, OpenAI). With local Ollama nothing leaves your computer.</p>
+
+<h2>Read-aloud and speech recognition</h2>
+<p>Read-aloud uses voices installed on your device. Speaking practice uses the browser's speech recognition — note that some browsers (e.g. Chrome) send the audio to the browser maker's recognition service to turn it into text. The microphone is used only when you press the speak button.</p>
+
+<h2>Other external services</h2>
+<ul>
+<li><b>Fonts</b> — loaded from Google Fonts when the app opens.</li>
+<li><b>Google Translate</b> — opens only if you tap its link in "Speak for me".</li>
+<li><b>Hosting</b> — the app is hosted on GitHub Pages, which may keep basic access logs (IP address) like any website.</li>
+</ul>
+
+<h2>No tracking, no ads</h2>
+<p>No tracking cookies, no analytics, no ads, no selling of data.</p>
+
 <h2>You're in control</h2>
-<p>Export a backup, restore it, or delete everything from Settings at any time.</p>
+<p>Export a backup, restore it, delete your AI key or erase everything at once — in Settings. Clearing the site's data in your browser also removes everything.</p>
+
+<h2>Children</h2>
+<p>The app collects no data from anyone, including children. AI features require a third-party provider key, whose age limits apply.</p>
+
 <h2>Disclaimer</h2>
-<p>Content, pronunciation guides and translations are learning aids and may be inaccurate. In a real emergency contact the proper authorities.</p>
+<p>Translations, pronunciation and tips are meant to help travel and learning and may contain mistakes — especially in less-documented languages. <b>Emergency numbers are for reference only — verify them before your trip.</b> In a real emergency contact local authorities.</p>
+
 <h2>Contact</h2>
 <p><a href="mailto:appnest55@gmail.com">appnest55@gmail.com</a></p>
 </section>

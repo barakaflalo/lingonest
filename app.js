@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.17.1' };
+const APP = { name: 'LingoNest', ver: '1.18.0' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -455,6 +455,7 @@ SCREENS.home = () => {
     <button class="tile" data-act="nav" data-to="chat"><span>🤖</span><b>${esc(T('chat'))}</b><small>${esc(T('chatSub'))}</small></button>
     <button class="tile" data-act="nav" data-to="kit"><span>🧳</span><b>${esc(T('kit'))}</b><small>${esc(T('kitSub'))}</small></button>
     <button class="tile" data-act="nav" data-to="tips"><span>💡</span><b>${esc(T('tips'))}</b><small>${esc(T('tipsSub'))}</small></button>
+    <button class="tile" data-act="nav" data-to="help"><span>📖</span><b>${esc(T('helpTitle'))}</b><small>${esc(T('helpSub'))}</small></button>
     <button class="tile" data-act="nav" data-to="search"><span>🔍</span><b>${esc(T('searchTitle'))}</b><small>${esc(T('searchSub'))}</small></button>
     <button class="tile wide" data-act="nav" data-to="speak"><span>📢</span><b>${esc(T('speakForMe'))}</b><small>${esc(T('speakSub', { l: LN(lang) }))}</small></button>
     <button class="tile wide" data-act="nav" data-to="progress"><span>📈</span><b>${esc(T('progress'))}</b><small>${esc(T('progressSub'))}</small></button>
@@ -1142,7 +1143,7 @@ SCREENS.settings = sec => {
     <button class="btn" data-act="exportCsv">📊 CSV / Excel</button><button class="btn" data-act="printBook">🖨️ PDF</button></div>
     <p class="tiny">${esc(T('backupNote'))}</p><p class="tiny" id="persist"></p>
   </section>
-  <section class="card set"><h3>🧭 ${esc(T('guide'))}</h3><button class="btn" data-act="guide">▶ ${esc(T('showGuide'))}</button></section>
+  <section class="card set"><h3>🧭 ${esc(T('guide'))}</h3><div class="row wrap"><button class="btn gold" data-act="nav" data-to="help">📖 ${esc(T('helpTitle'))}</button><button class="btn" data-act="guide">▶ ${esc(T('showGuide'))}</button></div></section>
   <section class="card set"><h3>🩺 ${esc(T('diag'))}</h3>
     <pre class="diag" id="diagTxt">${esc(diagText())}</pre>
     ${errs.length ? '' : '<p class="tiny">' + esc(T('noErrors')) + '</p>'}
@@ -1178,6 +1179,7 @@ SCREENS.about = () => header(T('about')) + `
     <dt>${esc(T('platform'))}</dt><dd>PWA · HTML5</dd><dt>${esc(T('storage'))}</dt><dd>${esc(T('onDevice'))}</dd>
     <dt>${esc(T('license'))}</dt><dd>© AppNest 2026</dd></dl></div>
   <div class="list">
+    <button class="trow" data-act="nav" data-to="help"><span class="ti">📖</span><span class="tt"><b>${esc(T('helpTitle'))}</b><small>${esc(T('helpSub'))}</small></span></button>
     <a class="trow" href="https://barakaflalo.github.io/appnest" target="_blank" rel="noopener"><span class="ti">🏪</span><span class="tt"><b>${esc(T('store'))}</b></span></a>
     <button class="trow" data-act="shareApp"><span class="ti">📤</span><span class="tt"><b>${esc(T('shareApp'))}</b></span></button>
     <a class="trow" href="mailto:appnest55@gmail.com?subject=${encodeURIComponent(APP.name + ' v' + APP.ver)}"><span class="ti">✉️</span><span class="tt"><b>${esc(T('feedback'))}</b></span></a>
@@ -1615,4 +1617,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.17.1';
+window.__MODS.app = '1.18.0';

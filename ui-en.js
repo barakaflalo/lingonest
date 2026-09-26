@@ -295,10 +295,10 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "🌍 New language picker: a \"my language\" card on the home screen and a picker with search, \"my languages\" and regions.",
-  "wn2": "Each language gets a badge in its own script (ไทย, 中, 한, አ…) — looks great on computers too, where flags don't show.",
-  "wn3": "Quick switch between your recent languages — one tap from home.",
-  "wn4": "On a computer you can now easily choose any of the 28 languages.",
+  "wn1": "📖 User guide: a detailed explanation of every feature, with search and a button that jumps right there.",
+  "wn2": "🔒 Updated privacy policy — including exactly when and where text goes in AI features.",
+  "wn3": "The guide is on the home screen, in Settings and on the About screen — and the 🪄 assistant can point you to it.",
+  "wn4": "\"Troubleshooting\" has quick fixes for sound, microphone and updates.",
   "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
@@ -493,6 +493,12 @@ LANG.en = {
   "grp_europe": "Europe",
   "grp_mideast": "Middle East & Caucasus",
   "grp_asia": "Asia",
-  "grp_africa": "Africa"
+  "grp_africa": "Africa",
+  "helpTitle": "User guide",
+  "helpSub": "Every feature, step by step",
+  "helpIntro": "An explanation of everything in LingoNest. Tap a topic to open it, and \"Open\" to jump straight to the feature.",
+  "helpSearch": "Search the guide… (e.g. microphone, backup, tones)",
+  "helpOpen": "Open",
+  "helpNone": "No such topic in the guide"
 };
-window.__MODS['ui-en'] = '1.17.1';
+window.__MODS['ui-en'] = '1.18.0';
