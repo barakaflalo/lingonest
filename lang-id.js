@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('id', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "Rp",
   country: {"he": "אינדונזיה (באלי, ג׳קרטה ועוד)", "en": "Indonesia (Bali, Jakarta and more)", "ru": "Индонезия", "es": "Indonesia", "ar": "إندونيسيا"},
   emergency: [
@@ -476,7 +476,37 @@ dir_front|Di depan||די דפן
 dir_next|Di sebelah||די סבלה
 dir_back|Kembali||קמבאלי
 dir_up|Atas||אטאס
-dir_down|Bawah||באווה`
+dir_down|Bawah||באווה
+fa_father|Ayah||איה
+fa_mother|Ibu||איבו
+fa_parents|Orang tua||אורנג טואה
+fa_son|Anak laki-laki||אנאק לאקי-לאקי
+fa_daughter|Anak perempuan||אנאק פרמפואן
+fa_brother|Saudara laki-laki||סאודרה לאקי-לאקי
+fa_sister|Saudara perempuan||סאודרה פרמפואן
+fa_grandpa|Kakek||קקק
+fa_grandma|Nenek||ננק
+fa_grandson|Cucu laki-laki||צ׳וצ׳ו לאקי-לאקי
+fa_granddau|Cucu perempuan||צ׳וצ׳ו פרמפואן
+fa_ggson|Cicit laki-laki||צ׳יצ׳יט לאקי-לאקי
+fa_ggdau|Cicit perempuan||צ׳יצ׳יט פרמפואן
+fa_uncle|Paman||פאמאן
+fa_aunt|Bibi (Tante)||ביבי (טנטה)
+fa_cousin_m|Sepupu laki-laki||ספופו לאקי-לאקי
+fa_cousin_f|Sepupu perempuan||ספופו פרמפואן
+fa_nephew|Keponakan laki-laki||קפונקן לאקי-לאקי
+fa_niece|Keponakan perempuan||קפונקן פרמפואן
+fa_husband|Suami||סואמי
+fa_wife|Istri||איסטרי
+fa_baby|Bayi||באיי
+fa_neighbor|Tetangga||טטנגה
+fa_boyfriend|Pacar (laki-laki)||פאצ׳ר (לאקי-לאקי)
+fa_girlfriend|Pacar (perempuan)||פאצ׳ר (פרמפואן)
+fp_family|Ini keluarga saya.||איני קלוארגה סאיה
+fp_kids|Anda punya anak?||אנדה פוניה אנאק
+fp_sibs|Saya punya satu saudara laki-laki dan satu saudara perempuan.||סאיה פוניה סאטו סאודרה לאקי-לאקי דן סאטו סאודרה פרמפואן
+fp_lives|Keluarga saya tinggal di Israel.||קלוארגה סאיה טינגל די איזראל
+fp_photo|Ini foto anak-anak saya.||איני פוטו אנאק-אנאק סאיה`
 });
 
 /* ---- numbers & prices (0–999,999) in Indonesian → tokens [text, roman, hebrew]. se- = one (seratus, seribu); prices in rupiah ---- */

@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ro', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "lei",
   country: {"he": "רומניה ומולדובה", "en": "Romania & Moldova", "ru": "Румыния и Молдова", "es": "Rumanía y Moldavia", "ar": "رومانيا ومولدوفا"},
   emergency: [
@@ -489,7 +489,37 @@ dir_front|În față||אין פאצה
 dir_next|Lângă||לנגה
 dir_back|Înapoi||אינאפוי
 dir_up|Sus||סוס
-dir_down|Jos||ז׳וס`
+dir_down|Jos||ז׳וס
+fa_father|Tată||טאטה
+fa_mother|Mamă||מאמה
+fa_parents|Părinți||פרינץ
+fa_son|Fiu||פיו
+fa_daughter|Fiică||פיקה
+fa_brother|Frate||פראטה
+fa_sister|Soră||סורה
+fa_grandpa|Bunic||בוניק
+fa_grandma|Bunică||בוניקה
+fa_grandson|Nepot (de bunic)||נפוט (דה בוניק)
+fa_granddau|Nepoată (de bunic)||נפואטה (דה בוניק)
+fa_ggson|Strănepot||סטרנפוט
+fa_ggdau|Strănepoată||סטרנפואטה
+fa_uncle|Unchi||אונקי
+fa_aunt|Mătușă||מטושה
+fa_cousin_m|Văr||ור
+fa_cousin_f|Verișoară||וורישואארה
+fa_nephew|Nepot (de unchi)||נפוט (דה אונקי)
+fa_niece|Nepoată (de unchi)||נפואטה (דה אונקי)
+fa_husband|Soț||סוץ
+fa_wife|Soție||סוציה
+fa_baby|Bebeluș||בבלוש
+fa_neighbor|Vecin||וצ׳ין
+fa_boyfriend|Prieten (iubit)||פריאטן (יוביט)
+fa_girlfriend|Prietenă (iubită)||פריאטנה (יוביטה)
+fp_family|Aceasta este familia mea.||אצ׳סטה יסטה פמיליה מיה
+fp_kids|Aveți copii?||אבץ קופיי
+fp_sibs|Am un frate și o soră.||אם און פראטה שי או סורה
+fp_lives|Familia mea locuiește în Israel.||פמיליה מיה לוקואישטה אין איזראל
+fp_photo|Aceasta este o poză cu copiii mei.||אצ׳סטה יסטה או פוזה קו קופיי מיי`
 });
 
 /* ---- numbers & prices (0–999,999) → tokens [text, roman, hebrew]. Prices in lei; "de" after numbers ending in 00 or 20–99 ---- */

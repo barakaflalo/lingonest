@@ -3,7 +3,7 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('en', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "$",
   /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
   country: {"he": "מדינות דוברות אנגלית", "en": "English-speaking countries", "ru": "Англоязычные страны", "es": "Países de habla inglesa", "ar": "الدول الناطقة بالإنجليزية"},
@@ -479,7 +479,37 @@ dir_front|In front||אין פרונט
 dir_next|Next to||נקסט טו
 dir_back|Back||בק
 dir_up|Up||אפ
-dir_down|Down||דאון`
+dir_down|Down||דאון
+fa_father|Dad||דאד
+fa_mother|Mom||מום
+fa_parents|Parents||פרנטס
+fa_son|Son||סאן
+fa_daughter|Daughter||דוטר
+fa_brother|Brother||בראדר
+fa_sister|Sister||סיסטר
+fa_grandpa|Grandpa||גרנדפה
+fa_grandma|Grandma||גרנדמה
+fa_grandson|Grandson||גרנדסאן
+fa_granddau|Granddaughter||גרנדדוטר
+fa_ggson|Great-grandson||גרייט-גרנדסאן
+fa_ggdau|Great-granddaughter||גרייט-גרנדדוטר
+fa_uncle|Uncle||אנקל
+fa_aunt|Aunt||אנט
+fa_cousin_m|Cousin (male)||קאזן (מייל)
+fa_cousin_f|Cousin (female)||קאזן (פימייל)
+fa_nephew|Nephew||נפיו
+fa_niece|Niece||ניס
+fa_husband|Husband||האזבנד
+fa_wife|Wife||וואייף
+fa_baby|Baby||בייבי
+fa_neighbor|Neighbor||ניבור
+fa_boyfriend|Boyfriend||בויפרנד
+fa_girlfriend|Girlfriend||גרלפרנד
+fp_family|This is my family.||דיס איז מאי פמילי
+fp_kids|Do you have children?||דו יו הב צ׳ילדרן
+fp_sibs|I have a brother and a sister.||איי הב א בראדר אנד א סיסטר
+fp_lives|My family lives in Israel.||מאי פמילי ליבז אין איזראל
+fp_photo|This is a photo of my children.||דיס איז א פוטו אוף מאי צ׳ילדרן`
 });
 
 /* ---- numbers & prices (0–999,999) → tokens [text, roman, hebrew] ---- */

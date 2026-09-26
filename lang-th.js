@@ -3,7 +3,7 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('th', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "฿",
   /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
   country: {"he": "תאילנד", "en": "Thailand", "ru": "Таиланд", "es": "Tailandia", "ar": "تايلاند"},
@@ -524,7 +524,37 @@ dir_front|ข้างหน้า|khang na|קאנג-נא
 dir_next|ข้างๆ|khang khang|קאנג-קאנג
 dir_back|ถอยหลัง|thoi lang|טוי-לאנג
 dir_up|ข้างบน|khang bon|קאנג-בון
-dir_down|ข้างล่าง|khâng lâng|קאנג-לאנג (טון יורד)`
+dir_down|ข้างล่าง|khâng lâng|קאנג-לאנג (טון יורד)
+fa_father|พ่อ|pho|פו
+fa_mother|แม่|mae|מֶה
+fa_parents|พ่อแม่|pho mae|פו מֶה
+fa_son|ลูกชาย|luk chai|לוק צ׳אי
+fa_daughter|ลูกสาว|luk sao|לוק סאו
+fa_brother|พี่ชาย / น้องชาย|phi chai / nong chai|פי צ׳אי / נונג צ׳אי
+fa_sister|พี่สาว / น้องสาว|phi sao / nong sao|פי סאו / נונג סאו
+fa_grandpa|ปู่ / ตา|pu / ta|פו / טה
+fa_grandma|ย่า / ยาย|ya / yai|יא / יאי
+fa_grandson|หลานชาย (ลูกของลูก)|lan chai (luk khong luk)|לאן צ׳אי (לוק קונג לוק)
+fa_granddau|หลานสาว (ลูกของลูก)|lan sao (luk khong luk)|לאן סאו (לוק קונג לוק)
+fa_ggson|เหลนชาย|len chai|לן צ׳אי
+fa_ggdau|เหลนสาว|len sao|לן סאו
+fa_uncle|ลุง / อา|lung / a|לונג / אה
+fa_aunt|ป้า / น้า|pa / na|פה / נא
+fa_cousin_m|ลูกพี่ลูกน้องผู้ชาย|luk phi luk nong phu chai|לוק פי לוק נונג פו צ׳אי
+fa_cousin_f|ลูกพี่ลูกน้องผู้หญิง|luk phi luk nong phu ying|לוק פי לוק נונג פו יינג
+fa_nephew|หลานชาย (ลูกของพี่น้อง)|lan chai (luk khong phi nong)|לאן צ׳אי (לוק קונג פי נונג)
+fa_niece|หลานสาว (ลูกของพี่น้อง)|lan sao (luk khong phi nong)|לאן סאו (לוק קונג פי נונג)
+fa_husband|สามี|sami|סאמי
+fa_wife|ภรรยา|phanraya|פאנראיה
+fa_baby|ทารก|tharok|טארוק
+fa_neighbor|เพื่อนบ้าน|phuean ban|פואן באן
+fa_boyfriend|แฟน (ผู้ชาย)|faen (phu chai)|פֶן (פו צ׳אי)
+fa_girlfriend|แฟน (ผู้หญิง)|faen (phu ying)|פֶן (פו יינג)
+fp_family|นี่ครอบครัวของผมครับ|ni khropkhrua khong phom khrap|ני קרופ-קרואה קונג פום קראפ
+fp_kids|มีลูกไหมครับ|mi luk mai khrap|מי לוק מאי קראפ
+fp_sibs|ผมมีพี่ชายและพี่สาวครับ|phom mi phi chai lae phi sao khrap|פום מי פי צ׳אי לֶה פי סאו קראפ
+fp_lives|ครอบครัวผมอยู่ที่อิสราเอลครับ|khropkhrua phom yu thi Israel khrap|קרופ-קרואה פום יו טי איסראאל קראפ
+fp_photo|นี่รูปลูกๆ ของผมครับ|ni rup luk luk khong phom khrap|ני רופ לוק לוק קונג פום קראפ`
 });
 
 /* ---- numbers & prices (0–999,999) → tokens [text, roman, hebrew] ---- */

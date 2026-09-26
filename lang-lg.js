@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('lg', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "USh",
   country: {"he": "אוגנדה (מרכז — קמפלה)", "en": "Uganda (central — Kampala)", "ru": "Уганда (центр — Кампала)", "es": "Uganda (centro — Kampala)", "ar": "أوغندا (الوسط — كمبالا)"},
   emergency: [
@@ -474,7 +474,37 @@ dir_front|Mu maaso||מו מאסו
 dir_next|Ku mabbali||קו מאבאלי
 dir_back|Ddayo emabega||דאיו אמאבגה
 dir_up|Waggulu||וואגולו
-dir_down|Wansi||וואנסי`
+dir_down|Wansi||וואנסי
+fa_father|Taata||טאטה
+fa_mother|Maama||מאמה
+fa_parents|Bazadde||באזאדה
+fa_son|Mutabani||מוטאבאני
+fa_daughter|Muwala||מוואלה
+fa_brother|Muganda (omusajja)||מוגנדה (אומוסאג׳ה)
+fa_sister|Mwannyinaze||מוואניינאזה
+fa_grandpa|Jjajja omusajja||ג׳אג׳ה אומוסאג׳ה
+fa_grandma|Jjajja omukazi||ג׳אג׳ה אומוקאזי
+fa_grandson|Muzzukulu omulenzi||מוזוקולו אומולנזי
+fa_granddau|Muzzukulu omuwala||מוזוקולו אומוואלה
+fa_ggson|Muzzukulu wa muzzukulu (omulenzi)||מוזוקולו וה מוזוקולו (אומולנזי)
+fa_ggdau|Muzzukulu wa muzzukulu (omuwala)||מוזוקולו וה מוזוקולו (אומוואלה)
+fa_uncle|Kojja||קוג׳ה
+fa_aunt|Ssenga||סנגה
+fa_cousin_m|Mwana wa kojja (omulenzi)||מוואנה וה קוג׳ה (אומולנזי)
+fa_cousin_f|Mwana wa kojja (omuwala)||מוואנה וה קוג׳ה (אומוואלה)
+fa_nephew|Mwana wa muganda (omulenzi)||מוואנה וה מוגנדה (אומולנזי)
+fa_niece|Mwana wa muganda (omuwala)||מוואנה וה מוגנדה (אומוואלה)
+fa_husband|Bba||בבה
+fa_wife|Mukyala||מוקיאלה
+fa_baby|Omwana omuwere||אומוואנה אומוורה
+fa_neighbor|Muliraanwa||מולירנווה
+fa_boyfriend|Muganzi (omusajja)||מוגנזי (אומוסאג׳ה)
+fa_girlfriend|Muganzi (omukazi)||מוגנזי (אומוקאזי)
+fp_family|Luno lwe lulyo lwange.||לונו לוה לוליו לוואנגה
+fp_kids|Olina abaana?||אולינה אבאנה
+fp_sibs|Nnina muganda wange ne mwannyinaze.||נינה מוגנדה וואנגה נה מוואניינאזה
+fp_lives|Ab'omu maka gange babeera mu Isirayiri.||אבומו מאקה גאנגה באבארה מו איסיראיירי
+fp_photo|Kino kifaananyi ky'abaana bange.||קינו קיפאנאני צ׳אבאנה באנגה`
 });
 
 /* ---- numbers & prices (0–999,999) in Luganda → tokens [text, roman, hebrew]. Prices in Uganda shillings; "mu" joins tens and units ---- */

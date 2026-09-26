@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('yo', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "₦",
   country: {"he": "דרום-מערב ניגריה ובנין", "en": "South-west Nigeria & Benin", "ru": "Юго-запад Нигерии и Бенин", "es": "Suroeste de Nigeria y Benín", "ar": "جنوب غرب نيجيريا وبنين"},
   emergency: [
@@ -476,7 +476,37 @@ dir_front|Iwaju||איווג׳ו
 dir_next|Lẹgbẹ||לגבה
 dir_back|Pada sẹyin||פאדה סאיין
 dir_up|Oke||אוקה
-dir_down|Isalẹ||איסאלה`
+dir_down|Isalẹ||איסאלה
+fa_father|Baba||באבה
+fa_mother|Iya||איה
+fa_parents|Awọn obi||אוון אובי
+fa_son|Ọmọkunrin||אומוקונרין
+fa_daughter|Ọmọbinrin||אומובינרין
+fa_brother|Arakunrin||ארקונרין
+fa_sister|Arabinrin||ארבינרין
+fa_grandpa|Baba agba||באבה אגבה
+fa_grandma|Iya agba||איה אגבה
+fa_grandson|Ọmọ-ọmọ ọkunrin||אומו-אומו אוקונרין
+fa_granddau|Ọmọ-ọmọ obinrin||אומו-אומו אובינרין
+fa_ggson|Ọmọ-ọmọ-ọmọ ọkunrin||אומו-אומו-אומו אוקונרין
+fa_ggdau|Ọmọ-ọmọ-ọmọ obinrin||אומו-אומו-אומו אובינרין
+fa_uncle|Aburo baba||אבורו באבה
+fa_aunt|Aburo iya||אבורו איה
+fa_cousin_m|Ibatan ọkunrin||איבאטאן אוקונרין
+fa_cousin_f|Ibatan obinrin||איבאטאן אובינרין
+fa_nephew|Ọmọ ẹgbọn (ọkunrin)||אומו אגבון (אוקונרין)
+fa_niece|Ọmọ ẹgbọn (obinrin)||אומו אגבון (אובינרין)
+fa_husband|Ọkọ mi||אוקו מי
+fa_wife|Iyawo||איאוו
+fa_baby|Ọmọ ọwọ||אומו אוו
+fa_neighbor|Aladugbo||אלאדוגבו
+fa_boyfriend|Ọrẹkunrin||אורקונרין
+fa_girlfriend|Ọrẹbinrin||אורבינרין
+fp_family|Idile mi niyi.||אידילה מי נייי
+fp_kids|Ṣe ẹ ni ọmọ?||שה אה ני אומו
+fp_sibs|Mo ni arakunrin kan ati arabinrin kan.||מו ני ארקונרין קאן אטי ארבינרין קאן
+fp_lives|Idile mi n gbe ni Israeli.||אידילה מי אן גבה ני איזראלי
+fp_photo|Eyi ni aworan awọn ọmọ mi.||איי ני אוורן אוון אומו מי`
 });
 
 /* ---- numbers & prices in Yoruba: 1–20 and round numbers in Yoruba; everything else the way prices are actually said in Nigerian markets — in English ---- */

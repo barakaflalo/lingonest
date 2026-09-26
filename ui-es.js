@@ -295,10 +295,10 @@ LANG.es = {
   "sayMore": "Aún no, volverá en el repaso",
   "noSpeech": "No oí nada. Pulsa 🎤 y habla cerca del teléfono.",
   "newIn": "Novedades de {v}",
-  "wn1": "🛡️ Actualizaciones más seguras — al tocar, nunca a mitad de lección.",
-  "wn2": "Más fiable sin internet.",
-  "wn3": "Chat IA: una respuesta vieja no entra en una conversación nueva.",
-  "wn4": "Práctica oral más precisa; el micrófono se cierra al salir.",
+  "wn1": "👨‍👩‍👧 Nuevo tema en los 28 idiomas: «Familia y amigos».",
+  "wn2": "👪 Y frases: «Hablar de la familia».",
+  "wn3": "Modo viaje: puedes elegir el país.",
+  "wn4": "Correcciones: cuota de palabras nuevas y preguntas de audio.",
   "wn5": "Tu progreso se conservó.",
   "lvl8": "Frases completas",
   "lvl9": "Mis palabras",
@@ -568,6 +568,11 @@ LANG.es = {
   "offlineReady": "La app está lista para usarse sin internet",
   "offlineSt": "Uso sin internet",
   "offlineYes": "Lista",
-  "offlineNo": "Aún cargando"
+  "offlineNo": "Aún cargando",
+  "cat_family": "Familia y amigos",
+  "cat_s_family": "Hablar de la familia",
+  "backupScope": "La copia incluye: progreso, tus palabras y frases, favoritos, kit de viaje, plan de viaje, insignias y ajustes. No incluye: la clave de IA, el historial del asistente, la revisión de calidad ni un chat abierto. El archivo no está cifrado.",
+  "tripCountry": "¿A qué país?",
+  "tripAnyCountry": "Aún no lo sé"
 };
-window.__MODS['ui-es'] = '1.20.2';
+window.__MODS['ui-es'] = '1.20.3';

@@ -189,7 +189,7 @@ SCREENS.kit = () => {
   const favs = (st.favs[lang] || []).map(k => findItem(lang, k)).filter(Boolean);
   const quick = KIT_QUICK.map(k => findItem(lang, k)).filter(Boolean);
   const qbtn = it => '<button class="qk" data-act="big" data-k="' + esc(it.k) + '"><span class="tgt sm" lang="' + tl + '" dir="' + dir + '">' + esc(it.text) + '</span><small>' + esc(meaning(it)) + '</small></button>';
-  const em = EMERG[lang] || [];
+  const em = emergFor(lang);
   return header('🧳 ' + T('kit') + ' · ' + LN(lang)) + `
   <p class="note">${esc(T('kitIntro'))}</p>
   <button class="btn gold wide" data-act="nav" data-to="sheet">📄 ${esc(T('sheetTitle'))}</button>
@@ -264,7 +264,7 @@ function sheetRows(sec, lang) {
 }
 function sheetHTML() {
   const lang = st.lang, on = st.sheet || {}, tl = LANGS[lang].tts, dir = LANGS[lang].dir;
-  const em = (EMERG[lang] || []).map(e => tr(e[1]) + ': ' + e.slice(2).join(' / ')).join(' · ');
+  const em = emergFor(lang).map(e => tr(e[1]) + ': ' + e.slice(2).join(' / ')).join(' · ');
   let h = '<div class="sh-head"><b>' + esc(LN(lang)) + ' · <bdi lang="' + tl + '" dir="' + dir + '">' + esc(LANGS[lang].native) + '</bdi></b><small>LingoNest · ' + esc(T('sheetTitle')) + '</small></div>';
   if (em) h += '<p class="sh-em">🆘 ' + esc(em) + '</p>';
   SHEET_SECS.forEach(s => {
@@ -302,7 +302,7 @@ const TRIP_UNITS = [
   ['hotel', '🏨', [['s', 'cat:hotel'], ['s', 'cat:s_hotel'], ['d', 'hotel'], ['d', 'sim']]],
   ['dirs', '🧭', [['s', 'cat:dirs'], ['d', 'dir'], ['d', 'tour']]],
   ['emerg', '🆘', [['s', 'cat:emerg'], ['s', 'cat:s_help'], ['d', 'pharm']]],
-  ['conv', '🤝', [['s', 'cat:conv'], ['s', 'cat:s_social'], ['n', 'chat']]],
+  ['conv', '🤝', [['s', 'cat:conv'], ['s', 'cat:s_social'], ['s', 'cat:family'], ['s', 'cat:s_family'], ['n', 'chat']]],
   ['airport', '✈️', [['s', 'cat:time'], ['d', 'airport']]]
 ];
 const TRIP_REVIEW = ['review', '🔁', [['s', 'due'], ['n', 'cards']]];
@@ -355,13 +355,23 @@ function tripHomeCard() {
   return '<button class="tripcard" data-act="nav" data-to="trip"><span class="tc-ic">✈️</span><span class="tc-tx"><b>' + esc(T('tripLeft', { n: s.left, l: LN(s.t.lang) })) + '</b><small>' +
     (doneToday ? '✓ ' + esc(T('tripDoneToday')) : esc(T('tripToday')) + ': ' + day.map(u => u[1] + ' ' + T('tu_' + u[0])).join(' · ')) + '</small></span><span class="lc-sw">' + esc(T('tripOpen')) + ' ←</span></button>';
 }
-let TRIP_EDIT = false;
+let TRIP_EDIT = false, TRIP_CTRY = '';
+/* emergency rows that belong to a specific country carry a flag; generic rows (🆘 🚓 …) apply everywhere */
+const isFlag = s => /^[\u{1F1E6}-\u{1F1FF}]{2}$/u.test(s);
+const langCountries = l => (EMERG[l] || []).filter(e => isFlag(e[0]));
+function emergFor(l) {
+  const t = st.trip, pick = t && t.lang === l && t.country;
+  return (EMERG[l] || []).filter(e => !pick || !isFlag(e[0]) || e[0] === pick);
+}
 SCREENS.trip = () => {
   const s = tripState();
   if (!s || TRIP_EDIT) {
     const tomorrow = addDays(ymd(Date.now()), 1), def = (s && s.t.date) || addDays(ymd(Date.now()), 14);
     return header('✈️ ' + T('tripTitle')) + '<p class="note">' + esc(T('tripIntro')) + '</p>' +
       '<div class="card set"><h3>🌍 ' + esc(T('tripDest')) + '</h3><div class="row wrap">' + langBadge(st.lang) + '<b>' + esc(LN(st.lang)) + '</b><button class="btn" data-act="nav" data-to="langs">' + esc(T('switchLang')) + '</button></div>' +
+      (langCountries(st.lang).length > 1 ? '<h3>📍 ' + esc(T('tripCountry')) + '</h3><div class="chips wrap" id="tripCountry">' +
+        langCountries(st.lang).map(e => '<button class="chip' + (TRIP_CTRY === e[0] ? ' on' : '') + '" data-act="tripCtry" data-c="' + esc(e[0]) + '">' + e[0] + ' ' + esc(tr(e[1]).split(' — ')[0]) + '</button>').join('') +
+        '<button class="chip' + (!TRIP_CTRY ? ' on' : '') + '" data-act="tripCtry" data-c="">' + esc(T('tripAnyCountry')) + '</button></div>' : '') +
       '<h3>📅 ' + esc(T('tripDate')) + '</h3><input type="date" id="tripDate" min="' + tomorrow + '" value="' + def + '">' +
       '<p class="tiny">' + esc(T(TRIP_EDIT ? 'tripEditHint' : 'tripHint')) + '</p>' +
       (TRIP_EDIT ? '<div class="row wrap"><button class="cta" data-act="tripSave">💾 ' + esc(T('save')) + '</button><button class="btn" data-act="tripCancel">' + esc(T('cancel')) + '</button></div>'
@@ -441,18 +451,19 @@ Object.assign(ACT, {
     const v = ($('#tripDate') || {}).value, today = ymd(Date.now());
     if (!v || !/^\d{4}-\d{2}-\d{2}$/.test(v) || daysBetween(today, v) < 1) { toast(T('tripBadDate'), 'warn', 4000); return; }
     const start = daysBetween(today, v) > TRIP_MAX ? addDays(v, -TRIP_MAX) : today;        /* far trips: the plan covers the last 90 days */
-    st.trip = { lang: st.lang, date: v, start, done: {} }; if (!save()) { st.trip = null; return; } flag('trip'); render();
+    st.trip = { lang: st.lang, date: v, start, done: {}, country: TRIP_CTRY || '' }; if (!save()) { st.trip = null; return; } flag('trip'); render();
     toast('✈️ ' + T('tripMade', { n: tripPlan(st.trip).length }), 'ok', 3500);
   },
   /* editing keeps the original plan untouched until "save"; finished days stay finished */
-  tripEdit: () => { TRIP_EDIT = true; render(); },
+  tripEdit: () => { TRIP_EDIT = true; TRIP_CTRY = (st.trip && st.trip.country) || ''; render(); },
+  tripCtry: d => { TRIP_CTRY = d.c; document.querySelectorAll('[data-act=tripCtry]').forEach(b => b.classList.toggle('on', b.dataset.c === d.c)); },
   tripCancel: () => { TRIP_EDIT = false; render(); },
   tripSave: () => {
     const v = ($('#tripDate') || {}).value, today = ymd(Date.now()), t = st.trip;
     if (!t || !v || !/^\d{4}-\d{2}-\d{2}$/.test(v) || daysBetween(today, v) < 1) { toast(T('tripBadDate'), 'warn', 4000); return; }
     const old = JSON.parse(JSON.stringify(t));
     const keepStart = daysBetween(t.start, today) >= 0 ? t.start : today;            /* already-started plans keep their day numbers */
-    t.date = v; t.lang = st.lang; t.start = daysBetween(keepStart, v) > TRIP_MAX ? addDays(v, -TRIP_MAX) : keepStart;
+    t.date = v; t.lang = st.lang; t.country = TRIP_CTRY || ''; t.start = daysBetween(keepStart, v) > TRIP_MAX ? addDays(v, -TRIP_MAX) : keepStart;
     if (t.start !== old.start) t.done = {};
     const n = tripPlan(t).length; for (const i in t.done) if (+i >= n) delete t.done[i];
     if (!save()) { st.trip = old; return; }
@@ -479,5 +490,5 @@ document.addEventListener('pointerdown', e => {
   ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => row.addEventListener(ev, cancel));
 });
 
-window.__MODS.features = '1.20.2';
+window.__MODS.features = '1.20.3';
 boot();

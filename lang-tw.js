@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('tw', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "GH₵",
   country: {"he": "גאנה", "en": "Ghana", "ru": "Гана", "es": "Ghana", "ar": "غانا"},
   emergency: [
@@ -487,7 +487,37 @@ dir_front|Anim||אנים
 dir_next|Nkyɛn||נצ׳ן
 dir_back|San kɔ akyi||סאן קו אצ׳י
 dir_up|Soro||סורו
-dir_down|Fam||פאם`
+dir_down|Fam||פאם
+fa_father|Agya||אג׳ה
+fa_mother|Maame||מאמה
+fa_parents|Awofoɔ||אווופו
+fa_son|Ɔbabarima||אובאברימה
+fa_daughter|Ɔbabaa||אובאבאה
+fa_brother|Onua barima||אונואה ברימה
+fa_sister|Onua baa||אונואה באה
+fa_grandpa|Nana barima||נאנה ברימה
+fa_grandma|Nana baa||נאנה באה
+fa_grandson|Ɔba ba barima||אובה בה ברימה
+fa_granddau|Ɔba ba baa||אובה בה באה
+fa_ggson|Ɔba ba ba barima||אובה בה בה ברימה
+fa_ggdau|Ɔba ba ba baa||אובה בה בה באה
+fa_uncle|Wɔfa||ווופה
+fa_aunt|Sewaa||סוואה
+fa_cousin_m|Wɔfa ba (barima)||ווופה בה (ברימה)
+fa_cousin_f|Wɔfa ba (baa)||ווופה בה (באה)
+fa_nephew|Wɔfase barima||ווופאסה ברימה
+fa_niece|Wɔfase baa||ווופאסה באה
+fa_husband|Kunu||קונו
+fa_wife|Yere||יירה
+fa_baby|Akɔdaa||אקודאה
+fa_neighbor|Afipamfo||אפיפאמפו
+fa_boyfriend|Mpena barima||מפנה ברימה
+fa_girlfriend|Mpena baa||מפנה באה
+fp_family|Yei ne m'abusua.||יי נה מאבוסואה
+fp_kids|Wowɔ mma?||וווו מה
+fp_sibs|Mewɔ onua barima ne onua baa.||מוו אונואה ברימה נה אונואה באה
+fp_lives|M'abusua te Israel.||מאבוסואה טה איזראל
+fp_photo|Yei yɛ me mma mfonini.||יי יה מה מה מפונוני`
 });
 
 /* ---- numbers & prices (0–999,999) in Twi → tokens [text, roman, hebrew]. Currency first: sidi ahannu ---- */

@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('de', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "€",
   country: {"he": "גרמניה, אוסטריה ושווייץ", "en": "Germany, Austria & Switzerland", "ru": "Германия, Австрия и Швейцария", "es": "Alemania, Austria y Suiza", "ar": "ألمانيا والنمسا وسويسرا"},
   emergency: [
@@ -494,7 +494,37 @@ dir_front|Vorne||פורנה
 dir_next|Neben||ניבן
 dir_back|Zurück||צוריק
 dir_up|Oben||אובן
-dir_down|Unten||אונטן`
+dir_down|Unten||אונטן
+fa_father|Papa||פאפה
+fa_mother|Mama||מאמה
+fa_parents|Eltern||אלטרן
+fa_son|Sohn||זון
+fa_daughter|Tochter||טוכטר
+fa_brother|Bruder||ברודר
+fa_sister|Schwester||שוסטר
+fa_grandpa|Opa||אופה
+fa_grandma|Oma||אומה
+fa_grandson|Enkel||אנקל
+fa_granddau|Enkelin||אנקלין
+fa_ggson|Urenkel||אור-אנקל
+fa_ggdau|Urenkelin||אור-אנקלין
+fa_uncle|Onkel||אונקל
+fa_aunt|Tante||טנטה
+fa_cousin_m|Cousin||קוזן
+fa_cousin_f|Cousine||קוזינה
+fa_nephew|Neffe||נפה
+fa_niece|Nichte||ניכטה
+fa_husband|Ehemann||איאמן
+fa_wife|Ehefrau||איפראו
+fa_baby|Baby||בייבי
+fa_neighbor|Nachbar||נאכבר
+fa_boyfriend|Fester Freund||פסטר פרוינד
+fa_girlfriend|Feste Freundin||פסטה פרוינדין
+fp_family|Das ist meine Familie.||דאס איסט מיינה פמיליה
+fp_kids|Haben Sie Kinder?||האבן זי קינדר
+fp_sibs|Ich habe einen Bruder und eine Schwester.||איך הבה איינן ברודר אונט איינה שוסטר
+fp_lives|Meine Familie wohnt in Israel.||מיינה פמיליה וונט אין איזראל
+fp_photo|Das ist ein Foto von meinen Kindern.||דאס איסט איין פוטו פון מיינן קינדרן`
 });
 
 /* ---- numbers & prices (0–999,999) → tokens [text, roman, hebrew]. German writes numbers as one word; the Hebrew uses hyphens ---- */

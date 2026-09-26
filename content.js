@@ -61,9 +61,9 @@ const MAXL = 9;
 const CAT_ICON = { greet: '👋', num: '🔢', basic: '⭐', food: '🍜', trans: '🚕', shop: '🛍️', emerg: '🚑', time: '🕒', phr: '🗣️', mine: '✏️',
   hotel: '🏨', days: '📅', colors: '🎨', people: '👨‍👩‍👧', body: '🩺', adj: '↔️', verbs: '🏃', conv: '💬',
   animals: '🐘', fruits: '🍍', veggies: '🥕', dishes: '🍲', places: '🏛️', things: '🎒',
-  s_food: '🍽️', s_shop: '🛒', s_move: '🚌', s_hotel: '🛎️', s_social: '🤝', s_help: '🆘', weather: '🌦️', jobs: '👷', feel: '😊', dirs: '🧭', yid: '🕯️' };
-const WORD_CATS = ['greet', 'num', 'basic', 'food', 'fruits', 'veggies', 'dishes', 'trans', 'dirs', 'places', 'shop', 'things', 'hotel', 'time', 'weather', 'days', 'colors', 'people', 'jobs', 'body', 'feel', 'animals', 'adj', 'verbs', 'emerg', 'mine'];
-const PHRASE_CATS = ['phr', 'conv', 's_food', 's_shop', 's_move', 's_hotel', 's_social', 's_help', 'yid'];
+  s_food: '🍽️', s_shop: '🛒', s_move: '🚌', s_hotel: '🛎️', s_social: '🤝', s_help: '🆘', weather: '🌦️', jobs: '👷', feel: '😊', dirs: '🧭', yid: '🕯️', family: '👨‍👩‍👧', s_family: '👪' };
+const WORD_CATS = ['greet', 'num', 'basic', 'food', 'fruits', 'veggies', 'dishes', 'trans', 'dirs', 'places', 'shop', 'things', 'hotel', 'time', 'weather', 'days', 'colors', 'people', 'family', 'jobs', 'body', 'feel', 'animals', 'adj', 'verbs', 'emerg', 'mine'];
+const PHRASE_CATS = ['phr', 'conv', 's_food', 's_shop', 's_move', 's_hotel', 's_social', 's_family', 's_help', 'yid'];
 /* categories that exist only in some languages (other packs may skip them) */
 const ONLY_LANG = { yid: ['yi'] };
 const isPhraseCat = c => c === 'phr' || c === 'conv' || c === 'yid' || c.startsWith('s_') || c.startsWith('dlg_');
@@ -536,6 +536,36 @@ const CONCEPTS = [
   ["dir_back","dirs",7,"אחורה","Back"],
   ["dir_up","dirs",7,"למעלה","Up"],
   ["dir_down","dirs",7,"למטה","Down"],
+  ["fa_father", "family", 5, "אבא", "Dad"],
+  ["fa_mother", "family", 5, "אמא", "Mom"],
+  ["fa_parents", "family", 5, "הורים", "Parents"],
+  ["fa_son", "family", 5, "בן", "Son"],
+  ["fa_daughter", "family", 5, "בת", "Daughter"],
+  ["fa_brother", "family", 5, "אח", "Brother"],
+  ["fa_sister", "family", 5, "אחות", "Sister"],
+  ["fa_grandpa", "family", 5, "סבא", "Grandpa"],
+  ["fa_grandma", "family", 5, "סבתא", "Grandma"],
+  ["fa_grandson", "family", 5, "נכד", "Grandson"],
+  ["fa_granddau", "family", 5, "נכדה", "Granddaughter"],
+  ["fa_ggson", "family", 5, "נין", "Great-grandson"],
+  ["fa_ggdau", "family", 5, "נינה", "Great-granddaughter"],
+  ["fa_uncle", "family", 5, "דוד", "Uncle"],
+  ["fa_aunt", "family", 5, "דודה", "Aunt"],
+  ["fa_cousin_m", "family", 5, "בן דוד / בן דודה", "Male cousin"],
+  ["fa_cousin_f", "family", 5, "בת דוד / בת דודה", "Female cousin"],
+  ["fa_nephew", "family", 5, "אחיין", "Nephew"],
+  ["fa_niece", "family", 5, "אחיינית", "Niece"],
+  ["fa_husband", "family", 5, "בעל", "Husband"],
+  ["fa_wife", "family", 5, "אישה (רעיה)", "Wife"],
+  ["fa_baby", "family", 5, "תינוק", "Baby"],
+  ["fa_neighbor", "family", 5, "שכן", "Neighbor"],
+  ["fa_boyfriend", "family", 5, "חבר (בן זוג)", "Boyfriend"],
+  ["fa_girlfriend", "family", 5, "חברה (בת זוג)", "Girlfriend"],
+  ["fp_family", "s_family", 6, "זו המשפחה שלי", "This is my family"],
+  ["fp_kids", "s_family", 6, "יש לך ילדים?", "Do you have children?"],
+  ["fp_sibs", "s_family", 6, "יש לי אח ואחות", "I have a brother and a sister"],
+  ["fp_lives", "s_family", 6, "המשפחה שלי גרה בישראל", "My family lives in Israel"],
+  ["fp_photo", "s_family", 6, "זאת תמונה של הילדים שלי", "This is a photo of my children"],
   /* yid — Yiddish-only expressions (ONLY_LANG) */
   ["yx_nu", "yid", 8, "נו? (יאללה / ובכן?)", "Nu? (well? come on)"],
   ["yx_oyvey", "yid", 8, "אוי ואבוי!", "Oh no!"],
@@ -592,4 +622,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.20.2';
+window.__MODS.content = '1.20.3';

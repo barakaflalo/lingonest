@@ -295,10 +295,10 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "🛡️ Safer updates: a new version downloads in the background and switches on only when you tap \"update\" — never mid-lesson.",
-  "wn2": "More reliable offline: on a slow network or when the server is down, the app loads from its saved copy. About shows whether it's offline-ready.",
-  "wn3": "AI chat: an old answer won't jump into a new conversation, and a stuck request ends after a minute with a message.",
-  "wn4": "More accurate speaking practice (\"hello\" no longer counts for a whole sentence), and the microphone closes when you leave a screen.",
+  "wn1": "👨‍👩‍👧 New topic in all 28 languages: \"Family & friends\" — dad, mom, grandparents, siblings, uncles and aunts, cousins, grandchildren, nephews, husband, wife, neighbour and more.",
+  "wn2": "👪 And a phrases topic: \"Talking about family\" — \"This is my family\", \"Do you have children?\", \"This is a photo of my children\".",
+  "wn3": "Trip mode: for languages spoken in several countries you can pick the country — emergency numbers follow it.",
+  "wn4": "Fixes: the daily new-word quota counts only words you really learned, and listening questions don't appear when the device has no voice.",
   "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
@@ -568,6 +568,11 @@ LANG.en = {
   "offlineReady": "The app is ready to work offline",
   "offlineSt": "Offline use",
   "offlineYes": "Ready",
-  "offlineNo": "Still loading — open once with internet"
+  "offlineNo": "Still loading — open once with internet",
+  "cat_family": "Family & friends",
+  "cat_s_family": "Talking about family",
+  "backupScope": "The backup includes: progress in all languages, your words and phrases, favourites, travel kit, trip plan, badges and settings. Not included: your AI key (stays on the device), assistant history, quality-check progress and an open practice chat. The file isn't encrypted — keep it somewhere safe.",
+  "tripCountry": "Which country?",
+  "tripAnyCountry": "Not sure yet"
 };
-window.__MODS['ui-en'] = '1.20.2';
+window.__MODS['ui-en'] = '1.20.3';

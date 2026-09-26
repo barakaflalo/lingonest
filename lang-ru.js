@@ -3,7 +3,7 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('ru', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "₽",
   /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
   country: {"he": "רוסיה", "en": "Russia", "ru": "Россия", "es": "Rusia", "ar": "روسيا"},
@@ -486,7 +486,37 @@ dir_front|Впереди|vperedi|פפיריידי
 dir_next|Рядом|ryadom|ריאדום
 dir_back|Назад|nazad|נאזאט
 dir_up|Наверх|naverkh|נאבייערח
-dir_down|Вниз|vniz|וניס`
+dir_down|Вниз|vniz|וניס
+fa_father|Папа|papa|פאפה
+fa_mother|Мама|mama|מאמה
+fa_parents|Родители|roditeli|רודיטלי
+fa_son|Сын|syn|סין
+fa_daughter|Дочь|doch'|דוץ׳
+fa_brother|Брат|brat|בראט
+fa_sister|Сестра|sestra|סיסטרה
+fa_grandpa|Дедушка|dedushka|דדושקה
+fa_grandma|Бабушка|babushka|באבושקה
+fa_grandson|Внук|vnuk|וונוק
+fa_granddau|Внучка|vnuchka|וונוצ׳קה
+fa_ggson|Правнук|pravnuk|פראבנוק
+fa_ggdau|Правнучка|pravnuchka|פראבנוצ׳קה
+fa_uncle|Дядя|dyadya|דיאדיה
+fa_aunt|Тётя|tyotya|טיוטיה
+fa_cousin_m|Двоюродный брат|dvoyurodnyy brat|דבויורודני בראט
+fa_cousin_f|Двоюродная сестра|dvoyurodnaya sestra|דבויורודנאיה סיסטרה
+fa_nephew|Племянник|plemyannik|פלמיאניק
+fa_niece|Племянница|plemyannitsa|פלמיאניצה
+fa_husband|Муж|muzh|מוז׳
+fa_wife|Жена|zhena|ז׳נה
+fa_baby|Малыш|malysh|מאליש
+fa_neighbor|Сосед|sosed|סוסיד
+fa_boyfriend|Парень|paren'|פארן
+fa_girlfriend|Девушка|devushka|דבושקה
+fp_family|Это моя семья.|eto moya sem'ya.|אטה מאיה סמיה
+fp_kids|У вас есть дети?|u vas yest' deti?|או ואס יסט דטי
+fp_sibs|У меня есть брат и сестра.|u menya yest' brat i sestra.|או מניה יסט בראט אי סיסטרה
+fp_lives|Моя семья живёт в Израиле.|moya sem'ya zhivyot v Izraile.|מאיה סמיה ז׳יביוט ב איזראילה
+fp_photo|Это фото моих детей.|eto foto moikh detey.|אטה פוטו מאיח דטיי`
 });
 
 /* ---- numbers & prices (0–999,999) → tokens [text, roman, hebrew] ---- */

@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('vi', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "₫",
   country: {"he": "וייטנאם", "en": "Vietnam", "ru": "Вьетнам", "es": "Vietnam", "ar": "فيتنام"},
   emergency: [
@@ -481,7 +481,37 @@ dir_front|Phía trước||פיה צ׳ואוק
 dir_next|Bên cạnh||בן קאן
 dir_back|Quay lại||קואי לאי
 dir_up|Trên||צ׳ן
-dir_down|Dưới||זואוי`
+dir_down|Dưới||זואוי
+fa_father|Bố||בו
+fa_mother|Mẹ||מה
+fa_parents|Bố mẹ||בו מה
+fa_son|Con trai||קון צ׳אי
+fa_daughter|Con gái||קון גאי
+fa_brother|Anh trai||אן צ׳אי
+fa_sister|Chị gái||צ׳י גאי
+fa_grandpa|Ông||אונג
+fa_grandma|Bà||בה
+fa_grandson|Cháu nội (trai)||צ׳או נוי (צ׳אי)
+fa_granddau|Cháu nội (gái)||צ׳או נוי (גאי)
+fa_ggson|Chắt trai||צ׳אט צ׳אי
+fa_ggdau|Chắt gái||צ׳אט גאי
+fa_uncle|Chú / Bác||צ׳ו / באק
+fa_aunt|Cô / Dì||קו / זי
+fa_cousin_m|Anh họ||אן הו
+fa_cousin_f|Chị họ||צ׳י הו
+fa_nephew|Cháu trai (con anh chị)||צ׳או צ׳אי (קון אן צ׳י)
+fa_niece|Cháu gái (con anh chị)||צ׳או גאי (קון אן צ׳י)
+fa_husband|Chồng||צ׳ונג
+fa_wife|Vợ||וו
+fa_baby|Em bé||אם בה
+fa_neighbor|Hàng xóm||האנג סום
+fa_boyfriend|Bạn trai||באן צ׳אי
+fa_girlfriend|Bạn gái||באן גאי
+fp_family|Đây là gia đình tôi.||דאי לה זה דין טוי
+fp_kids|Bạn có con không?||באן קו קון חונג
+fp_sibs|Tôi có một anh trai và một chị gái.||טוי קו מוט אן צ׳אי וה מוט צ׳י גאי
+fp_lives|Gia đình tôi sống ở Israel.||זה דין טוי סונג או איסראל
+fp_photo|Đây là ảnh các con tôi.||דאי לה אן קאק קון טוי`
 });
 
 /* ---- numbers & prices (0–999,999) in Vietnamese (northern) → tokens [text, roman, hebrew]. mốt / lăm / tư after tens, lẻ for a missing ten; prices in đồng ---- */

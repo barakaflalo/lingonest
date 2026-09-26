@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ig', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "₦",
   country: {"he": "דרום-מזרח ניגריה", "en": "South-east Nigeria", "ru": "Юго-восток Нигерии", "es": "Sureste de Nigeria", "ar": "جنوب شرق نيجيريا"},
   emergency: [
@@ -486,7 +486,37 @@ dir_front|N'ihu||ניהו
 dir_next|N'akụkụ||נאקוקו
 dir_back|Laghachi azụ||לאגאצ׳י אזו
 dir_up|Elu||אלו
-dir_down|Ala||אלה`
+dir_down|Ala||אלה
+fa_father|Nna||ננא
+fa_mother|Nne||ננה
+fa_parents|Nne na nna||ננה נה ננא
+fa_son|Nwa nwoke||נווה נווקה
+fa_daughter|Nwa nwaanyị||נווה נוואני
+fa_brother|Nwanne nwoke||נוואנה נווקה
+fa_sister|Nwanne nwaanyị||נוואנה נוואני
+fa_grandpa|Nna nna||ננא ננא
+fa_grandma|Nne nne||ננה ננה
+fa_grandson|Nwa nwa nwoke||נווה נווה נווקה
+fa_granddau|Nwa nwa nwaanyị||נווה נווה נוואני
+fa_ggson|Nwa nwa nwa nwoke||נווה נווה נווה נווקה
+fa_ggdau|Nwa nwa nwa nwaanyị||נווה נווה נווה נוואני
+fa_uncle|Nwanne nna||נוואנה ננא
+fa_aunt|Nwanne nne||נוואנה ננה
+fa_cousin_m|Nwa nwanne nna (nwoke)||נווה נוואנה ננא (נווקה)
+fa_cousin_f|Nwa nwanne nna (nwaanyị)||נווה נוואנה ננא (נוואני)
+fa_nephew|Nwa nwanne m nwoke||נווה נוואנה אם נווקה
+fa_niece|Nwa nwanne m nwaanyị||נווה נוואנה אם נוואני
+fa_husband|Di||די
+fa_wife|Nwunye||נוונייה
+fa_baby|Nwa ọhụrụ||נווה אוהורו
+fa_neighbor|Onye agbata obi||אוניה אגבאטה אובי
+fa_boyfriend|Enyi nwoke||אניי נווקה
+fa_girlfriend|Enyi nwaanyị||אניי נוואני
+fp_family|Nke a bụ ezinụlọ m.||נקה א בו אזינולו אם
+fp_kids|Ị nwere ụmụ?||אי נוורה אומו
+fp_sibs|Enwere m nwanne nwoke na nwanne nwaanyị.||אנוורה אם נוואנה נווקה נה נוואנה נוואני
+fp_lives|Ezinụlọ m bi n'Israel.||אזינולו אם בי ניזראל
+fp_photo|Nke a bụ foto ụmụ m.||נקה א בו פוטו אומו אם`
 });
 
 /* ---- numbers & prices (0–999,999) in Igbo → tokens [text, roman, hebrew]. Decimal: iri abụọ (20), narị (100), puku (1000); currency first ---- */

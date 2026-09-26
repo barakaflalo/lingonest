@@ -3,7 +3,7 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('ar', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "$",
   /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
   country: {"he": "מדינות דוברות ערבית", "en": "Arabic-speaking countries", "ru": "Арабоязычные страны", "es": "Países de habla árabe", "ar": "الدول الناطقة بالعربية"},
@@ -492,7 +492,37 @@ dir_front|أمام|amam|אמאם
 dir_next|بجانب|bi-janib|בג׳אנב
 dir_back|إلى الوراء|ila al-wara'|אלא אל-וראא
 dir_up|فوق|fawq|פוק
-dir_down|تحت|taht|תחת`
+dir_down|تحت|taht|תחת
+fa_father|أب|ab|אב
+fa_mother|أم|umm|אום
+fa_parents|الوالدان|al-walidan|אלואלדאן
+fa_son|ابن|ibn|אבן
+fa_daughter|ابنة|ibna|אבנה
+fa_brother|أخ|akh|אח׳
+fa_sister|أخت|ukht|אוח׳ת
+fa_grandpa|جدّ|jadd|ג׳ד
+fa_grandma|جدّة|jadda|ג׳דה
+fa_grandson|حفيد|hafid|חפיד
+fa_granddau|حفيدة|hafida|חפידה
+fa_ggson|ابن الحفيد|ibn al-hafid|אבן אלחפיד
+fa_ggdau|ابنة الحفيد|ibnat al-hafid|אבנת אלחפיד
+fa_uncle|عمّ / خال|'amm / khal|עם / ח׳אל
+fa_aunt|عمّة / خالة|'amma / khala|עמה / ח׳אלה
+fa_cousin_m|ابن العم|ibn al-'amm|אבן אלעם
+fa_cousin_f|ابنة العم|ibnat al-'amm|אבנת אלעם
+fa_nephew|ابن الأخ|ibn al-akh|אבן אלאח׳
+fa_niece|ابنة الأخ|ibnat al-akh|אבנת אלאח׳
+fa_husband|زوج|zawj|זוג׳
+fa_wife|زوجة|zawja|זוג׳ה
+fa_baby|رضيع|radi'|רדיע
+fa_neighbor|جار|jar|ג׳אר
+fa_boyfriend|حبيب|habib|חביב
+fa_girlfriend|حبيبة|habiba|חביבה
+fp_family|هذه عائلتي.|hadhihi 'a'ilati.|האד׳ה עאאלתי
+fp_kids|هل عندك أولاد؟|hal 'indak awlad?|הל ענדכ אולאד
+fp_sibs|عندي أخ وأخت.|'indi akh wa-ukht.|ענדי אח׳ ואוח׳ת
+fp_lives|عائلتي تعيش في إسرائيل.|'a'ilati ta'ish fi Isra'il.|עאאלתי תעיש פי אסראאיל
+fp_photo|هذه صورة أولادي.|hadhihi surat awladi.|האד׳ה צורת אולאדי`
 });
 
 /* ---- numbers & prices (0–999,999) → tokens [text, roman, hebrew] ---- */

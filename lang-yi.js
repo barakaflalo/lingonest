@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('yi', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "$",
   /* no Yiddish TTS voice exists: speak the Hebrew-friendly pronunciation column with the Hebrew voice (LANGS.yi.tts = he-IL) */
   speakHeb: true,
@@ -489,6 +489,36 @@ dir_next|לעבן|lebn|לעבן
 dir_back|צוריק|tsurik|צוריק
 dir_up|אַרויף|aroyf|ארויף
 dir_down|אַראָפּ|arop|ארופ
+fa_father|דער טאַטע|der tate|דער טאטע
+fa_mother|די מאַמע|di mame|די מאמע
+fa_parents|די עלטערן|di eltern|די עלטערן
+fa_son|דער זון|der zun|דער זון
+fa_daughter|די טאָכטער|di tokhter|די טוכטער
+fa_brother|דער ברודער|der bruder|דער ברודער
+fa_sister|די שוועסטער|di shvester|די שוועסטער
+fa_grandpa|זיידע|zeyde|זיידע
+fa_grandma|באָבע|bobe|בובע
+fa_grandson|דער אייניקל|der eynikl|דער איניקל
+fa_granddau|די אייניקל (מיידל)|di eynikl (meydl)|די איניקל (מיידל)
+fa_ggson|דער אור־אייניקל|der ur-eynikl|דער אור-איניקל
+fa_ggdau|די אור־אייניקל (מיידל)|di ur-eynikl (meydl)|די אור-איניקל (מיידל)
+fa_uncle|דער פֿעטער|der feter|דער פעטער
+fa_aunt|די מומע|di mume|די מומע
+fa_cousin_m|דער קוזין|der kuzin|דער קוזין
+fa_cousin_f|די קוזינע|di kuzine|די קוזינע
+fa_nephew|דער פּלימעניק|der plimenik|דער פלימעניק
+fa_niece|די פּלימעניצע|di plimenitse|די פלימעניצע
+fa_husband|דער מאַן|der man|דער מאן
+fa_wife|די ווײַב|di vayb|די וייב
+fa_baby|דאָס עופֿעלע|dos ofele|דוס אופעלע
+fa_neighbor|דער שכן|der shokhn|דער שוכן
+fa_boyfriend|דער חבֿר (באַליבטער)|der khaver|דער חאווער
+fa_girlfriend|די חבֿרטע (באַליבטע)|di khaverte|די חאווערטע
+fp_family|דאָס איז מײַן משפּחה.|dos iz mayn mishpokhe.|דוס איז מיין מישפוחע
+fp_kids|האָט איר קינדער?|hot ir kinder?|הוט איר קינדער
+fp_sibs|איך האָב אַ ברודער און אַ שוועסטער.|ikh hob a bruder un a shvester.|איך הוב א ברודער און א שוועסטער
+fp_lives|מײַן משפּחה וווינט אין ישׂראל.|mayn mishpokhe voynt in Yisroel.|מיין מישפוחע וווינט אין ייסרואל
+fp_photo|דאָס איז אַ בילד פֿון מײַנע קינדער.|dos iz a bild fun mayne kinder.|דוס איז א בילד פון מיינע קינדער
 yx_nu|נו?|nu?|נו
 yx_oyvey|אוי וויי!|oy vey!|אוי וויי
 yx_mazltov|מזל־טובֿ!|mazl-tov!|מאזל טוב

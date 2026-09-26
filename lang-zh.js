@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('zh', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "¥",
   country: {"he": "סין וטייוואן", "en": "China & Taiwan", "ru": "Китай и Тайвань", "es": "China y Taiwán", "ar": "الصين وتايوان"},
   emergency: [
@@ -498,7 +498,37 @@ dir_front|前面|qiánmiàn|צ׳יין-מיין
 dir_next|旁边|pángbiān|פאנג-ביין
 dir_back|回去|huíqù|חויי-צ׳ו
 dir_up|上面|shàngmiàn|שאנג-מיין
-dir_down|下面|xiàmiàn|שיה-מיין`
+dir_down|下面|xiàmiàn|שיה-מיין
+fa_father|爸爸|bàba|בה-בה
+fa_mother|妈妈|māma|מה-מה
+fa_parents|父母|fùmǔ|פו-מו
+fa_son|儿子|érzi|אר-דזה
+fa_daughter|女儿|nǚ'ér|ניו-אר
+fa_brother|哥哥 / 弟弟|gēge / dìdi|גה-גה / די-די
+fa_sister|姐姐 / 妹妹|jiějie / mèimei|ג׳יה-ג׳יה / מיי-מיי
+fa_grandpa|爷爷 / 外公|yéye / wàigōng|יה-יה / וואי-גונג
+fa_grandma|奶奶 / 外婆|nǎinai / wàipó|נאי-נאי / וואי-פו
+fa_grandson|孙子|sūnzi|סון-דזה
+fa_granddau|孙女|sūnnǚ|סון-ניו
+fa_ggson|曾孙|zēngsūn|דזנג-סון
+fa_ggdau|曾孙女|zēngsūnnǚ|דזנג-סון-ניו
+fa_uncle|叔叔 / 舅舅|shūshu / jiùjiu|שו-שו / ג׳יו-ג׳יו
+fa_aunt|姑姑 / 阿姨|gūgu / āyí|גו-גו / אה-יי
+fa_cousin_m|表哥 / 表弟|biǎogē / biǎodì|ביאו-גה / ביאו-די
+fa_cousin_f|表姐 / 表妹|biǎojiě / biǎomèi|ביאו-ג׳יה / ביאו-מיי
+fa_nephew|侄子|zhízi|ג׳ה-דזה
+fa_niece|侄女|zhínǚ|ג׳ה-ניו
+fa_husband|丈夫|zhàngfu|ג׳אנג-פו
+fa_wife|妻子|qīzi|צ׳י-דזה
+fa_baby|宝宝|bǎobao|באו-באו
+fa_neighbor|邻居|línjū|לין-ג׳ו
+fa_boyfriend|男朋友|nánpéngyou|נאן-פנג-יואו
+fa_girlfriend|女朋友|nǚpéngyou|ניו-פנג-יואו
+fp_family|这是我的家人。|zhè shì wǒ de jiārén.|ג׳ה שה וואו דה ג׳יה-רן
+fp_kids|您有孩子吗？|nín yǒu háizi ma?|נין יואו האי-דזה מה
+fp_sibs|我有一个哥哥和一个姐姐。|wǒ yǒu yí ge gēge hé yí ge jiějie.|וואו יואו יי גה גה-גה הה יי גה ג׳יה-ג׳יה
+fp_lives|我的家人住在以色列。|wǒ de jiārén zhù zài Yǐsèliè.|וואו דה ג׳יה-רן ג׳ו דזאי יי-סה-ליה
+fp_photo|这是我孩子们的照片。|zhè shì wǒ háizimen de zhàopiàn.|ג׳ה שה וואו האי-דזה-מן דה ג׳או-פיין`
 });
 
 /* ---- numbers & prices (0–999,999) in Mandarin → one token [hanzi, pinyin, hebrew]. 零 fills gaps, 两 for 2 before 百/千/万 ---- */

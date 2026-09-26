@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('it', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "€",
   country: {"he": "איטליה", "en": "Italy", "ru": "Италия", "es": "Italia", "ar": "إيطاليا"},
   emergency: [
@@ -489,7 +489,37 @@ dir_front|Davanti||דבנטי
 dir_next|Accanto a||אקנטו א
 dir_back|Indietro||אינדיאטרו
 dir_up|Su||סו
-dir_down|Giù||ג׳ו`
+dir_down|Giù||ג׳ו
+fa_father|Papà||פאפה
+fa_mother|Mamma||מאמה
+fa_parents|Genitori||ג׳ניטורי
+fa_son|Figlio||פיליו
+fa_daughter|Figlia||פיליה
+fa_brother|Fratello||פרטלו
+fa_sister|Sorella||סורלה
+fa_grandpa|Nonno||נונו
+fa_grandma|Nonna||נונה
+fa_grandson|Nipotino (dei nonni)||ניפוטינו (דיי נוני)
+fa_granddau|Nipotina (dei nonni)||ניפוטינה (דיי נוני)
+fa_ggson|Il pronipote||איל פרוניפוטה
+fa_ggdau|La pronipote||לה פרוניפוטה
+fa_uncle|Zio||דזיו
+fa_aunt|Zia||דזיה
+fa_cousin_m|Cugino||קוג׳ינו
+fa_cousin_f|Cugina||קוג׳ינה
+fa_nephew|Il nipote (degli zii)||איל ניפוטה (דלי דזיי)
+fa_niece|La nipote (degli zii)||לה ניפוטה (דלי דזיי)
+fa_husband|Marito||מריטו
+fa_wife|Moglie||מוליה
+fa_baby|Neonato||נאונאטו
+fa_neighbor|Vicino di casa||ויצ׳ינו די קזה
+fa_boyfriend|Fidanzato||פידנצטו
+fa_girlfriend|Fidanzata||פידנצטה
+fp_family|Questa è la mia famiglia.||קוסטה א לה מיה פמיליה
+fp_kids|Ha figli?||א פילי
+fp_sibs|Ho un fratello e una sorella.||או און פרטלו א אונה סורלה
+fp_lives|La mia famiglia vive in Israele.||לה מיה פמיליה ויוה אין איזראלה
+fp_photo|Questa è una foto dei miei figli.||קוסטה א אונה פוטו דיי מיאי פילי`
 });
 
 /* ---- numbers & prices (0–999,999) → tokens [text, roman, hebrew]. Italian writes numbers as one word; the Hebrew uses hyphens between parts ---- */

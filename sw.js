@@ -4,8 +4,8 @@
      on a slow network, or when the server answers with an error (5xx).
    • A new release installs in the background and waits; the app shows "update ready" and activates it on request.
    • Other origins (AI providers, Google Fonts): pass-through, never cached. */
-const VERSION = 'lingonest-1.20.2';
-const V = '?v=1.20.2';
+const VERSION = 'lingonest-1.20.3';
+const V = '?v=1.20.3';
 const FILES = ["app.js","appnest-assistant.js","assistant-map.js","content.js","features.js","help.js","icon-192.png","icon-512.png","lang-am.js","lang-ar.js","lang-ary.js","lang-de.js","lang-el.js","lang-en.js","lang-es.js","lang-fr.js","lang-ha.js","lang-hi.js","lang-id.js","lang-ig.js","lang-it.js","lang-ja.js","lang-ka.js","lang-ko.js","lang-lg.js","lang-pt.js","lang-ro.js","lang-ru.js","lang-sw.js","lang-th.js","lang-tr.js","lang-tw.js","lang-vi.js","lang-yi.js","lang-yo.js","lang-zh.js","manifest.json","numbers.js","privacy_policy.html","style.css","ui-ar.js","ui-en.js","ui-es.js","ui-he.js","ui-ru.js"];
 const PRECACHE = ['./', './index.html'].concat(FILES.map(f => './' + f + (/\.(js|css)$/.test(f) ? V : '')));
 const NET_TIMEOUT = 6000;
@@ -18,7 +18,7 @@ self.addEventListener('install', e => {
     /* one missing file must not break the whole install — cache what we can and report */
     const res = await Promise.allSettled(PRECACHE.map(u => c.add(new Request(u, { cache: 'reload' }))));
     const ok = res.filter(r => r.status === 'fulfilled').length;
-    await notify({ type: 'precache', ver: '1.20.2', ok, total: PRECACHE.length });
+    await notify({ type: 'precache', ver: '1.20.3', ok, total: PRECACHE.length });
     if (!self.registration.active) await self.skipWaiting();   /* first install: nothing to mix with */
   })());
 });

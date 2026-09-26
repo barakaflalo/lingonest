@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('tr', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "₺",
   country: {"he": "טורקיה וקפריסין הצפונית", "en": "Turkey & Northern Cyprus", "ru": "Турция", "es": "Turquía", "ar": "تركيا"},
   emergency: [
@@ -479,7 +479,37 @@ dir_front|Önde||אונדה
 dir_next|Yanında||יאנינדה
 dir_back|Geri||גרי
 dir_up|Yukarı||יוקרה
-dir_down|Aşağı||אשאה`
+dir_down|Aşağı||אשאה
+fa_father|Baba||בבה
+fa_mother|Anne||אנה
+fa_parents|Anne baba||אנה בבה
+fa_son|Oğul||אול
+fa_daughter|Kız evlat||קיז אבלאט
+fa_brother|Erkek kardeş||ארקק קרדש
+fa_sister|Kız kardeş||קיז קרדש
+fa_grandpa|Dede||דדה
+fa_grandma|Büyükanne||ביוקאנה
+fa_grandson|Erkek torun||ארקק טורון
+fa_granddau|Kız torun||קיז טורון
+fa_ggson|Torunun oğlu||טורונון אולו
+fa_ggdau|Torunun kızı||טורונון קיזי
+fa_uncle|Amca / Dayı||אמג׳ה / דאיה
+fa_aunt|Hala / Teyze||האלה / טייזה
+fa_cousin_m|Kuzen (erkek)||קוזן (ארקק)
+fa_cousin_f|Kuzen (kız)||קוזן (קיז)
+fa_nephew|Erkek yeğen||ארקק ייאן
+fa_niece|Kız yeğen||קיז ייאן
+fa_husband|Koca||קוג׳ה
+fa_wife|Hanım (eş)||האנים (אש)
+fa_baby|Bebek||בבק
+fa_neighbor|Komşu||קומשו
+fa_boyfriend|Erkek arkadaş||ארקק ארקדש
+fa_girlfriend|Kız arkadaş||קיז ארקדש
+fp_family|Bu benim ailem.||בו בנים איילם
+fp_kids|Çocuklarınız var mı?||צ׳וג׳וקלריניז ואר מה
+fp_sibs|Bir erkek kardeşim ve bir kız kardeşim var.||ביר ארקק קרדשים וה ביר קיז קרדשים ואר
+fp_lives|Ailem İsrail'de yaşıyor.||איילם איסראילדה יאשיור
+fp_photo|Bu çocuklarımın fotoğrafı.||בו צ׳וג׳וקלארימין פוטוראפה`
 });
 
 /* ---- numbers & prices (0–999,999) → tokens [text, roman, hebrew]. yüz / bin without "bir" ---- */

@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('el', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "€",
   country: {"he": "יוון וקפריסין", "en": "Greece & Cyprus", "ru": "Греция и Кипр", "es": "Grecia y Chipre", "ar": "اليونان وقبرص"},
   emergency: [
@@ -489,7 +489,37 @@ dir_front|Μπροστά|brosta|ברוסטה
 dir_next|Δίπλα|dipla|דיפלה
 dir_back|Πίσω (γυρίστε)|piso (giriste)|פיסו (יריסטה)
 dir_up|Πάνω|pano|פאנו
-dir_down|Κάτω|kato|קאטו`
+dir_down|Κάτω|kato|קאטו
+fa_father|Μπαμπάς|babas|בבאס
+fa_mother|Μαμά|mama|מאמה
+fa_parents|Γονείς|gonis|גוניס
+fa_son|Γιος|gios|יוס
+fa_daughter|Κόρη|kori|קורי
+fa_brother|Αδελφός|adelfos|אדלפוס
+fa_sister|Αδελφή|adelfi|אדלפי
+fa_grandpa|Παππούς|pappous|פאפוס
+fa_grandma|Γιαγιά|giagia|יאיה
+fa_grandson|Εγγονός|engonos|אנגונוס
+fa_granddau|Εγγονή|engoni|אנגוני
+fa_ggson|Δισέγγονος|disengonos|דיסנגונוס
+fa_ggdau|Δισέγγονη|disengoni|דיסנגוני
+fa_uncle|Θείος|thios|תיוס
+fa_aunt|Θεία|thia|תיאה
+fa_cousin_m|Ξάδερφος|xaderfos|קסדרפוס
+fa_cousin_f|Ξαδέρφη|xaderfi|קסדרפי
+fa_nephew|Ανιψιός|anipsios|אניפסיוס
+fa_niece|Ανιψιά|anipsia|אניפסיה
+fa_husband|Ο σύζυγος|o sizigos|או סיזיגוס
+fa_wife|Η σύζυγος|i sizigos|י סיזיגוס
+fa_baby|Μωρό|moro|מורו
+fa_neighbor|Γείτονας|gitonas|גיטונאס
+fa_boyfriend|Το αγόρι μου|to agori mou|טו אגורי מו
+fa_girlfriend|Το κορίτσι μου|to koritsi mou|טו קוריטסי מו
+fp_family|Αυτή είναι η οικογένειά μου.|afti ine i ikogenia mou.|אפטי אינה י איקויניה מו
+fp_kids|Έχετε παιδιά;|echete pedia?|אחטה פדיה
+fp_sibs|Έχω έναν αδελφό και μια αδελφή.|echo enan adelfo ke mia adelfi.|אחו אנאן אדלפו קה מיה אדלפי
+fp_lives|Η οικογένειά μου μένει στο Ισραήλ.|i ikogenia mou meni sto Israil.|י איקויניה מו מני סטו איזראיל
+fp_photo|Αυτή είναι μια φωτογραφία των παιδιών μου.|afti ine mia fotografia ton pedion mou.|אפטי אינה מיה פוטוגרפיה טון פדיון מו`
 });
 
 /* ---- numbers & prices (0–999,999) → tokens [text, roman, hebrew]. Thousands use feminine forms (τρεις χιλιάδες) ---- */

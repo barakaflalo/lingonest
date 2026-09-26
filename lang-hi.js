@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('hi', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "₹",
   country: {"he": "הודו", "en": "India", "ru": "Индия", "es": "India", "ar": "الهند"},
   emergency: [
@@ -508,7 +508,37 @@ dir_front|आगे|aage|אאגה
 dir_next|बगल में|bagal mein|בגל מיין
 dir_back|वापस|vaapas|וואפס
 dir_up|ऊपर|oopar|אופר
-dir_down|नीचे|neeche|ניצ׳ה`
+dir_down|नीचे|neeche|ניצ׳ה
+fa_father|पापा|paapa|פאפה
+fa_mother|माँ|maan|מאן
+fa_parents|माता-पिता|maata-pita|מאטה-פיתה
+fa_son|बेटा|beta|בטה
+fa_daughter|बेटी|beti|בטי
+fa_brother|भाई|bhaai|באי
+fa_sister|बहन|bahan|בהן
+fa_grandpa|दादा / नाना|daada / naana|דאדה / נאנה
+fa_grandma|दादी / नानी|daadi / naani|דאדי / נאני
+fa_grandson|पोता|pota|פוטה
+fa_granddau|पोती|poti|פוטי
+fa_ggson|परपोता|parpota|פרפוטה
+fa_ggdau|परपोती|parpoti|פרפוטי
+fa_uncle|चाचा / मामा|chaacha / maama|צ׳אצ׳ה / מאמה
+fa_aunt|चाची / मौसी|chaachi / mausi|צ׳אצ׳י / מאוסי
+fa_cousin_m|चचेरा भाई|chachera bhaai|צ׳צ׳רה באי
+fa_cousin_f|चचेरी बहन|chacheri bahan|צ׳צ׳רי בהן
+fa_nephew|भतीजा|bhateeja|בטיג׳ה
+fa_niece|भतीजी|bhateeji|בטיג׳י
+fa_husband|पति|pati|פתי
+fa_wife|पत्नी|patni|פתני
+fa_baby|शिशु|shishu|שישו
+fa_neighbor|पड़ोसी|padosi|פדוסי
+fa_boyfriend|बॉयफ़्रेंड|boyfrend|בוייפרנד
+fa_girlfriend|गर्लफ़्रेंड|garlfrend|גרלפרנד
+fp_family|यह मेरा परिवार है।|yah mera parivaar hai.|יה מרה פריוואר הה
+fp_kids|क्या आपके बच्चे हैं?|kya aapke bachche hain?|קיה אאפקה בצ׳ה הין
+fp_sibs|मेरा एक भाई और एक बहन है।|mera ek bhaai aur ek bahan hai.|מרה אק באי אור אק בהן הה
+fp_lives|मेरा परिवार इज़राइल में रहता है।|mera parivaar Izraail mein rahta hai.|מרה פריוואר איזראאיל מיין רהתה הה
+fp_photo|यह मेरे बच्चों की फ़ोटो है।|yah mere bachchon ki foto hai.|יה מרה בצ׳ון קי פוטו הה`
 });
 
 /* ---- numbers & prices (0–999,999) in Hindi → tokens [text, roman, hebrew]. 1–99 are individual words; Indian grouping: हज़ार (1,000), लाख (100,000) ---- */

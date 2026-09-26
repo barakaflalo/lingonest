@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('fr', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "€",
   country: {"he": "צרפת ומדינות דוברות צרפתית", "en": "France & French-speaking countries", "ru": "Франция и франкоязычные страны", "es": "Francia y países francófonos", "ar": "فرنسا والدول الناطقة بالفرنسية"},
   emergency: [
@@ -494,7 +494,37 @@ dir_front|Devant||דבון
 dir_next|À côté de||א קוטה דה
 dir_back|En arrière||און נאריר
 dir_up|En haut||און או
-dir_down|En bas||און בא`
+dir_down|En bas||און בא
+fa_father|Papa||פאפה
+fa_mother|Maman||מאמון
+fa_parents|Parents||פרון
+fa_son|Fils||פיס
+fa_daughter|Fille||פיי
+fa_brother|Frère||פרר
+fa_sister|Sœur||סר
+fa_grandpa|Grand-père||גרון-פר
+fa_grandma|Grand-mère||גרון-מר
+fa_grandson|Petit-fils||פטי-פיס
+fa_granddau|Petite-fille||פטיט-פיי
+fa_ggson|Arrière-petit-fils||אריר-פטי-פיס
+fa_ggdau|Arrière-petite-fille||אריר-פטיט-פיי
+fa_uncle|Oncle||אונקל
+fa_aunt|Tante||טאנט
+fa_cousin_m|Cousin||קוזן
+fa_cousin_f|Cousine||קוזין
+fa_nephew|Neveu||נבה
+fa_niece|Nièce||ניאס
+fa_husband|Mari||מארי
+fa_wife|Femme (épouse)||פאם (אפוז)
+fa_baby|Bébé||בבה
+fa_neighbor|Voisin||וואזן
+fa_boyfriend|Petit ami||פטי אמי
+fa_girlfriend|Petite amie||פטיט אמי
+fp_family|Voici ma famille.||ווואסי מה פמיי
+fp_kids|Vous avez des enfants ?||וו זאווה דה זאנפון
+fp_sibs|J'ai un frère et une sœur.||ז׳ה און פרר א און סר
+fp_lives|Ma famille habite en Israël.||מה פמיי אביט אן איזראאל
+fp_photo|Voici une photo de mes enfants.||ווואסי און פוטו דה מה זאנפון`
 });
 
 /* ---- numbers & prices (0–999,999) → tokens [text, roman, hebrew] ---- */

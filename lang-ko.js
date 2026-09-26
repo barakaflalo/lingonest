@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ko', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "₩",
   country: {"he": "קוריאה הדרומית", "en": "South Korea", "ru": "Южная Корея", "es": "Corea del Sur", "ar": "كوريا الجنوبية"},
   emergency: [
@@ -492,7 +492,37 @@ dir_front|앞|ap|אפ
 dir_next|옆|yeop|יופ
 dir_back|뒤로|dwiro|טווירו
 dir_up|위|wi|ווי
-dir_down|아래|arae|אראה`
+dir_down|아래|arae|אראה
+fa_father|아빠|appa|אפה
+fa_mother|엄마|eomma|אומה
+fa_parents|부모님|bumonim|פומונים
+fa_son|아들|adeul|אדול
+fa_daughter|딸|ttal|טאל
+fa_brother|남자 형제|namja hyeongje|נאמג׳ה היונגג׳ה
+fa_sister|여자 형제|yeoja hyeongje|יוג׳ה היונגג׳ה
+fa_grandpa|할아버지|harabeoji|הראבוג׳י
+fa_grandma|할머니|halmeoni|האלמוני
+fa_grandson|손자|sonja|סונג׳ה
+fa_granddau|손녀|sonnyeo|סוניו
+fa_ggson|증손자|jeungsonja|צ׳ונגסונג׳ה
+fa_ggdau|증손녀|jeungsonnyeo|צ׳ונגסוניו
+fa_uncle|삼촌|samchon|סאמצ׳ון
+fa_aunt|이모 / 고모|imo / gomo|אימו / קומו
+fa_cousin_m|사촌 (남자)|sachon (namja)|סאצ׳ון (נאמג׳ה)
+fa_cousin_f|사촌 (여자)|sachon (yeoja)|סאצ׳ון (יוג׳ה)
+fa_nephew|조카|joka|צ׳וקה
+fa_niece|조카딸|jokattal|צ׳וקה-טאל
+fa_husband|남편|nampyeon|נאמפיון
+fa_wife|아내|anae|אנה
+fa_baby|아기|agi|אגי
+fa_neighbor|이웃|iut|איאות
+fa_boyfriend|남자친구|namjachingu|נאמג׳ה-צ׳ינגו
+fa_girlfriend|여자친구|yeojachingu|יוג׳ה-צ׳ינגו
+fp_family|이쪽은 제 가족이에요.|ijjogeun je gajogieyo.|איצ׳וגון צ׳ה קאג׳וגיאיו
+fp_kids|자녀가 있으세요?|janyeoga isseuseyo?|צ׳אניוגה אישוסאיו
+fp_sibs|형이랑 누나가 있어요.|hyeongirang nunaga isseoyo.|היונג-איראנג נונאגה אישויו
+fp_lives|가족은 이스라엘에 살아요.|gajogeun Iseuraere sarayo.|קאג׳וגון איסוראלה סאראיו
+fp_photo|이건 제 아이들 사진이에요.|igeon je aideul sajinieyo.|איגון צ׳ה אאידול סאג׳יניאיו`
 });
 
 /* ---- numbers & prices (0–999,999) in Sino-Korean → one token [hangul, romanization, hebrew]. Groups of 만 (10,000); no 일 before 십/백/천/만 ---- */

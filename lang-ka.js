@@ -2,13 +2,14 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ka', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "₾",
   country: {"he": "גאורגיה", "en": "Georgia", "ru": "Грузия", "es": "Georgia", "ar": "جورجيا"},
   emergency: [
     ["🆘", {"he": "חירום (כל השירותים)", "en": "Emergency (all services)", "ru": "Экстренный (все службы)", "es": "Emergencias (todo)", "ar": "الطوارئ (كل الخدمات)"}, "112"]
   ],
   tips: [
+    {"t": {"he": "მამა = אבא, დედა = אמא", "en": "მამა = Dad, დედა = Mom"}, "b": {"he": "מלכודת משעשעת: בגאורגית მამა (מאמה) פירושו אבא, ו-დედა (דדה) — אמא! גם ბაბუა (באבואה) הוא סבא ו-ბებია (בביה) סבתא. את כל המילים תמצא בנושא \"משפחה וחברים\".", "en": "A fun trap: in Georgian მამა (mama) means DAD and დედა (deda) means mom! ბაბუა (babua) is grandpa and ბებია (bebia) grandma — see the \"Family & friends\" topic."}, "ex": [["მამა", "mama", "מאמה", "אבא", "Dad"], ["დედა", "deda", "דדה", "אמא", "Mom"]]},
     {"t": {"he": "גמרג׳ובה — \"שיהיה לך ניצחון\"", "en": "Gamarjoba — \"may you have victory\""}, "b": {"he": "gamarjoba (שלום) פירושו המילולי \"ניצחון\", ועונים gaumarjos (\"לניצחון!\") — אותה מילה שאומרים גם בהרמת כוסית. madloba = תודה, didi madloba = תודה רבה.", "en": "gamarjoba (hello) literally means \"victory\"; the reply gaumarjos (\"to victory!\") is also the toast. madloba = thanks, didi madloba = thank you very much."}, "ex": [["გაუმარჯოს!", "gaumarjos!", "גאומרג׳וס", "לחיים! / לניצחון!", "Cheers! / To victory!"]]},
     {"t": {"he": "סופרה והטמאדה", "en": "The supra and the tamada"}, "b": {"he": "הסעודה הגאורגית (სუფრა, סופרה) מנוהלת על ידי טמאדה — מנהל הטוסטים. שותים רק אחרי ברכה, ולא לפני. אם מזמינים אותך — תתכונן לשולחן עמוס ולהרבה ღვინო (יין). גאורגיה היא ממולדות היין הראשונות בעולם.", "en": "A Georgian feast (supra) is led by a tamada — the toastmaster. You drink only after a toast. If invited, expect a loaded table and lots of ghvino (wine) — Georgia is one of wine's oldest homelands."}, "ex": [["ღვინო", "ghvino", "ע׳בינו", "יין", "Wine"]]},
     {"t": {"he": "ספירה בעשרים", "en": "Counting in twenties"}, "b": {"he": "בגאורגית סופרים בעשרים: 40 = ორმოცი (\"שתיים-עשרים\"), 60 = სამოცი (\"שלוש-עשרים\"), ו-30 = ოცდაათი (\"עשרים ועשר\"). 50 = \"שתיים-עשרים ועשר\"! מסך המחירים עושה את החשבון בשבילך.", "en": "Georgian counts in twenties: 40 = ormotsi (\"two-twenty\"), 60 = samotsi, 30 = otsdaati (\"twenty and ten\"), 50 = \"two-twenty and ten\"! The Prices screen does the maths."}, "ex": [["ორმოცდაათი", "ormotsdaati", "אורמוצדאטי", "50 (שתיים-עשרים ועשר)", "50 (two-twenty and ten)"]]},
@@ -482,7 +483,37 @@ dir_front|წინ|tsin|צין
 dir_next|გვერდით|gverdit|גברדיט
 dir_back|უკან დაბრუნდით|ukan dabrundit|אוקאן דאברונדיט
 dir_up|ზემოთ|zemot|זמוט
-dir_down|ქვემოთ|kvemot|קבמוט`
+dir_down|ქვემოთ|kvemot|קבמוט
+fa_father|მამა|mama|מאמה
+fa_mother|დედა|deda|דדה
+fa_parents|მშობლები|mshoblebi|משובלבי
+fa_son|ვაჟიშვილი|vazhishvili|בז׳ישבילי
+fa_daughter|ქალიშვილი|kalishvili|קלישבילי
+fa_brother|ძმა|dzma|דזמה
+fa_sister|და|da|דה
+fa_grandpa|ბაბუა|babua|באבואה
+fa_grandma|ბებია|bebia|בביה
+fa_grandson|შვილიშვილი (ბიჭი)|shvilishvili (bichi)|שבילישבילי (ביצ׳י)
+fa_granddau|შვილიშვილი (გოგო)|shvilishvili (gogo)|שבילישבילי (גוגו)
+fa_ggson|შვილთაშვილი (ბიჭი)|shviltashvili (bichi)|שבילטאשבילי (ביצ׳י)
+fa_ggdau|შვილთაშვილი (გოგო)|shviltashvili (gogo)|שבילטאשבילי (גוגו)
+fa_uncle|ბიძა|bidza|בידזה
+fa_aunt|დეიდა / მამიდა|deida / mamida|דיידה / ממידה
+fa_cousin_m|ბიძაშვილი (ბიჭი)|bidzashvili (bichi)|בידזאשבילי (ביצ׳י)
+fa_cousin_f|ბიძაშვილი (გოგო)|bidzashvili (gogo)|בידזאשבילי (גוגו)
+fa_nephew|ძმისშვილი (ბიჭი)|dzmisshvili (bichi)|דזמיסשבילי (ביצ׳י)
+fa_niece|ძმისშვილი (გოგო)|dzmisshvili (gogo)|דזמיסשבילי (גוגו)
+fa_husband|ქმარი|kmari|קמארי
+fa_wife|ცოლი|tsoli|צולי
+fa_baby|ჩვილი|chvili|צ׳בילי
+fa_neighbor|მეზობელი|mezobeli|מזובלי
+fa_boyfriend|შეყვარებული (ბიჭი)|sheqvarebuli (bichi)|שקבארבולי (ביצ׳י)
+fa_girlfriend|შეყვარებული (გოგო)|sheqvarebuli (gogo)|שקבארבולי (גוגו)
+fp_family|ეს ჩემი ოჯახია.|es chemi ojakhia.|אס צ׳מי אוג׳אחיה
+fp_kids|შვილები გყავთ?|shvilebi gqavt?|שבילבי גקאבט
+fp_sibs|მყავს ძმა და და.|mqavs dzma da da.|מקאבס דזמה דה דה
+fp_lives|ჩემი ოჯახი ისრაელში ცხოვრობს.|chemi ojakhi israelshi tskhovrobs.|צ׳מי אוג׳אחי איסראלשי צחוברובס
+fp_photo|ეს ჩემი შვილების ფოტოა.|es chemi shvilebis potoa.|אס צ׳מי שבילביס פוטואה`
 });
 
 /* ---- numbers & prices (0–999,999) in Georgian → tokens [text, roman, hebrew]. Base 20: 30 = ოცდაათი (20+10), 40 = ორმოცი (2×20) ---- */

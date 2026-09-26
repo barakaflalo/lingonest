@@ -60,7 +60,7 @@ const HELP = [
     '• Tonal languages (Thai, Chinese, Vietnamese) have a tones card.',
     '• "Practise" drills just the letters or just the vowels.']}],
 ['words', '💬', 'topics', {he: 'מילים ומשפטים', en: 'Words and phrases'}, {
-  he: ['• "מילים" ו"משפטים" מסודרים לפי נושאים: אוכל, תחבורה, מלון, קניות, חירום, מספרים, מזג אוויר, רגשות ועוד.',
+  he: ['• "מילים" ו"משפטים" מסודרים לפי נושאים: אוכל, תחבורה, מלון, קניות, חירום, מספרים, משפחה וחברים, מזג אוויר, רגשות ועוד.',
     '• ליד כל פריט: 🔊 הקראה, 🐢 לאט, ⛶ הצגה בגדול, ו-★ מועדף.',
     '• לכל מילה: הטקסט בשפה, ההגייה באותיות עבריות, התעתיק הלטיני (בשפות עם כתב אחר) והפירוש.',
     '• "המילים שלי" — הוסף מילים משלך (➕). עם חיבור בינה אפשר גם "צור מילים לפי נושא".',
@@ -255,4 +255,4 @@ const HELP = [
   en: ['No account and no AppNest server — everything stays on your device. Text leaves only when you use a ✨ feature, and only to the AI provider you connected. No tracking, no ads.',
     'Full policy: privacy_policy.html (linked on the About screen).']}]
 ];
-window.__MODS.help = '1.20.2';
+window.__MODS.help = '1.20.3';

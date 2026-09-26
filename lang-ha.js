@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ha', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "₦",
   country: {"he": "ניגריה (צפון), ניז׳ר ומערב אפריקה", "en": "Northern Nigeria, Niger & West Africa", "ru": "Север Нигерии, Нигер", "es": "Norte de Nigeria y Níger", "ar": "شمال نيجيريا والنيجر"},
   emergency: [
@@ -479,7 +479,37 @@ dir_front|Gaba||גאבה
 dir_next|Kusa da||קוסה דה
 dir_back|Koma baya||קומה באיה
 dir_up|Sama||סאמה
-dir_down|Ƙasa||קאסה`
+dir_down|Ƙasa||קאסה
+fa_father|Baba||באבה
+fa_mother|Mama (Uwa)||מאמה (אווה)
+fa_parents|Iyaye||אייאיה
+fa_son|Ɗa namiji||דה נאמיג׳י
+fa_daughter|Ɗiya mace||דייה מאצ׳ה
+fa_brother|Ɗan'uwa||דאנווה
+fa_sister|'Yar'uwa||יארווה
+fa_grandpa|Kaka namiji||קאקה נאמיג׳י
+fa_grandma|Kaka mace||קאקה מאצ׳ה
+fa_grandson|Jika namiji||ג׳יקה נאמיג׳י
+fa_granddau|Jika mace||ג׳יקה מאצ׳ה
+fa_ggson|Tattaɓa kunne namiji||טאטאבה קונה נאמיג׳י
+fa_ggdau|Tattaɓa kunne mace||טאטאבה קונה מאצ׳ה
+fa_uncle|Kawu||קאוו
+fa_aunt|Gwaggo||גוואגו
+fa_cousin_m|Ɗan kawu||דאן קאוו
+fa_cousin_f|'Yar kawu||יאר קאוו
+fa_nephew|Ɗan ɗan'uwa||דאן דאנווה
+fa_niece|'Yar ɗan'uwa||יאר דאנווה
+fa_husband|Miji||מיג׳י
+fa_wife|Mata||מאטה
+fa_baby|Jariri||ג׳ארירי
+fa_neighbor|Maƙwabci||מאקוואבצ׳י
+fa_boyfriend|Saurayi||סאוראיי
+fa_girlfriend|Budurwa||בודורווה
+fp_family|Wannan iyalina ne.||וואנן איאלינה נה
+fp_kids|Kana da yara?||קאנה דה יארה
+fp_sibs|Ina da ɗan'uwa da 'yar'uwa.||אינה דה דאנווה דה יארווה
+fp_lives|Iyalina suna zaune a Isra'ila.||איאלינה סונה זאונה א איסראילה
+fp_photo|Wannan hoton yarana ne.||וואנן הוטון יארנה נה`
 });
 
 /* ---- numbers & prices (0–999,999) in Hausa → tokens [text, roman, hebrew]. Currency first: naira ɗari biyu ---- */

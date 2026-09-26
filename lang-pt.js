@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('pt', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "R$",
   country: {"he": "ברזיל ופורטוגל", "en": "Brazil & Portugal", "ru": "Бразилия и Португалия", "es": "Brasil y Portugal", "ar": "البرازيل والبرتغال"},
   emergency: [
@@ -490,7 +490,37 @@ dir_front|Na frente||נה פרנצ׳י
 dir_next|Ao lado de||או לאדו דז׳י
 dir_back|Para trás||פרה טראס
 dir_up|Para cima||פרה סימה
-dir_down|Para baixo||פרה באישו`
+dir_down|Para baixo||פרה באישו
+fa_father|Pai||פאי
+fa_mother|Mãe||מאיין
+fa_parents|Os pais||אוס פאיס
+fa_son|Filho||פיליו
+fa_daughter|Filha||פיליה
+fa_brother|Irmão||אירמאון
+fa_sister|Irmã||אירמאן
+fa_grandpa|Avô||אבו
+fa_grandma|Avó||אבוֹ (פתוחה)
+fa_grandson|Neto||נטו
+fa_granddau|Neta||נטה
+fa_ggson|Bisneto||ביזנטו
+fa_ggdau|Bisneta||ביזנטה
+fa_uncle|Tio||צ׳יו
+fa_aunt|Tia||צ׳יה
+fa_cousin_m|Primo||פרימו
+fa_cousin_f|Prima||פרימה
+fa_nephew|Sobrinho||סוברינייו
+fa_niece|Sobrinha||סוברינייה
+fa_husband|Marido||מאריהו
+fa_wife|Esposa||אספוזה
+fa_baby|Bebê||ביבה
+fa_neighbor|Vizinho||ויזינייו
+fa_boyfriend|Namorado||נמוראדו
+fa_girlfriend|Namorada||נמוראדה
+fp_family|Esta é a minha família.||אסטה א א מיניה פמיליה
+fp_kids|Você tem filhos?||ווסה טיין פיליוס
+fp_sibs|Tenho um irmão e uma irmã.||טניו און אירמאון אי אומה אירמאן
+fp_lives|Minha família mora em Israel.||מיניה פמיליה מורה איין איזראל
+fp_photo|Esta é uma foto dos meus filhos.||אסטה א אומה פוטו דוס מאוס פיליוס`
 });
 
 /* ---- numbers & prices (0–999,999), Brazilian Portuguese → tokens [text, roman, hebrew]. Prices in reais (R$) ---- */

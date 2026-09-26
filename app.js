@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.20.2' };
+const APP = { name: 'LingoNest', ver: '1.20.3' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -136,6 +136,7 @@ function P(lang) { st.prog[lang] = st.prog[lang] || {}; return st.prog[lang]; }
 const IV = [0, 5 * 60e3, 864e5, 3 * 864e5, 7 * 864e5, 16 * 864e5, 35 * 864e5];
 function grade(lang, k, ok) {
   const p = P(lang);
+  if (!p[k] && /^[WC]:/.test(k)) st.newLog[today()] = (st.newLog[today()] || 0) + 1;   /* counts only words really learned */
   const r = p[k] || { b: 0, d: 0, c: 0, w: 0 };
   if (ok) { r.b = Math.min(6, r.b + 1); r.c++; } else { r.b = 1; r.w++; }
   r.d = Date.now() + IV[r.b];
@@ -190,6 +191,8 @@ function voiceFor(lang) {
          c.find(v => v.lang.replace('_', '-').toLowerCase() === full) || c[0];
 }
 /* languages without a voice (Yiddish) read the Hebrew-letter pronunciation with the Hebrew voice */
+/* is there any voice that can actually read this language (its own, or the Hebrew fallback)? voices not loaded yet → assume yes */
+const canHear = lang => !!('speechSynthesis' in window) && !!(!VOICES.length || voicesFor(lang).length > 0 || hebNow(lang) || SPEAK_HEB[lang]);
 const sayStr = (lang, text, heb) => ((SPEAK_HEB[lang] || hebNow(lang)) && heb) ? heb : text;
 function speak(text, lang, slow, onend, altVoice) {
   if (!('speechSynthesis' in window)) { toast(T('noTTS'), 'err', 4000); if (onend) onend(); return; }
@@ -501,7 +504,6 @@ SCREENS.home = () => {
     <button class="tile" data-act="nav" data-to="tips"><span>💡</span><b>${esc(T('tips'))}</b><small>${esc(T('tipsSub'))}</small></button>
     <button class="tile" data-act="nav" data-to="trip"><span>✈️</span><b>${esc(T('tripTitle'))}</b><small>${esc(T(st.trip ? 'tripOpen' : 'tripCreate'))}</small></button>
     <button class="tile" data-act="nav" data-to="help"><span>📖</span><b>${esc(T('helpTitle'))}</b><small>${esc(T('helpSub'))}</small></button>
-    <button class="tile" data-act="nav" data-to="search"><span>🔍</span><b>${esc(T('searchTitle'))}</b><small>${esc(T('searchSub'))}</small></button>
     <button class="tile wide" data-act="nav" data-to="speak"><span>📢</span><b>${esc(T('speakForMe'))}</b><small>${esc(T('speakSub', { l: LN(lang) }))}</small></button>
     <button class="tile wide" data-act="nav" data-to="progress"><span>📈</span><b>${esc(T('progress'))}</b><small>${esc(T('progressSub'))}</small></button>
   </div>
@@ -926,6 +928,7 @@ const LESSON = {
       if (scope === 'due') pool = all.filter(i => p[i.k] && p[i.k].d <= now);
       else if (scope === 'fav') pool = all.filter(i => (st.favs[lang] || []).includes(i.k));
       else if (scope === 'weak') pool = all.filter(i => p[i.k] && p[i.k].w > 0 && p[i.k].b <= 2);
+      else if ((scope === 'listen' || scope === 'dict') && !canHear(lang)) { toast(T('noVoice', { l: LN(lang) }), 'warn', 6000); return; }
       else if (scope === 'listen' || scope === 'say') pool = all.filter(i => i.type !== 'L' && (p[i.k] || i.lvl <= 2));
       else if (scope === 'build') pool = all.filter(i => canBuild(i, lang) && (p[i.k] || i.lvl <= Math.max(curLevel(lang) + 2, 4)));
       else if (scope === 'dict') pool = all.filter(i => dictTarget(i) && (p[i.k] || i.lvl <= 2));
@@ -937,7 +940,6 @@ const LESSON = {
       this.fresh = pool.filter(it => !p[it.k]).length;
     }
     if (!q.length) { toast(T('nothingNow'), '', 3500); return; }
-    if (this.fresh) { st.newLog[today()] = (st.newLog[today()] || 0) + this.fresh; save(); }
     Object.assign(this, { q, i: 0, ok: 0, bad: 0, answered: false });
     go('lesson');
   },
@@ -951,7 +953,7 @@ const LESSON = {
       const r = P(lang)[it.k];
       if (!this.listenOnly && it.type === 'P' && canBuild(it, lang) && Math.random() < 0.35) kind = 'BUILD';
       else if (!this.listenOnly && it.type === 'W' && r && r.b >= 2 && dictTarget(it) && Math.random() < 0.2) kind = 'DICT';
-      if (!('speechSynthesis' in window) && (kind === 'A2T' || kind === 'DICT')) kind = 'T2M';
+      if (!canHear(lang) && (kind === 'A2T' || kind === 'DICT')) kind = it.type === 'L' ? 'T2S' : 'T2M';
       step.kind = kind;
     }
     if (!step.opts) step.opts = opts;
@@ -1192,6 +1194,7 @@ SCREENS.settings = sec => {
   <section class="card set"><h3>🔍 ${esc(T('qaTitle'))}</h3><p class="hint">${esc(T('qaSub'))}</p><button class="btn" data-act="nav" data-to="qa">▶ ${esc(T('qaOpen'))}</button></section>
   <section class="card set"><h3>🪄 ${esc(T('asstSec'))}</h3><p class="hint">${esc(T('asstHint'))}</p></section>
   <section class="card set"><h3>💾 ${esc(T('backupSec'))}</h3>
+    <p class="hint">${esc(T('backupScope'))}</p>
     <div class="row wrap"><button class="btn" data-act="exportJson">⬇️ ${esc(T('exportJson'))}</button>
     <label class="btn">⬆️ ${esc(T('importJson'))}<input type="file" accept=".json,application/json" data-ch="import" hidden></label>
     <button class="btn" data-act="exportCsv">📊 CSV / Excel</button><button class="btn" data-act="printBook">🖨️ PDF</button></div>
@@ -1389,7 +1392,7 @@ function sanitizeState(s) {
   if (Array.isArray(s.recentLangs)) o.recentLangs = s.recentLangs.filter(l => langs.includes(l)).slice(0, 6);
   if (isObj(s.sheet)) { o.sheet = {}; for (const k in s.sheet) if (/^[a-z]{1,10}$/.test(k)) o.sheet[k] = !!s.sheet[k]; }
   if (isObj(s.trip) && langs.includes(s.trip.lang) && YMD.test(s.trip.date) && YMD.test(s.trip.start)) {
-    o.trip = { lang: s.trip.lang, date: s.trip.date, start: s.trip.start, done: {} };
+    o.trip = { lang: s.trip.lang, date: s.trip.date, start: s.trip.start, done: {}, country: /^[\u{1F1E6}-\u{1F1FF}]{2}$/u.test(s.trip.country || '') ? s.trip.country : '' };
     if (isObj(s.trip.done)) for (const i in s.trip.done) if (/^\d{1,3}$/.test(i)) o.trip.done[i] = 1;
   }
   if (isObj(s.ai)) { o.ai.provider = pick(s.ai.provider, Object.keys(AI), 'gemini'); o.ai.model = /^[A-Za-z0-9._:\/-]{0,80}$/.test(s.ai.model || '') ? (s.ai.model || '') : ''; }
@@ -1758,4 +1761,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.20.2';
+window.__MODS.app = '1.20.3';

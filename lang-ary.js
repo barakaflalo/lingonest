@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ary', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "DH",
   country: {"he": "מרוקו", "en": "Morocco", "ru": "Марокко", "es": "Marruecos", "ar": "المغرب"},
   emergency: [
@@ -481,7 +481,37 @@ dir_front|القدام|lqeddam|לקדאם
 dir_next|حدا|7da|חדא
 dir_back|رجع اللور|rje3 llour|רג׳ע לור
 dir_up|الفوق|lfouq|לפוק
-dir_down|التحت|lta7t|לתחת`
+dir_down|التحت|lta7t|לתחת
+fa_father|بابا|baba|באבא
+fa_mother|ماما|mama|מאמא
+fa_parents|الواليدين|lwalidin|לוואלידין
+fa_son|ولد|weld|ולד
+fa_daughter|بنت|bent|בנת
+fa_brother|خو|kho|ח׳ו
+fa_sister|خت|kht|ח׳ת
+fa_grandpa|جد|jedd|ג׳ד
+fa_grandma|جدة|jedda|ג׳דה
+fa_grandson|حفيد|hfid|חפיד
+fa_granddau|حفيدة|hfida|חפידה
+fa_ggson|ولد الحفيد|weld lhfid|ולד לחפיד
+fa_ggdau|بنت الحفيد|bent lhfid|בנת לחפיד
+fa_uncle|عم / خال|3emm / khal|עם / ח׳אל
+fa_aunt|عمة / خالة|3emma / khala|עמה / ח׳אלה
+fa_cousin_m|ولد العم|weld l3emm|ולד לעם
+fa_cousin_f|بنت العم|bent l3emm|בנת לעם
+fa_nephew|ولد الخو|weld lkho|ולד לח׳ו
+fa_niece|بنت الخو|bent lkho|בנת לח׳ו
+fa_husband|راجلي|rajli|ראג׳לי
+fa_wife|مراتي|mrati|מראתי
+fa_baby|بيبي|bebe|בבה
+fa_neighbor|جار|jar|ג׳אר
+fa_boyfriend|صاحب|sa7eb|צאחב
+fa_girlfriend|صاحبة|sa7ba|צאחבה
+fp_family|هادي عائلتي.|hadi 3a2ilti.|האדי עאאילתי
+fp_kids|واش عندك الولاد؟|wach 3ndek lwlad?|ואש ענדכ לולאד
+fp_sibs|عندي خو وخت.|3ndi kho w kht.|ענדי ח׳ו וח׳ת
+fp_lives|عائلتي ساكنة فإسرائيل.|3a2ilti sakna f-Israel.|עאאילתי סאכנה פאסראאיל
+fp_photo|هادي تصويرة ديال ولادي.|hadi tswira dyal wladi.|האדי תצווירה דיאל ולאדי`
 });
 
 /* ---- numbers & prices (0–999,999) in Darija → tokens [text, roman, hebrew]. Prices in dirham (درهم) ---- */

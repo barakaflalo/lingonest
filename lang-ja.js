@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ja', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "¥",
   country: {"he": "יפן", "en": "Japan", "ru": "Япония", "es": "Japón", "ar": "اليابان"},
   emergency: [
@@ -546,7 +546,37 @@ dir_front|前|mae|מאה
 dir_next|隣|tonari|טונרי
 dir_back|戻って|modotte|מודוטה
 dir_up|上|ue|אואה
-dir_down|下|shita|שטה`
+dir_down|下|shita|שטה
+fa_father|お父さん|otōsan|אוטוסאן
+fa_mother|お母さん|okāsan|אוקאסאן
+fa_parents|両親|ryōshin|ריושין
+fa_son|息子|musuko|מוסוקו
+fa_daughter|娘|musume|מוסומה
+fa_brother|兄 / 弟|ani / otōto|אני / אוטוטו
+fa_sister|姉 / 妹|ane / imōto|אנה / אימוטו
+fa_grandpa|おじいさん|ojiisan|אוג׳יסאן
+fa_grandma|おばあさん|obāsan|אובאסאן
+fa_grandson|孫息子|magomusuko|מגומוסוקו
+fa_granddau|孫娘|magomusume|מגומוסומה
+fa_ggson|ひ孫（男の子）|himago (otoko no ko)|הימגו (אוטוקו נו קו)
+fa_ggdau|ひ孫（女の子）|himago (onna no ko)|הימגו (אונה נו קו)
+fa_uncle|おじさん|ojisan|אוג׳יסאן (קצר)
+fa_aunt|おばさん|obasan|אובסאן (קצר)
+fa_cousin_m|いとこ（男）|itoko (otoko)|איטוקו (אוטוקו)
+fa_cousin_f|いとこ（女）|itoko (onna)|איטוקו (אונה)
+fa_nephew|甥|oi|אוי
+fa_niece|姪|mei|מיי
+fa_husband|夫|otto|אוטו
+fa_wife|妻|tsuma|צומה
+fa_baby|赤ちゃん|akachan|אקאצ׳אן
+fa_neighbor|近所の人|kinjo no hito|קינג׳ו נו היטו
+fa_boyfriend|彼氏|kareshi|קרשי
+fa_girlfriend|彼女|kanojo|קנוג׳ו
+fp_family|これは私の家族です。|kore wa watashi no kazoku desu.|קורה ווה ווטשי נו קזוקו דס
+fp_kids|お子さんはいますか？|okosan wa imasu ka?|אוקוסאן ווה אימס קה
+fp_sibs|兄と姉がいます。|ani to ane ga imasu.|אני טו אנה גה אימס
+fp_lives|家族はイスラエルに住んでいます。|kazoku wa Isuraeru ni sunde imasu.|קזוקו ווה איסוראירו ני סונדה אימס
+fp_photo|これは子供たちの写真です。|kore wa kodomotachi no shashin desu.|קורה ווה קודומוטאצ׳י נו שאשין דס`
 });
 
 /* ---- numbers & prices (0–999,999) in Japanese → one token [kanji, rōmaji, hebrew]. Groups of 万 (10,000); sound changes: sanbyaku, roppyaku, happyaku, sanzen, hassen ---- */

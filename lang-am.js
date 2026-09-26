@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('am', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "Br",
   country: {"he": "אתיופיה", "en": "Ethiopia", "ru": "Эфиопия", "es": "Etiopía", "ar": "إثيوبيا"},
   emergency: [
@@ -502,7 +502,37 @@ dir_front|ፊት ለፊት|fit lefit|פית לפית
 dir_next|አጠገብ|at'egeb|אטגב
 dir_back|ወደ ኋላ|wede hwala|ודה הוואלה
 dir_up|ላይ|lay|לאי
-dir_down|ታች|tach|טאץ׳`
+dir_down|ታች|tach|טאץ׳
+fa_father|አባት|abat|אבאת
+fa_mother|እናት|inat|אינאת
+fa_parents|ወላጆች|welajoch|ולאג׳וץ׳
+fa_son|ወንድ ልጅ|wend lij|וונד ליג׳
+fa_daughter|ሴት ልጅ|set lij|סט ליג׳
+fa_brother|ወንድም|wendim|וונדים
+fa_sister|እህት|ihit|איהית
+fa_grandpa|አያት (ወንድ)|ayat (wend)|איאט (וונד)
+fa_grandma|አያት (ሴት)|ayat (set)|איאט (סט)
+fa_grandson|የልጅ ልጅ (ወንድ)|yelij lij (wend)|ילג׳ ליג׳ (וונד)
+fa_granddau|የልጅ ልጅ (ሴት)|yelij lij (set)|ילג׳ ליג׳ (סט)
+fa_ggson|የልጅ ልጅ ልጅ (ወንድ)|yelij lij lij (wend)|ילג׳ ליג׳ ליג׳ (וונד)
+fa_ggdau|የልጅ ልጅ ልጅ (ሴት)|yelij lij lij (set)|ילג׳ ליג׳ ליג׳ (סט)
+fa_uncle|አጎት|agot|אגוט
+fa_aunt|አክስት|akist|אקיסט
+fa_cousin_m|የአጎት ልጅ (ወንድ)|ye'agot lij (wend)|יאגוט ליג׳ (וונד)
+fa_cousin_f|የአጎት ልጅ (ሴት)|ye'agot lij (set)|יאגוט ליג׳ (סט)
+fa_nephew|የወንድም ልጅ (ወንድ)|yewendim lij (wend)|יוונדים ליג׳ (וונד)
+fa_niece|የወንድም ልጅ (ሴት)|yewendim lij (set)|יוונדים ליג׳ (סט)
+fa_husband|ባል|bal|באל
+fa_wife|ሚስት|mist|מיסט
+fa_baby|ሕፃን|hits'an|היצאן
+fa_neighbor|ጎረቤት|gorebet|גורבית
+fa_boyfriend|የወንድ ጓደኛ|yewend gwadenya|יוונד גוואדניה
+fa_girlfriend|የሴት ጓደኛ|yeset gwadenya|יסט גוואדניה
+fp_family|ይህ ቤተሰቤ ነው።|yih betesebe new.|ייה ביתסבה נו
+fp_kids|ልጆች አለዎት?|lijoch alewot?|ליג׳וץ׳ אלווט
+fp_sibs|አንድ ወንድም እና አንድ እህት አለኝ።|and wendim ina and ihit alegn.|אנד וונדים אינה אנד איהית אלני
+fp_lives|ቤተሰቤ እስራኤል ይኖራል።|betesebe isra'el yinoral.|ביתסבה איסראל יינוראל
+fp_photo|ይህ የልጆቼ ፎቶ ነው።|yih yelijoche foto new.|ייה ילג׳וצ׳ה פוטו נו`
 });
 
 /* ---- numbers & prices (0–999,999) in Amharic → tokens [ge'ez, roman, hebrew]. Prices in birr (ብር) ---- */

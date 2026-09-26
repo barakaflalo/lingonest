@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('sw', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "TSh",
   country: {"he": "טנזניה, קניה ואוגנדה", "en": "Tanzania, Kenya & Uganda", "ru": "Танзания, Кения и Уганда", "es": "Tanzania, Kenia y Uganda", "ar": "تنزانيا وكينيا وأوغندا"},
   emergency: [
@@ -481,7 +481,37 @@ dir_front|Mbele||מבלה
 dir_next|Kando ya||קנדו יה
 dir_back|Rudi nyuma||רודי ניומה
 dir_up|Juu||ג׳ו
-dir_down|Chini||צ׳יני`
+dir_down|Chini||צ׳יני
+fa_father|Baba||באבה
+fa_mother|Mama||מאמה
+fa_parents|Wazazi||וואזאזי
+fa_son|Mwana wa kiume||מוואנה וה קיומה
+fa_daughter|Mwana wa kike||מוואנה וה קיקה
+fa_brother|Kaka||קאקה
+fa_sister|Dada||דאדה
+fa_grandpa|Babu||באבו
+fa_grandma|Bibi||ביבי
+fa_grandson|Mjukuu wa kiume||מג׳וקו וה קיומה
+fa_granddau|Mjukuu wa kike||מג׳וקו וה קיקה
+fa_ggson|Kitukuu wa kiume||קיטוקו וה קיומה
+fa_ggdau|Kitukuu wa kike||קיטוקו וה קיקה
+fa_uncle|Mjomba||מג׳ומבה
+fa_aunt|Shangazi||שאנגאזי
+fa_cousin_m|Binamu wa kiume||בינאמו וה קיומה
+fa_cousin_f|Binamu wa kike||בינאמו וה קיקה
+fa_nephew|Mpwa wa kiume||מפווה וה קיומה
+fa_niece|Mpwa wa kike||מפווה וה קיקה
+fa_husband|Mume||מומה
+fa_wife|Mke||מקה
+fa_baby|Mtoto mchanga||מטוטו מצ׳אנגה
+fa_neighbor|Jirani||ג׳יראני
+fa_boyfriend|Mpenzi wa kiume||מפנזי וה קיומה
+fa_girlfriend|Mpenzi wa kike||מפנזי וה קיקה
+fp_family|Hii ni familia yangu.||היי ני פמיליה יאנגו
+fp_kids|Una watoto?||אונה וואטוטו
+fp_sibs|Nina kaka mmoja na dada mmoja.||נינה קאקה ממוג׳ה נה דאדה ממוג׳ה
+fp_lives|Familia yangu inaishi Israeli.||פמיליה יאנגו אינאאישי איסראלי
+fp_photo|Hii ni picha ya watoto wangu.||היי ני פיצ׳ה יה וואטוטו וואנגו`
 });
 
 /* ---- numbers & prices (0–999,999) in Swahili → tokens [text, roman, hebrew]. The currency word comes FIRST: shilingi mia mbili ---- */

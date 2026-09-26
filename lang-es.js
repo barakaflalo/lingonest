@@ -3,7 +3,7 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('es', {
-  ver: '1.20.2',
+  ver: '1.20.3',
   curSym: "€",
   /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
   country: {"he": "ספרד ואמריקה הלטינית", "en": "Spain & Latin America", "ru": "Испания и Латинская Америка", "es": "España y Latinoamérica", "ar": "إسبانيا وأمريكا اللاتينية"},
@@ -479,7 +479,37 @@ dir_front|Delante||דלאנטה
 dir_next|Al lado de||אל לאדו דה
 dir_back|Atrás||אטראס
 dir_up|Arriba||אריבה
-dir_down|Abajo||אבאחו`
+dir_down|Abajo||אבאחו
+fa_father|Papá||פאפה
+fa_mother|Mamá||מאמה
+fa_parents|Padres||פאדרס
+fa_son|Hijo||איחו
+fa_daughter|Hija||איחה
+fa_brother|Hermano||ארמאנו
+fa_sister|Hermana||ארמאנה
+fa_grandpa|Abuelo||אבואלו
+fa_grandma|Abuela||אבואלה
+fa_grandson|Nieto||ניאטו
+fa_granddau|Nieta||ניאטה
+fa_ggson|Bisnieto||ביסניאטו
+fa_ggdau|Bisnieta||ביסניאטה
+fa_uncle|Tío||טיו
+fa_aunt|Tía||טיאה
+fa_cousin_m|Primo||פרימו
+fa_cousin_f|Prima||פרימה
+fa_nephew|Sobrino||סוברינו
+fa_niece|Sobrina||סוברינה
+fa_husband|Esposo||אספוסו
+fa_wife|Esposa||אספוסה
+fa_baby|Bebé||בבה
+fa_neighbor|Vecino||בסינו
+fa_boyfriend|Novio||נוביו
+fa_girlfriend|Novia||נוביה
+fp_family|Esta es mi familia.||אסטה אס מי פמיליה
+fp_kids|¿Tiene hijos?||טיינה איחוס
+fp_sibs|Tengo un hermano y una hermana.||טנגו און ארמאנו אי אונה ארמאנה
+fp_lives|Mi familia vive en Israel.||מי פמיליה ביבה אן איסראל
+fp_photo|Esta es una foto de mis hijos.||אסטה אס אונה פוטו דה מיס איחוס`
 });
 
 /* ---- numbers & prices (0–999,999) → tokens [text, roman, hebrew] ---- */
