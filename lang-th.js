@@ -3,7 +3,7 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('th', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "฿",
   /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
   country: {"he": "תאילנד", "en": "Thailand", "ru": "Таиланд", "es": "Tailandia", "ar": "تايلاند"},
@@ -466,6 +466,27 @@ dd2|ตรงไปแล้วเลี้ยวซ้ายค่ะ|trong pai
 dd3|ไกลจากที่นี่ไหมครับ|klai chak thi ni mai khrap|גלאי ג׳אק טי-ני מאי קראפ
 dd4|ไม่ไกลค่ะ เดินห้านาทีค่ะ|mai klai kha, doen ha nathi kha|מאי גלאי קא, דֶן הא נאטי קא
 dd5|ขอบคุณมากครับ|khop khun mak khrap|קופ קון מאק קראפ
+da1|มาเที่ยวหรือมาทำงานครับ|ma thiao rue ma tham ngan khrap|מא טיאו רו מא טאם נגאן קראפ
+da2|จะอยู่นานเท่าไหร่ครับ|ja yu nan thao rai khrap|ג׳ה יו נאן טאו-ראי קראפ
+da3|สองอาทิตย์ครับ|song athit khrap|סונג אטיט קראפ
+da4|ยินดีต้อนรับครับ|yindi tonrap khrap|יינדי טונראפ קראפ
+dp1|เจ็บตรงไหนครับ|jep trong nai khrap|ג׳פ טרונג נאי קראפ
+dp2|กินยานี้วันละสองครั้งครับ|kin ya ni wan la song khrang khrap|גין יא ני וואן לה סונג קראנג קראפ
+dp4|หายไวๆ นะครับ|hai wai wai na khrap|האי ואי ואי נה קראפ
+ds1|ขอซิมการ์ดที่มีอินเทอร์เน็ตครับ|kho sim kat thi mi internet khrap|קו סים קאד טי מי אינטרנט קראפ
+ds2|กี่วันครับ|ki wan khrap|גי וואן קראפ
+ds3|สิบวันครับ|sip wan khrap|סיפ וואן קראפ
+ds4|เรียบร้อยครับ ใช้อินเทอร์เน็ตได้แล้ว|riap roi khrap, chai internet dai laeo|ריאפ רוי קראפ, צ׳אי אינטרנט דאי לֶאו
+dc1|ให้ช่วยอะไรไหมคะ|hai chuai arai mai kha|האי צ׳ואי אראי מאי קה
+dc2|มีสีน้ำเงินไหมครับ|mi si nam ngoen mai khrap|מי סי נאם נגֶן מאי קראפ
+dc3|มีค่ะ ไซส์อะไรคะ|mi kha, sai arai kha|מי קא, סאי אראי קה
+dc4|ไซส์ M ครับ|sai em khrap|סאי אם קראפ
+dc5|ได้ค่ะ ห้องลองอยู่ทางนั้นค่ะ|dai kha, hong long yu thang nan kha|דאי קא, הונג לונג יו טאנג נאן קא
+dg1|อยากจองทัวร์พรุ่งนี้ครับ|yak jong thua phrung ni khrap|יאק ג׳ונג טואה פרונג-ני קראפ
+dg2|ทัวร์ออกแปดโมงเช้าครับ|thua ok paet mong chao khrap|טואה אוק פֶט מונג צ׳או קראפ
+dg3|รวมอาหารกลางวันไหมครับ|ruam ahan klang wan mai khrap|רואם אהאן קלאנג וואן מאי קראפ
+dg4|รวมครับ มีน้ำดื่มด้วย|ruam khrap, mi nam duem duai|רואם קראפ, מי נאם דום דואי
+dg5|ดีครับ สองคนครับ|di khrap, song khon khrap|די קראפ, סונג קון קראפ
 w_weather|อากาศ|akat|אה-גאט
 w_sun|พระอาทิตย์|phra athit|פרה-אה-טיט
 w_rain|ฝน|fon|פון

@@ -363,3 +363,27 @@ details.help p,details.help li{line-height:1.7;margin:6px 0}
 details.help ul{padding-inline-start:20px;margin:6px 0}
 details.help .btn{margin-top:8px}
 .tiny.c{text-align:center}
+
+/* v1.19 — trip cheat sheet */
+.btn.wide{width:100%;margin:6px 0 10px}
+.row.c{justify-content:center;margin:8px 0}
+.sheet{padding:14px}
+.sh-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-bottom:2px solid var(--acc);padding-bottom:6px;margin-bottom:8px}
+.sh-head b{font-size:1.15rem}.sh-head small{color:var(--mu)}
+.sh-em{font-size:.85rem;color:var(--mu);margin:4px 0 8px}
+.sh-sec h4{margin:12px 0 4px;color:var(--acc)}
+.sh-row{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:8px;align-items:baseline;padding:5px 0;border-bottom:1px dashed var(--bd)}
+.sh-mn{font-size:.85rem;color:var(--mu)}
+.sh-tx{font-family:var(--script);font-size:1.08rem;font-weight:600;unicode-bidi:isolate}
+.sh-pr{font-size:.85rem}
+@media (max-width:520px){.sh-row{grid-template-columns:1fr 1fr}.sh-pr{grid-column:2;margin-top:-4px}}
+@media print{
+  #print .sheet{columns:2;column-gap:18px;font-size:11px}
+  #print .sh-sec{break-inside:avoid}
+  #print .sh-row{display:grid;grid-template-columns:1fr 1.4fr;gap:4px;border-bottom:1px dotted #aaa;padding:2px 0}
+  #print .sh-pr{grid-column:2;color:#444}
+  #print .sh-mn{color:#333}
+  #print .sh-tx{font-size:13px;color:#000}
+  #print .sh-head{column-span:all;border-bottom:2px solid #000}
+  #print h4{color:#000;margin:8px 0 2px}
+}

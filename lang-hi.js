@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('hi', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "₹",
   country: {"he": "הודו", "en": "India", "ru": "Индия", "es": "India", "ar": "الهند"},
   emergency: [
@@ -450,6 +450,27 @@ dd2|सीधे जाइए, फिर बाएँ।|seedhe jaaiye, phir baa
 dd3|क्या यहाँ से दूर है?|kya yahaan se door hai?|קיה יהאן סה דור הה
 dd4|नहीं, पैदल पाँच मिनट।|nahin, paidal paanch minat.|נהין, פידל פאנץ׳ מינט
 dd5|बहुत शुक्रिया!|bahut shukriya!|בהות שוקריה
+da1|आपकी यात्रा का उद्देश्य क्या है?|aapki yaatra ka uddeshya kya hai?|אאפקי יאטרה קה אודשיה קיה הה
+da2|आप कितने दिन रुकेंगे?|aap kitne din rukenge?|אאפ קיתנה דין רוקנגה
+da3|दो हफ़्ते।|do hafte.|דו הפתה
+da4|आपका स्वागत है!|aapka svaagat hai!|אאפקה סוואגט הה
+dp1|कहाँ दर्द हो रहा है?|kahaan dard ho raha hai?|קהאן דרד הו רהה הה
+dp2|यह दवा दिन में दो बार लीजिए।|yah dava din mein do baar leejiye.|יה דווה דין מיין דו באר ליג׳יה
+dp4|जल्दी ठीक हो जाइए!|jaldi theek ho jaaiye!|ג׳לדי טיק הו ג׳איה
+ds1|मुझे इंटरनेट वाला सिम कार्ड चाहिए।|mujhe intarnet vaala sim kaard chaahiye.|מוג׳ה אינטרנט וואלה סים קארד צ׳אהיה
+ds2|कितने दिनों के लिए?|kitne dinon ke liye?|קיתנה דינון קה ליה
+ds3|दस दिनों के लिए।|das dinon ke liye.|דס דינון קה ליה
+ds4|हो गया, अब आपका इंटरनेट चल रहा है।|ho gaya, ab aapka intarnet chal raha hai.|הו גאיה, אב אאפקה אינטרנט צ׳ל רהה הה
+dc1|बताइए, क्या चाहिए?|bataaiye, kya chaahiye?|בטאיה, קיה צ׳אהיה
+dc2|क्या यह नीले रंग में है?|kya yah neele rang mein hai?|קיה יה נילה רנג מיין הה
+dc3|हाँ, कौन सा साइज़?|haan, kaun sa saaiz?|האן, קון סה סאייז
+dc4|मीडियम।|meediyam.|מידיום
+dc5|ज़रूर, ट्रायल रूम वहाँ है।|zaroor, traayal room vahaan hai.|זרור, טראייל רום והאן הה
+dg1|मुझे कल के लिए टूर बुक करना है।|mujhe kal ke liye toor buk karna hai.|מוג׳ה קל קה ליה טור בוק קרנה הה
+dg2|टूर सुबह आठ बजे निकलता है।|toor subah aath baje nikalta hai.|טור סובה אאט בג׳ה ניקלטה הה
+dg3|क्या दोपहर का खाना शामिल है?|kya dopahar ka khaana shaamil hai?|קיה דופהר קה חאנה שאמיל הה
+dg4|हाँ, और पानी भी।|haan, aur paani bhi.|האן, אור פאני בהי
+dg5|बढ़िया, दो लोगों के लिए।|badhiya, do logon ke liye.|בדיה, דו לוגון קה ליה
 w_weather|मौसम|mausam|מאוסם
 w_sun|सूरज|sooraj|סורג׳
 w_rain|बारिश|baarish|באריש

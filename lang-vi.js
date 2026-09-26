@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('vi', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "₫",
   country: {"he": "וייטנאם", "en": "Vietnam", "ru": "Вьетнам", "es": "Vietnam", "ar": "فيتنام"},
   emergency: [
@@ -423,6 +423,27 @@ dd2|Đi thẳng, rồi rẽ trái.||די טאנג, זוי זה צ׳אי
 dd3|Có xa đây không?||קו סה דאי חונג
 dd4|Không, đi bộ năm phút.||חונג, די בו נאם פוט
 dd5|Cảm ơn nhiều lắm!||קאם און ניאו לאם
+da1|Mục đích chuyến đi của bạn là gì?||מוק דיק צ׳ויאן די קואה באן לה זי
+da2|Bạn ở lại bao lâu?||באן או לאי באו לאו
+da3|Hai tuần.||האי טואן
+da4|Chào mừng!||צ׳או מונג
+dp1|Bạn đau ở đâu?||באן דאו או דאו
+dp2|Uống thuốc này ngày hai lần.||אואונג טואוק נאי נגאי האי לאן
+dp4|Mau khỏe nhé!||מאו חואה ניה
+ds1|Tôi muốn mua sim có internet.||טוי מואן מואה סים קו אינטרנט
+ds2|Dùng mấy ngày?||זונג מאי נגאי
+ds3|Mười ngày.||מואי נגאי
+ds4|Xong rồi, giờ bạn có internet rồi.||סונג זוי, זו באן קו אינטרנט זוי
+dc1|Anh cần gì ạ?||אן קאן זי א
+dc2|Cái này có màu xanh dương không?||קאי נאי קו מאו סאן זואנג חונג
+dc3|Có ạ, cỡ nào?||קו א, קו נאו
+dc4|Cỡ M.||קו אם
+dc5|Dạ, phòng thử đồ ở đằng kia.||זה, פונג טו דו או דאנג קיה
+dg1|Tôi muốn đặt tour cho ngày mai.||טוי מואן דאט טור צ׳ו נגאי מאי
+dg2|Tour khởi hành lúc tám giờ sáng.||טור חוי האן לוק טאם זו סאנג
+dg3|Có bao gồm bữa trưa không?||קו באו גום בואה צ׳ואה חונג
+dg4|Có, và cả nước uống nữa.||קו, וה קה נואוק אואונג נואה
+dg5|Tuyệt, cho hai người nhé.||טויאט, צ׳ו האי נגואוי ניה
 w_weather|Thời tiết||טואי טיאט
 w_sun|Mặt trời||מאט צ׳ואי
 w_rain|Mưa||מואה

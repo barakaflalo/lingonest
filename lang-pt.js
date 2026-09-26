@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('pt', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "R$",
   country: {"he": "ברזיל ופורטוגל", "en": "Brazil & Portugal", "ru": "Бразилия и Португалия", "es": "Brasil y Portugal", "ar": "البرازيل والبرتغال"},
   emergency: [
@@ -432,6 +432,27 @@ dd2|Siga em frente, depois à esquerda.||סיגה איין פרנצ׳י, דפו�
 dd3|É longe daqui?||א לונז׳י דאקי
 dd4|Não, cinco minutos a pé.||נאון, סינקו מינוטוס א פה
 dd5|Valeu, muito obrigado!||ואלאו, מוינטו אובריגאדו
+da1|Qual é o motivo da sua visita?||קוואו א או מוצ׳יבו דה סואה ויזיטה
+da2|Quanto tempo vai ficar?||קוואנטו טמפו ואי פיקאר
+da3|Duas semanas.||דואס סמאנס
+da4|Bem-vindo!||ביין-וינדו
+dp1|O que está doendo?||או קי אסטה דואנדו
+dp2|Tome este remédio duas vezes por dia.||טומי אסצ׳י המדז׳יו דואס וזס פור דז׳יה
+dp4|Melhoras!||מליוראס
+ds1|Quero um chip com internet.||קרו און שיפ קון אינטרנצ׳י
+ds2|Para quantos dias?||פרה קוואנטוס דז׳יאס
+ds3|Para dez dias.||פרה דייס דז׳יאס
+ds4|Pronto, agora você tem internet.||פרונטו, אגורה ווסה טיין אינטרנצ׳י
+dc1|Posso ajudar?||פוסו אז׳ודאר
+dc2|Tem este em azul?||טיין אסצ׳י איין אזול
+dc3|Tem sim, qual tamanho?||טיין סין, קוואו טמניו
+dc4|Médio.||מדז׳יו
+dc5|Claro, o provador fica ali.||קלארו, או פרובדור פיקה אלי
+dg1|Quero reservar um passeio para amanhã.||קרו הזרבר און פסיו פרה אמניאן
+dg2|O passeio sai às oito da manhã.||או פסיו סאי אס אויטו דה מניאן
+dg3|O almoço está incluído?||או אלמוסו אסטה אינקלואידו
+dg4|Sim, e a água também.||סין, אי א אגווה טמביין
+dg5|Ótimo, para duas pessoas, por favor.||אוצ׳ימו, פרה דואס פסואס, פור פבור
 w_weather|O tempo||או טמפו
 w_sun|O sol||או סאו
 w_rain|A chuva||א שובה

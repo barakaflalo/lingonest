@@ -185,6 +185,7 @@ SCREENS.kit = () => {
   const em = EMERG[lang] || [];
   return header('🧳 ' + T('kit') + ' · ' + LN(lang)) + `
   <p class="note">${esc(T('kitIntro'))}</p>
+  <button class="btn gold wide" data-act="nav" data-to="sheet">📄 ${esc(T('sheetTitle'))}</button>
   <h3>🆘 ${esc(T('kitEmerg'))}${COUNTRY[lang] ? ' — ' + esc(tr(COUNTRY[lang])) : ''}</h3>
   <div class="list">${em.map(e => '<div class="trow em"><span class="ti">' + e[0] + '</span><span class="tt"><b>' + esc(tr(e[1])) + '</b></span>' + e.slice(2).map(n => '<a class="btn red" href="tel:' + esc(n) + '">📞 ' + esc(n) + '</a>').join('') + '</div>').join('')}</div>
   <p class="tiny">${esc(T('kitEmergNote'))}</p>
@@ -233,6 +234,48 @@ SCREENS.tips = () => {
       (t.ex || []).map(e => '<div class="irow"><div class="itx"><span class="tgt md" lang="' + tl + '" dir="' + dir + '">' + esc(e[0]) + '</span><span class="pr">' + esc(st.ui === 'he' ? e[2] : (e[1] || e[2])) + '</span><span class="mn">' + esc(st.ui === 'he' ? e[3] : e[4]) + '</span></div><div class="iac"><button class="ic" data-act="sayRaw" data-t="' + esc(sayStr(lang, e[0], e[2])) + '">🔊</button><button class="ic" data-act="sayRaw" data-slow="1" data-t="' + esc(sayStr(lang, e[0], e[2])) + '">🐢</button></div></div>').join('') +
       '</details>').join('') : '<p class="empty">' + esc(T('nothingNow')) + '</p>') +
     '<p class="hint">🪄 ' + esc(T('tipsAsk')) + '</p>';
+};
+
+/* ============================================================
+   4b. TRIP CHEAT SHEET — a compact, printable page of the phrases that matter most
+   ============================================================ */
+const SHEET_SECS = [
+  ['core', '⭐', ['hello', 'thanks', 'please', 'sorry', 'yes', 'no', 'ok', 'howmuch', 'p_toilet', 'p_nounder', 'p_english', 'p_slow', 'p_want', 'p_expensive', 'p_bill', 'p_water', 'p_nospicy']],
+  ['nums', '🔢', ['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 'n10', 'n20', 'n50', 'n100', 'n1000']],
+  ['move', '🚕', ['p_address', 'c_stophere', 'c_far', 'sm_meter', 'p_hotel', 'sm_airport', 'sm_busstop']],
+  ['food', '🍽️', ['c_table', 'c_menu', 'c_delicious', 'c_nomeat', 'c_allergy', 'sf_takeaway', 'c_card']],
+  ['emerg', '🆘', ['help', 'p_doctor', 'p_police', 'sp_nearhosp', 'sp_helpme', 'c_lost', 'sp_embassy']],
+  ['fav', '★', null],
+  ['mine', '💬', null]
+];
+function sheetRows(sec, lang) {
+  if (sec[0] === 'fav') return (st.favs[lang] || []).map(k => findItem(lang, k)).filter(Boolean).map(i => [i.text, pron(i), meaning(i)]);
+  if (sec[0] === 'mine') return st.phrases.filter(x => x.lang === lang).map(x => [x.text, st.ui === 'he' ? (x.heb || x.roman) : (x.roman || x.heb), x.src]);
+  return sec[2].map(k => findItem(lang, 'W:' + k)).filter(Boolean).map(i => [i.text, pron(i), meaning(i)]);
+}
+function sheetHTML() {
+  const lang = st.lang, on = st.sheet || {}, tl = LANGS[lang].tts, dir = LANGS[lang].dir;
+  const em = (EMERG[lang] || []).map(e => tr(e[1]) + ': ' + e.slice(2).join(' / ')).join(' · ');
+  let h = '<div class="sh-head"><b>' + esc(LN(lang)) + ' · <bdi lang="' + tl + '" dir="' + dir + '">' + esc(LANGS[lang].native) + '</bdi></b><small>LingoNest · ' + esc(T('sheetTitle')) + '</small></div>';
+  if (em) h += '<p class="sh-em">🆘 ' + esc(em) + '</p>';
+  SHEET_SECS.forEach(s => {
+    if (on[s[0]] === false) return;
+    const rows = sheetRows(s, lang); if (!rows.length) return;
+    h += '<section class="sh-sec"><h4>' + s[1] + ' ' + esc(T('sh_' + s[0])) + '</h4>' + rows.map(r =>
+      '<div class="sh-row"><span class="sh-mn">' + esc(r[2]) + '</span><span class="sh-tx" lang="' + tl + '" dir="' + dir + '">' + esc(r[0]) + '</span><span class="sh-pr">' + esc(r[1] || '') + '</span></div>').join('') + '</section>';
+  });
+  return h;
+}
+SCREENS.sheet = () => {
+  if (!st.sheet) st.sheet = {};
+  const togs = SHEET_SECS.map(s => {
+    const n = sheetRows(s, st.lang).length, on = st.sheet[s[0]] !== false && n > 0;
+    return '<button class="chip' + (on ? ' on' : '') + '" data-act="sheetTog" data-s="' + s[0] + '"' + (n ? '' : ' disabled') + ' aria-pressed="' + on + '">' + s[1] + ' ' + esc(T('sh_' + s[0])) + ' <small>' + n + '</small></button>';
+  }).join('');
+  return header('📄 ' + T('sheetTitle') + ' · ' + LN(st.lang)) + '<p class="note">' + esc(T('sheetIntro')) + '</p>' +
+    '<div class="chips wrap">' + togs + '</div>' +
+    '<div class="row wrap c"><button class="btn gold" data-act="sheetPrint">🖨️ ' + esc(T('sheetPrint')) + '</button></div>' +
+    '<div class="sheet card" id="sheetBox">' + sheetHTML() + '</div>';
 };
 
 /* ============================================================
@@ -289,6 +332,8 @@ Object.assign(ACT, {
   kitBig: d => { const c = (st.kit || []).find(x => x.id === d.id); if (c) bigShow(c.text, c.lang, '', c.title); },
   kitSay: d => { const c = (st.kit || []).find(x => x.id === d.id); if (c) speak(c.text, c.lang); },
   setWeekGoal: d => { st.weekGoal = +d.n; save(); render(); checkBadges(); },
+  sheetTog: d => { st.sheet = st.sheet || {}; st.sheet[d.s] = st.sheet[d.s] === false; save(); render(); },
+  sheetPrint: () => { const p = $('#print'); p.innerHTML = '<div class="sheet print">' + sheetHTML() + '</div>'; flag('sheet'); setTimeout(() => window.print(), 100); },
   helpGo: d => { const p = String(d.to).split(':'); go(p[0], p[1] || null); }
 });
 /* Enter sends in the chat (Shift+Enter = new line) */
@@ -301,5 +346,5 @@ document.addEventListener('pointerdown', e => {
   ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => row.addEventListener(ev, cancel));
 });
 
-window.__MODS.features = '1.18.0';
+window.__MODS.features = '1.19.0';
 boot();

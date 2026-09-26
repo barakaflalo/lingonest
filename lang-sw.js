@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('sw', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "TSh",
   country: {"he": "טנזניה, קניה ואוגנדה", "en": "Tanzania, Kenya & Uganda", "ru": "Танзания, Кения и Уганда", "es": "Tanzania, Kenia y Uganda", "ar": "تنزانيا وكينيا وأوغندا"},
   emergency: [
@@ -423,6 +423,27 @@ dd2|Nenda moja kwa moja, halafu kushoto.||ננדה מוג׳ה קווה מוג׳�
 dd3|Ni mbali kutoka hapa?||ני מבאלי קוטוקה האפה
 dd4|Hapana, dakika tano kwa miguu.||הפאנה, דקיקה טאנו קווה מיגו
 dd5|Asante sana!||אסנטה סאנה
+da1|Madhumuni ya safari yako ni nini?||מדומוני יה ספארי יאקו ני ניני
+da2|Utakaa kwa muda gani?||אוטקאה קווה מודה גאני
+da3|Wiki mbili.||וויקי מבילי
+da4|Karibu!||קריבו
+dp1|Unaumwa wapi?||אונאאומווה וואפי
+dp2|Kunywa dawa hii mara mbili kwa siku.||קוניווה דאווה היי מארה מבילי קווה סיקו
+dp4|Pole, upone haraka!||פולה, אופונה הראקה
+ds1|Nataka laini ya simu yenye intaneti.||נטאקה לאיני יה סימו יינייה אינטנטי
+ds2|Kwa siku ngapi?||קווה סיקו נגאפי
+ds3|Kwa siku kumi.||קווה סיקו קומי
+ds4|Tayari, sasa una intaneti.||טאיארי, סאסה אונה אינטנטי
+dc1|Nikusaidie?||ניקוסאידיה
+dc2|Una hii ya rangi ya bluu?||אונה היי יה ראנגי יה בולו
+dc3|Ndiyo, saizi gani?||נדיו, סאיזי גאני
+dc4|Ya kati.||יה קאטי
+dc5|Sawa, chumba cha kujaribu kiko pale.||סאווה, צ׳ומבה צ׳ה קוג׳ריבו קיקו פאלה
+dg1|Nataka kukata tiketi ya ziara ya kesho.||נטאקה קוקאטה טיקטי יה זיארה יה קשו
+dg2|Ziara inaanza saa mbili asubuhi.||זיארה אינאנזה סאה מבילי אסובוהי
+dg3|Chakula cha mchana kimo?||צ׳אקולה צ׳ה מצ׳אנה קימו
+dg4|Ndiyo, na maji pia.||נדיו, נה מאג׳י פיה
+dg5|Safi, watu wawili tafadhali.||סאפי, וואטו וואווילי טפדאלי
 w_weather|Hali ya hewa||האלי יה הווה
 w_sun|Jua||ג׳ואה
 w_rain|Mvua||מבואה

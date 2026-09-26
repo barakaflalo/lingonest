@@ -295,10 +295,10 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "📖 User guide: a detailed explanation of every feature, with search and a button that jumps right there.",
-  "wn2": "🔒 Updated privacy policy — including exactly when and where text goes in AI features.",
-  "wn3": "The guide is on the home screen, in Settings and on the About screen — and the 🪄 assistant can point you to it.",
-  "wn4": "\"Troubleshooting\" has quick fixes for sound, microphone and updates.",
+  "wn1": "🎭 Five new dialogues in all 28 languages: passport control, pharmacy, buying a SIM, clothes shop and booking a tour.",
+  "wn2": "📄 Trip cheat sheet: key phrases and emergency numbers on one designed page — print or save as PDF.",
+  "wn3": "Choose what goes in: basics, numbers, transport, food, emergency, favourites and your phrases. In the Travel kit.",
+  "wn4": "The user guide is updated with the new features.",
   "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
@@ -499,6 +499,21 @@ LANG.en = {
   "helpIntro": "An explanation of everything in LingoNest. Tap a topic to open it, and \"Open\" to jump straight to the feature.",
   "helpSearch": "Search the guide… (e.g. microphone, backup, tones)",
   "helpOpen": "Open",
-  "helpNone": "No such topic in the guide"
+  "helpNone": "No such topic in the guide",
+  "dlg_airport": "At passport control",
+  "dlg_pharm": "At the pharmacy",
+  "dlg_sim": "Buying a SIM card",
+  "dlg_clothes": "In a clothes shop",
+  "dlg_tour": "Booking a tour",
+  "sheetTitle": "Trip cheat sheet",
+  "sheetIntro": "Your most important phrases on one page. Choose what goes in, then print or save as PDF — it stays on your phone even offline.",
+  "sheetPrint": "Print / save PDF",
+  "sh_core": "Basics",
+  "sh_nums": "Numbers",
+  "sh_move": "Transport & hotel",
+  "sh_food": "Food",
+  "sh_emerg": "Emergency",
+  "sh_fav": "My favourites",
+  "sh_mine": "My phrases"
 };
-window.__MODS['ui-en'] = '1.18.0';
+window.__MODS['ui-en'] = '1.19.0';

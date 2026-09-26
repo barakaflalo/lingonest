@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('fr', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "€",
   country: {"he": "צרפת ומדינות דוברות צרפתית", "en": "France & French-speaking countries", "ru": "Франция и франкоязычные страны", "es": "Francia y países francófonos", "ar": "فرنسا والدول الناطقة بالفرنسية"},
   emergency: [
@@ -436,6 +436,27 @@ dd2|Tout droit, puis à gauche.||טו דרואה, פוי א גוש
 dd3|C'est loin d'ici ?||סה לואן דיסי
 dd4|Non, cinq minutes à pied.||נון, סנק מינוט א פייה
 dd5|Merci mille fois !||מרסי מיל פואה
+da1|Quel est le motif de votre visite ?||קל א לה מוטיף דה ווטר ויזיט
+da2|Combien de temps restez-vous ?||קומביין דה טון רסטה-וו
+da3|Deux semaines.||דה סמן
+da4|Bienvenue !||ביינונו
+dp1|Où avez-vous mal ?||או אווה-וו מאל
+dp2|Prenez ce médicament deux fois par jour.||פרנה סה מדיקמון דה פואה פר ז׳ור
+dp4|Bon rétablissement !||בון רטבליסמון
+ds1|Je voudrais une carte SIM avec internet.||ז׳ה וודרה און קרט סים אווק אנטרנט
+ds2|Pour combien de jours ?||פור קומביין דה ז׳ור
+ds3|Pour dix jours.||פור די ז׳ור
+ds4|C'est prêt, vous avez internet maintenant.||סה פרה, וו זאווה אנטרנט מנטנון
+dc1|Je peux vous aider ?||ז׳ה פה וו זדה
+dc2|Vous l'avez en bleu ?||וו לאווה און בלה
+dc3|Oui, quelle taille ?||וי, קל טאי
+dc4|Taille M.||טאי אם
+dc5|Bien sûr, la cabine d'essayage est là-bas.||ביין סור, לה קבין דסייאז׳ א לה-בה
+dg1|Je voudrais réserver une excursion pour demain.||ז׳ה וודרה רזרווה און אקסקורסיון פור דמן
+dg2|L'excursion part à huit heures du matin.||לקסקורסיון פאר א ויט ר דו מטן
+dg3|Le déjeuner est compris ?||לה דז׳נה א קומפרי
+dg4|Oui, et l'eau aussi.||וי, א לו אוסי
+dg5|Parfait, pour deux personnes, s'il vous plaît.||פרפה, פור דה פרסון, סיל וו פלה
 w_weather|La météo||לה מטאו
 w_sun|Le soleil||לה סולי
 w_rain|La pluie||לה פלוי

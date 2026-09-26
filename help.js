@@ -93,10 +93,10 @@ const HELP = [
     '• Or a single topic.',
     'Each lesson ends with a summary.']}],
 ['dialogs', '🎭', 'dialogs', {he: 'דיאלוגים', en: 'Dialogues'}, {
-  he: ['שיחות קצרות מהחיים: במונית, בשוק, במסעדה, במלון ולשאול את הדרך.',
+  he: ['עשר שיחות קצרות מהחיים: במונית, בשוק, במסעדה, במלון, לשאול את הדרך, בביקורת הגבולות, בבית המרקחת, קניית כרטיס סים, בחנות בגדים והזמנת סיור.',
     '• ▶️ השמע — שני קולות, אתה והמקומי.',
     '• "התפקיד שלי" — השורות שלך מוסתרות, ואתה אומר אותן בעצמך (בקול, עם זיהוי דיבור) לפני שחושפים.'],
-  en: ['Short real-life conversations: taxi, market, restaurant, hotel and asking the way.',
+  en: ['Ten short real-life conversations: taxi, market, restaurant, hotel, directions, passport control, pharmacy, buying a SIM, clothes shop and booking a tour.',
     '• ▶️ Play — two voices, you and the local.',
     '• "My role" hides your lines so you say them yourself before revealing.']}],
 ['prices', '💰', 'price', {he: 'מחירים ומספרים', en: 'Prices and numbers'}, {
@@ -136,6 +136,17 @@ const HELP = [
     '• The country\'s emergency numbers — tap to call (verify before travelling!).',
     '• Personal cards: hotel address, allergies, medication, emergency contact. Write in Hebrew and tap "Translate" (✨), or type it yourself. ⛶ shows it big.',
     '• Quick emergency phrases and your ★ favourites.']}],
+['sheet', '📄', 'sheet', {he: 'דף שליפה לטיול', en: 'Trip cheat sheet'}, {
+  he: ['דף מרוכז עם המשפטים הכי חשובים — להדפסה, לשמירה כ-PDF בטלפון, או לשליפה מהירה על המסך.',
+    '• בוחרים מה ייכנס: הבסיס, מספרים, תחבורה ומלון, אוכל, חירום, המועדפים שלך והמשפטים ששמרת.',
+    '• לכל משפט: הפירוש, הטקסט בשפה (גדול) וההגייה. למעלה — מספרי החירום של המדינה.',
+    '• "הדפס / שמור PDF" — בחלון ההדפסה בוחרים "שמור כ-PDF", והדף נשמר בטלפון גם בלי אינטרנט ובלי האפליקציה.',
+    'נמצא בערכת הטיול.'],
+  en: ['A compact page of the most important phrases — to print, save as PDF on your phone, or glance at on screen.',
+    '• Choose what goes in: basics, numbers, transport & hotel, food, emergencies, your favourites and saved phrases.',
+    '• Each phrase: meaning, the text (large) and pronunciation; the country\'s emergency numbers on top.',
+    '• "Print / save PDF" — pick "Save as PDF" in the print dialog to keep it offline, even without the app.',
+    'Found in the Travel kit.']}],
 ['tips', '💡', 'tips', {he: 'טיפים ודקדוק', en: 'Tips and grammar'}, {
   he: ['שישה כרטיסים קצרים לכל שפה על מה שהכי עוזר: נימוס, מבנה המשפט, מלכודות הגייה ותרבות — עם דוגמאות בקול.'],
   en: ['Six short cards per language on what helps most: politeness, sentence structure, pronunciation traps and culture — with audio examples.']}],
@@ -231,4 +242,4 @@ const HELP = [
   en: ['No account and no AppNest server — everything stays on your device. Text leaves only when you use a ✨ feature, and only to the AI provider you connected. No tracking, no ads.',
     'Full policy: privacy_policy.html (linked on the About screen).']}]
 ];
-window.__MODS.help = '1.18.0';
+window.__MODS.help = '1.19.0';

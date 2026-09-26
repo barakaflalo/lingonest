@@ -3,7 +3,7 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('es', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "€",
   /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
   country: {"he": "ספרד ואמריקה הלטינית", "en": "Spain & Latin America", "ru": "Испания и Латинская Америка", "es": "España y Latinoamérica", "ar": "إسبانيا وأمريكا اللاتينية"},
@@ -421,6 +421,27 @@ dd2|Todo recto y luego a la izquierda.||טודו רקטו אי לואגו א ל�
 dd3|¿Está lejos de aquí?||אסטה לחוס דה אקי
 dd4|No, cinco minutos a pie.||נו, סינקו מינוטוס א פייה
 dd5|¡Mil gracias!||מיל גרסיאס
+da1|¿Cuál es el motivo de su visita?||קואל אס אל מוטיבו דה סו ביסיטה
+da2|¿Cuánto tiempo se va a quedar?||קואנטו טיאמפו סה בה א קדאר
+da3|Dos semanas.||דוס סמאנאס
+da4|¡Bienvenido!||ביאנבנידו
+dp1|¿Qué le duele?||קה לה דואלה
+dp2|Tome este medicamento dos veces al día.||טומה אסטה מדיקמנטו דוס בסס אל דיאה
+dp4|¡Que se mejore!||קה סה מחורה
+ds1|Quisiera una tarjeta SIM con internet.||קיסיירה אונה טרחטה סים קון אינטרנט
+ds2|¿Para cuántos días?||פארה קואנטוס דיאס
+ds3|Para diez días.||פארה דיאס דיאס
+ds4|Listo, ya tiene internet.||ליסטו, יה טיינה אינטרנט
+dc1|¿Le puedo ayudar?||לה פואדו איודאר
+dc2|¿Tiene esto en azul?||טיינה אסטו אן אסול
+dc3|Sí, ¿qué talla?||סי, קה טאיה
+dc4|Mediana.||מדיאנה
+dc5|Claro, el probador está allí.||קלארו, אל פרובדור אסטה איי
+dg1|Quisiera reservar un tour para mañana.||קיסיירה רסרבאר און טור פארה מניאנה
+dg2|El tour sale a las ocho de la mañana.||אל טור סאלה א לאס אוצ׳ו דה לה מניאנה
+dg3|¿Está incluido el almuerzo?||אסטה אינקלואידו אל אלמואסו
+dg4|Sí, y el agua también.||סי, אי אל אגואה טמביאן
+dg5|Perfecto, para dos personas, por favor.||פרפקטו, פארה דוס פרסונאס, פור פבור
 w_weather|El tiempo||אל טיימפו
 w_sun|Sol||סול
 w_rain|Lluvia||יוביה

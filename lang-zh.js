@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('zh', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "¥",
   country: {"he": "סין וטייוואן", "en": "China & Taiwan", "ru": "Китай и Тайвань", "es": "China y Taiwán", "ar": "الصين وتايوان"},
   emergency: [
@@ -440,6 +440,27 @@ dd2|一直走，然后左转。|yìzhí zǒu, ránhòu zuǒ zhuǎn.|יי-ג׳ה 
 dd3|离这里远吗？|lí zhèlǐ yuǎn ma?|לי ג׳ה-לי יואן מה
 dd4|不远，走路五分钟。|bù yuǎn, zǒulù wǔ fēnzhōng.|בו יואן, דזואו-לו וו פן-ג׳ונג
 dd5|太谢谢了！|tài xièxie le!|טאי שייה-שייה לה
+da1|您来访的目的是什么？|nín láifǎng de mùdì shì shénme?|נין לאי-פאנג דה מו-די שה שן-מה
+da2|您要待多久？|nín yào dāi duō jiǔ?|נין יאו דאי דואו ג׳יו
+da3|两个星期。|liǎng ge xīngqī.|ליאנג גה שינג-צ׳י
+da4|欢迎！|huānyíng!|הואן-יינג
+dp1|哪里疼？|nǎlǐ téng?|נה-לי טנג
+dp2|这个药一天吃两次。|zhège yào yì tiān chī liǎng cì.|ג׳ה-גה יאו יי טיין צ׳ה ליאנג צה
+dp4|早日康复！|zǎorì kāngfù!|דזאו-רה קאנג-פו
+ds1|我想买一张带流量的电话卡。|wǒ xiǎng mǎi yì zhāng dài liúliàng de diànhuà kǎ.|וואו שיאנג מאי יי ג׳אנג דאי ליו-ליאנג דה דיין-הואה קה
+ds2|要几天的？|yào jǐ tiān de?|יאו ג׳י טיין דה
+ds3|十天的。|shí tiān de.|שה טיין דה
+ds4|好了，现在可以上网了。|hǎo le, xiànzài kěyǐ shàngwǎng le.|האו לה, שיין-דזאי קה-יי שאנג-וואנג לה
+dc1|您需要什么？|nín xūyào shénme?|נין שו-יאו שן-מה
+dc2|这个有蓝色的吗？|zhège yǒu lánsè de ma?|ג׳ה-גה יואו לאן-סה דה מה
+dc3|有，您穿多大号？|yǒu, nín chuān duō dà hào?|יואו, נין צ׳ואן דואו דה האו
+dc4|中号。|zhōng hào.|ג׳ונג האו
+dc5|可以，试衣间在那边。|kěyǐ, shìyījiān zài nàbiān.|קה-יי, שה-יי-ג׳יין דזאי נה-ביין
+dg1|我想预订明天的一日游。|wǒ xiǎng yùdìng míngtiān de yírì yóu.|וואו שיאנג יו-דינג מינג-טיין דה יי-רה יואו
+dg2|早上八点出发。|zǎoshang bā diǎn chūfā.|דזאו-שאנג בא דיין צ׳ו-פה
+dg3|包午饭吗？|bāo wǔfàn ma?|באו וו-פאן מה
+dg4|包，还有水。|bāo, hái yǒu shuǐ.|באו, האי יואו שוויי
+dg5|太好了，两个人。|tài hǎo le, liǎng ge rén.|טאי האו לה, ליאנג גה רן
 w_weather|天气|tiānqì|טיין-צ׳י
 w_sun|太阳|tàiyáng|טאי-יאנג
 w_rain|雨|yǔ|יו

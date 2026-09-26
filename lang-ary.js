@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ary', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "DH",
   country: {"he": "מרוקו", "en": "Morocco", "ru": "Марокко", "es": "Marruecos", "ar": "المغرب"},
   emergency: [
@@ -423,6 +423,27 @@ dd2|نيشان، ومن بعد على ليسر.|nichan, u mn b3d 3la liser|ני�
 dd3|واش بعيدة من هنا؟|wach b3ida mn hna|ואש בעידה מן הנא
 dd4|لا، خمس دقايق على رجليك.|la, khms dqayeq 3la rjlik|לא, ח׳מס דקאיק עלא רג׳ליכ
 dd5|الله يخليك!|llah ykhellik|אללה יח׳ליכ
+da1|شنو هو السبب ديال الزيارة؟|chnou howa ssabab dyal zzyara?|שנו הווא סבב דיאל זיארה
+da2|شحال غادي تبقى؟|ch7al ghadi tbqa?|שחאל ע׳אדי תבקא
+da3|جوج سيمانات.|jouj simanat.|ג׳וג׳ סימאנאת
+da4|مرحبا بيك!|merhba bik!|מרחבה ביכ
+dp1|فين كيضرك؟|fin kaydorrek?|פין כידורכ
+dp2|شرب هاد الدوا جوج مرات فالنهار.|chreb had ddwa jouj merrat fennhar.|שרב האד דווא ג׳וג׳ מראת פנהאר
+dp4|الله يشافيك!|llah ychafik!|אללה ישאפיכ
+ds1|بغيت شي پوص فيها الأنترنيت.|bghit chi puce fiha l'internet.|בע׳ית שי פוס פיהא לאנטרנט
+ds2|لشحال من نهار؟|l-ch7al mn nhar?|לשחאל מן נהאר
+ds3|لعشرة أيام.|l-3achra iyyam.|לעשרה איאם
+ds4|صافي، دابا عندك الأنترنيت.|safi, daba 3ndek l'internet.|סאפי, דאבא ענדכ לאנטרנט
+dc1|نعاونك؟|n3awnek?|נעאונכ
+dc2|واش كاين هادا باللون الزرق؟|wach kayn hada b-llon zreq?|ואש כאין האדא בלון זרק
+dc3|إيه، شحال القياس؟|iyeh, ch7al l-qyas?|אייה, שחאל לקיאס
+dc4|ميديوم.|medium.|מדיום
+dc5|واخا، البلاصة ديال القياس هناك.|wakha, lblasa dyal l-qyas hnak.|ואח׳א, לבלאסה דיאל לקיאס הנאכ
+dg1|بغيت نحجز واحد الجولة لغدا.|bghit n7jez wa7ed ljawla l-ghedda.|בע׳ית נחג׳ז ואחד לג׳ולה לע׳דא
+dg2|الجولة كتخرج مع التمنية دالصباح.|ljawla katkhrej m3a ttmenya d-sbah.|לג׳ולה כתח׳רג׳ מעא תמניה דצבאח
+dg3|واش الغدا داخل؟|wach lghda dakhel?|ואש לע׳דא דאח׳ל
+dg4|إيه، والما حتى هو.|iyeh, u lma 7ta howa.|אייה, ולמא חתא הווא
+dg5|مزيان، لجوج دالناس عافاك.|mzyan, l-jouj d-nnas 3afak.|מזיאן, לג׳וג׳ דנאס עאפאכ
 w_weather|الجو|jjew|ג׳ו
 w_sun|الشمس|chems|שמס
 w_rain|الشتا|chta|שתא

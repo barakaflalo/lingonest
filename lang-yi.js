@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('yi', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "$",
   /* no Yiddish TTS voice exists: speak the Hebrew-friendly pronunciation column with the Hebrew voice (LANGS.yi.tts = he-IL) */
   speakHeb: true,
@@ -430,6 +430,27 @@ dd2|גלײַך, און דערנאָך לינקס.|glaykh, un dernokh links.|גל
 dd3|איז עס ווײַט פֿון דאַנען?|iz es vayt fun danen?|איז עס וויט פון דאנען
 dd4|ניין, פֿינף מינוט צו פֿוס.|neyn, finf minut tsu fus.|ניין, פינף מינוט צו פוס
 dd5|אַ שיינעם דאַנק!|a sheynem dank!|א שיינעם דאנק
+da1|וואָס איז דער ציל פֿון אײַער וויזיט?|vos iz der tsil fun ayer vizit?|ווס איז דער ציל פון אייער וויזיט
+da2|ווי לאַנג וועט איר בלײַבן?|vi lang vet ir blaybn?|ווי לאנג וועט איר בלייבן
+da3|צוויי וואָכן.|tsvey vokhn.|צוויי ווכן
+da4|ברוך־הבא!|borekh-habo!|בורוך הבו
+dp1|וואָס טוט אײַך וויי?|vos tut aykh vey?|ווס טוט אייך וויי
+dp2|נעמט די רפֿואה צוויי מאָל אַ טאָג.|nemt di refue tsvey mol a tog.|נעמט די רעפואע צוויי מול א טוג
+dp4|אַ רפֿואה־שלמה!|a refue-shleyme!|א רעפואע שליימע
+ds1|איך וויל אַ סים־קאַרטע מיט אינטערנעט.|ikh vil a sim-karte mit internet.|איך וויל א סים-קארטע מיט אינטערנעט
+ds2|אויף וויפֿל טעג?|oyf vifl teg?|אויף וויפל טעג
+ds3|אויף צען טעג.|oyf tsen teg.|אויף צן טעג
+ds4|פֿאַרטיק, איצט האָט איר אינטערנעט.|fartik, itst hot ir internet.|פארטיק, איצט הוט איר אינטערנעט
+dc1|קען איך אײַך העלפֿן?|ken ikh aykh helfn?|קען איך אייך העלפן
+dc2|האָט איר דאָס אין בלוי?|hot ir dos in bloy?|הוט איר דוס אין בלוי
+dc3|יאָ, וועלכע גרייס?|yo, velkhe greys?|יו, וועלכע גרייס
+dc4|מיטלע.|mitle.|מיטלע
+dc5|אַוודאי, דער אָנפּרוּוו־צימער איז דאָרט.|avade, der onpruv-tsimer iz dort.|אוודאי, דער אונפרוו-צימער איז דורט
+dg1|איך וויל באַשטעלן אַ טור אויף מאָרגן.|ikh vil bashteln a tur oyf morgn.|איך וויל באשטעלן א טור אויף מורגן
+dg2|דער טור הייבט אָן אַכט אין דער פֿרי.|der tur heybt on akht in der fri.|דער טור הייבט און אכט אין דער פרי
+dg3|איז מיטאָג אײַנגערעכנט?|iz mitog ayngerekhnt?|איז מיטוג איינגערעכנט
+dg4|יאָ, און וואַסער אויך.|yo, un vaser oykh.|יו, און וואסער אויך
+dg5|אויסגעצייכנט, פֿאַר צוויי מענטשן, זײַט אַזוי גוט.|oysgetseykhnt, far tsvey mentshn, zayt azoy gut.|אויסגעצייכנט, פאר צוויי מענטשן, זייט אזוי גוט
 w_weather|דאָס וועטער|dos veter|דוס וועטער
 w_sun|די זון|di zun|די זון
 w_rain|דער רעגן|der regn|דער רעגן

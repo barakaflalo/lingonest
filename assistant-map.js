@@ -35,6 +35,7 @@ window.APPNEST_ASSISTANT_CONFIG = {
     { name: 'בדיקת איכות תוכן', screen: 'qa' },
     { name: 'הגדרות', screen: 'settings' },
     { name: 'מדריך האפליקציה', screen: 'help' },
+    { name: 'דף שליפה לטיול (להדפסה)', screen: 'sheet' },
     { name: 'אודות', screen: 'about' }
   ],
 
@@ -107,4 +108,4 @@ window.APPNEST_ASSISTANT_CONFIG = {
     'בוא נתרגל — תפתח לי שיעור'
   ]
 };
-window.__MODS['assistant-map'] = '1.18.0';
+window.__MODS['assistant-map'] = '1.19.0';

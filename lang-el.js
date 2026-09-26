@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('el', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "€",
   country: {"he": "יוון וקפריסין", "en": "Greece & Cyprus", "ru": "Греция и Кипр", "es": "Grecia y Chipre", "ar": "اليونان وقبرص"},
   emergency: [
@@ -431,6 +431,27 @@ dd2|Ευθεία και μετά αριστερά.|efthia ke meta aristera.|אפ
 dd3|Είναι μακριά από εδώ;|ine makria apo edo?|אינה מקריה אפו אדו
 dd4|Όχι, πέντε λεπτά με τα πόδια.|ochi, pente lepta me ta podia.|אוחי, פנדה לפטה מה טה פודיה
 dd5|Ευχαριστώ πάρα πολύ!|efcharisto para poli!|אפחריסטו פרה פולי
+da1|Ποιος είναι ο σκοπός της επίσκεψής σας;|pios ine o skopos tis episkepsis sas?|פיוס אינה או סקופוס טיס אפיסקפסיס סאס
+da2|Πόσο καιρό θα μείνετε;|poso kero tha minete?|פוסו קרו תה מינטה
+da3|Δύο εβδομάδες.|dio evdomades.|דיו אבדומאדס
+da4|Καλώς ήρθατε!|kalos irthate!|קלוס אירתאטה
+dp1|Πού πονάτε;|pou ponate?|פו פונאטה
+dp2|Να παίρνετε αυτό το φάρμακο δύο φορές την ημέρα.|na pernete afto to farmako dio fores tin imera.|נה פרנטה אפטו טו פרמקו דיו פורס טין אימרה
+dp4|Περαστικά!|perastika!|פרסטיקה
+ds1|Θα ήθελα μια κάρτα SIM με ίντερνετ.|tha ithela mia karta sim me internet.|תה איתלה מיה קרטה סים מה אינטרנט
+ds2|Για πόσες μέρες;|gia poses meres?|יה פוסס מרס
+ds3|Για δέκα μέρες.|gia deka meres.|יה דקה מרס
+ds4|Έτοιμο, τώρα έχετε ίντερνετ.|etimo, tora echete internet.|אטימו, טורה אחטה אינטרנט
+dc1|Μπορώ να σας βοηθήσω;|boro na sas voithiso?|בורו נה סאס בואיתיסו
+dc2|Το έχετε σε μπλε;|to echete se ble?|טו אחטה סה בלה
+dc3|Ναι, τι νούμερο;|ne, ti noumero?|נה, טי נומרו
+dc4|Μέτριο.|metrio.|מטריו
+dc5|Βεβαίως, το δοκιμαστήριο είναι εκεί.|veveos, to dokimastirio ine eki.|בבאוס, טו דוקימסטיריו אינה אקי
+dg1|Θα ήθελα να κλείσω μια εκδρομή για αύριο.|tha ithela na kliso mia ekdromi gia avrio.|תה איתלה נה קליסו מיה אקדרומי יה אבריו
+dg2|Η εκδρομή ξεκινά στις οκτώ το πρωί.|i ekdromi xekina stis ochto to proi.|י אקדרומי קסקינה סטיס אוכטו טו פרואי
+dg3|Περιλαμβάνεται το μεσημεριανό;|perilamvanete to mesimeriano?|פרילמבנטה טו מסימריאנו
+dg4|Ναι, και νερό επίσης.|ne, ke nero episis.|נה, קה נרו אפיסיס
+dg5|Τέλεια, για δύο άτομα, παρακαλώ.|telia, gia dio atoma, parakalo.|טליה, יה דיו אטומה, פרקלו
 w_weather|Ο καιρός|o keros|או קרוס
 w_sun|Ο ήλιος|o ilios|או איליוס
 w_rain|Η βροχή|i vrochi|י ברוחי

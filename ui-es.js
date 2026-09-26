@@ -295,10 +295,10 @@ LANG.es = {
   "sayMore": "Aún no, volverá en el repaso",
   "noSpeech": "No oí nada. Pulsa 🎤 y habla cerca del teléfono.",
   "newIn": "Novedades de {v}",
-  "wn1": "📖 Guía de uso: explicación detallada de cada función, con búsqueda.",
-  "wn2": "🔒 Política de privacidad actualizada.",
-  "wn3": "La guía está en inicio, Ajustes y \"Acerca de\".",
-  "wn4": "\"Problemas frecuentes\" con soluciones rápidas.",
+  "wn1": "🎭 Cinco diálogos nuevos en los 28 idiomas.",
+  "wn2": "📄 Chuleta de viaje para imprimir o guardar en PDF.",
+  "wn3": "Elige las secciones. Está en el Kit de viaje.",
+  "wn4": "La guía se actualizó.",
   "wn5": "Tu progreso se conservó.",
   "lvl8": "Frases completas",
   "lvl9": "Mis palabras",
@@ -499,6 +499,21 @@ LANG.es = {
   "helpIntro": "Explicación de todo lo que tiene LingoNest. Toca un tema para abrirlo y \"Abrir\" para ir a la función.",
   "helpSearch": "Buscar en la guía…",
   "helpOpen": "Abrir",
-  "helpNone": "No hay ese tema en la guía"
+  "helpNone": "No hay ese tema en la guía",
+  "dlg_airport": "En el control de pasaportes",
+  "dlg_pharm": "En la farmacia",
+  "dlg_sim": "Comprar una SIM",
+  "dlg_clothes": "En una tienda de ropa",
+  "dlg_tour": "Reservar un tour",
+  "sheetTitle": "Chuleta de viaje",
+  "sheetIntro": "Las frases más importantes en una página. Elige las secciones e imprime o guarda como PDF.",
+  "sheetPrint": "Imprimir / PDF",
+  "sh_core": "Lo básico",
+  "sh_nums": "Números",
+  "sh_move": "Transporte y hotel",
+  "sh_food": "Comida",
+  "sh_emerg": "Emergencias",
+  "sh_fav": "Mis favoritos",
+  "sh_mine": "Mis frases"
 };
-window.__MODS['ui-es'] = '1.18.0';
+window.__MODS['ui-es'] = '1.19.0';

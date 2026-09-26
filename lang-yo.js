@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('yo', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "₦",
   country: {"he": "דרום-מערב ניגריה ובנין", "en": "South-west Nigeria & Benin", "ru": "Юго-запад Нигерии и Бенин", "es": "Suroeste de Nigeria y Benín", "ar": "جنوب غرب نيجيريا وبنين"},
   emergency: [
@@ -418,6 +418,27 @@ dd2|Ẹ lọ taara, lẹhinna ẹ yi si osi.||אה לו טארה, להינה א�
 dd3|Ṣe o jinna si ibi?||שה או ג׳ינה סי איבי
 dd4|Rara, iṣẹju marun ni ẹsẹ.||ראה-ראה, אישג׳ו מארון ני אסה
 dd5|Ẹ ṣeun gan!||אה שאון גאן
+da1|Kini idi abẹwo yin?||קיני אידי אבוו יין
+da2|Ọjọ melo ni ẹ maa lo?||אוג׳ו מלו ני אה מאה לו
+da3|Ọsẹ meji.||אוסה מג׳י
+da4|Ẹ ku abọ!||אה קו אבו
+dp1|Nibo lo n dun yin?||ניבו לו אן דון יין
+dp2|Ẹ lo oogun yii lẹẹmeji lojumọ.||אה לו אוגון יי לאמג׳י לוג׳ומו
+dp4|Ara yin a ya o!||ארה יין א יה או
+ds1|Mo fẹ kaadi SIM to ni intanẹẹti.||מו פה קאדי סים טו ני אינטנטי
+ds2|Fun ọjọ melo?||פון אוג׳ו מלו
+ds3|Fun ọjọ mẹwa.||פון אוג׳ו מווה
+ds4|O ti ṣetan, ẹ ti ni intanẹẹti bayii.||או טי שטאן, אה טי ני אינטנטי באיי
+dc1|Ṣe mo le ran yin lọwọ?||שה מו לה ראן יין לווו
+dc2|Ṣe ẹ ni eyi ni awọ bulu?||שה אה ני איי ני אוו בולו
+dc3|Bẹẹni, iwọn wo?||בני, איוון וו
+dc4|Alabọde.||אלאבודה
+dc5|O dara, yara iwọṣọ wa nibẹ.||או דארה, יארה איוושו ווה ניבה
+dg1|Mo fẹ gba aye irin-ajo fun ọla.||מו פה גבה איה אירין-אג׳ו פון אולה
+dg2|Irin-ajo naa bẹrẹ ni aago mẹjọ owurọ.||אירין-אג׳ו נאה ברה ני אאגו מג׳ו אווורו
+dg3|Ṣe ounjẹ ọsan wa ninu rẹ?||שה אונג׳ה אוסאן ווה נינו רה
+dg4|Bẹẹni, ati omi pẹlu.||בני, אטי אומי פלו
+dg5|O dara pupọ, fun eniyan meji.||או דארה פופו, פון איניאן מג׳י
 w_weather|Oju ọjọ||אוג׳ו אוג׳ו
 w_sun|Oorun||אורון
 w_rain|Ojo||אוג׳ו (גשם)

@@ -3,7 +3,7 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('ru', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "₽",
   /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
   country: {"he": "רוסיה", "en": "Russia", "ru": "Россия", "es": "Rusia", "ar": "روسيا"},
@@ -428,6 +428,27 @@ dd2|Прямо, потом налево.|pryamo, potom nalevo|פריאמה, פא
 dd3|Это далеко отсюда?|eto daleko otsyuda|אטה דאליקו אטסיודה
 dd4|Нет, пять минут пешком.|net, pyat minut peshkom|ניעט, פיאט מינוט פישקום
 dd5|Спасибо большое!|spasibo bolshoye|ספסיבה באלשויה
+da1|Какова цель вашего визита?|kakova tsel' vashego vizita?|קקובה צל ואשבה ויזיטה
+da2|Как долго вы пробудете?|kak dolgo vy probudete?|קק דולגה וי פרבודיטה
+da3|Две недели.|dve nedeli.|דבה נדלי
+da4|Добро пожаловать!|dobro pozhalovat'!|דאברו פאז׳לובט
+dp1|Что у вас болит?|chto u vas bolit?|שטו או ואס באליט
+dp2|Принимайте это лекарство два раза в день.|prinimayte eto lekarstvo dva raza v den'.|פרינימאיטה אטה ליקרסטבה דבה ראזה ב דן
+dp4|Выздоравливайте!|vyzdoravlivayte!|ויזדרבליוואיטה
+ds1|Мне нужна сим-карта с интернетом.|mne nuzhna sim-karta s internetom.|מניה נוזנה סים-קרטה ס אינטרנטם
+ds2|На сколько дней?|na skol'ko dney?|נה סקולקה דניי
+ds3|На десять дней.|na desyat' dney.|נה דסיט דניי
+ds4|Готово, теперь у вас есть интернет.|gotovo, teper' u vas yest' internet.|גטובה, טיפר או ואס יסט אינטרנט
+dc1|Вам помочь?|vam pomoch'?|ואם פמוץ׳
+dc2|У вас есть это в синем цвете?|u vas yest' eto v sinem tsvete?|או ואס יסט אטה ב סינים צבטה
+dc3|Да, какой размер?|da, kakoy razmer?|דה, קקוי רזמר
+dc4|Средний.|sredniy.|סרדני
+dc5|Конечно, примерочная вон там.|konechno, primerochnaya von tam.|קנשנה, פרימרוצ׳נאיה וון טאם
+dg1|Я хочу заказать экскурсию на завтра.|ya khochu zakazat' ekskursiyu na zavtra.|יא חצ׳ו זקזאט אקסקורסיו נה זבטרה
+dg2|Экскурсия начинается в восемь утра.|ekskursiya nachinayetsya v vosem' utra.|אקסקורסיה נצ׳ינאיצה ב ווסים אוטרה
+dg3|Обед включён?|obed vklyuchyon?|אביד בקליוצ׳ון
+dg4|Да, и вода тоже.|da, i voda tozhe.|דה, אי ואדה טוז׳ה
+dg5|Отлично, на двоих, пожалуйста.|otlichno, na dvoikh, pozhaluysta.|אטליצ׳נה, נה דבאיח, פאז׳לוסטה
 w_weather|Погода|pogoda|פאגודה
 w_sun|Солнце|solntse|סונצה
 w_rain|Дождь|dozhd|דושט

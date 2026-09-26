@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ja', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "¥",
   country: {"he": "יפן", "en": "Japan", "ru": "Япония", "es": "Japón", "ar": "اليابان"},
   emergency: [
@@ -488,6 +488,27 @@ dd2|まっすぐ行って、左です。|massugu itte, hidari desu.|מסוגו �
 dd3|ここから遠いですか？|koko kara tōi desu ka?|קוקו קרה טואי דס קה
 dd4|いいえ、歩いて五分です。|iie, aruite go-fun desu.|אייה, ארויטה גו-פון דס
 dd5|どうもありがとう！|dōmo arigatō!|דומו אריגאטו
+da1|訪問の目的は何ですか？|hōmon no mokuteki wa nan desu ka?|הומון נו מוקוטקי ווה נאן דס קה
+da2|どのくらい滞在しますか？|dono kurai taizai shimasu ka?|דונו קוראי טאיזאי שימס קה
+da3|二週間です。|nishūkan desu.|נישוקאן דס
+da4|ようこそ！|yōkoso!|יוקוסו
+dp1|どこが痛いですか？|doko ga itai desu ka?|דוקו גה איטאי דס קה
+dp2|この薬を一日二回飲んでください。|kono kusuri o ichinichi nikai nonde kudasai.|קונו קוסורי או איצ׳יניצ׳י ניקאי נונדה קודסאי
+dp4|お大事に！|o-daiji ni!|או-דאיג׳י ני
+ds1|インターネット付きのSIMカードをください。|intānetto tsuki no SIM kādo o kudasai.|אינטאנטו צוקי נו סים קאדו או קודסאי
+ds2|何日間ですか？|nannichikan desu ka?|נאניצ׳יקאן דס קה
+ds3|十日間です。|tōkakan desu.|טוקאקאן דס
+ds4|できました。もうインターネットが使えます。|dekimashita. mō intānetto ga tsukaemasu.|דקימשטה. מו אינטאנטו גה צוקאמס
+dc1|何かお探しですか？|nanika o-sagashi desu ka?|נאניקה או-סאגאשי דס קה
+dc2|これの青はありますか？|kore no ao wa arimasu ka?|קורה נו אאו ווה ארימס קה
+dc3|はい、サイズは？|hai, saizu wa?|האי, סאיזו ווה
+dc4|Mサイズです。|emu saizu desu.|אמו סאיזו דס
+dc5|どうぞ、試着室はあちらです。|dōzo, shichakushitsu wa achira desu.|דוזו, שיצ׳אקושיצו ווה אצ׳ירה דס
+dg1|明日のツアーを予約したいです。|ashita no tsuā o yoyaku shitai desu.|אשטה נו צואה או יויאקו שטאי דס
+dg2|ツアーは朝八時に出発します。|tsuā wa asa hachiji ni shuppatsu shimasu.|צואה ווה אסה האצ׳יג׳י ני שופאצו שימס
+dg3|昼食は含まれていますか？|chūshoku wa fukumarete imasu ka?|צ׳ושוקו ווה פוקומרטה אימס קה
+dg4|はい、お水も付いています。|hai, o-mizu mo tsuite imasu.|האי, או-מיזו מו צויטה אימס
+dg5|いいですね、二人でお願いします。|ii desu ne, futari de onegai shimasu.|אי דס נה, פוטארי דה אונגאי שימס
 w_weather|天気|tenki|טנקי
 w_sun|太陽|taiyō|טאייו
 w_rain|雨|ame|אמה

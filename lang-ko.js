@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ko', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "₩",
   country: {"he": "קוריאה הדרומית", "en": "South Korea", "ru": "Южная Корея", "es": "Corea del Sur", "ar": "كوريا الجنوبية"},
   emergency: [
@@ -434,6 +434,27 @@ dd2|쭉 가서 왼쪽으로 가세요.|jjuk gaseo oenjjogeuro gaseyo.|צ׳וק �
 dd3|여기서 멀어요?|yeogiseo meoreoyo?|יוגיסו מורויו
 dd4|아니요, 걸어서 오 분이에요.|aniyo, georeoseo o bunieyo.|אניו, קורוסו או פוניאיו
 dd5|정말 고맙습니다!|jeongmal gomapseumnida!|צ׳ונג-מאל קומאפסומנידה
+da1|방문 목적이 뭐예요?|bangmun mokjeogi mwoyeyo?|פאנגמון מוקצ׳וגי מוואיאיו
+da2|얼마나 머무르실 거예요?|eolmana meomureusil geoyeyo?|אולמנה מומורושיל קויאיו
+da3|이 주요.|i juyo.|אי צ׳ויו
+da4|환영합니다!|hwanyeonghamnida!|הווניונג-המנידה
+dp1|어디가 아프세요?|eodiga apeuseyo?|או-די-גה אפוסאיו
+dp2|이 약을 하루에 두 번 드세요.|i yageul harue du beon deuseyo.|אי יאגול הרואה טו בון טוסאיו
+dp4|빨리 나으세요!|ppalli naeuseyo!|פאלי נאוסאיו
+ds1|인터넷 되는 유심 주세요.|inteonet doeneun yusim juseyo.|אינטונט טואנון יושים צ׳וסאיו
+ds2|며칠짜리요?|myeochiljjariyo?|מיוצ׳יל-צ׳אריו
+ds3|열흘짜리요.|yeoreuljjariyo.|יורול-צ׳אריו
+ds4|다 됐어요, 이제 인터넷 돼요.|da dwaesseoyo, ije inteonet dwaeyo.|טה טוואסויו, איג׳ה אינטונט טוואיו
+dc1|뭐 찾으세요?|mwo chajeuseyo?|מוו צ׳אג׳וסאיו
+dc2|이거 파란색 있어요?|igeo paransaek isseoyo?|איגו פאראן-סק אישויו
+dc3|네, 사이즈가 어떻게 되세요?|ne, saijeuga eotteoke doeseyo?|נה, סאיג׳וגה אוטוקה טוסאיו
+dc4|M 사이즈요.|em saijeuyo.|אם סאיג׳ויו
+dc5|네, 탈의실은 저쪽이에요.|ne, taruisireun jeojjogieyo.|נה, טארואישירון צ׳וצ׳וגיאיו
+dg1|내일 투어 예약하고 싶어요.|naeil tueo yeyakhago sipeoyo.|נאיל טואו יאיאק-הגו שיפויו
+dg2|투어는 아침 여덟 시에 출발해요.|tueoneun achim yeodeol sie chulbalhaeyo.|טואונון אצ׳ים יודול שיאה צ׳ולבאראיו
+dg3|점심 포함이에요?|jeomsim pohamieyo?|צ׳ומשים פוהמיאיו
+dg4|네, 물도 포함이에요.|ne, muldo pohamieyo.|נה, מולדו פוהמיאיו
+dg5|좋아요, 두 명이요.|joayo, du myeongiyo.|צ׳ואיו, טו מיונג-איו
 w_weather|날씨|nalssi|נאלשי
 w_sun|해|hae|הה
 w_rain|비|bi|פי

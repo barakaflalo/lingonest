@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('it', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "€",
   country: {"he": "איטליה", "en": "Italy", "ru": "Италия", "es": "Italia", "ar": "إيطاليا"},
   emergency: [
@@ -431,6 +431,27 @@ dd2|Sempre dritto, poi a sinistra.||סמפרה דריטו, פוי א סיניס�
 dd3|È lontano da qui?||א לונטנו דה קווי
 dd4|No, cinque minuti a piedi.||נו, צ׳ינקווה מינוטי א פיאדי
 dd5|Grazie tante!||גרציה טנטה
+da1|Qual è il motivo della sua visita?||קוואלה איל מוטיבו דלה סואה ויזיטה
+da2|Quanto tempo resta?||קוואנטו טמפו רסטה
+da3|Due settimane.||דואה סטימנה
+da4|Benvenuto!||בנבנוטו
+dp1|Dove le fa male?||דובה לה פה מלה
+dp2|Prenda questa medicina due volte al giorno.||פרנדה קוסטה מדיצ׳ינה דואה וולטה אל ג׳ורנו
+dp4|Guarisca presto!||גואריסקה פרסטו
+ds1|Vorrei una SIM con internet.||וורי אונה סים קון אינטרנט
+ds2|Per quanti giorni?||פר קוואנטי ג׳ורני
+ds3|Per dieci giorni.||פר דיאצ׳י ג׳ורני
+ds4|Fatto, adesso ha internet.||פטו, אדסו א אינטרנט
+dc1|Posso aiutarla?||פוסו איוטרלה
+dc2|Ce l'ha in blu?||צ׳ה לא אין בלו
+dc3|Sì, che taglia?||סי, קה טליה
+dc4|Media.||מדיה
+dc5|Certo, il camerino è lì.||צ׳רטו, איל קמרינו א לי
+dg1|Vorrei prenotare un tour per domani.||וורי פרנוטרה און טור פר דומאני
+dg2|Il tour parte alle otto di mattina.||איל טור פרטה אלה אוטו די מטינה
+dg3|Il pranzo è incluso?||איל פרנצו א אינקלוזו
+dg4|Sì, e anche l'acqua.||סי, א אנקה לאקווה
+dg5|Perfetto, per due persone, per favore.||פרפטו, פר דואה פרסונה, פר פבורה
 w_weather|Il tempo||איל טמפו
 w_sun|Il sole||איל סולה
 w_rain|La pioggia||לה פיוג׳ה

@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ig', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "₦",
   country: {"he": "דרום-מזרח ניגריה", "en": "South-east Nigeria", "ru": "Юго-восток Нигерии", "es": "Sureste de Nigeria", "ar": "جنوب شرق نيجيريا"},
   emergency: [
@@ -428,6 +428,27 @@ dd2|Gaa n'ihu, wee tụgharịa n'aka ekpe.||גאה ניהו, ווה טוגאר�
 dd3|Ọ dị anya site ebe a?||או די אניה סיטה אבה א
 dd4|Mba, nkeji ise n'ụkwụ.||מבה, נקג׳י איסה נוקוו
 dd5|Daalụ rinne!||דאלו רינה
+da1|Gịnị bụ ebumnuche njem gị?||גיני בו אבומנוצ׳ה נג׳ם גי
+da2|Ụbọchị ole ka ị ga-anọ?||אובוצ׳י אולה קה אי גה-אנו
+da3|Izu abụọ.||איזו אבואו
+da4|Nnọọ!||נואו
+dp1|Ebee na-egbu gị mgbu?||אבה נה-אגבו גי מגבו
+dp2|Ṅụọ ọgwụ a ugboro abụọ kwa ụbọchị.||ניואו אוגוו א אוגבורו אבואו קווה אובוצ׳י
+dp4|Gbakee ngwa ngwa!||גבאקה נגווה נגווה
+ds1|Achọrọ m kaadị SIM nwere ịntanetị.||אצ׳ורו אם קאדי סים נוורה אינטנטי
+ds2|Maka ụbọchị ole?||מאקה אובוצ׳י אולה
+ds3|Maka ụbọchị iri.||מאקה אובוצ׳י אירי
+ds4|Ọ dị njikere, ị nwere ịntanetị ugbu a.||או די נג׳יקרה, אי נוורה אינטנטי אוגבו א
+dc1|Enwere m ike inyere gị aka?||אנוורה אם איקה איניירה גי אקה
+dc2|Ị nwere nke a na-acha anụnụ?||אי נוורה נקה א נה-אצ׳ה אנונו
+dc3|Ee, nha ole?||אה, נהה אולה
+dc4|Nke etiti.||נקה אטיטי
+dc5|Ọ dị mma, ọnụ ụlọ nnwale dị ebe ahụ.||או די מה, אונו אולו ננוואלה די אבה אהו
+dg1|Achọrọ m idebe njem nlegharị anya maka echi.||אצ׳ורו אם אידבה נג׳ם נלגארי אניה מאקה אצ׳י
+dg2|Njem ahụ ga-amalite n'elekere asatọ nke ụtụtụ.||נג׳ם אהו גה-אמליטה נאלקרה אסאטו נקה אוטוטו
+dg3|Nri ehihie ọ gụnyere?||נרי אהיהיה או גונייארה
+dg4|Ee, na mmiri kwa.||אה, נה מירי קווה
+dg5|Ọ dị mma, maka mmadụ abụọ.||או די מה, מאקה מאדו אבואו
 w_weather|Ọnọdụ ihu igwe||אונודו איהו איגווה
 w_sun|Anyanwụ||אניאנוו
 w_rain|Mmiri ozuzo||מירי אוזוזו

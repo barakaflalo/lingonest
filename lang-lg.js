@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('lg', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "USh",
   country: {"he": "אוגנדה (מרכז — קמפלה)", "en": "Uganda (central — Kampala)", "ru": "Уганда (центр — Кампала)", "es": "Uganda (centro — Kampala)", "ar": "أوغندا (الوسط — كمبالا)"},
   emergency: [
@@ -416,6 +416,27 @@ dd2|Genda butereevu, oluvannyuma okyuse ku kkono.||גנדה בוטרבו, אול
 dd3|Wala okuva wano?||וואלה אוקובה וואנו
 dd4|Nedda, eddakiika ttaano n'ebigere.||נדה, אדאקיקה טאנו נאביגרה
 dd5|Webale nnyo nnyini!||וובאלה ניו ניני
+da1|Kiki ekikuleese okukyala?||קיקי אקיקולסה אוקוצ׳אלה
+da2|Onoomala bbanga ki wano?||אונומאלה בנגה קי וואנו
+da3|Wiiki bbiri.||וויקי בירי
+da4|Tukwaniriza!||טוקוואנירזה
+dp1|Olumwa wa?||אולומווה ווה
+dp2|Mira eddagala lino emirundi ebiri olunaku.||מירה אדאגאלה לינו אמירונדי אבירי אולונאקו
+dp4|Katonda akuwonye!||קאטונדה אקוווניה
+ds1|Njagala sim kaadi erimu intaneti.||נג׳אגאלה סים קאדי ארימו אינטנטי
+ds2|Ya nnaku mmeka?||יה נאקו מקה
+ds3|Ya nnaku kkumi.||יה נאקו קומי
+ds4|Kiwedde, kati olina intaneti.||קיוודה, קאטי אולינה אינטנטי
+dc1|Nkuyambe?||נקויאמבה
+dc2|Kino olina kya bbululu?||קינו אולינה צ׳ה בולולו
+dc3|Yee, sayizi ki?||יה, סאייזי קי
+dc4|Eya wakati.||איה וואקאטי
+dc5|Kale, ekisenge eky'okugezaamu kiri eri.||קאלה, אקיסנגה איוקוגזאמו קירי ארי
+dg1|Njagala okubuukirira olugendo lw'enkya.||נג׳אגאלה אוקובוקירירה אולוגנדו לוואנצ׳ה
+dg2|Olugendo lusimbula ssaawa bbiri ez'oku makya.||אולוגנדו לוסימבולה סאווה בירי אזוקו מאצ׳ה
+dg3|Ekyemisana kirimu?||אצ׳מיסאנה קירימו
+dg4|Yee, n'amazzi.||יה, נאמאזי
+dg5|Kirungi, abantu babiri.||קירונגי, אבאנטו באבירי
 w_weather|Obudde||אובודה
 w_sun|Enjuba||אנג׳ובה
 w_rain|Enkuba||אנקובה

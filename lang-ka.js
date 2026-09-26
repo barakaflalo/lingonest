@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ka', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "₾",
   country: {"he": "גאורגיה", "en": "Georgia", "ru": "Грузия", "es": "Georgia", "ar": "جورجيا"},
   emergency: [
@@ -424,6 +424,27 @@ dd2|პირდაპირ, მერე მარცხნივ.|pirdapir, m
 dd3|აქედან შორსაა?|akedan shorsaa?|אקדאן שורסאה
 dd4|არა, ფეხით ხუთი წუთი.|ara, pekhit khuti tsuti.|ארה, פחיט חותי צוטי
 dd5|უღრმესი მადლობა!|ughrmesi madloba!|אוע׳רמסי מדלובה
+da1|რა არის თქვენი ვიზიტის მიზანი?|ra aris tkveni vizitis mizani?|רה אריס טקבני ביזיטיס מיזאני
+da2|რამდენ ხანს დარჩებით?|ramden khans darchebit?|ראמדן חאנס דארצ׳ביט
+da3|ორი კვირა.|ori kvira.|אורי קבירה
+da4|კეთილი იყოს თქვენი მობრძანება!|ketili iqos tkveni mobrdzaneba!|קטילי איקוס טקבני מוברדזאנבה
+dp1|სად გტკივათ?|sad gtkivat?|סאד גטקיבאט
+dp2|ეს წამალი დღეში ორჯერ მიიღეთ.|es tsamali dgheshi orjer miighet.|אס צאמאלי דע׳שי אורג׳ר מיאיע׳ט
+dp4|გამოჯანმრთელდით!|gamojanmrteldit!|גאמוג׳אנמרטלדיט
+ds1|ინტერნეტიანი სიმ-ბარათი მინდა.|internetiani sim-barati minda.|אינטרנטיאני סים-בארטי מינדה
+ds2|რამდენი დღით?|ramdeni dghit?|ראמדני דע׳יט
+ds3|ათი დღით.|ati dghit.|אטי דע׳יט
+ds4|მზადაა, ახლა ინტერნეტი გაქვთ.|mzadaa, akhla interneti gakvt.|מזאדאה, אחלה אינטרנטי גאקבט
+dc1|რით შემიძლია დაგეხმაროთ?|rit shemidzlia dagekhmarot?|ריט שמידזליה דאגחמארוט
+dc2|ეს ლურჯი ფერის გაქვთ?|es lurji peris gakvt?|אס לורג׳י פריס גאקבט
+dc3|კი, რა ზომა?|ki, ra zoma?|קי, רה זומה
+dc4|საშუალო.|sashualo.|סאשואלו
+dc5|რა თქმა უნდა, გამოსაცვლელი იქ არის.|ra tkma unda, gamosatsvleli ik aris.|רה טקמה אונדה, גאמוסאצבללי איק אריס
+dg1|ხვალისთვის ტურის დაჯავშნა მინდა.|khvalistvis turis dajavshna minda.|חבאליסטביס טוריס דאג׳אבשנה מינדה
+dg2|ტური დილის რვა საათზე გადის.|turi dilis rva saatze gadis.|טורי דיליס רבה סאאטזה גאדיס
+dg3|სადილი შედის?|sadili shedis?|סאדילי שדיס
+dg4|კი, წყალიც.|ki, tsqalits.|קי, צקאליץ
+dg5|შესანიშნავია, ორი ადამიანისთვის.|shesanishnavia, ori adamianistvis.|שסאנישנאביה, אורי אדאמיאניסטביס
 w_weather|ამინდი|amindi|אמינדי
 w_sun|მზე|mze|מזה
 w_rain|წვიმა|tsvima|צבימה

@@ -3,7 +3,7 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('ar', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "$",
   /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
   country: {"he": "מדינות דוברות ערבית", "en": "Arabic-speaking countries", "ru": "Арабоязычные страны", "es": "Países de habla árabe", "ar": "الدول الناطقة بالعربية"},
@@ -434,6 +434,27 @@ dd2|على طول ثم يسارا.|'ala tul thumma yasaran|עלא טול תומ�
 dd3|هل هو بعيد من هنا؟|hal huwa ba'id min huna|הל הווא בעיד מן הונא
 dd4|لا، خمس دقائق مشيا.|la, khams daqa'iq mashyan|לא, ח׳מס דקאאק משין
 dd5|شكرا كثيرا!|shukran kathiran|שוכרן כתירן
+da1|ما هو سبب زيارتك؟|ma huwa sabab ziyaratik?|מא הווה סבב זיארתכ
+da2|كم ستبقى؟|kam satabqa?|כם סתבקא
+da3|أسبوعان.|usbu'an.|אוסבועאן
+da4|أهلاً وسهلاً!|ahlan wa sahlan!|אהלן וסהלן
+dp1|ماذا يؤلمك؟|madha yu'limuk?|מאד׳א יואלמכ
+dp2|خذ هذا الدواء مرتين في اليوم.|khudh hadha ad-dawa' marratayn fi al-yawm.|ח׳ד׳ האד׳א א-דוואא מרתין פי אל-יום
+dp4|سلامتك!|salamtak!|סלאמתכ
+ds1|أريد شريحة هاتف مع إنترنت.|urid shariha hatif ma'a internet.|אוריד שריחה האתף מע אינטרנט
+ds2|لكم يوماً؟|li-kam yawman?|לכם יומן
+ds3|لعشرة أيام.|li-'asharat ayyam.|לעשרת איאם
+ds4|جاهز، لديك إنترنت الآن.|jahiz, ladayka internet al-an.|ג׳אהז, לדיכ אינטרנט אלאן
+dc1|هل أستطيع مساعدتك؟|hal astati' musa'adatak?|הל אסתטיע מסאעדתכ
+dc2|هل عندك هذا باللون الأزرق؟|hal 'indak hadha bil-lawn al-azraq?|הל ענדכ האד׳א באללון אלאזרק
+dc3|نعم، أي مقاس؟|na'am, ayy maqas?|נעם, איי מקאס
+dc4|متوسط.|mutawassit.|מתוסט
+dc5|طبعاً، غرفة القياس هناك.|tab'an, ghurfat al-qiyas hunak.|טבען, ע׳רפת אלקיאס הנאכ
+dg1|أريد حجز جولة لغد.|urid hajz jawla li-ghad.|אוריד חג׳ז ג׳ולה לע׳ד
+dg2|تنطلق الجولة في الثامنة صباحاً.|tantaliq al-jawla fi ath-thamina sabahan.|תנטלק אלג׳ולה פי את׳-ת׳אמנה צבאחן
+dg3|هل الغداء مشمول؟|hal al-ghada' mashmul?|הל אלע׳דאא משמול
+dg4|نعم، والماء أيضاً.|na'am, wal-ma' aydan.|נעם, ואלמאא איד׳ן
+dg5|ممتاز، لشخصين من فضلك.|mumtaz, li-shakhsayn min fadlak.|ממתאז, לשח׳צין מן פד׳לכ
 w_weather|الطقس|at-taqs|א-טקס
 w_sun|شمس|shams|שמס
 w_rain|مطر|matar|מטר

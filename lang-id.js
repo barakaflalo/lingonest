@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('id', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "Rp",
   country: {"he": "אינדונזיה (באלי, ג׳קרטה ועוד)", "en": "Indonesia (Bali, Jakarta and more)", "ru": "Индонезия", "es": "Indonesia", "ar": "إندونيسيا"},
   emergency: [
@@ -418,6 +418,27 @@ dd2|Lurus saja, lalu belok kiri.||לורוס סאג׳ה, לאלו בלוק קי�
 dd3|Jauh dari sini?||ג׳אוה דארי סיני
 dd4|Tidak, jalan kaki lima menit.||טידאק, ג׳אלן קאקי לימה מניט
 dd5|Terima kasih banyak!||טרימה קאסיה באניאק
+da1|Apa tujuan kunjungan Anda?||אפה טוג׳ואן קונג׳ונגן אנדה
+da2|Berapa lama Anda tinggal?||ברפה לאמה אנדה טינגל
+da3|Dua minggu.||דואה מינגו
+da4|Selamat datang!||סלאמט דאטנג
+dp1|Sakitnya di mana?||סאקיטניה די מאנה
+dp2|Minum obat ini dua kali sehari.||מינום אובט איני דואה קאלי סהארי
+dp4|Semoga cepat sembuh!||סמוגה צ׳פאט סמבוה
+ds1|Saya mau kartu SIM dengan internet.||סאיה מאו קרטו סים דנגן אינטרנט
+ds2|Untuk berapa hari?||אונטוק ברפה הארי
+ds3|Untuk sepuluh hari.||אונטוק ספולוה הארי
+ds4|Sudah siap, sekarang Anda bisa internetan.||סודה סיאפ, סקרנג אנדה ביסה אינטרנטן
+dc1|Ada yang bisa dibantu?||אדה יאנג ביסה דיבנטו
+dc2|Ada yang warna biru?||אדה יאנג וורנה בירו
+dc3|Ada, ukuran berapa?||אדה, אוקורן ברפה
+dc4|Ukuran M.||אוקורן אם
+dc5|Tentu, kamar pas ada di sana.||טנטו, קאמר פאס אדה די סאנה
+dg1|Saya mau pesan tur untuk besok.||סאיה מאו פסן טור אונטוק בסוק
+dg2|Turnya berangkat jam delapan pagi.||טורניה ברנגקט ג׳אם דלאפאן פאגי
+dg3|Sudah termasuk makan siang?||סודה טרמאסוק מאקן סיאנג
+dg4|Ya, air minum juga.||יה, איר מינום ג׳וגה
+dg5|Bagus, untuk dua orang, ya.||באגוס, אונטוק דואה אורנג, יה
 w_weather|Cuaca||צ׳ואצ׳ה
 w_sun|Matahari||מאטהארי
 w_rain|Hujan||הוג׳אן

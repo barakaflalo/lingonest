@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ha', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "₦",
   country: {"he": "ניגריה (צפון), ניז׳ר ומערב אפריקה", "en": "Northern Nigeria, Niger & West Africa", "ru": "Север Нигерии, Нигер", "es": "Norte de Nigeria y Níger", "ar": "شمال نيجيريا والنيجر"},
   emergency: [
@@ -421,6 +421,27 @@ dd2|Kai tsaye, sannan ka juya hagu.||קאי צאיה, סאנאן קה ג׳ויה
 dd3|Akwai nisa daga nan?||אקוואי ניסה דאגה נאן
 dd4|A'a, minti biyar da ƙafa.||אעה, מינטי ביאר דה קאפה
 dd5|Na gode ƙwarai!||נה גודה קוואראי
+da1|Menene dalilin ziyararka?||מננה דלילין זיארארקה
+da2|Kwana nawa za ka yi?||קוואנה נאווה זה קה יי
+da3|Mako biyu.||מאקו ביו
+da4|Barka da zuwa!||בארקה דה זווה
+dp1|Ina ke maka ciwo?||אינה קה מאקה צ׳יוו
+dp2|Sha wannan magani sau biyu a rana.||שה וואנן מגאני סאו ביו א ראנה
+dp4|Allah ya ba ka lafiya!||אללה יה בה קה לאפיה
+ds1|Ina son layin waya mai intanet.||אינה סון לאיין ואיה מאי אינטנט
+ds2|Na kwana nawa?||נה קוואנה נאווה
+ds3|Na kwana goma.||נה קוואנה גומה
+ds4|Ya gama, yanzu kana da intanet.||יה גאמה, יאנזו קאנה דה אינטנט
+dc1|Me kake nema?||מה קאקה נמה
+dc2|Akwai wannan mai launin shuɗi?||אקוואי וואנן מאי לאונין שודי
+dc3|Akwai, wane girma?||אקוואי, וואנה גירמה
+dc4|Matsakaici.||מאצאקאיצ׳י
+dc5|To, ɗakin gwaji yana can.||טו, דאקין גוואג׳י יאנה צ׳אן
+dg1|Ina so in yi ajiyar yawon buɗe ido na gobe.||אינה סו אין יי אג׳יאר יאוון בודה אידו נה גובה
+dg2|Za a tashi ƙarfe takwas na safe.||זה א טאשי קארפה טקווס נה סאפה
+dg3|Akwai abincin rana a ciki?||אקוואי אבינצ׳ין ראנה א צ׳יקי
+dg4|Eh, da ruwa ma.||אה, דה רווה מה
+dg5|Madalla, mutum biyu don Allah.||מאדאלה, מוטום ביו דון אללה
 w_weather|Yanayi||יאנאיי
 w_sun|Rana||ראנה
 w_rain|Ruwan sama||רוואן סאמה

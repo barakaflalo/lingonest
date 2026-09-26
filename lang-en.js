@@ -3,7 +3,7 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('en', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "$",
   /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
   country: {"he": "מדינות דוברות אנגלית", "en": "English-speaking countries", "ru": "Англоязычные страны", "es": "Países de habla inglesa", "ar": "الدول الناطقة بالإنجليزية"},
@@ -421,6 +421,27 @@ dd2|Go straight, then turn left.||גואו סטרייט, דן טרן לפט
 dd3|Is it far from here?||איז איט פאר פרום היר
 dd4|No, five minutes on foot.||נואו, פייב מיניטס און פוט
 dd5|Thanks a lot!||תנקס א לוט
+da1|What is the purpose of your visit?||ווט איז דה פרפס אוף יור ויזיט
+da2|How long will you stay?||האו לונג וויל יו סטיי
+da3|Two weeks.||טו וויקס
+da4|Welcome!||ולקם
+dp1|What hurts?||ווט הרטס
+dp2|Take this medicine twice a day.||טייק דיס מדסין טוויס א דיי
+dp4|Get well soon!||גט וול סון
+ds1|I'd like a SIM card with internet.||איד לייק א סים קארד וויד אינטרנט
+ds2|For how many days?||פור האו מני דייז
+ds3|For ten days.||פור טן דייז
+ds4|All set — you have internet now.||אול סט — יו הב אינטרנט נאו
+dc1|Can I help you?||קן איי הלפ יו
+dc2|Do you have this in blue?||דו יו הב דיס אין בלו
+dc3|Yes, what size?||יס, ווט סייז
+dc4|Medium.||מידיום
+dc5|Sure, the fitting room is over there.||שור, דה פיטינג רום איז אובר דר
+dg1|I'd like to book a tour for tomorrow.||איד לייק טו בוק א טור פור טומורו
+dg2|The tour leaves at eight in the morning.||דה טור ליבז את אייט אין דה מורנינג
+dg3|Is lunch included?||איז לאנץ׳ אינקלודד
+dg4|Yes, and water too.||יס, אנד ווטר טו
+dg5|Great, for two people please.||גרייט, פור טו פיפל פליז
 w_weather|Weather||ודר
 w_sun|Sun||סאן
 w_rain|Rain||ריין

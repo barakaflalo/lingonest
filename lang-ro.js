@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ro', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "lei",
   country: {"he": "רומניה ומולדובה", "en": "Romania & Moldova", "ru": "Румыния и Молдова", "es": "Rumanía y Moldavia", "ar": "رومانيا ومولدوفا"},
   emergency: [
@@ -431,6 +431,27 @@ dd2|Drept înainte, apoi la stânga.||דרפט אינאינטה, אפוי לה �
 dd3|E departe de aici?||יה דפרטה דה איצ׳ץ
 dd4|Nu, cinci minute pe jos.||נו, צ׳ינץ׳ מינוטה פה ז׳וס
 dd5|Mulțumesc mult!||מולצומסק מולט
+da1|Care este scopul vizitei?||קארה יסטה סקופול ויזיטיי
+da2|Cât timp rămâneți?||קט טימפ רמנץ
+da3|Două săptămâni.||דואה ספטמן
+da4|Bine ați venit!||בינה אץ ונית
+dp1|Unde vă doare?||אונדה וה דואארה
+dp2|Luați acest medicament de două ori pe zi.||לואץ אצ׳סט מדיקמנט דה דואה אור פה זי
+dp4|Însănătoșire grabnică!||אינסנטושירה גרבניקה
+ds1|Aș vrea o cartelă SIM cu internet.||אש וריאה או קרטלה סים קו אינטרנט
+ds2|Pentru câte zile?||פנטרו קטה זילה
+ds3|Pentru zece zile.||פנטרו זצ׳ה זילה
+ds4|Gata, acum aveți internet.||גאטה, אקום אבץ אינטרנט
+dc1|Vă pot ajuta?||וה פוט אז׳וטה
+dc2|Îl aveți în albastru?||איל אבץ אין אלבסטרו
+dc3|Da, ce mărime?||דה, צ׳ה מרימה
+dc4|Mărimea M.||מרימיאה אם
+dc5|Sigur, cabina de probă e acolo.||סיגור, קבינה דה פרובה יה אקולו
+dg1|Aș vrea să rezerv o excursie pentru mâine.||אש וריאה סה רזרב או אקסקורסיה פנטרו מינה
+dg2|Excursia pleacă la ora opt dimineața.||אקסקורסיה פליאקה לה אורה אופט דימיניאצה
+dg3|Prânzul este inclus?||פרנזול יסטה אינקלוס
+dg4|Da, și apa la fel.||דה, שי אפה לה פל
+dg5|Perfect, pentru două persoane, vă rog.||פרפקט, פנטרו דואה פרסואנה, וה רוג
 w_weather|Vremea||ורמיאה
 w_sun|Soarele||סואארלה
 w_rain|Ploaia||פלואיה

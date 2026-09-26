@@ -473,6 +473,27 @@ const CONCEPTS = [
   ["dd3","dlg_dir",8,"זה רחוק מכאן?","Is it far from here?"],
   ["dd4","dlg_dir",8,"לא, חמש דקות ברגל","No, five minutes on foot"],
   ["dd5","dlg_dir",8,"תודה רבה!","Thanks a lot!"],
+  ["da1", "dlg_airport", 8, "מה מטרת הביקור?", "What is the purpose of your visit?"],
+  ["da2", "dlg_airport", 8, "כמה זמן תישאר?", "How long will you stay?"],
+  ["da3", "dlg_airport", 8, "שבועיים.", "Two weeks."],
+  ["da4", "dlg_airport", 8, "ברוך הבא!", "Welcome!"],
+  ["dp1", "dlg_pharm", 8, "מה כואב לך?", "What hurts?"],
+  ["dp2", "dlg_pharm", 8, "קח את התרופה הזו פעמיים ביום.", "Take this medicine twice a day."],
+  ["dp4", "dlg_pharm", 8, "רפואה שלמה!", "Get well soon!"],
+  ["ds1", "dlg_sim", 8, "אני רוצה כרטיס סים עם אינטרנט.", "I'd like a SIM card with internet."],
+  ["ds2", "dlg_sim", 8, "לכמה ימים?", "For how many days?"],
+  ["ds3", "dlg_sim", 8, "לעשרה ימים.", "For ten days."],
+  ["ds4", "dlg_sim", 8, "מוכן — יש לך אינטרנט עכשיו.", "All set — you have internet now."],
+  ["dc1", "dlg_clothes", 8, "אפשר לעזור לך?", "Can I help you?"],
+  ["dc2", "dlg_clothes", 8, "יש את זה בכחול?", "Do you have this in blue?"],
+  ["dc3", "dlg_clothes", 8, "כן, באיזו מידה?", "Yes, what size?"],
+  ["dc4", "dlg_clothes", 8, "מידה בינונית (M).", "Medium."],
+  ["dc5", "dlg_clothes", 8, "בטח, תא המדידה שם.", "Sure, the fitting room is over there."],
+  ["dg1", "dlg_tour", 8, "אני רוצה להזמין סיור למחר.", "I'd like to book a tour for tomorrow."],
+  ["dg2", "dlg_tour", 8, "הסיור יוצא בשמונה בבוקר.", "The tour leaves at eight in the morning."],
+  ["dg3", "dlg_tour", 8, "ארוחת צהריים כלולה?", "Is lunch included?"],
+  ["dg4", "dlg_tour", 8, "כן, וגם מים.", "Yes, and water too."],
+  ["dg5", "dlg_tour", 8, "מצוין, לשני אנשים בבקשה.", "Great, for two people please."],
   /* weather */
   ["w_weather","weather",7,"מזג אוויר","Weather"],
   ["w_sun","weather",7,"שמש","Sun"],
@@ -541,7 +562,7 @@ const CONCEPTS = [
 ];
 
 /* Dialogues: [id, icon, lines] — line = 'M:<concept>' (you) or 'T:<concept>' (the local person). Names: ui key dlg_<id> */
-const DIALOGS = [["taxi","🚕",["T:dt1","M:dt2","T:dt3","M:dt4","T:dt5","M:dt6","T:dt7","M:dt8"]],["market","🛍️",["M:dm1","T:dm2","M:dm3","T:dm4","M:dm5","T:dm6"]],["rest","🍜",["T:dr1","M:dr2","T:dr3","M:dr4","T:dr5","M:dr6","M:dr7"]],["hotel","🏨",["M:dh1","T:dh2","M:dh3","T:dh4","T:dh5","M:dh6","T:dh7"]],["dir","🧭",["M:dd1","T:dd2","M:dd3","T:dd4","M:dd5"]]];
+const DIALOGS = [["taxi","🚕",["T:dt1","M:dt2","T:dt3","M:dt4","T:dt5","M:dt6","T:dt7","M:dt8"]],["market","🛍️",["M:dm1","T:dm2","M:dm3","T:dm4","M:dm5","T:dm6"]],["rest","🍜",["T:dr1","M:dr2","T:dr3","M:dr4","T:dr5","M:dr6","M:dr7"]],["hotel","🏨",["M:dh1","T:dh2","M:dh3","T:dh4","T:dh5","M:dh6","T:dh7"]],["dir","🧭",["M:dd1","T:dd2","M:dd3","T:dd4","M:dd5"]],["airport", "✈️", ["T:dh4", "T:da1", "M:so_vacation", "T:da2", "M:da3", "T:da4", "M:thanks"]],["pharm", "💊", ["M:sp_unwell", "T:dp1", "M:c_hurts", "M:sp_fever", "T:dp2", "M:thanks", "T:dp4"]],["sim", "📱", ["M:ds1", "T:ds2", "M:ds3", "T:dh4", "T:ds4", "M:thanks"]],["clothes", "👕", ["T:dc1", "M:dc2", "T:dc3", "M:dc4", "M:ss_try", "T:dc5"]],["tour", "🗺️", ["M:dg1", "T:dg2", "M:dg3", "T:dg4", "M:dg5", "M:thanks"]]];
 
 /* Registration API used by every lang-xx.js */
 const LINGO = {
@@ -571,4 +592,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.18.0';
+window.__MODS.content = '1.19.0';

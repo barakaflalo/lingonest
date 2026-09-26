@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('de', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "€",
   country: {"he": "גרמניה, אוסטריה ושווייץ", "en": "Germany, Austria & Switzerland", "ru": "Германия, Австрия и Швейцария", "es": "Alemania, Austria y Suiza", "ar": "ألمانيا والنمسا وسويسرا"},
   emergency: [
@@ -436,6 +436,27 @@ dd2|Geradeaus, dann links.||גרדה-אאוס, דן לינקס
 dd3|Ist es weit von hier?||איסט אס וייט פון היר
 dd4|Nein, fünf Minuten zu Fuß.||ניין, פינף מינוטן צו פוס
 dd5|Danke schön!||דנקה שן
+da1|Was ist der Zweck Ihres Besuchs?||ואס איסט דר צווק אירס בזוכס
+da2|Wie lange bleiben Sie?||וי לנגה בלייבן זי
+da3|Zwei Wochen.||צוויי ווכן
+da4|Willkommen!||וילקומן
+dp1|Wo tut es weh?||וו טוט אס וה
+dp2|Nehmen Sie das zweimal täglich.||ניימן זי דאס צווימאל טגליך
+dp4|Gute Besserung!||גוטה בסרונג
+ds1|Ich möchte eine SIM-Karte mit Internet.||איך מכטה איינה זים-קרטה מיט אינטרנט
+ds2|Für wie viele Tage?||פיר וי פילה טאגה
+ds3|Für zehn Tage.||פיר צן טאגה
+ds4|Fertig, jetzt haben Sie Internet.||פרטיג, יצט האבן זי אינטרנט
+dc1|Kann ich Ihnen helfen?||קן איך אינן הלפן
+dc2|Haben Sie das in Blau?||האבן זי דאס אין בלאו
+dc3|Ja, welche Größe?||יא, ולכה גרסה
+dc4|Größe M.||גרסה אם
+dc5|Natürlich, die Umkleide ist dort drüben.||נטירליך, די אומקליידה איסט דורט דריבן
+dg1|Ich möchte eine Tour für morgen buchen.||איך מכטה איינה טור פיר מורגן בוכן
+dg2|Die Tour startet um acht Uhr morgens.||די טור שטרטט אום אכט אור מורגנס
+dg3|Ist das Mittagessen inklusive?||איסט דאס מיטאג-אסן אינקלוזיבה
+dg4|Ja, und Wasser auch.||יא, אונט וואסר אאוך
+dg5|Super, für zwei Personen, bitte.||זופר, פיר צוויי פרזונן, ביטה
 w_weather|Das Wetter||דאס ודר
 w_sun|Die Sonne||די זונה
 w_rain|Der Regen||דר רגן

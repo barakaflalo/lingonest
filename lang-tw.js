@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('tw', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "GH₵",
   country: {"he": "גאנה", "en": "Ghana", "ru": "Гана", "es": "Ghana", "ar": "غانا"},
   emergency: [
@@ -429,6 +429,27 @@ dd2|Kɔ tee, na afei dane kɔ benkum.||קו טה, נה אפיי דאנה קו ב
 dd3|Ɛwɔ akyiri firi ha?||אוו אצ׳ירי פירי הה
 dd4|Daabi, simma enum wɔ nan so.||דאבי, סימה אנום וו נאן סו
 dd5|Medaase paa!||מדאסה פאה
+da1|Deɛn na ɛde wo baa ha?||דין נה אדה וו באה הה
+da2|Wobɛtena ha nna sɛn?||ווביטנה הה נה סן
+da3|Nnawɔtwe mmienu.||נאווצ׳ווה מיאנו
+da4|Akwaaba!||אקוואבה
+dp1|Ɛhe na ɛyɛ wo ya?||אהה נה איה וו יה
+dp2|Nom aduro yi mprɛnu da biara.||נום אדורו יי מפרנו דה ביארה
+dp4|Nyame nsa wo yareɛ!||נימה נסה וו יארה
+ds1|Mepɛ SIM card a internet wom.||מפה סים קארד א אינטרנט וום
+ds2|Nna sɛn?||נה סן
+ds3|Nna du.||נה דו
+ds4|Ayɛ krado, seesei wowɔ internet.||איה קרדו, ססיי וווו אינטרנט
+dc1|Mɛboa wo?||מבואה וו
+dc2|Wowɔ eyi a ɛyɛ bruu?||וווו איי א איה ברו
+dc3|Aane, ne kɛseɛ yɛ sɛn?||אאנה, נה קסה יה סן
+dc4|Ntam.||נטאם
+dc5|Yoo, dan a wɔsɔ ntadeɛ hwɛ wɔ hɔ.||יו, דאן א ווסו נטאדה הווה וו הו
+dg1|Mepɛ sɛ meto tour ma ɔkyena.||מפה סה מטו טור מה אוצ׳נה
+dg2|Tour no bɛfiri ase anɔpa nnɔnwɔtwe.||טור נו ביפירי אסה אנופה נונווצ׳ווה
+dg3|Awia aduane ka ho?||אוויה אדואנה קה הו
+dg4|Aane, ɛne nsuo nso.||אאנה, אנה נסואו נסו
+dg5|Ɛyɛ, nnipa baanu.||איה, ניפה באנו
 w_weather|Ewiem tebea||אוויאם טביאה
 w_sun|Owia||אוויה
 w_rain|Nsuo tɔ||נסואו טו

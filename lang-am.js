@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('am', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "Br",
   country: {"he": "אתיופיה", "en": "Ethiopia", "ru": "Эфиопия", "es": "Etiopía", "ar": "إثيوبيا"},
   emergency: [
@@ -444,6 +444,27 @@ dd2|ቀጥ ብለው ይሂዱ፣ ከዚያ ወደ ግራ።|qet' bilew yihidu, 
 dd3|ከዚህ ሩቅ ነው?|kezih ruq new?|קזיה רוק נו
 dd4|አይ፣ በእግር አምስት ደቂቃ።|ay, be'igir amist deqiqa.|אי, באיגיר אמיסט דקיקה
 dd5|በጣም አመሰግናለሁ!|bet'am ameseginalehu!|בטאם אמסגינאלהו
+da1|የጉብኝትዎ ዓላማ ምንድን ነው?|yegubignitwo alama mindin new?|יגוביניטוו אלאמה מינדין נו
+da2|ለምን ያህል ጊዜ ይቆያሉ?|lemin yahil gize yiqoyalu?|למין יאהיל גיזה ייקויאלו
+da3|ሁለት ሳምንት።|hulet samint.|הולת סמינט
+da4|እንኳን ደህና መጡ!|enkwan dehna met'u!|אנקוואן דהנה מטו
+dp1|የት ያመዎታል?|yet yamewotal?|ית יאמווטאל
+dp2|ይህን መድኃኒት በቀን ሁለት ጊዜ ይውሰዱ።|yihin medhanit beqen hulet gize yiwsedu.|ייהין מדהאניט בקן הולת גיזה ייוסדו
+dp4|እግዚአብሔር ይማርዎ!|egziabher yimarwo!|אגזיאבהר יימרוו
+ds1|ኢንተርኔት ያለው ሲም ካርድ እፈልጋለሁ።|internet yalew sim kard efeligalehu.|אינטרנט יאלו סים קארד אפליגאלהו
+ds2|ለስንት ቀን?|lesint qen?|לסינט קן
+ds3|ለአስር ቀን።|le'asir qen.|לאסיר קן
+ds4|ተዘጋጅቷል፣ አሁን ኢንተርኔት አለዎት።|tezegajitwal, ahun internet alewot.|טזגאג׳יטוואל, אהון אינטרנט אלווט
+dc1|ልርዳዎት?|lirdawot?|לירדאווט
+dc2|ይሄ በሰማያዊ ቀለም አለ?|yihe besemayawi qelem ale?|ייהה בסמאיאווי קלם אלה
+dc3|አዎ፣ ስንት ቁጥር?|awo, sint qut'ir?|אווו, סינט קוטיר
+dc4|መካከለኛ።|mekakelenya.|מקאקלניה
+dc5|እሺ፣ መለኪያ ክፍሉ እዚያ ነው።|eshi, melekiya kiflu iziya new.|אשי, מלקיה קיפלו איזיה נו
+dg1|ለነገ ጉብኝት መያዝ እፈልጋለሁ።|lenege gubignit meyaz efeligalehu.|לנגה גוביניט מיאז אפליגאלהו
+dg2|ጉብኝቱ ጠዋት ሁለት ሰዓት ይነሳል።|gubignitu t'ewat hulet se'at yinesal.|גוביניטו טוואט הולת סעאט ייניסאל
+dg3|ምሳ ይጨምራል?|misa yich'emiral?|מיסה ייצ׳מיראל
+dg4|አዎ፣ ውሃም ጭምር።|awo, wuham ch'imir.|אווו, ווהאם צ׳ימיר
+dg5|በጣም ጥሩ፣ ለሁለት ሰው እባክዎ።|bet'am t'iru, lehulet sew ebakwo.|בטאם טירו, להולת סו אבקוו
 w_weather|የአየር ሁኔታ|ye'ayer huneta|יאייר הונטה
 w_sun|ፀሐይ|tsehay|צהאי
 w_rain|ዝናብ|zinab|זינאב

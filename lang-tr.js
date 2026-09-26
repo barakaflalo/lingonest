@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('tr', {
-  ver: '1.18.0',
+  ver: '1.19.0',
   curSym: "₺",
   country: {"he": "טורקיה וקפריסין הצפונית", "en": "Turkey & Northern Cyprus", "ru": "Турция", "es": "Turquía", "ar": "تركيا"},
   emergency: [
@@ -421,6 +421,27 @@ dd2|Düz gidin, sonra sola.||דוז גידין, סונרה סולה
 dd3|Buradan uzak mı?||בורדן אוזק מה
 dd4|Hayır, yürüyerek beş dakika.||היר, יורויירק בש דקיקה
 dd5|Çok sağ olun!||צ׳וק סא אולון
+da1|Ziyaretinizin amacı nedir?||זיארטיניזין אמאג׳ה נדיר
+da2|Ne kadar kalacaksınız?||נה קדר קלאג׳קסיניז
+da3|İki hafta.||איקי הפטה
+da4|Hoş geldiniz!||הוש גלדיניז
+dp1|Neresi ağrıyor?||נרסי אאריור
+dp2|Bu ilacı günde iki kez alın.||בו אילאג׳ה גונדה איקי קז אלין
+dp4|Geçmiş olsun!||גצ׳מיש אולסון
+ds1|İnternetli bir SIM kart istiyorum.||אינטרנטלי ביר סים קרט איסטיורום
+ds2|Kaç günlük?||קאץ׳ גונלוק
+ds3|On günlük.||און גונלוק
+ds4|Hazır, artık internetiniz var.||האזיר, ארטיק אינטרנטיניז ואר
+dc1|Yardımcı olabilir miyim?||יארדימג׳ה אולבילר מיים
+dc2|Bunun mavisi var mı?||בונון מאביסי ואר מה
+dc3|Var, kaç beden?||ואר, קאץ׳ בדן
+dc4|Orta beden.||אורטה בדן
+dc5|Tabii, deneme kabini şurada.||טבי, דנמה קביני שורדה
+dg1|Yarın için bir tur ayırtmak istiyorum.||יארין איצ׳ין ביר טור איירטמק איסטיורום
+dg2|Tur sabah sekizde kalkıyor.||טור סבאח סקיזדה קלקיור
+dg3|Öğle yemeği dahil mi?||אוילה ימיי דהיל מי
+dg4|Evet, su da dahil.||אווט, סו דה דהיל
+dg5|Harika, iki kişi lütfen.||הריקה, איקי קישי לוטפן
 w_weather|Hava durumu||הבה דורומו
 w_sun|Güneş||גונש
 w_rain|Yağmur||יאמור
