@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.20.1' };
+const APP = { name: 'LingoNest', ver: '1.20.2' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -214,19 +214,25 @@ const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f\u064B-\u065F]/g, '').replace(/[^\p{L}\p{N}]/gu, ''); }
 function sim(a, b) {
   if (!a || !b) return 0;
-  if (a === b || a.includes(b) || b.includes(a)) return 1;
+  if (a === b) return 1;
+  const lo = Math.min(a.length, b.length), hi = Math.max(a.length, b.length);
+  if ((a.includes(b) || b.includes(a)) && lo / hi >= 0.85) return 1;          /* "hello" ≠ "hello, how are you" */
   const m = a.length, n = b.length, d = Array.from({ length: m + 1 }, (_, i) => [i]);
   for (let j = 1; j <= n; j++) d[0][j] = j;
   for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
   return 1 - d[m][n] / Math.max(m, n);
 }
+const MICS = new Set();
+function stopMics() { MICS.forEach(r => { try { r.abort(); } catch (e) {} }); MICS.clear(); }
 function sayIt(it, lang, out, cb) {
   if (!SR) { toast(T('noSR'), 'warn', 5000); return; }
   if (location.protocol === 'file:') { toast(T('fileMic'), 'warn', 6000); return; }
-  const r = new SR();
+  stopMics();
+  const r = new SR(), nav = NAV.seq; MICS.add(r);
   r.lang = LANGS[lang].tts; r.maxAlternatives = 4; r.interimResults = false;
   if (out) out.textContent = T('listening');
   r.onresult = e => {
+    if (nav !== NAV.seq || (out && !document.contains(out))) return;      /* the user already moved on */
     const alts = [...e.results[0]].map(a => a.transcript);
     const target = norm(it.tts || it.text);
     const best = Math.max(...alts.map(a => sim(norm(a), target)));
@@ -237,7 +243,7 @@ function sayIt(it, lang, out, cb) {
     }
   };
   r.onerror = e => { if (out) out.textContent = ''; if (e.error === 'no-speech') toast(T('noSpeech'), 'warn', 3000); else toast(T('srErr') + ' (' + e.error + ')', 'err', 4000); };
-  r.onend = () => { if (out && out.textContent === T('listening')) out.textContent = ''; };
+  r.onend = () => { MICS.delete(r); if (out && out.textContent === T('listening')) out.textContent = ''; };
   try { r.start(); } catch (e) { toast(T('srErr'), 'err'); }
 }
 
@@ -306,7 +312,12 @@ const AI = {
 };
 const hdr = v => String(v).replace(/[^\x20-\x7E]/g, '');
 async function httpJSON(url, opt) {
-  const r = await fetch(url, opt);
+  const ac = new AbortController(), ms = /localhost/.test(url) ? 120000 : 60000;
+  const timer = setTimeout(() => ac.abort(), ms);
+  let r;
+  try { r = await fetch(url, Object.assign({}, opt, { signal: ac.signal })); }
+  catch (e) { const x = new Error(e.name === 'AbortError' ? T('aiTimeout') : e.message); x.status = e.name === 'AbortError' ? 504 : 0; throw x; }
+  finally { clearTimeout(timer); }
   let j = null; try { j = await r.json(); } catch (e) {}
   if (!r.ok) { const e = new Error((j && (j.error && (j.error.message || j.error.type) || j.message)) || ('HTTP ' + r.status)); e.status = r.status; throw e; }
   return j;
@@ -401,8 +412,9 @@ function go(id, arg, noPush) {
   if (id === 'home') NAV.stack = [];
   if (DLG.cur >= 0 || DLG.run) { DLG.run++; DLG.cur = -1; }
   if (id === 'cards' && !noPush) cardsStart();
-  NAV.cur = id; NAV.arg = arg;
+  NAV.cur = id; NAV.arg = arg; NAV.seq = (NAV.seq || 0) + 1;
   if ('speechSynthesis' in window) speechSynthesis.cancel();
+  stopMics(); if (typeof CHAT !== 'undefined' && CHAT.rec) { try { CHAT.rec.abort(); } catch (e) {} CHAT.rec = null; }
   render();
   window.scrollTo(0, 0);
   const m = $('#app'); m.classList.remove('enter'); void m.offsetWidth; m.classList.add('enter');
@@ -822,6 +834,10 @@ function qaBatches(lang) {
 const QA_WAITS = [15, 30, 60, 90, 120];                 /* seconds — free Gemini tier is often busy for a minute or two */
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 async function qaRun(resume) {
+  try { await qaRunInner(resume); }
+  catch (e) { QA.busy = false; QA.msg = T('aiErr') + ': ' + e.message; qaSave(); qaPaint(); logErr('qa: ' + e.message, 'qa', 0); }
+}
+async function qaRunInner(resume) {
   const lang = st.lang, run = ++QA.run, batches = qaBatches(lang), cmap = {};
   CONCEPTS.forEach(c => { cmap[c[0]] = c; });
   if (!resume || QA.lang !== lang) Object.assign(QA, { done: 0, next: 0, issues: [], finished: false });
@@ -851,7 +867,7 @@ async function qaRun(resume) {
       }
     }
     if (run !== QA.run) return;
-    (res.issues || []).forEach(x => { if (x && b.includes(x.id) && (x.text || x.roman || x.heb) && !QA.issues.some(y => y.id === x.id)) QA.issues.push({ id: x.id, problem: String(x.problem || ''), text: String(x.text || ''), roman: String(x.roman || ''), heb: String(x.heb || '') }); });
+    (Array.isArray(res.issues) ? res.issues : []).forEach(x => { if (x && b.includes(x.id) && (x.text || x.roman || x.heb) && !QA.issues.some(y => y.id === x.id)) QA.issues.push({ id: x.id, problem: String(x.problem || ''), text: String(x.text || ''), roman: String(x.roman || ''), heb: String(x.heb || '') }); });
     QA.done += b.length; QA.next = bi + 1; qaSave(); qaPaint();
     await sleep(2500);
   }
@@ -1215,7 +1231,8 @@ SCREENS.about = () => header(T('about')) + `
   <div class="card"><dl class="kv">
     <dt>${esc(T('version'))}</dt><dd>${APP.ver}</dd><dt>${esc(T('developer'))}</dt><dd>Barak Aflalo</dd>
     <dt>${esc(T('platform'))}</dt><dd>PWA · HTML5</dd><dt>${esc(T('storage'))}</dt><dd>${esc(T('onDevice'))}</dd>
-    <dt>${esc(T('license'))}</dt><dd>© AppNest 2026</dd></dl></div>
+    <dt>${esc(T('license'))}</dt><dd>© AppNest 2026</dd>
+    <dt>${esc(T('offlineSt'))}</dt><dd>${S.raw('ln_offline') && S.get('ln_offline') === APP.ver ? '✅ ' + esc(T('offlineYes')) : '⏳ ' + esc(T('offlineNo'))}</dd></dl></div>
   <div class="list">
     <button class="trow" data-act="nav" data-to="help"><span class="ti">📖</span><span class="tt"><b>${esc(T('helpTitle'))}</b><small>${esc(T('helpSub'))}</small></span></button>
     <a class="trow" href="https://barakaflalo.github.io/appnest" target="_blank" rel="noopener"><span class="ti">🏪</span><span class="tt"><b>${esc(T('store'))}</b></span></a>
@@ -1375,7 +1392,7 @@ function sanitizeState(s) {
     o.trip = { lang: s.trip.lang, date: s.trip.date, start: s.trip.start, done: {} };
     if (isObj(s.trip.done)) for (const i in s.trip.done) if (/^\d{1,3}$/.test(i)) o.trip.done[i] = 1;
   }
-  if (isObj(s.ai)) { o.ai.provider = pick(s.ai.provider, ['gemini', 'claude', 'openai', 'ollama'], 'gemini'); o.ai.model = /^[A-Za-z0-9._:\/-]{0,80}$/.test(s.ai.model || '') ? (s.ai.model || '') : ''; }
+  if (isObj(s.ai)) { o.ai.provider = pick(s.ai.provider, Object.keys(AI), 'gemini'); o.ai.model = /^[A-Za-z0-9._:\/-]{0,80}$/.test(s.ai.model || '') ? (s.ai.model || '') : ''; }
   o.v = STATE_SCHEMA;
   return o;
 }
@@ -1669,6 +1686,14 @@ function showUpdateBar() {
   document.body.appendChild(b);
 }
 /* only this app's service worker and caches — other apps on the same domain are left alone */
+/* a new release is downloaded in the background; it's switched on only when the user taps (never mid-lesson) */
+function updReady(worker) {
+  if (document.getElementById('updready')) return;
+  const b = document.createElement('button'); b.id = 'updready'; b.className = 'updbar';
+  b.textContent = '✨ ' + T('updAvail');
+  b.onclick = () => { b.disabled = true; b.textContent = '⏳'; worker.postMessage('skipWaiting'); setTimeout(() => location.reload(), 4000); };
+  document.body.appendChild(b);
+}
 async function clearOwnCaches() {
   try { const ks = await caches.keys(); await Promise.all(ks.filter(k => /^lingonest-/.test(k)).map(k => caches.delete(k))); } catch (e) {}
 }
@@ -1713,9 +1738,24 @@ async function boot() {
   if (firstRun) setTimeout(() => guide(0), 300);
   else if (st.backupAt && Date.now() - st.backupAt > 30 * 864e5 && Object.keys(st.log).length > 5) setTimeout(() => toast(T('backupNudge'), '', 5000), 1500);
   else if (!st.backupAt && Date.now() - st.firstUse > 14 * 864e5) setTimeout(() => toast(T('backupNudge'), '', 5000), 1500);
-  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(e => logErr('sw: ' + e.message, 'sw', 0));
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+    const hadCtl = !!navigator.serviceWorker.controller; let reloading = false;
+    navigator.serviceWorker.addEventListener('message', e => {
+      const d = e.data || {};
+      if (d.type === 'precache') {
+        if (d.ok === d.total) { S.set('ln_offline', d.ver); if (d.ver === APP.ver && !hadCtl) toast('📲 ' + T('offlineReady'), 'ok', 4000); }
+        else { S.del('ln_offline'); logErr('precache ' + d.ok + '/' + d.total, 'sw', 0); }
+      }
+    });
+    navigator.serviceWorker.addEventListener('controllerchange', () => { if (hadCtl && !reloading) { reloading = true; location.reload(); } });
+    navigator.serviceWorker.register('sw.js').then(reg => {
+      const offer = w => { if (w && navigator.serviceWorker.controller) updReady(w); };
+      if (reg.waiting) offer(reg.waiting);
+      reg.addEventListener('updatefound', () => { const w = reg.installing; if (w) w.addEventListener('statechange', () => { if (w.state === 'installed') offer(w); }); });
+    }).catch(e => logErr('sw: ' + e.message, 'sw', 0));
+  }
   /* other languages load in the background (home-screen %, offline availability) */
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.20.1';
+window.__MODS.app = '1.20.2';

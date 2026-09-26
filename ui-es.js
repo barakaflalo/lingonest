@@ -295,10 +295,10 @@ LANG.es = {
   "sayMore": "Aún no, volverá en el repaso",
   "noSpeech": "No oí nada. Pulsa 🎤 y habla cerca del teléfono.",
   "newIn": "Novedades de {v}",
-  "wn1": "🛡️ Actualización de seguridad y protección de datos.",
-  "wn2": "Restaurar una copia se valida antes de reemplazar nada.",
-  "wn3": "Dos pestañas ya no sobrescriben datos.",
-  "wn4": "\"Cambiar fecha\" ya no borra el plan; \"Borrar todo\" solo borra LingoNest.",
+  "wn1": "🛡️ Actualizaciones más seguras — al tocar, nunca a mitad de lección.",
+  "wn2": "Más fiable sin internet.",
+  "wn3": "Chat IA: una respuesta vieja no entra en una conversación nueva.",
+  "wn4": "Práctica oral más precisa; el micrófono se cierra al salir.",
   "wn5": "Tu progreso se conservó.",
   "lvl8": "Frases completas",
   "lvl9": "Mis palabras",
@@ -562,6 +562,12 @@ LANG.es = {
   "restoreFail": "La restauración falló — tus datos anteriores se conservaron.",
   "resetPartial": "El borrado no se completó. Inténtalo de nuevo.",
   "tripStarts": "El plan empieza el {d}.",
-  "tripEditHint": "Los días terminados se conservan. Nada cambia hasta \"Guardar\"."
+  "tripEditHint": "Los días terminados se conservan. Nada cambia hasta \"Guardar\".",
+  "aiTimeout": "La IA no respondió a tiempo. Inténtalo de nuevo.",
+  "updAvail": "Nueva versión lista — toca para actualizar",
+  "offlineReady": "La app está lista para usarse sin internet",
+  "offlineSt": "Uso sin internet",
+  "offlineYes": "Lista",
+  "offlineNo": "Aún cargando"
 };
-window.__MODS['ui-es'] = '1.20.1';
+window.__MODS['ui-es'] = '1.20.2';

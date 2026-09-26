@@ -295,10 +295,10 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "🛡️ Security and data-protection update — recommended for everyone.",
-  "wn2": "Restoring a backup is validated before anything is replaced; if something fails, your previous data stays.",
-  "wn3": "App open in two tabs? It no longer overwrites data — you'll be asked to reload.",
-  "wn4": "\"Change date\" no longer deletes the trip plan, and \"Erase all\" removes only LingoNest data.",
+  "wn1": "🛡️ Safer updates: a new version downloads in the background and switches on only when you tap \"update\" — never mid-lesson.",
+  "wn2": "More reliable offline: on a slow network or when the server is down, the app loads from its saved copy. About shows whether it's offline-ready.",
+  "wn3": "AI chat: an old answer won't jump into a new conversation, and a stuck request ends after a minute with a message.",
+  "wn4": "More accurate speaking practice (\"hello\" no longer counts for a whole sentence), and the microphone closes when you leave a screen.",
   "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
@@ -562,6 +562,12 @@ LANG.en = {
   "restoreFail": "Restore failed — your previous data was kept as it was.",
   "resetPartial": "Erasing didn't fully complete. Try again, or clear the site data in your browser settings.",
   "tripStarts": "The plan starts on {d}. Until then, keep learning as usual.",
-  "tripEditHint": "Changing the date keeps the days you finished. Nothing changes until you tap \"Save\"."
+  "tripEditHint": "Changing the date keeps the days you finished. Nothing changes until you tap \"Save\".",
+  "aiTimeout": "The AI didn't answer in time (slow network or busy server). Try again.",
+  "updAvail": "New version ready — tap to update",
+  "offlineReady": "The app is ready to work offline",
+  "offlineSt": "Offline use",
+  "offlineYes": "Ready",
+  "offlineNo": "Still loading — open once with internet"
 };
-window.__MODS['ui-en'] = '1.20.1';
+window.__MODS['ui-en'] = '1.20.2';

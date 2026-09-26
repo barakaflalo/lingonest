@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ja', {
-  ver: '1.20.1',
+  ver: '1.20.2',
   curSym: "¥",
   country: {"he": "יפן", "en": "Japan", "ru": "Япония", "es": "Japón", "ar": "اليابان"},
   emergency: [

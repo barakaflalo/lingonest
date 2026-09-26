@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('el', {
-  ver: '1.20.1',
+  ver: '1.20.2',
   curSym: "€",
   country: {"he": "יוון וקפריסין", "en": "Greece & Cyprus", "ru": "Греция и Кипр", "es": "Grecia y Chipre", "ar": "اليونان وقبرص"},
   emergency: [

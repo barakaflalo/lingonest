@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ig', {
-  ver: '1.20.1',
+  ver: '1.20.2',
   curSym: "₦",
   country: {"he": "דרום-מזרח ניגריה", "en": "South-east Nigeria", "ru": "Юго-восток Нигерии", "es": "Sureste de Nigeria", "ar": "جنوب شرق نيجيريا"},
   emergency: [

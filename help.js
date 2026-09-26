@@ -232,11 +232,11 @@ const HELP = [
 ['offline', '📲', '', {he: 'התקנה, אופליין ועדכונים', en: 'Install, offline and updates'}, {
   he: ['• התקנה: בטלפון — בתפריט הדפדפן "הוסף למסך הבית". במחשב — אייקון ההתקנה בשורת הכתובת.',
     '• אחרי הפתיחה הראשונה כל השפות נשמרות במכשיר, והאפליקציה עובדת בלי אינטרנט (חוץ מפיצ׳רי ✨).',
-    '• עדכונים נכנסים לבד. אם מופיע פס "העדכון לא נטען במלואו — לחץ לרענון", פשוט לחץ עליו.',
+    '• עדכונים יורדים ברקע. כשמופיע פס "✨ גרסה חדשה מוכנה — לחץ לעדכון", לחץ עליו כשנוח לך (לא באמצע שיעור). במסך "אודות" רואים אם האפליקציה מוכנה לעבודה בלי אינטרנט.',
     '• ההתקדמות נשמרת בדפדפן — מומלץ לגבות מדי פעם (הגדרות ← גיבוי), במיוחד לפני החלפת טלפון.'],
   en: ['• Install: on a phone use "Add to home screen" in the browser menu; on a computer, the install icon in the address bar.',
     '• After the first open all languages are stored on the device and the app works offline (except ✨ features).',
-    '• Updates arrive automatically. If a "tap to refresh" bar appears, just tap it.',
+    '• Updates download in the background. When "✨ New version ready — tap to update" appears, tap it when convenient (not mid-lesson). The About screen shows whether the app is ready to work offline.',
     '• Progress lives in the browser — back up now and then (Settings → Backup), especially before changing phones.']}],
 ['trouble', '🛠️', '', {he: 'בעיות נפוצות', en: 'Troubleshooting'}, {
   he: ['• אין קול: בדוק שהטלפון לא על שקט, ובחר קול בהגדרות ← הקראה. בשפות בלי קול במכשיר ההקראה בקול העברי.',
@@ -255,4 +255,4 @@ const HELP = [
   en: ['No account and no AppNest server — everything stays on your device. Text leaves only when you use a ✨ feature, and only to the AI provider you connected. No tracking, no ads.',
     'Full policy: privacy_policy.html (linked on the About screen).']}]
 ];
-window.__MODS.help = '1.20.1';
+window.__MODS.help = '1.20.2';
