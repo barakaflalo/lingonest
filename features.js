@@ -181,7 +181,7 @@ SCREENS.kit = () => {
   const cards = (st.kit || []).filter(c => c.lang === lang);
   const favs = (st.favs[lang] || []).map(k => findItem(lang, k)).filter(Boolean);
   const quick = KIT_QUICK.map(k => findItem(lang, k)).filter(Boolean);
-  const qbtn = it => '<button class="qk" data-act="big" data-k="' + it.k + '"><span class="tgt sm" lang="' + tl + '" dir="' + dir + '">' + esc(it.text) + '</span><small>' + esc(meaning(it)) + '</small></button>';
+  const qbtn = it => '<button class="qk" data-act="big" data-k="' + esc(it.k) + '"><span class="tgt sm" lang="' + tl + '" dir="' + dir + '">' + esc(it.text) + '</span><small>' + esc(meaning(it)) + '</small></button>';
   const em = EMERG[lang] || [];
   return header('🧳 ' + T('kit') + ' · ' + LN(lang)) + `
   <p class="note">${esc(T('kitIntro'))}</p>
@@ -190,7 +190,7 @@ SCREENS.kit = () => {
   <div class="list">${em.map(e => '<div class="trow em"><span class="ti">' + e[0] + '</span><span class="tt"><b>' + esc(tr(e[1])) + '</b></span>' + e.slice(2).map(n => '<a class="btn red" href="tel:' + esc(n) + '">📞 ' + esc(n) + '</a>').join('') + '</div>').join('')}</div>
   <p class="tiny">${esc(T('kitEmergNote'))}</p>
   <h3>🗂️ ${esc(T('kitCards'))}</h3>
-  ${cards.length ? '<div class="items">' + cards.map(c => '<div class="irow kitcard" data-lp="kit" data-id="' + c.id + '"><div class="itx"><b>' + esc((KIT_TYPES.find(t => t[0] === c.type) || ['', '📝'])[1] + ' ' + (c.title || T('kt_' + c.type))) + '</b><span class="tgt md" lang="' + tl + '" dir="' + dir + '">' + esc(c.text) + '</span>' + (c.src ? '<span class="mn">' + esc(c.src) + '</span>' : '') + '</div><div class="iac"><button class="ic" data-act="kitBig" data-id="' + c.id + '" aria-label="' + esc(T('showBig')) + '">⛶</button><button class="ic" data-act="kitSay" data-id="' + c.id + '">🔊</button><button class="ic" data-act="kitEdit" data-id="' + c.id + '" aria-label="' + esc(T('edit')) + '">✎</button></div></div>').join('') + '</div>' : '<p class="empty">' + esc(T('kitEmpty')) + '</p>'}
+  ${cards.length ? '<div class="items">' + cards.map(c => '<div class="irow kitcard" data-lp="kit" data-id="' + esc(c.id) + '"><div class="itx"><b>' + esc((KIT_TYPES.find(t => t[0] === c.type) || ['', '📝'])[1] + ' ' + (c.title || T('kt_' + c.type))) + '</b><span class="tgt md" lang="' + tl + '" dir="' + dir + '">' + esc(c.text) + '</span>' + (c.src ? '<span class="mn">' + esc(c.src) + '</span>' : '') + '</div><div class="iac"><button class="ic" data-act="kitBig" data-id="' + esc(c.id) + '" aria-label="' + esc(T('showBig')) + '">⛶</button><button class="ic" data-act="kitSay" data-id="' + esc(c.id) + '">🔊</button><button class="ic" data-act="kitEdit" data-id="' + esc(c.id) + '" aria-label="' + esc(T('edit')) + '">✎</button></div></div>').join('') + '</div>' : '<p class="empty">' + esc(T('kitEmpty')) + '</p>'}
   <div class="chips wrap">${KIT_TYPES.map(t => '<button class="chip" data-act="kitAdd" data-t="' + t[0] + '">' + t[1] + ' ' + esc(T('kt_' + t[0])) + '</button>').join('')}</div>
   <h3>⚡ ${esc(T('kitQuick'))}</h3><div class="qgrid">${quick.map(qbtn).join('')}</div>
   <h3>★ ${esc(T('kitFavs'))}</h3>${favs.length ? '<div class="qgrid">' + favs.map(qbtn).join('') + '</div>' : '<p class="empty">' + esc(T('kitFavsEmpty')) + '</p>'}`;
@@ -303,6 +303,7 @@ const TRIP_PRIORITY = ['greet', 'num', 'emerg', 'food', 'trans', 'phr', 'hotel',
 const dayMs = 864e5;
 const ymd = d => { const x = new Date(d); return x.getFullYear() + '-' + String(x.getMonth() + 1).padStart(2, '0') + '-' + String(x.getDate()).padStart(2, '0'); };
 const dayStart = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d).getTime(); };
+const addDays = (s, n) => { const [y, m, d] = s.split('-').map(Number); return ymd(new Date(y, m - 1, d + n)); };   /* calendar days, not 24h blocks */
 const daysBetween = (a, b) => Math.round((dayStart(b) - dayStart(a)) / dayMs);
 function tripPlan(t) {
   const units = TRIP_UNITS.filter(u => !u[3] || u[3](t.lang));
@@ -330,9 +331,9 @@ function taskLabel(k) {
 function tripState() {
   const t = st.trip; if (!t || !LANGS[t.lang]) return null;
   const plan = tripPlan(t), today = daysBetween(t.start, ymd(Date.now())), left = daysBetween(ymd(Date.now()), t.date);
-  return { t, plan, today: Math.max(0, Math.min(plan.length - 1, today)), left, done: Object.keys(t.done || {}).length };
+  return { t, plan, today: Math.max(0, Math.min(plan.length - 1, today)), before: today < 0 ? -today : 0, left, done: Object.keys(t.done || {}).length };
 }
-function tripDayDate(t, i) { return new Date(dayStart(t.start) + i * dayMs).toLocaleDateString(st.ui === 'he' ? 'he-IL' : st.ui, { weekday: 'short', day: 'numeric', month: 'numeric' }); }
+function tripDayDate(t, i) { return new Date(dayStart(addDays(t.start, i))).toLocaleDateString(st.ui === 'he' ? 'he-IL' : st.ui, { weekday: 'short', day: 'numeric', month: 'numeric' }); }
 function tripTasksHTML(day, i) {
   return day.map(u => '<div class="tr-unit"><b>' + u[1] + ' ' + esc(T('tu_' + u[0])) + '</b><div class="tr-tasks">' +
     u[2].map((k, j) => '<button class="chip" data-act="tripTask" data-k="' + k[0] + '" data-v="' + esc(k[1]) + '">' + esc(taskLabel(k)) + '</button>').join('') + '</div></div>').join('');
@@ -340,20 +341,25 @@ function tripTasksHTML(day, i) {
 function tripHomeCard() {
   const s = tripState(); if (!s) return '';
   if (s.left <= 0) return '<button class="tripcard" data-act="nav" data-to="trip"><span class="tc-ic">✈️</span><span class="tc-tx"><b>' + esc(T('tripGone', { l: LN(s.t.lang) })) + '</b><small>' + esc(T('tripGoneSub')) + '</small></span></button>';
+  if (s.before) return '<button class="tripcard" data-act="nav" data-to="trip"><span class="tc-ic">✈️</span><span class="tc-tx"><b>' + esc(T('tripLeft', { n: s.left, l: LN(s.t.lang) })) + '</b><small>' + esc(T('tripStarts', { d: tripDayDate(s.t, 0) })) + '</small></span><span class="lc-sw">' + esc(T('tripOpen')) + ' ←</span></button>';
   const day = s.plan[s.today], doneToday = s.t.done && s.t.done[s.today];
   return '<button class="tripcard" data-act="nav" data-to="trip"><span class="tc-ic">✈️</span><span class="tc-tx"><b>' + esc(T('tripLeft', { n: s.left, l: LN(s.t.lang) })) + '</b><small>' +
     (doneToday ? '✓ ' + esc(T('tripDoneToday')) : esc(T('tripToday')) + ': ' + day.map(u => u[1] + ' ' + T('tu_' + u[0])).join(' · ')) + '</small></span><span class="lc-sw">' + esc(T('tripOpen')) + ' ←</span></button>';
 }
+let TRIP_EDIT = false;
 SCREENS.trip = () => {
   const s = tripState();
-  if (!s) {
-    const tomorrow = ymd(Date.now() + dayMs), def = st.tripDraft || ymd(Date.now() + 14 * dayMs);
+  if (!s || TRIP_EDIT) {
+    const tomorrow = addDays(ymd(Date.now()), 1), def = (s && s.t.date) || addDays(ymd(Date.now()), 14);
     return header('✈️ ' + T('tripTitle')) + '<p class="note">' + esc(T('tripIntro')) + '</p>' +
       '<div class="card set"><h3>🌍 ' + esc(T('tripDest')) + '</h3><div class="row wrap">' + langBadge(st.lang) + '<b>' + esc(LN(st.lang)) + '</b><button class="btn" data-act="nav" data-to="langs">' + esc(T('switchLang')) + '</button></div>' +
       '<h3>📅 ' + esc(T('tripDate')) + '</h3><input type="date" id="tripDate" min="' + tomorrow + '" value="' + def + '">' +
-      '<p class="tiny">' + esc(T('tripHint')) + '</p><button class="cta" data-act="tripCreate">✨ ' + esc(T('tripCreate')) + '</button></div>';
+      '<p class="tiny">' + esc(T(TRIP_EDIT ? 'tripEditHint' : 'tripHint')) + '</p>' +
+      (TRIP_EDIT ? '<div class="row wrap"><button class="cta" data-act="tripSave">💾 ' + esc(T('save')) + '</button><button class="btn" data-act="tripCancel">' + esc(T('cancel')) + '</button></div>'
+                 : '<button class="cta" data-act="tripCreate">✨ ' + esc(T('tripCreate')) + '</button>') + '</div>';
   }
   const { t, plan, today, left, done } = s;
+  const { before } = s;
   if (left <= 0) return header('✈️ ' + T('tripTitle')) + '<div class="card sum"><p class="big-num">✈️</p><h3>' + esc(T('tripGone', { l: LN(t.lang) })) + '</h3><p>' + esc(T('tripGoneSub')) + '</p>' +
     '<div class="row c wrap"><button class="btn gold" data-act="tripTask" data-k="n" data-v="kit">🧳 ' + esc(T('kit')) + '</button><button class="btn gold" data-act="tripTask" data-k="n" data-v="sheet">📄 ' + esc(T('sheetTitle')) + '</button><button class="btn" data-act="tripEnd">' + esc(T('tripEnd')) + '</button></div></div>';
   const pct = Math.round(done / plan.length * 100);
@@ -361,6 +367,7 @@ SCREENS.trip = () => {
     tripTasksHTML(day, i) + '<button class="btn' + (t.done && t.done[i] ? '' : ' gold') + '" data-act="tripDone" data-i="' + i + '">' + (t.done && t.done[i] ? '↺ ' + esc(T('tripUndo')) : '✓ ' + esc(T('tripMarkDone'))) + '</button></details>').join('');
   return header('✈️ ' + T('tripTitle') + ' · ' + LN(t.lang)) +
     '<div class="card trip-top"><div class="tt-big">' + left + '</div><div><b>' + esc(T('tripDaysLeft')) + '</b><small>' + esc(new Date(dayStart(t.date)).toLocaleDateString(st.ui === 'he' ? 'he-IL' : st.ui, { weekday: 'long', day: 'numeric', month: 'long' })) + '</small>' + bar(done, plan.length) + '<small>' + esc(T('tripProg', { d: done, n: plan.length, p: pct })) + '</small></div></div>' +
+    (before ? '<p class="note">⏳ ' + esc(T('tripStarts', { d: tripDayDate(t, 0) })) + '</p>' : '') +
     '<div id="tripList">' + list + '</div>' +
     '<div class="row c wrap"><button class="btn" data-act="tripEdit">📅 ' + esc(T('tripChange')) + '</button><button class="btn" data-act="tripEnd">🗑️ ' + esc(T('tripEnd')) + '</button></div>';
 };
@@ -422,12 +429,26 @@ Object.assign(ACT, {
   sheetTog: d => { st.sheet = st.sheet || {}; st.sheet[d.s] = st.sheet[d.s] === false; save(); render(); },
   sheetPrint: () => { const p = $('#print'); p.innerHTML = '<div class="sheet print">' + sheetHTML() + '</div>'; flag('sheet'); setTimeout(() => window.print(), 100); },
   tripCreate: () => {
-    const v = ($('#tripDate') || {}).value;
-    if (!v || daysBetween(ymd(Date.now()), v) < 1) { toast(T('tripBadDate'), 'warn', 4000); return; }
-    st.trip = { lang: st.lang, date: v, start: ymd(Date.now()), done: {} }; delete st.tripDraft; save(); flag('trip'); render();
+    const v = ($('#tripDate') || {}).value, today = ymd(Date.now());
+    if (!v || !/^\d{4}-\d{2}-\d{2}$/.test(v) || daysBetween(today, v) < 1) { toast(T('tripBadDate'), 'warn', 4000); return; }
+    const start = daysBetween(today, v) > TRIP_MAX ? addDays(v, -TRIP_MAX) : today;        /* far trips: the plan covers the last 90 days */
+    st.trip = { lang: st.lang, date: v, start, done: {} }; if (!save()) { st.trip = null; return; } flag('trip'); render();
     toast('✈️ ' + T('tripMade', { n: tripPlan(st.trip).length }), 'ok', 3500);
   },
-  tripEdit: () => { if (st.trip) st.tripDraft = st.trip.date; st.trip = null; save(); render(); },
+  /* editing keeps the original plan untouched until "save"; finished days stay finished */
+  tripEdit: () => { TRIP_EDIT = true; render(); },
+  tripCancel: () => { TRIP_EDIT = false; render(); },
+  tripSave: () => {
+    const v = ($('#tripDate') || {}).value, today = ymd(Date.now()), t = st.trip;
+    if (!t || !v || !/^\d{4}-\d{2}-\d{2}$/.test(v) || daysBetween(today, v) < 1) { toast(T('tripBadDate'), 'warn', 4000); return; }
+    const old = JSON.parse(JSON.stringify(t));
+    const keepStart = daysBetween(t.start, today) >= 0 ? t.start : today;            /* already-started plans keep their day numbers */
+    t.date = v; t.lang = st.lang; t.start = daysBetween(keepStart, v) > TRIP_MAX ? addDays(v, -TRIP_MAX) : keepStart;
+    if (t.start !== old.start) t.done = {};
+    const n = tripPlan(t).length; for (const i in t.done) if (+i >= n) delete t.done[i];
+    if (!save()) { st.trip = old; return; }
+    TRIP_EDIT = false; render(); toast('✈️ ' + T('tripMade', { n }), 'ok', 3000);
+  },
   tripEnd: () => { if (!confirm(T('tripEndQ'))) return; st.trip = null; save(); render(); },
   tripDone: d => { const t = st.trip; if (!t) return; t.done = t.done || {}; if (t.done[d.i]) delete t.done[d.i]; else { t.done[d.i] = 1; toast('🎉 ' + T('tripGood'), 'ok', 2000); } save(); render(); },
   tripTask: async d => {
@@ -449,5 +470,5 @@ document.addEventListener('pointerdown', e => {
   ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => row.addEventListener(ev, cancel));
 });
 
-window.__MODS.features = '1.20.0';
+window.__MODS.features = '1.20.1';
 boot();

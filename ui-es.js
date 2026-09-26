@@ -295,10 +295,10 @@ LANG.es = {
   "sayMore": "Aún no, volverá en el repaso",
   "noSpeech": "No oí nada. Pulsa 🎤 y habla cerca del teléfono.",
   "newIn": "Novedades de {v}",
-  "wn1": "✈️ Modo viaje: un plan diario hasta el vuelo.",
-  "wn2": "Cada día un tema del viaje con botones a las lecciones.",
-  "wn3": "En inicio: cuenta atrás.",
-  "wn4": "Último día: kit y chuleta.",
+  "wn1": "🛡️ Actualización de seguridad y protección de datos.",
+  "wn2": "Restaurar una copia se valida antes de reemplazar nada.",
+  "wn3": "Dos pestañas ya no sobrescriben datos.",
+  "wn4": "\"Cambiar fecha\" ya no borra el plan; \"Borrar todo\" solo borra LingoNest.",
   "wn5": "Tu progreso se conservó.",
   "lvl8": "Frases completas",
   "lvl9": "Mis palabras",
@@ -552,6 +552,16 @@ LANG.es = {
   "tu_conv": "Conversación",
   "tu_airport": "Aeropuerto y horarios",
   "tu_review": "Día de repaso",
-  "tu_final": "Últimos preparativos"
+  "tu_final": "Últimos preparativos",
+  "staleTab": "LingoNest está abierto en otra pestaña con datos más nuevos — toca para recargar",
+  "storeTemp": "El navegador no permite guardar — el progreso se perderá al cerrar. Exporta una copia.",
+  "storeBad": "Los datos estaban dañados. Se guardó una copia aparte y empezamos de nuevo.",
+  "storeFull": "El último guardado falló — exporta una copia.",
+  "backupFuture": "La copia es de una versión más nueva — actualiza la app.",
+  "restoreSum": "La copia tiene: {l} idiomas, {w} palabras, {p} frases.",
+  "restoreFail": "La restauración falló — tus datos anteriores se conservaron.",
+  "resetPartial": "El borrado no se completó. Inténtalo de nuevo.",
+  "tripStarts": "El plan empieza el {d}.",
+  "tripEditHint": "Los días terminados se conservan. Nada cambia hasta \"Guardar\"."
 };
-window.__MODS['ui-es'] = '1.20.0';
+window.__MODS['ui-es'] = '1.20.1';

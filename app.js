@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.20.0' };
+const APP = { name: 'LingoNest', ver: '1.20.1' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -20,14 +20,17 @@ const S = (() => {
   const mem = {}; let ok = true;
   try { localStorage.setItem('__t', '1'); localStorage.removeItem('__t'); } catch (e) { ok = false; }
   return {
-    ok,
-    get(k, d) { try { const v = ok ? localStorage.getItem(k) : mem[k]; return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+    ok, failed: false,
+    raw(k) { try { return ok ? localStorage.getItem(k) : (mem[k] == null ? null : mem[k]); } catch (e) { return null; } },
+    get(k, d) { const v = this.raw(k); if (v == null) return d; try { return JSON.parse(v); } catch (e) { return d; } },
+    /* returns true only if the value really reached storage; never pretends */
     set(k, v) {
       const s = JSON.stringify(v);
-      try { if (ok) localStorage.setItem(k, s); else mem[k] = s; return true; }
-      catch (e) { mem[k] = s; toast(T('saveFail'), 'err', 5000); return false; }
+      try { if (ok) localStorage.setItem(k, s); else mem[k] = s; this.failed = false; return true; }
+      catch (e) { this.failed = true; toast(T('saveFail'), 'err', 6000); return false; }
     },
-    del(k) { try { if (ok) localStorage.removeItem(k); else delete mem[k]; } catch (e) {} }
+    del(k) { try { if (ok) localStorage.removeItem(k); else delete mem[k]; } catch (e) {} },
+    keys() { try { return ok ? Object.keys(localStorage) : Object.keys(mem); } catch (e) { return []; } }
   };
 })();
 
@@ -37,12 +40,39 @@ const DEF = {
   voices: {}, onb: false, prog: {}, log: {}, newLog: {}, streak: { last: '', n: 0 }, phrases: [], custom: {},
   favs: {}, ai: { provider: 'gemini', model: '', has: {} }, backupAt: 0, firstUse: 0, seenVer: '', fix: {}, kit: [], badges: {}, flags: {}, weekGoal: 100
 };
-let st = Object.assign({}, DEF, S.get('ln_state', {}));
+const freshDEF = () => JSON.parse(JSON.stringify(DEF));          /* defaults are never shared with live state */
+let BAD_STATE = false;
+let st = (() => {
+  const raw = S.raw('ln_state');
+  if (raw == null) return freshDEF();
+  try { return Object.assign(freshDEF(), JSON.parse(raw)); }
+  catch (e) {                                                   /* unreadable: keep the original for recovery, never overwrite it */
+    BAD_STATE = true;
+    if (S.raw('ln_state_bad') == null) { try { localStorage.setItem('ln_state_bad', raw); } catch (x) {} }
+    return freshDEF();
+  }
+})();
 st.ai = Object.assign({}, DEF.ai, st.ai || {});
 st.fix = st.fix || {};
 if (!LANGS[st.lang]) st.lang = 'th';
 if (!st.firstUse) st.firstUse = Date.now();
-function save() { S.set('ln_state', st); }
+/* multi-tab guard: a revision counter; a tab holding older data never overwrites newer data */
+let REV = +(S.raw('ln_rev') || 0), STALE = false;
+function save() {
+  if (STALE) { staleBar(); return false; }
+  const disk = +(S.raw('ln_rev') || 0);
+  if (disk > REV) { STALE = true; staleBar(); return false; }
+  if (!S.set('ln_state', st)) return false;
+  REV = disk + 1; S.set('ln_rev', REV);
+  return true;
+}
+addEventListener('storage', e => { if (e.key === 'ln_rev' && +(e.newValue || 0) > REV) { STALE = true; staleBar(); } });
+function staleBar() {
+  if (document.getElementById('stalebar')) return;
+  const b = document.createElement('button'); b.id = 'stalebar'; b.className = 'updbar';
+  b.textContent = '🔄 ' + T('staleTab'); b.onclick = () => location.reload();
+  document.body.appendChild(b);
+}
 
 /* ---------- i18n ---------- */
 function T(k, vars) {
@@ -79,7 +109,7 @@ function genderize(lang, s) {
 let _itemsCache = {};
 function items(lang) {
   if (!WD[lang]) return [];
-  const key = lang + st.gender + JSON.stringify(st.fix[lang] || {}).length + (st.custom[lang] || []).length + JSON.stringify((st.custom[lang] || []).map(c => c.id + c.text));
+  const key = lang + st.gender + JSON.stringify(st.fix[lang] || {}) + JSON.stringify(st.custom[lang] || []);
   if (_itemsCache[lang] && _itemsCache[lang].key === key) return _itemsCache[lang].list;
   const g = s => genderize(lang, s);
   const L = [];
@@ -433,6 +463,7 @@ SCREENS.home = () => {
     </div>
   </header>
   <p class="hello">${esc(st.user ? T('helloName', { n: displayName(st.user) }) : T('helloAnon'))}</p>
+  ${storageWarn()}
   <nav class="langnav" aria-label="${esc(T('chooseLang'))}">${chips}</nav>
   <button class="search-btn" data-act="nav" data-to="search">🔍 <span>${esc(T('searchBtn', { l: LN(lang) }))}</span></button>
   ${typeof tripHomeCard === 'function' ? tripHomeCard() : ''}
@@ -440,7 +471,7 @@ SCREENS.home = () => {
     <div class="hero-top"><span>${esc(T('wordOfDay'))}</span><span>${typeof weekCount === 'function' ? '<span class="wk" title="' + esc(T('weekGoal')) + '">🎯 ' + weekCount() + '/' + (st.weekGoal || 100) + '</span> ' : ''}<span class="streak" title="${esc(T('streak'))}">🔥 ${st.streak.last === today() || st.streak.last === dayKey(-1) ? st.streak.n : 0}</span></span></div>
     <div class="wod">${tgt(wod, lang, 'xl')}</div>
     <div class="wod-sub"><span class="pr">${esc(pron(wod))}</span><span class="mn">${esc(meaning(wod))}</span></div>
-    <div class="row c">${soundBtns(wod.k)}<button class="ic" data-act="big" data-k="${wod.k}" aria-label="${esc(T('showBig'))}">⛶</button></div>
+    <div class="row c">${soundBtns(wod.k)}<button class="ic" data-act="big" data-k="${esc(wod.k)}" aria-label="${esc(T('showBig'))}">⛶</button></div>
     <hr class="rule">
     <div class="lvl"><span>${esc(T('level'))} ${cur} · ${esc(T('lvl' + cur))}</span><span>${s.mastered}/${s.total}</span></div>
     ${bar(s.mastered, s.total)}
@@ -468,6 +499,11 @@ SCREENS.home = () => {
 
 /* a name field autofilled with an e-mail → greet with the part before @ */
 const displayName = u => { const s = String(u || '').trim(); if (!s.includes('@')) return s; const p = s.split('@')[0].replace(/[._\d]+/g, ' ').trim(); return p ? p.charAt(0).toUpperCase() + p.slice(1) : s; };
+/* persistent, honest storage status on the home screen */
+function storageWarn() {
+  const m = !S.ok ? 'storeTemp' : BAD_STATE ? 'storeBad' : S.failed ? 'storeFull' : '';
+  return m ? '<div class="card warnbox" role="alert">⚠️ ' + esc(T(m)) + ' <button class="btn" data-act="exportJson">⬇️ ' + esc(T('exportJson')) + '</button></div>' : '';
+}
 /* ===== LANGUAGE PICKER ===== */
 const FLAGS_OK = !/Windows/i.test(navigator.userAgent);          /* Windows shows letters instead of flag emoji */
 function langBadge(l, size) {
@@ -515,7 +551,7 @@ SCREENS.letters = () => {
   const lang = st.lang, p = P(lang);
   const tile = i => {
     const r = p[i.k]; const cls = r ? (r.b >= 3 ? 'm' : 's') : '';
-    return '<button class="lt ' + cls + '" data-act="letter" data-k="' + i.k + '"><span class="tgt" lang="' + LANGS[lang].tts + '">' + esc(i.text) + '</span><small>' + esc(st.ui === 'he' ? i.heb.split(' (')[0].split(' — ')[0] : i.roman) + '</small></button>';
+    return '<button class="lt ' + cls + '" data-act="letter" data-k="' + esc(i.k) + '"><span class="tgt" lang="' + LANGS[lang].tts + '">' + esc(i.text) + '</span><small>' + esc(st.ui === 'he' ? i.heb.split(' (')[0].split(' — ')[0] : i.roman) + '</small></button>';
   };
   const tiles = items(lang).filter(i => i.cat === 'letters').map(tile).join('');
   const vw = items(lang).filter(i => i.cat === 'vowels');
@@ -563,8 +599,8 @@ function rowHTML(i, lang, p, favs) {
     return '<div class="irow' + (r && r.b >= 3 ? ' m' : '') + '"' + (i.cid ? ' data-lp="custom" data-id="' + i.cid + '"' : '') + '>' +
       '<div class="itx">' + tgt(i, lang, i.type === 'P' ? 'md' : 'lg') + '<span class="pr">' + esc(pron(i)) + (pron2(i) ? ' <em>' + esc(pron2(i)) + '</em>' : '') + '</span><span class="mn">' + esc(meaning(i)) + '</span></div>' +
       '<div class="iac">' + soundBtns(i.k) +
-      '<button class="ic" data-act="big" data-k="' + i.k + '" aria-label="' + esc(T('showBig')) + '">⛶</button>' +
-      '<button class="ic fav' + (favs.includes(i.k) ? ' on' : '') + '" data-act="fav" data-k="' + i.k + '" aria-label="' + esc(T('fav')) + '" aria-pressed="' + favs.includes(i.k) + '">★</button>' +
+      '<button class="ic" data-act="big" data-k="' + esc(i.k) + '" aria-label="' + esc(T('showBig')) + '">⛶</button>' +
+      '<button class="ic fav' + (favs.includes(i.k) ? ' on' : '') + '" data-act="fav" data-k="' + esc(i.k) + '" aria-label="' + esc(T('fav')) + '" aria-pressed="' + favs.includes(i.k) + '">★</button>' +
       (i.cid ? '<button class="ic" data-act="editCustom" data-id="' + i.cid + '" aria-label="' + esc(T('edit')) + '">✎</button>' : '') +
       '</div></div>';
 }
@@ -914,7 +950,7 @@ const LESSON = {
     const step = this.q[this.i], it = step.it;
     $('#lprog').style.width = Math.round(100 * this.i / this.q.length) + '%';
     if (step.intro) {
-      const said = SR ? '<button class="btn" data-act="sayIt" data-k="' + it.k + '">🎤 ' + esc(T('sayIt')) + '</button>' : '';
+      const said = SR ? '<button class="btn" data-act="sayIt" data-k="' + esc(it.k) + '">🎤 ' + esc(T('sayIt')) + '</button>' : '';
       box.innerHTML = '<div class="card intro"><span class="new">' + esc(T('newItem')) + '</span>' + tgt(it, lang, it.type === 'P' ? 'lg' : 'xl') +
         '<p class="pr big">' + esc(pron(it)) + (pron2(it) ? ' <em>' + esc(pron2(it)) + '</em>' : '') + '</p><p class="mn big">' + esc(it.type === 'L' ? T('soundsLike') + ' ' + (st.ui === 'he' ? it.heb : it.roman) : meaning(it)) + '</p>' +
         '<div class="row c">' + soundBtns(it.k) + said + '</div><p class="said" id="said" aria-live="polite"></p>' +
@@ -935,7 +971,7 @@ const LESSON = {
     if (k === 'BUILD') { this.paintBuild(step); return; }
     if (k === 'DICT') {
       const lat = !isLatin(it.text);
-      box.innerHTML = '<div class="card"><p class="qh">' + esc(T(lat ? 'qDICTlat' : 'qDICT')) + '</p><div class="prompt"><button class="listen" data-act="say" data-k="' + it.k + '">🔊</button><button class="ic" data-act="say" data-slow="1" data-k="' + it.k + '">🐢</button></div>' +
+      box.innerHTML = '<div class="card"><p class="qh">' + esc(T(lat ? 'qDICTlat' : 'qDICT')) + '</p><div class="prompt"><button class="listen" data-act="say" data-k="' + esc(it.k) + '">🔊</button><button class="ic" data-act="say" data-slow="1" data-k="' + esc(it.k) + '">🐢</button></div>' +
         '<label class="fld"><span>' + esc(T('typeHere')) + '</span><input id="dIn" dir="ltr" autocomplete="off" autocapitalize="off" spellcheck="false"></label>' +
         '<button class="cta slim" data-act="dictCheck">✓ ' + esc(T('check')) + '</button><div id="fb" aria-live="polite"></div></div>';
       this.answered = false;
@@ -946,7 +982,7 @@ const LESSON = {
     if (k === 'T2M' || k === 'T2S') prompt = tgt(it, lang, it.type === 'P' ? 'lg' : 'xl');
     else if (k === 'M2T') prompt = '<p class="ask">' + esc(meaning(it)) + '</p>';
     else if (k === 'S2T') prompt = '<p class="ask">' + esc(T('whichLetter')) + '</p><p class="ask big">' + esc(st.ui === 'he' ? it.heb : it.roman) + '</p>';
-    else prompt = '<button class="listen" data-act="say" data-k="' + it.k + '" aria-label="' + esc(T('listen')) + '">🔊</button><button class="ic" data-act="say" data-slow="1" data-k="' + it.k + '">🐢</button>';
+    else prompt = '<button class="listen" data-act="say" data-k="' + esc(it.k) + '" aria-label="' + esc(T('listen')) + '">🔊</button><button class="ic" data-act="say" data-slow="1" data-k="' + esc(it.k) + '">🐢</button>';
     const q = { T2M: 'qT2M', M2T: 'qM2T', A2T: 'qA2T', T2S: 'qT2S', S2T: 'qS2T' }[k];
     const showsTarget = k === 'M2T' || k === 'A2T' || k === 'S2T';
     const opts = step.opts.map((o, n) => '<button class="opt" data-act="answer" data-n="' + n + '">' +
@@ -1059,12 +1095,12 @@ SCREENS.speak = () => {
       ${res.ai ? '<p class="tiny">' + esc(T('aiDisclaimer')) + '</p>' : ''}
     </div>` : ''}
   <h3>${esc(T('myPhrases'))} (${saved.length})</h3>
-  ${saved.length ? '<div class="items">' + saved.map(x => `<div class="irow" data-lp="phrase" data-id="${x.id}">
+  ${saved.length ? '<div class="items">' + saved.map(x => `<div class="irow" data-lp="phrase" data-id="${esc(x.id)}">
       <div class="itx"><span class="tgt md" lang="${LANGS[lang].tts}" dir="${LANGS[lang].dir}">${esc(x.text)}</span>
       <span class="pr">${esc(st.ui === 'he' ? (x.heb || x.roman) : (x.roman || x.heb))}</span><span class="mn">${esc(x.src)}</span></div>
-      <div class="iac"><button class="ic" data-act="phSay" data-id="${x.id}" aria-label="${esc(T('listen'))}">🔊</button>
-      <button class="ic" data-act="phBig" data-id="${x.id}" aria-label="${esc(T('showBig'))}">⛶</button>
-      <button class="ic" data-act="phEdit" data-id="${x.id}" aria-label="${esc(T('edit'))}">✎</button></div></div>`).join('') + '</div>'
+      <div class="iac"><button class="ic" data-act="phSay" data-id="${esc(x.id)}" aria-label="${esc(T('listen'))}">🔊</button>
+      <button class="ic" data-act="phBig" data-id="${esc(x.id)}" aria-label="${esc(T('showBig'))}">⛶</button>
+      <button class="ic" data-act="phEdit" data-id="${esc(x.id)}" aria-label="${esc(T('edit'))}">✎</button></div></div>`).join('') + '</div>'
     : '<p class="empty">' + esc(T('noPhrases')) + '</p>'}
   ${saved.length ? '<button class="btn" data-act="printBook">🖨️ ' + esc(T('printBook')) + '</button>' : ''}`;
 };
@@ -1300,22 +1336,75 @@ function exportJson() {
   download('lingonest-safe-backup-' + stamp() + '.json', JSON.stringify(data, null, 1), 'application/json');
   st.backupAt = Date.now(); save(); toast(T('exported'));
 }
+/* ---------- backup import: whitelist + type checks; nothing changes until the candidate is written and verified ---------- */
+const STATE_SCHEMA = 1;
+const SAFE_ID = /^[A-Za-z0-9_-]{1,48}$/, SAFE_KEY = /^(W|C|L|V):[A-Za-z0-9_-]{1,48}$/, YMD = /^\d{4}-\d{2}-\d{2}$/;
+const isObj = o => o && typeof o === 'object' && !Array.isArray(o);
+const str = (v, max) => typeof v === 'string' ? v.slice(0, max || 500) : '';
+const num = (v, lo, hi, d) => (typeof v === 'number' && isFinite(v)) ? Math.min(hi, Math.max(lo, v)) : d;
+function sanitizeState(s) {
+  if (!isObj(s)) throw new Error('state');
+  if (typeof s.v === 'number' && s.v > STATE_SCHEMA) throw new Error('future');
+  const o = freshDEF(), langs = Object.keys(LANGS);
+  const pick = (v, list, d) => list.includes(v) ? v : d;
+  o.user = str(s.user, 40); o.ui = pick(s.ui, ['he', 'en', 'ru', 'es', 'ar'], 'he'); o.theme = pick(s.theme, THEMES, 'gold');
+  o.mode = pick(s.mode, ['day', 'night'], 'night'); o.lang = pick(s.lang, langs, 'th'); o.gender = pick(s.gender, ['m', 'f'], 'm');
+  o.goal = num(s.goal, 1, 100, 10); o.rate = num(s.rate, 0.5, 1.5, 0.9); o.weekGoal = num(s.weekGoal, 10, 5000, 100);
+  o.onb = !!s.onb; o.backupAt = num(s.backupAt, 0, 9e15, 0); o.firstUse = num(s.firstUse, 0, 9e15, Date.now()); o.seenVer = str(s.seenVer, 20);
+  if (isObj(s.voices)) for (const l in s.voices) if (langs.includes(l)) o.voices[l] = str(s.voices[l], 200);
+  if (isObj(s.prog)) for (const l in s.prog) if (langs.includes(l) && isObj(s.prog[l])) {
+    const p = o.prog[l] = {};
+    for (const k in s.prog[l]) { const r = s.prog[l][k]; if (SAFE_KEY.test(k) && isObj(r)) { p[k] = {}; for (const f in r) if (/^[a-z]{1,4}$/.test(f) && typeof r[f] === 'number' && isFinite(r[f])) p[k][f] = r[f]; } }
+  }
+  ['log', 'newLog'].forEach(n => { if (isObj(s[n])) for (const d in s[n]) if (YMD.test(d)) o[n][d] = num(s[n][d], 0, 1e6, 0); });
+  if (isObj(s.streak)) o.streak = { last: YMD.test(s.streak.last) ? s.streak.last : '', n: num(s.streak.n, 0, 1e5, 0) };
+  if (Array.isArray(s.phrases)) o.phrases = s.phrases.filter(x => isObj(x) && SAFE_ID.test(x.id) && langs.includes(x.lang)).slice(0, 1000)
+    .map(x => ({ id: x.id, lang: x.lang, src: str(x.src), text: str(x.text), roman: str(x.roman), heb: str(x.heb), ts: num(x.ts, 0, 9e15, 0) }));
+  if (isObj(s.custom)) for (const l in s.custom) if (langs.includes(l) && Array.isArray(s.custom[l]))
+    o.custom[l] = s.custom[l].filter(x => isObj(x) && SAFE_ID.test(x.id)).slice(0, 1000).map(x => ({ id: x.id, he: str(x.he), text: str(x.text), heb: str(x.heb), roman: str(x.roman) }));
+  if (isObj(s.favs)) for (const l in s.favs) if (langs.includes(l) && Array.isArray(s.favs[l])) o.favs[l] = s.favs[l].filter(k => typeof k === 'string' && SAFE_KEY.test(k)).slice(0, 2000);
+  if (isObj(s.fix)) for (const l in s.fix) if (langs.includes(l) && isObj(s.fix[l])) {
+    o.fix[l] = {}; for (const id in s.fix[l]) { const f = s.fix[l][id]; if (SAFE_ID.test(id) && isObj(f)) o.fix[l][id] = { text: str(f.text), roman: str(f.roman), heb: str(f.heb) }; }
+  }
+  if (Array.isArray(s.kit)) o.kit = s.kit.filter(c => isObj(c) && SAFE_ID.test(c.id) && langs.includes(c.lang)).slice(0, 300)
+    .map(c => ({ id: c.id, lang: c.lang, type: /^[a-z]{1,20}$/.test(c.type) ? c.type : 'note', title: str(c.title, 120), src: str(c.src, 1000), text: str(c.text, 1000) }));
+  ['badges', 'flags'].forEach(n => { if (isObj(s[n])) for (const k in s[n]) if (/^[A-Za-z0-9_]{1,40}$/.test(k)) o[n][k] = num(s[n][k], 0, 9e15, 0); });
+  if (Array.isArray(s.recentLangs)) o.recentLangs = s.recentLangs.filter(l => langs.includes(l)).slice(0, 6);
+  if (isObj(s.sheet)) { o.sheet = {}; for (const k in s.sheet) if (/^[a-z]{1,10}$/.test(k)) o.sheet[k] = !!s.sheet[k]; }
+  if (isObj(s.trip) && langs.includes(s.trip.lang) && YMD.test(s.trip.date) && YMD.test(s.trip.start)) {
+    o.trip = { lang: s.trip.lang, date: s.trip.date, start: s.trip.start, done: {} };
+    if (isObj(s.trip.done)) for (const i in s.trip.done) if (/^\d{1,3}$/.test(i)) o.trip.done[i] = 1;
+  }
+  if (isObj(s.ai)) { o.ai.provider = pick(s.ai.provider, ['gemini', 'claude', 'openai', 'ollama'], 'gemini'); o.ai.model = /^[A-Za-z0-9._:\/-]{0,80}$/.test(s.ai.model || '') ? (s.ai.model || '') : ''; }
+  o.v = STATE_SCHEMA;
+  return o;
+}
 function importJson(file) {
+  if (file.size > 5 * 1024 * 1024) { toast(T('badFile'), 'err', 4000); return; }
   const r = new FileReader();
   r.onload = () => {
+    let cand, j;
     try {
-      const j = JSON.parse(r.result);
-      if (!j || !j.state || j.app !== APP.name) throw new Error('format');
-      confirmBox(T('confirmRestore', { d: (j.date || '').slice(0, 10), u: j.user || '—' }), T('restore'), () => {
-        const keepHas = st.ai.has;
-        st = Object.assign({}, DEF, j.state); st.ai = Object.assign({}, DEF.ai, j.state.ai || {}, { has: keepHas });
-        _itemsCache = {}; save(); go('home'); toast(T('restored'));
-      }, true);
-    } catch (e) { toast(T('badFile'), 'err', 4000); }
+      j = JSON.parse(r.result);
+      if (!isObj(j) || !isObj(j.state) || j.app !== APP.name) throw new Error('format');
+      cand = sanitizeState(j.state);
+    } catch (e) { toast(T(e.message === 'future' ? 'backupFuture' : 'badFile'), 'err', 5000); return; }
+    const words = Object.values(cand.prog).reduce((n, p) => n + Object.keys(p).length, 0);
+    confirmBox(T('confirmRestore', { d: str(j.date, 10), u: str(j.user, 40) || '—' }) + '\n' + T('restoreSum', { l: Object.keys(cand.prog).length, w: words, p: cand.phrases.length }), T('restore'), async () => {
+      try { await ensureUI(cand.ui); await ensureLang(cand.lang); } catch (e) { toast(T('loadFail'), 'err', 5000); return; }
+      const old = st, oldRaw = S.raw('ln_state');
+      cand.ai.has = old.ai.has;                                   /* keys stay on this device */
+      if (oldRaw) { try { localStorage.setItem('ln_state_prev', oldRaw); } catch (e) {} }
+      st = cand;
+      if (!save() || S.raw('ln_state') !== JSON.stringify(st)) { st = old; toast(T('restoreFail'), 'err', 6000); return; }
+      _itemsCache = {};
+      try { applyTheme && applyTheme(); go('home'); toast(T('restored')); }
+      catch (e) { st = old; save(); _itemsCache = {}; logErr('restore render: ' + e.message, 'import', 0); render(); toast(T('restoreFail'), 'err', 6000); }
+    }, true);
   };
   r.readAsText(file);
 }
-function csvCell(v) { v = String(v == null ? '' : v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+function csvCell(v) { v = String(v == null ? '' : v); if (/^[=+\-@\t\r]/.test(v)) v = "'" + v; return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
 async function exportCsv() {
   try { await loadAllLangs(); } catch (e) {}
   const rows = [[T('userName') + ': ' + (st.user || '—'), T('date') + ': ' + stamp()], [], ['lang', 'level', 'category', 'text', 'pronunciation', 'meaning', 'box', 'correct', 'wrong']];
@@ -1370,7 +1459,7 @@ const ACT = {
   letter: d => {
     const it = findItem(st.lang, d.k), r = P(st.lang)[d.k];
     modal('<div class="ldet">' + tgt(it, st.lang, 'xxl') + '<p class="pr big">' + esc(it.tts) + '</p><p class="mn big">' + esc(T('soundsLike')) + ' ' + esc(st.ui === 'he' ? it.heb : it.roman) + '</p>' +
-      (st.ui === 'he' ? '<p class="tiny">' + esc(it.roman) + '</p>' : '') + '<div class="row c">' + soundBtns(it.k) + (SR ? '<button class="btn" data-act="sayIt" data-k="' + it.k + '">🎤 ' + esc(T('sayIt')) + '</button>' : '') + '</div><p class="said" id="said" aria-live="polite"></p>' +
+      (st.ui === 'he' ? '<p class="tiny">' + esc(it.roman) + '</p>' : '') + '<div class="row c">' + soundBtns(it.k) + (SR ? '<button class="btn" data-act="sayIt" data-k="' + esc(it.k) + '">🎤 ' + esc(T('sayIt')) + '</button>' : '') + '</div><p class="said" id="said" aria-live="polite"></p>' +
       '<p class="tiny">' + esc(r ? T('boxInfo', { b: r.b, c: r.c, w: r.w }) : T('notYet')) + '</p></div>');
     speak(it.tts, st.lang);
   },
@@ -1466,9 +1555,14 @@ const ACT = {
   guide: () => guide(0),
   copyDiag: () => { const t = diagText(); (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast(T('copied')), () => toast(T('copyFail'), 'warn')); },
   resetAll: () => confirmBox(T('reset1'), T('continueBtn'), () => confirmBox(T('reset2'), T('resetAll'), async () => {
-    try { await IDB.clear(); } catch (e) {}
-    ['ln_state', 'ln_errs', 'ln_qa'].forEach(k => S.del(k));
-    try { const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); } catch (e) {}
+    let keysOk = true;
+    if ('indexedDB' in window) { try { await IDB.clear(); } catch (e) { keysOk = false; } }
+    const mine = S.keys().filter(k => /^ln_/.test(k) || k === 'appnest_asst_hist_' + APP.name);
+    mine.forEach(k => S.del(k));
+    await clearOwnCaches();
+    const left = S.keys().filter(k => /^ln_/.test(k) || k === 'appnest_asst_hist_' + APP.name);
+    if (left.length || !keysOk) { STALE = true; toast(T('resetPartial'), 'err', 8000); return; }   /* don't write anything back */
+    STALE = true;                                           /* nothing may be re-saved before the reload */
     location.reload();
   }, true), true),
   shareApp: async () => {
@@ -1513,7 +1607,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && e.target.id === 'qIn') { ACT.priceCheck(); return; }
   if (e.key === 'Enter' && e.target.id === 'dIn') { LESSON.dictCheck(); return; }
   if (NAV.cur === 'cards' && !$('#modal') && e.target.tagName !== 'INPUT') { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); ACT.cardFlip(); return; } if (e.key === 'ArrowRight') { cardGrade(!isRTL()); return; } if (e.key === 'ArrowLeft') { cardGrade(isRTL()); return; } }
-  if (NAV.cur === 'lesson' && !$('#modal') && /^[1-4]$/.test(e.key)) { const b = document.querySelectorAll('.opt')[+e.key - 1]; if (b && !b.disabled) b.click(); }
+  if (NAV.cur === 'lesson' && !$('#modal') && /^[1-4]$/.test(e.key) && !e.target.closest('input,textarea,select,[contenteditable],#appnest-assistant-panel,.an-asst')) { const b = document.querySelectorAll('.opt')[+e.key - 1]; if (b && !b.disabled) b.click(); }
 });
 /* flashcard swipe: right = knew, left = not yet (mirrored in RTL) */
 document.addEventListener('pointerdown', e => { if (NAV.cur === 'cards' && e.target.closest('#flash')) CARDS.x0 = e.clientX; }, true);
@@ -1574,9 +1668,14 @@ function showUpdateBar() {
   b.onclick = hardRefresh;
   document.body.appendChild(b);
 }
+/* only this app's service worker and caches — other apps on the same domain are left alone */
+async function clearOwnCaches() {
+  try { const ks = await caches.keys(); await Promise.all(ks.filter(k => /^lingonest-/.test(k)).map(k => caches.delete(k))); } catch (e) {}
+}
 async function hardRefresh() {
-  try { const rs = await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map(r => r.unregister())); } catch (e) {}
-  try { const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); } catch (e) {}
+  const scope = new URL('./', location.href).href;
+  try { const rs = await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.filter(r => r.scope === scope).map(r => r.unregister())); } catch (e) {}
+  await clearOwnCaches();
   location.reload();
 }
 function checkMods() {
@@ -1619,4 +1718,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.20.0';
+window.__MODS.app = '1.20.1';

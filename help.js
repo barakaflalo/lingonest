@@ -255,4 +255,4 @@ const HELP = [
   en: ['No account and no AppNest server — everything stays on your device. Text leaves only when you use a ✨ feature, and only to the AI provider you connected. No tracking, no ads.',
     'Full policy: privacy_policy.html (linked on the About screen).']}]
 ];
-window.__MODS.help = '1.20.0';
+window.__MODS.help = '1.20.1';

@@ -295,10 +295,10 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "✈️ Trip mode: pick a language and a flight date and get a daily plan until departure.",
-  "wn2": "Each day a travel topic — greetings, prices, food, transport, hotel, emergencies and more — with buttons straight to the lesson or dialogue.",
-  "wn3": "Home screen: a countdown card with today's topic.",
-  "wn4": "Last day: prepare your travel kit and cheat sheet.",
+  "wn1": "🛡️ Security and data-protection update — recommended for everyone.",
+  "wn2": "Restoring a backup is validated before anything is replaced; if something fails, your previous data stays.",
+  "wn3": "App open in two tabs? It no longer overwrites data — you'll be asked to reload.",
+  "wn4": "\"Change date\" no longer deletes the trip plan, and \"Erase all\" removes only LingoNest data.",
   "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
@@ -552,6 +552,16 @@ LANG.en = {
   "tu_conv": "Small talk",
   "tu_airport": "Airport & time",
   "tu_review": "Review day",
-  "tu_final": "Final preparations"
+  "tu_final": "Final preparations",
+  "staleTab": "LingoNest is open in another tab with newer data — tap to reload (so it isn't overwritten)",
+  "storeTemp": "This browser doesn't allow saving (e.g. private browsing) — progress will be lost when you close it. Export a backup.",
+  "storeBad": "The app data was found damaged. A copy was kept aside for recovery and we started fresh. If you have a backup, restore it in Settings.",
+  "storeFull": "The last save failed (storage full?). Changes may not be kept — export a backup.",
+  "backupFuture": "This backup was made by a newer version of the app — update the app and try again.",
+  "restoreSum": "Backup contains: {l} languages, {w} practised words, {p} saved phrases.",
+  "restoreFail": "Restore failed — your previous data was kept as it was.",
+  "resetPartial": "Erasing didn't fully complete. Try again, or clear the site data in your browser settings.",
+  "tripStarts": "The plan starts on {d}. Until then, keep learning as usual.",
+  "tripEditHint": "Changing the date keeps the days you finished. Nothing changes until you tap \"Save\"."
 };
-window.__MODS['ui-en'] = '1.20.0';
+window.__MODS['ui-en'] = '1.20.1';

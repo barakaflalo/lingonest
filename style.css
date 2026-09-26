@@ -402,3 +402,6 @@ details.tr-day summary::-webkit-details-marker{display:none}
 .tr-d{flex:1}.tr-u{font-size:1.1rem}
 .tr-unit{margin:10px 0 4px}.tr-tasks{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 #tripDate{width:100%;font-size:1.1rem;padding:10px;border-radius:12px;border:1px solid var(--bd);background:var(--sf);color:var(--tx);margin:4px 0}
+
+/* v1.20.1 — storage warning */
+.warnbox{border:1.5px solid #e0a030;background:rgba(224,160,48,.1);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
