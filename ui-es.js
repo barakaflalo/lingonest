@@ -295,10 +295,10 @@ LANG.es = {
   "sayMore": "Aún no, volverá en el repaso",
   "noSpeech": "No oí nada. Pulsa 🎤 y habla cerca del teléfono.",
   "newIn": "Novedades de {v}",
-  "wn1": "🇬🇪 Georgiano: 407 palabras y frases, 33 letras, conteo en veintenas, precios en laris y consejos.",
-  "wn2": "🇻🇳 Vietnamita: 407 palabras y frases, 6 tonos, precios en dongs y consejos.",
-  "wn3": "🇮🇩 Indonesio: 407 palabras y frases, precios en rupias y consejos.",
-  "wn4": "Ahora 28 idiomas.",
+  "wn1": "🌍 Nuevo selector de idioma: tarjeta en inicio y pantalla con búsqueda y regiones.",
+  "wn2": "Cada idioma tiene una insignia en su propia escritura — funciona también en el ordenador.",
+  "wn3": "Cambio rápido entre tus idiomas recientes.",
+  "wn4": "En el ordenador ahora eliges fácilmente cualquiera de los 28 idiomas.",
   "wn5": "Tu progreso se conservó.",
   "lvl8": "Frases completas",
   "lvl9": "Mis palabras",
@@ -485,6 +485,14 @@ LANG.es = {
   "b_kit": "Listo para viajar",
   "bd_kit": "Creaste una tarjeta del kit",
   "cat_yid": "Expresiones en ídish",
-  "voiceFallback": "No hay voz de {l} en este dispositivo: leo la pronunciación con la voz hebrea (aproximada)."
+  "voiceFallback": "No hay voz de {l} en este dispositivo: leo la pronunciación con la voz hebrea (aproximada).",
+  "switchLang": "Cambiar",
+  "searchLang": "Buscar idioma… ({n})",
+  "noLangFound": "No se encontró el idioma",
+  "grp_mine": "Mis idiomas",
+  "grp_europe": "Europa",
+  "grp_mideast": "Oriente Medio y Cáucaso",
+  "grp_asia": "Asia",
+  "grp_africa": "África"
 };
-window.__MODS['ui-es'] = '1.16.0';
+window.__MODS['ui-es'] = '1.17.0';

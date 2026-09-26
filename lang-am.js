@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('am', {
-  ver: '1.16.0',
+  ver: '1.17.0',
   curSym: "Br",
   country: {"he": "אתיופיה", "en": "Ethiopia", "ru": "Эфиопия", "es": "Etiopía", "ar": "إثيوبيا"},
   emergency: [

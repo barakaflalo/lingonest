@@ -17,6 +17,7 @@ window.APPNEST_ASSISTANT_CONFIG = {
 
   tabs: [
     { name: 'דף הבית', screen: 'home' },
+    { name: 'בחירת שפה', screen: 'langs' },
     { name: 'אותיות', screen: 'letters' },
     { name: 'מילים', screen: 'topics' },
     { name: 'משפטים', screen: 'topics:P' },
@@ -104,4 +105,4 @@ window.APPNEST_ASSISTANT_CONFIG = {
     'בוא נתרגל — תפתח לי שיעור'
   ]
 };
-window.__MODS['assistant-map'] = '1.16.0';
+window.__MODS['assistant-map'] = '1.17.0';

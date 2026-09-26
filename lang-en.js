@@ -3,7 +3,7 @@
    Words: one line per concept id (see content.js) → id|native text|Latin transliteration|pronunciation in Hebrew letters
    To add words: add the concept to content.js, then one line here (and in every other lang-xx.js). */
 LINGO.registerLang('en', {
-  ver: '1.16.0',
+  ver: '1.17.0',
   curSym: "$",
   /* travel kit: [icon, label{he,en}, number, (second number)] — verify locally before a trip */
   country: {"he": "מדינות דוברות אנגלית", "en": "English-speaking countries", "ru": "Англоязычные страны", "es": "Países de habla inglesa", "ar": "الدول الناطقة بالإنجليزية"},

@@ -315,3 +315,33 @@ details.tip p{line-height:1.7}
 .tgt[lang=am-ET],.wchip[lang=am-ET]{font-family:'Noto Sans Ethiopic','Nyala','Abyssinica SIL',sans-serif}
 
 .tgt[lang=ka-GE],.wchip[lang=ka-GE]{font-family:'Noto Sans Georgian','Sylfaen',sans-serif}
+
+/* v1.17 — language picker */
+.langnav{margin:4px 0 10px}
+.langcard{width:100%;display:flex;align-items:center;gap:14px;border:1.5px solid var(--acc);background:var(--sf);border-radius:20px;padding:12px 14px;cursor:pointer;text-align:start;color:var(--tx)}
+.langcard:hover{background:color-mix(in srgb,var(--acc) 8%,var(--sf))}
+.lc-txt{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.lc-txt b{font-size:1.15rem}.lc-txt small{color:var(--mu)}
+.lc-txt .bar{margin-top:4px;height:6px}
+.lc-sw{color:var(--acc);font-weight:700;white-space:nowrap;font-size:.92rem}
+.chips.recent{justify-content:flex-start;margin-top:8px;padding:0}
+.chips.recent .chip{padding:6px 12px 6px 8px}
+.lbadge{display:inline-flex;align-items:center;justify-content:center;position:relative;min-width:44px;height:44px;padding:0 6px;border-radius:14px;font-weight:800;font-size:1.05rem;line-height:1;color:#fff;flex:none;box-shadow:inset 0 -2px 0 rgba(0,0,0,.18)}
+.lbadge.sm{min-width:28px;height:28px;border-radius:9px;font-size:.78rem;padding:0 4px}
+.lbadge.lg{min-width:58px;height:58px;border-radius:18px;font-size:1.35rem}
+.lbadge .lflag{position:absolute;bottom:-6px;inset-inline-end:-6px;font-style:normal;font-size:1rem}
+.lbadge.g-europe{background:linear-gradient(135deg,#3b6fd8,#2448a0)}
+.lbadge.g-mideast{background:linear-gradient(135deg,#d99a2b,#a86a12)}
+.lbadge.g-asia{background:linear-gradient(135deg,#d8465a,#9e2236)}
+.lbadge.g-africa{background:linear-gradient(135deg,#2f9e6a,#1b6b45)}
+.lbadge.g-other{background:#666}
+.lsearch{display:flex;align-items:center;gap:10px;border:1px solid var(--bd);border-radius:16px;padding:4px 14px;background:var(--sf);margin:6px 0 4px}
+.lsearch input{flex:1;border:0;background:transparent;color:var(--tx);font-size:1.05rem;padding:10px 0;outline:none}
+.lggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:6px}
+.lggrid.compact{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;max-height:48vh;overflow-y:auto;padding:2px}
+.lgtile{display:flex;flex-direction:column;align-items:center;gap:6px;border:1px solid var(--bd);background:var(--sf);border-radius:18px;padding:14px 8px 12px;cursor:pointer;color:var(--tx);text-align:center;transition:transform .12s,border-color .12s}
+.lgtile:hover{transform:translateY(-2px);border-color:var(--acc)}
+.lgtile.on{border:2px solid var(--acc);background:color-mix(in srgb,var(--acc) 10%,var(--sf))}
+.lgtile b{font-size:.98rem}.lgtile small{color:var(--mu);font-size:.8rem}
+.lggrid.compact .lgtile{padding:10px 6px}.lggrid.compact .lbadge{min-width:36px;height:36px;font-size:.9rem}
+.lgpct{display:flex;align-items:center;gap:6px;width:100%;padding:0 6px}.lgpct .bar{flex:1;height:5px}.lgpct em{font-style:normal;font-size:.75rem;color:var(--acc)}

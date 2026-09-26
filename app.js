@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.16.0' };
+const APP = { name: 'LingoNest', ver: '1.17.0' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -416,7 +416,12 @@ SCREENS.home = () => {
   const due = dueCount(lang), nl = newLeft();
   const all = items(lang).filter(i => i.type !== 'L');
   const wod = all[(Math.floor(Date.now() / 864e5) * 7) % all.length];
-  const chips = Object.keys(LANGS).map(l => '<button class="chip' + (l === lang ? ' on' : '') + '" data-act="setLang" data-l="' + l + '" aria-pressed="' + (l === lang) + '"><span class="fl">' + LANGS[l].flag + '</span><span>' + esc(LN(l)) + '</span>' + (langPct(l) == null ? '' : '<small>' + langPct(l) + '%</small>') + '</button>').join('');
+  const pc = langPct(lang) || 0;
+  const recent = (st.recentLangs || []).filter(l => l !== lang && LANGS[l]).slice(0, 3);
+  const chips = '<button class="langcard" data-act="nav" data-to="langs" aria-label="' + esc(T('chooseLang')) + '">' + langBadge(lang, 'lg') +
+    '<span class="lc-txt"><b>' + esc(LN(lang)) + '</b><small lang="' + LANGS[lang].tts + '">' + esc(LANGS[lang].native) + ' · ' + pc + '%</small>' + bar(pc, 100) + '</span>' +
+    '<span class="lc-sw">' + esc(T('switchLang')) + ' ▾</span></button>' +
+    (recent.length ? '<div class="chips wrap recent">' + recent.map(l => '<button class="chip" data-act="setLang" data-l="' + l + '">' + langBadge(l, 'sm') + '<span>' + esc(LN(l)) + '</span></button>').join('') + '</div>' : '');
   return `
   <header class="top">
     <div class="brand"><span class="logo" aria-hidden="true">✦</span><div><b>${APP.name}</b><small>${esc(T('tagline'))}</small></div></div>
@@ -428,7 +433,7 @@ SCREENS.home = () => {
     </div>
   </header>
   <p class="hello">${esc(st.user ? T('helloName', { n: st.user }) : T('helloAnon'))}</p>
-  <nav class="chips" aria-label="${esc(T('chooseLang'))}">${chips}</nav>
+  <nav class="langnav" aria-label="${esc(T('chooseLang'))}">${chips}</nav>
   <button class="search-btn" data-act="nav" data-to="search">🔍 <span>${esc(T('searchBtn', { l: LN(lang) }))}</span></button>
   <section class="hero" aria-label="${esc(T('wordOfDay'))}">
     <div class="hero-top"><span>${esc(T('wordOfDay'))}</span><span>${typeof weekCount === 'function' ? '<span class="wk" title="' + esc(T('weekGoal')) + '">🎯 ' + weekCount() + '/' + (st.weekGoal || 100) + '</span> ' : ''}<span class="streak" title="${esc(T('streak'))}">🔥 ${st.streak.last === today() || st.streak.last === dayKey(-1) ? st.streak.n : 0}</span></span></div>
@@ -457,6 +462,39 @@ SCREENS.home = () => {
   ${location.protocol === 'file:' ? '<p class="warn">⚠️ ' + esc(T('fileWarn')) + '</p>' : ''}
   <footer class="badge">AppNest · v${APP.ver}</footer>`;
 };
+
+/* ===== LANGUAGE PICKER ===== */
+const FLAGS_OK = !/Windows/i.test(navigator.userAgent);          /* Windows shows letters instead of flag emoji */
+function langBadge(l, size) {
+  return '<span class="lbadge ' + (size || '') + ' g-' + langGroup(l) + '" lang="' + LANGS[l].tts + '" aria-hidden="true">' + esc(LANG_BADGE[l] || l.toUpperCase()) +
+    (FLAGS_OK && size === 'lg' ? '<i class="lflag">' + LANGS[l].flag + '</i>' : '') + '</span>';
+}
+function langTile(l, act) {
+  const pc = langPct(l);
+  return '<button class="lgtile' + (l === st.lang ? ' on' : '') + '" data-act="' + (act || 'pickLang') + '" data-l="' + l + '" aria-pressed="' + (l === st.lang) + '">' + langBadge(l) +
+    '<b>' + esc(LN(l)) + '</b><small lang="' + LANGS[l].tts + '">' + esc(LANGS[l].native) + (FLAGS_OK ? ' ' + LANGS[l].flag : '') + '</small>' +
+    (pc ? '<span class="lgpct">' + bar(pc, 100) + '<em>' + pc + '%</em></span>' : '') + '</button>';
+}
+const LSRCH = { q: '' };
+function langMatches(l, q) {
+  if (!q) return true;
+  const hay = [l, LANGS[l].native, LANG_BADGE[l]].concat(Object.values(LANGS[l].name)).join(' ').toLowerCase();
+  return hay.includes(q.toLowerCase());
+}
+function langListHTML() {
+  const q = LSRCH.q.trim(), mine = Object.keys(LANGS).filter(l => l === st.lang || Object.keys(P(l)).length || (st.recentLangs || []).includes(l));
+  let h = '';
+  if (!q && mine.length) h += '<h3>' + esc(T('grp_mine')) + '</h3><div class="lggrid">' + mine.map(l => langTile(l)).join('') + '</div>';
+  LANG_GROUPS.forEach(([g, list]) => {
+    const ls = list.filter(l => LANGS[l] && langMatches(l, q) && (q || !mine.includes(l)));
+    if (ls.length) h += '<h3>' + esc(T('grp_' + g)) + '</h3><div class="lggrid">' + ls.map(l => langTile(l)).join('') + '</div>';
+  });
+  return h || '<p class="empty">' + esc(T('noLangFound')) + '</p>';
+}
+SCREENS.langs = () => header(T('chooseLang')) +
+  '<label class="lsearch"><span>🔍</span><input id="lSrch" type="search" autocomplete="off" placeholder="' + esc(T('searchLang', { n: Object.keys(LANGS).length })) + '" value="' + esc(LSRCH.q) + '"></label>' +
+  '<div id="lgList">' + langListHTML() + '</div>';
+document.addEventListener('input', e => { if (e.target.id === 'lSrch') { LSRCH.q = e.target.value; const b = $('#lgList'); if (b) b.innerHTML = langListHTML(); } });
 
 /* ===== LETTERS ===== */
 /* a pack may give UI text as {he,en,...} objects instead of ui keys */
@@ -1297,7 +1335,7 @@ function guide(step) {
   step = step || 0;
   const S5 = [['👋', 'g1t', 'g1b'], ['🌍', 'g2t', 'g2b'], ['🪜', 'g3t', 'g3b'], ['📢', 'g4t', 'g4b'], ['🔊', 'g5t', 'g5b']];
   const [ic, t, b] = S5[step];
-  const langPick = step === 1 ? '<div class="chips wrap">' + Object.keys(LANGS).map(l => '<button class="chip' + (st.lang === l ? ' on' : '') + '" data-act="gLang" data-l="' + l + '"><span class="fl">' + LANGS[l].flag + '</span><span>' + esc(LN(l)) + '</span></button>').join('') + '</div>' : '';
+  const langPick = step === 1 ? '<div class="lggrid compact">' + Object.keys(LANGS).map(l => langTile(l, 'gLang')).join('') + '</div>' : '';
   const nameIn = step === 4 ? '<label class="fld"><span>' + esc(T('userName')) + '</span><input id="gName" value="' + esc(st.user) + '" maxlength="40"></label>' : '';
   modal('<div class="guide"><p class="gstep">' + (step + 1) + ' / 5</p><div class="gic">' + ic + '</div><h3>' + esc(T(t)) + '</h3><p>' + esc(T(b)) + '</p>' + langPick + nameIn +
     '<div class="row c wrap">' + (step < 4 ? '<button class="cta slim" id="gNext">' + esc(T('next')) + '</button><button class="btn" id="gSkip">' + esc(T('skip')) + '</button>' : '<button class="cta slim" id="gDone">' + esc(T('start')) + '</button>') + '</div></div>');
@@ -1314,6 +1352,7 @@ const ACT = {
   nav: d => go(d.to, d.sec || d.arg || null),
   setLang: async d => { if (await switchLang(d.l)) render(); },
   gLang: async d => { if (await switchLang(d.l)) document.querySelectorAll('[data-act=gLang]').forEach(b => b.classList.toggle('on', b.dataset.l === d.l)); },
+  pickLang: async d => { if (d.l === st.lang) { go('home'); return; } if (await switchLang(d.l)) go('home'); },
   themeSheet,
   setTheme: d => { st.theme = d.t; save(); applyTheme(); document.querySelectorAll('.sw').forEach(b => { b.classList.toggle('on', b.dataset.t === d.t); b.setAttribute('aria-pressed', b.dataset.t === d.t); }); },
   setMode: d => { st.mode = d.m; save(); applyTheme(); document.querySelectorAll('[data-act=setMode]').forEach(b => b.classList.toggle('on', b.dataset.m === d.m)); },
@@ -1517,7 +1556,7 @@ async function ensureUI(code) {
 function loadAllLangs() { return Promise.all(Object.keys(LANGS).map(l => ensureLang(l).catch(e => logErr(e.message, 'loader', 0)))); }
 async function switchLang(code) {
   if (!LOADED[code]) toast('⏳ ' + T('loadingLang', { l: LN(code) }), '', 1500);
-  try { await ensureLang(code); st.lang = code; save(); return true; }
+  try { await ensureLang(code); st.lang = code; st.recentLangs = [code].concat((st.recentLangs || []).filter(x => x !== code)).slice(0, 6); save(); return true; }
   catch (e) { logErr(e.message, 'loader', 0); toast(T('loadFail'), 'err', 5000); return false; }
 }
 /* All files must come from the same release — otherwise buttons break silently after an update (lesson from StockAI). */
@@ -1574,4 +1613,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.16.0';
+window.__MODS.app = '1.17.0';

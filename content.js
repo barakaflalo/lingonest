@@ -39,6 +39,18 @@ const LANGS = {
   vi: { flag: "🇻🇳", tts: "vi-VN", dir: "ltr", native: "Tiếng Việt", name: {"he": "וייטנאמית", "en": "Vietnamese", "ru": "Вьетнамский", "es": "Vietnamita", "ar": "الفيتنامية"} },
   id: { flag: "🇮🇩", tts: "id-ID", dir: "ltr", native: "Bahasa Indonesia", name: {"he": "אינדונזית", "en": "Indonesian", "ru": "Индонезийский", "es": "Indonesio", "ar": "الإندونيسية"} }
 };
+/* Language picker: a badge in the language's own script (flag emoji don't render on Windows) and regional groups */
+const LANG_BADGE = { en: 'En', es: 'Es', fr: 'Fr', it: 'It', pt: 'Pt', de: 'De', ro: 'Ro', el: 'Ελ', ru: 'Ру', yi: 'ייִ',
+  ar: 'ع', ary: 'دا', tr: 'Tr', ka: 'ქა', th: 'ไทย', ja: 'あ', zh: '中', ko: '한', hi: 'हि', vi: 'Vi', id: 'Id',
+  sw: 'Sw', am: 'አ', ha: 'Ha', yo: 'Yo', ig: 'Ig', tw: 'Tw', lg: 'Lg' };
+const LANG_GROUPS = [
+  ['europe', ['en', 'fr', 'es', 'it', 'pt', 'de', 'ro', 'el', 'ru', 'yi']],
+  ['mideast', ['ar', 'ary', 'tr', 'ka']],
+  ['asia', ['th', 'ja', 'zh', 'ko', 'hi', 'vi', 'id']],
+  ['africa', ['sw', 'am', 'ha', 'yo', 'ig', 'tw', 'lg']]
+];
+const langGroup = l => (LANG_GROUPS.find(g => g[1].includes(l)) || ['other'])[0];
+
 /* Short letters-screen notes (keys in ui-xx.js). New languages can instead pass note:{he,en,...} in their pack. */
 const ALPHA_NOTE = {"en":"noteEn","es":"noteEs","ru":"noteRu","ar":"noteAr","th":"noteTh"};
 
@@ -559,4 +571,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.16.0';
+window.__MODS.content = '1.17.0';

@@ -295,10 +295,10 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "🇬🇪 Georgian: 407 words and phrases, the 33 round letters, counting in twenties (40 = \"two-twenty\"), prices in lari and tips (gamarjoba = victory, the supra and tamada, wine).",
-  "wn2": "🇻🇳 Vietnamese: 407 words and phrases, letters and marks, a 6-tone card (one \"ma\" = six words), prices in đồng and tips (pronouns by age, phở and bánh mì, north vs south).",
-  "wn3": "🇮🇩 Indonesian: 407 words and phrases — no tones, no conjugation. Prices in rupiah and tips (Pak and Bu, greetings by time, Bali).",
-  "wn4": "Now 28 languages in the app.",
+  "wn1": "🌍 New language picker: a \"my language\" card on the home screen and a picker with search, \"my languages\" and regions.",
+  "wn2": "Each language gets a badge in its own script (ไทย, 中, 한, አ…) — looks great on computers too, where flags don't show.",
+  "wn3": "Quick switch between your recent languages — one tap from home.",
+  "wn4": "On a computer you can now easily choose any of the 28 languages.",
   "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
@@ -485,6 +485,14 @@ LANG.en = {
   "b_kit": "Ready to go",
   "bd_kit": "Created a travel-kit card",
   "cat_yid": "Yiddish expressions",
-  "voiceFallback": "No {l} voice on this device — reading the pronunciation with the Hebrew voice (approximate)."
+  "voiceFallback": "No {l} voice on this device — reading the pronunciation with the Hebrew voice (approximate).",
+  "switchLang": "Change",
+  "searchLang": "Search languages… ({n})",
+  "noLangFound": "No such language",
+  "grp_mine": "My languages",
+  "grp_europe": "Europe",
+  "grp_mideast": "Middle East & Caucasus",
+  "grp_asia": "Asia",
+  "grp_africa": "Africa"
 };
-window.__MODS['ui-en'] = '1.16.0';
+window.__MODS['ui-en'] = '1.17.0';

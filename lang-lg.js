@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('lg', {
-  ver: '1.16.0',
+  ver: '1.17.0',
   curSym: "USh",
   country: {"he": "אוגנדה (מרכז — קמפלה)", "en": "Uganda (central — Kampala)", "ru": "Уганда (центр — Кампала)", "es": "Uganda (centro — Kampala)", "ar": "أوغندا (الوسط — كمبالا)"},
   emergency: [
