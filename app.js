@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.15.0' };
+const APP = { name: 'LingoNest', ver: '1.16.0' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -717,6 +717,9 @@ const QA_STYLE = {
   tr: 'Turkish: the Hebrew-letter pronunciation is an approximation (ı, ö, ü, ğ have no Hebrew equivalent). The Latin column is empty on purpose.',
   ko: 'Korean: polite -yo / -nida style on purpose; the Latin column is Revised Romanization (sound changes between syllables are only partly shown); the Hebrew column is an approximation (Korean ㄱ/ㄷ/ㅂ are between k/g, t/d, p/b).',
   ja: 'Japanese: polite desu/masu style on purpose; the Latin column is Hepburn romanization with long-vowel macrons; the Hebrew column is an approximation (the final u in desu/masu is barely pronounced, written דס/מס on purpose).',
+  ka: 'Georgian in Mkhedruli script; the Latin column is a simple romanization (\' marks ejectives); the Hebrew column is an approximation. Polite forms (თქვენ, თუ შეიძლება) are intentional.',
+  vi: 'Northern (Hanoi) Vietnamese on purpose; the Latin column is empty on purpose; the Hebrew column is an approximation without tones.',
+  id: 'Standard Indonesian (Bahasa Indonesia), everyday polite register; the Latin column is empty on purpose.',
   tw: 'Asante Twi (Akan) with ɛ and ɔ; tones not marked on purpose; English loanwords common in Ghana are fine. The Latin column is empty on purpose.',
   lg: 'Luganda as spoken in Kampala; English loanwords common in Uganda are fine. The Latin column is empty on purpose.',
   ha: 'Standard (Kano) Hausa in Boko Latin spelling with hooked letters ɓ ɗ ƙ; tones are not marked on purpose. The Latin column is empty on purpose.',
@@ -1571,4 +1574,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.15.0';
+window.__MODS.app = '1.16.0';

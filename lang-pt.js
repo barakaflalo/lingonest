@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('pt', {
-  ver: '1.15.0',
+  ver: '1.16.0',
   curSym: "R$",
   country: {"he": "ברזיל ופורטוגל", "en": "Brazil & Portugal", "ru": "Бразилия и Португалия", "es": "Brasil y Portugal", "ar": "البرازيل والبرتغال"},
   emergency: [

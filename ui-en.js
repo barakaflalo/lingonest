@@ -295,10 +295,10 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "🇬🇭 Twi: 407 words and phrases — Ghana's most widespread local language. Prices in cedis, special clusters (ky, tw, hy) and tips (Akwaaba, day names, right hand only, Chale).",
-  "wn2": "🇺🇬 Luganda: 407 words and phrases — the language of Kampala. Prices in shillings (with omutwalo = 10,000) and tips (Gyebale ko, boda-boda, respect for elders).",
-  "wn3": "With these two, all five African countries you visited are covered: Tanzania, Uganda, Ethiopia, Nigeria and Ghana.",
-  "wn4": "🔊 Read-aloud for these uses the Hebrew voice on the pronunciation (approximate). Now 25 languages.",
+  "wn1": "🇬🇪 Georgian: 407 words and phrases, the 33 round letters, counting in twenties (40 = \"two-twenty\"), prices in lari and tips (gamarjoba = victory, the supra and tamada, wine).",
+  "wn2": "🇻🇳 Vietnamese: 407 words and phrases, letters and marks, a 6-tone card (one \"ma\" = six words), prices in đồng and tips (pronouns by age, phở and bánh mì, north vs south).",
+  "wn3": "🇮🇩 Indonesian: 407 words and phrases — no tones, no conjugation. Prices in rupiah and tips (Pak and Bu, greetings by time, Bali).",
+  "wn4": "Now 28 languages in the app.",
   "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
@@ -487,4 +487,4 @@ LANG.en = {
   "cat_yid": "Yiddish expressions",
   "voiceFallback": "No {l} voice on this device — reading the pronunciation with the Hebrew voice (approximate)."
 };
-window.__MODS['ui-en'] = '1.15.0';
+window.__MODS['ui-en'] = '1.16.0';

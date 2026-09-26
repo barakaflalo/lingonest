@@ -295,10 +295,10 @@ LANG.es = {
   "sayMore": "Aún no, volverá en el repaso",
   "noSpeech": "No oí nada. Pulsa 🎤 y habla cerca del teléfono.",
   "newIn": "Novedades de {v}",
-  "wn1": "🇬🇭 Twi: 407 palabras y frases, precios en cedis y consejos.",
-  "wn2": "🇺🇬 Luganda: 407 palabras y frases, precios en chelines y consejos.",
-  "wn3": "Ya están cubiertos los cinco países.",
-  "wn4": "🔊 La lectura usa la voz hebrea. Ahora 25 idiomas.",
+  "wn1": "🇬🇪 Georgiano: 407 palabras y frases, 33 letras, conteo en veintenas, precios en laris y consejos.",
+  "wn2": "🇻🇳 Vietnamita: 407 palabras y frases, 6 tonos, precios en dongs y consejos.",
+  "wn3": "🇮🇩 Indonesio: 407 palabras y frases, precios en rupias y consejos.",
+  "wn4": "Ahora 28 idiomas.",
   "wn5": "Tu progreso se conservó.",
   "lvl8": "Frases completas",
   "lvl9": "Mis palabras",
@@ -487,4 +487,4 @@ LANG.es = {
   "cat_yid": "Expresiones en ídish",
   "voiceFallback": "No hay voz de {l} en este dispositivo: leo la pronunciación con la voz hebrea (aproximada)."
 };
-window.__MODS['ui-es'] = '1.15.0';
+window.__MODS['ui-es'] = '1.16.0';

@@ -34,7 +34,10 @@ const LANGS = {
   yo: { flag: "🇳🇬", tts: "yo-NG", dir: "ltr", native: "Yorùbá", name: {"he": "יורובה", "en": "Yoruba", "ru": "Йоруба", "es": "Yoruba", "ar": "اليوروبا"} },
   ig: { flag: "🇳🇬", tts: "ig-NG", dir: "ltr", native: "Igbo", name: {"he": "איגבו", "en": "Igbo", "ru": "Игбо", "es": "Igbo", "ar": "الإيغبو"} },
   tw: { flag: "🇬🇭", tts: "ak-GH", dir: "ltr", native: "Twi", name: {"he": "טווי", "en": "Twi (Akan)", "ru": "Тви", "es": "Twi", "ar": "التوي"} },
-  lg: { flag: "🇺🇬", tts: "lg-UG", dir: "ltr", native: "Luganda", name: {"he": "לוגנדה", "en": "Luganda", "ru": "Луганда", "es": "Luganda", "ar": "اللوغندا"} }
+  lg: { flag: "🇺🇬", tts: "lg-UG", dir: "ltr", native: "Luganda", name: {"he": "לוגנדה", "en": "Luganda", "ru": "Луганда", "es": "Luganda", "ar": "اللوغندا"} },
+  ka: { flag: "🇬🇪", tts: "ka-GE", dir: "ltr", native: "ქართული", name: {"he": "גאורגית", "en": "Georgian", "ru": "Грузинский", "es": "Georgiano", "ar": "الجورجية"} },
+  vi: { flag: "🇻🇳", tts: "vi-VN", dir: "ltr", native: "Tiếng Việt", name: {"he": "וייטנאמית", "en": "Vietnamese", "ru": "Вьетнамский", "es": "Vietnamita", "ar": "الفيتنامية"} },
+  id: { flag: "🇮🇩", tts: "id-ID", dir: "ltr", native: "Bahasa Indonesia", name: {"he": "אינדונזית", "en": "Indonesian", "ru": "Индонезийский", "es": "Indonesio", "ar": "الإندونيسية"} }
 };
 /* Short letters-screen notes (keys in ui-xx.js). New languages can instead pass note:{he,en,...} in their pack. */
 const ALPHA_NOTE = {"en":"noteEn","es":"noteEs","ru":"noteRu","ar":"noteAr","th":"noteTh"};
@@ -556,4 +559,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.15.0';
+window.__MODS.content = '1.16.0';

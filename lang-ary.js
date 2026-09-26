@@ -2,7 +2,7 @@
    Alphabet rows: [display, text-to-speak, sound in Hebrew letters, Latin name]
    Words: id|native text|Latin transliteration|pronunciation in Hebrew letters (one line per concept in content.js) */
 LINGO.registerLang('ary', {
-  ver: '1.15.0',
+  ver: '1.16.0',
   curSym: "DH",
   country: {"he": "מרוקו", "en": "Morocco", "ru": "Марокко", "es": "Marruecos", "ar": "المغرب"},
   emergency: [
