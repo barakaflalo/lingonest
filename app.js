@@ -1238,7 +1238,7 @@ SCREENS.about = () => header(T('about')) + `
     <dt>${esc(T('offlineSt'))}</dt><dd>${S.raw('ln_offline') && S.get('ln_offline') === APP.ver ? '✅ ' + esc(T('offlineYes')) : '⏳ ' + esc(T('offlineNo'))}</dd></dl></div>
   <div class="list">
     <button class="trow" data-act="nav" data-to="help"><span class="ti">📖</span><span class="tt"><b>${esc(T('helpTitle'))}</b><small>${esc(T('helpSub'))}</small></span></button>
-    <a class="trow" href="https://barakaflalo.github.io/appnest" target="_blank" rel="noopener"><span class="ti">🏪</span><span class="tt"><b>${esc(T('store'))}</b></span></a>
+    <a class="trow" href="https://appnest-store.pages.dev" target="_blank" rel="noopener"><span class="ti">🏪</span><span class="tt"><b>${esc(T('store'))}</b></span></a>
     <button class="trow" data-act="shareApp"><span class="ti">📤</span><span class="tt"><b>${esc(T('shareApp'))}</b></span></button>
     <a class="trow" href="mailto:appnest55@gmail.com?subject=${encodeURIComponent(APP.name + ' v' + APP.ver)}"><span class="ti">✉️</span><span class="tt"><b>${esc(T('feedback'))}</b></span></a>
     <button class="trow" data-act="guide"><span class="ti">🧭</span><span class="tt"><b>${esc(T('showGuide'))}</b></span></button>
