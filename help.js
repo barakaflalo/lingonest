@@ -16,13 +16,13 @@ const HELP = [
     '• Come back daily for a few minutes — the streak 🔥 and weekly goal 🎯 keep you going.',
     'Most of the app is free and works offline. Features marked ✨ (AI chat, Speak for me…) need an AI connection — see "Connecting AI".']}],
 ['langs', '🌍', 'langs', {he: 'בחירת שפה', en: 'Choosing a language'}, {
-  he: ['באפליקציה 28 שפות. לחץ על כרטיס השפה בדף הבית כדי לפתוח את מסך הבחירה.',
+  he: ['באפליקציה 29 שפות. לחץ על כרטיס השפה בדף הבית כדי לפתוח את מסך הבחירה.',
     '• חיפוש: אפשר לכתוב בעברית, באנגלית או בשפה עצמה (למשל "יפנ", "deutsch", "ไทย").',
     '• "השפות שלי" — השפות שכבר התחלת, עם אחוזי התקדמות.',
     '• שאר השפות מחולקות לאזורים: אירופה, המזרח התיכון והקווקז, אסיה ואפריקה.',
     '• בדף הבית, מתחת לכרטיס, מופיעות 3 השפות האחרונות — למעבר בלחיצה.',
     'ההתקדמות נשמרת לכל שפה בנפרד, כך שאפשר לעבור ביניהן בחופשיות.'],
-  en: ['There are 28 languages. Tap the language card on the home screen to open the picker.',
+  en: ['There are 29 languages. Tap the language card on the home screen to open the picker.',
     '• Search in Hebrew, English or the language itself ("japan", "deutsch", "ไทย").',
     '• "My languages" — the ones you\'ve started, with progress.',
     '• The rest are grouped by region: Europe, Middle East & Caucasus, Asia and Africa.',
@@ -255,4 +255,4 @@ const HELP = [
   en: ['No account and no AppNest server — everything stays on your device. Text leaves only when you use a ✨ feature, and only to the AI provider you connected. No tracking, no ads.',
     'Full policy: privacy_policy.html (linked on the About screen).']}]
 ];
-window.__MODS.help = '1.20.3';
+window.__MODS.help = '1.21.0';

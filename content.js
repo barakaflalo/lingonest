@@ -37,16 +37,17 @@ const LANGS = {
   lg: { flag: "🇺🇬", tts: "lg-UG", dir: "ltr", native: "Luganda", name: {"he": "לוגנדה", "en": "Luganda", "ru": "Луганда", "es": "Luganda", "ar": "اللوغندا"} },
   ka: { flag: "🇬🇪", tts: "ka-GE", dir: "ltr", native: "ქართული", name: {"he": "גאורגית", "en": "Georgian", "ru": "Грузинский", "es": "Georgiano", "ar": "الجورجية"} },
   vi: { flag: "🇻🇳", tts: "vi-VN", dir: "ltr", native: "Tiếng Việt", name: {"he": "וייטנאמית", "en": "Vietnamese", "ru": "Вьетнамский", "es": "Vietnamita", "ar": "الفيتنامية"} },
-  id: { flag: "🇮🇩", tts: "id-ID", dir: "ltr", native: "Bahasa Indonesia", name: {"he": "אינדונזית", "en": "Indonesian", "ru": "Индонезийский", "es": "Indonesio", "ar": "الإندونيسية"} }
+  id: { flag: "🇮🇩", tts: "id-ID", dir: "ltr", native: "Bahasa Indonesia", name: {"he": "אינדונזית", "en": "Indonesian", "ru": "Индонезийский", "es": "Indonesio", "ar": "الإندونيسية"} },
+  ne: { flag: "🇳🇵", tts: "ne-NP", dir: "ltr", native: "नेपाली", name: {"he": "נפאלית", "en": "Nepali", "ru": "Непальский", "es": "Nepalí", "ar": "النيبالية"} }
 };
 /* Language picker: a badge in the language's own script (flag emoji don't render on Windows) and regional groups */
 const LANG_BADGE = { en: 'En', es: 'Es', fr: 'Fr', it: 'It', pt: 'Pt', de: 'De', ro: 'Ro', el: 'Ελ', ru: 'Ру', yi: 'ייִ',
-  ar: 'ع', ary: 'دا', tr: 'Tr', ka: 'ქა', th: 'ไทย', ja: 'あ', zh: '中', ko: '한', hi: 'हि', vi: 'Vi', id: 'Id',
+  ar: 'ع', ary: 'دا', tr: 'Tr', ka: 'ქა', th: 'ไทย', ja: 'あ', zh: '中', ko: '한', hi: 'हि', ne: 'ने', vi: 'Vi', id: 'Id',
   sw: 'Sw', am: 'አ', ha: 'Ha', yo: 'Yo', ig: 'Ig', tw: 'Tw', lg: 'Lg' };
 const LANG_GROUPS = [
   ['europe', ['en', 'fr', 'es', 'it', 'pt', 'de', 'ro', 'el', 'ru', 'yi']],
   ['mideast', ['ar', 'ary', 'tr', 'ka']],
-  ['asia', ['th', 'ja', 'zh', 'ko', 'hi', 'vi', 'id']],
+  ['asia', ['th', 'ja', 'zh', 'ko', 'hi', 'ne', 'vi', 'id']],
   ['africa', ['sw', 'am', 'ha', 'yo', 'ig', 'tw', 'lg']]
 ];
 const langGroup = l => (LANG_GROUPS.find(g => g[1].includes(l)) || ['other'])[0];
@@ -622,4 +623,4 @@ const LINGO = {
     window.__MODS['lang-' + code] = pack.ver;
   }
 };
-window.__MODS.content = '1.20.3';
+window.__MODS.content = '1.21.0';

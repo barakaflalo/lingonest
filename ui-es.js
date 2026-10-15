@@ -295,10 +295,10 @@ LANG.es = {
   "sayMore": "Aún no, volverá en el repaso",
   "noSpeech": "No oí nada. Pulsa 🎤 y habla cerca del teléfono.",
   "newIn": "Novedades de {v}",
-  "wn1": "👨‍👩‍👧 Nuevo tema en los 28 idiomas: «Familia y amigos».",
-  "wn2": "👪 Y frases: «Hablar de la familia».",
-  "wn3": "Modo viaje: puedes elegir el país.",
-  "wn4": "Correcciones: cuota de palabras nuevas y preguntas de audio.",
+  "wn1": "🇳🇵 Nuevo idioma: nepalí (नेपाली) — ya son 29 idiomas.",
+  "wn2": "✍️ Letras devanagari, consejos para Nepal y números de emergencia.",
+  "wn3": "🔊 Sin voz nepalí, la pronunciación se lee con la voz hebrea.",
+  "wn4": "La forma femenina actualiza las frases.",
   "wn5": "Tu progreso se conservó.",
   "lvl8": "Frases completas",
   "lvl9": "Mis palabras",
@@ -575,4 +575,4 @@ LANG.es = {
   "tripCountry": "¿A qué país?",
   "tripAnyCountry": "Aún no lo sé"
 };
-window.__MODS['ui-es'] = '1.20.3';
+window.__MODS['ui-es'] = '1.21.0';

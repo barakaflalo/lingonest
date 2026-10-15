@@ -1,7 +1,7 @@
 /* ===== LingoNest — app.js : engine, loader, screens, speech, AI (BYOK), storage =====
    Load order (index.html): content.js → numbers.js → ui-en.js → app.js. ui-xx.js and lang-xx.js load on demand. */
 'use strict';
-const APP = { name: 'LingoNest', ver: '1.20.3' };
+const APP = { name: 'LingoNest', ver: '1.21.0' };
 const CORE_MODS = ['content', 'numbers', 'ui-en', 'app', 'assistant-map', 'features'];
 
 /* ---------- error log (last 10, shown in diagnostics) ---------- */
@@ -821,6 +821,7 @@ const QA_STYLE = {
   sw: 'Standard Swahili (Kiswahili sanifu) as used in Tanzania and Kenya; the Latin column is empty on purpose; Hebrew-letter pronunciation is an approximation. Swahili time (saa moja = 7 am) is intentional in dialogues.',
   am: 'Amharic in Ge\'ez script; the Latin column is a simple romanization (\' marks ejectives); the Hebrew column is an approximation. Polite forms (እባክዎ, ነዎት) are intentional. Ethiopian clock time in dialogues (1 o\'clock = 7 am) is intentional.',
   zh: 'Mandarin Chinese in SIMPLIFIED characters; the Latin column is pinyin with tone marks; the Hebrew column is an approximation without tones. 两 before 百/千/万 is intentional.',
+  ne: 'Nepali in Devanagari; the Latin column is a simple popular romanization (not IAST); the Hebrew column is an approximation (aspiration and retroflex sounds are not marked). Polite तपाईं and -नुहोस् imperatives throughout; male speaker forms (आएको हुँ, थाकेको) with female variants via gender rules. English loanwords (ट्वाइलेट, होटल, टिकट) are natural Nepali usage.',
   hi: 'Hindi in Devanagari; the Latin column is a simple popular romanization (not IAST); the Hebrew column is an approximation (aspiration and retroflex sounds are not marked). Phrases are deliberately gender-neutral where possible; male speaker forms elsewhere. Common English loanwords (टॉयलेट, होटल, टिकट) are natural Hindi usage.',
   yi: 'This is standard YIVO Yiddish: Hebrew-origin words keep traditional Hebrew spelling (שבת, מזל, חבֿר) with Ashkenazi pronunciation; the Latin column is YIVO romanization; the Hebrew-letter column is a simplified spelling for Israeli readers (no Yiddish diacritics) that is also read aloud by a Hebrew voice. Hasidic pronunciation variants are fine, do not flag them.',
   it: 'Italian: Hebrew-letter pronunciation is an approximation; compound numbers are written as one word in Italian and hyphenated in the Hebrew column on purpose. The Latin column is empty on purpose.',
@@ -1238,7 +1239,7 @@ SCREENS.about = () => header(T('about')) + `
     <dt>${esc(T('offlineSt'))}</dt><dd>${S.raw('ln_offline') && S.get('ln_offline') === APP.ver ? '✅ ' + esc(T('offlineYes')) : '⏳ ' + esc(T('offlineNo'))}</dd></dl></div>
   <div class="list">
     <button class="trow" data-act="nav" data-to="help"><span class="ti">📖</span><span class="tt"><b>${esc(T('helpTitle'))}</b><small>${esc(T('helpSub'))}</small></span></button>
-    <a class="trow" href="https://appnest-store.pages.dev" target="_blank" rel="noopener"><span class="ti">🏪</span><span class="tt"><b>${esc(T('store'))}</b></span></a>
+    <a class="trow" href="https://barakaflalo.github.io/appnest" target="_blank" rel="noopener"><span class="ti">🏪</span><span class="tt"><b>${esc(T('store'))}</b></span></a>
     <button class="trow" data-act="shareApp"><span class="ti">📤</span><span class="tt"><b>${esc(T('shareApp'))}</b></span></button>
     <a class="trow" href="mailto:appnest55@gmail.com?subject=${encodeURIComponent(APP.name + ' v' + APP.ver)}"><span class="ti">✉️</span><span class="tt"><b>${esc(T('feedback'))}</b></span></a>
     <button class="trow" data-act="guide"><span class="ti">🧭</span><span class="tt"><b>${esc(T('showGuide'))}</b></span></button>
@@ -1761,4 +1762,4 @@ async function boot() {
   setTimeout(() => loadAllLangs().then(() => { if (NAV.cur === 'home' || NAV.cur === 'progress') render(); }), 1200);
 }
 /* boot() is called at the end of features.js (the last module), so every module is in place before the first render */
-window.__MODS.app = '1.20.3';
+window.__MODS.app = '1.21.0';

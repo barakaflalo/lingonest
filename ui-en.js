@@ -295,10 +295,10 @@ LANG.en = {
   "sayMore": "Not yet — it will come back in review",
   "noSpeech": "I didn't hear anything. Tap 🎤 and speak close to the phone.",
   "newIn": "What's new in {v}",
-  "wn1": "👨‍👩‍👧 New topic in all 28 languages: \"Family & friends\" — dad, mom, grandparents, siblings, uncles and aunts, cousins, grandchildren, nephews, husband, wife, neighbour and more.",
-  "wn2": "👪 And a phrases topic: \"Talking about family\" — \"This is my family\", \"Do you have children?\", \"This is a photo of my children\".",
-  "wn3": "Trip mode: for languages spoken in several countries you can pick the country — emergency numbers follow it.",
-  "wn4": "Fixes: the daily new-word quota counts only words you really learned, and listening questions don't appear when the device has no voice.",
+  "wn1": "🇳🇵 New language: Nepali (नेपाली)! All words, phrases, dialogues, \"Family & friends\", numbers and prices in Nepali rupees — now 29 languages.",
+  "wn2": "✍️ Devanagari letters, Nepal tips (namaste, hajur, dal bhat) and emergency numbers: police 100, ambulance 102, tourist police 1144.",
+  "wn3": "🔊 If your device has no Nepali voice, the pronunciation is read with the Hebrew voice.",
+  "wn4": "Female speaker setting updates the Nepali phrases (आएकी हुँ).",
   "wn5": "Your progress was kept as it is.",
   "lvl8": "Full sentences",
   "lvl9": "My words",
@@ -575,4 +575,4 @@ LANG.en = {
   "tripCountry": "Which country?",
   "tripAnyCountry": "Not sure yet"
 };
-window.__MODS['ui-en'] = '1.20.3';
+window.__MODS['ui-en'] = '1.21.0';
